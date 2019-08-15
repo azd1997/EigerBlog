@@ -1,0 +1,2171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>单元测试 - Eiger - A young gopher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Eiger" /><meta name="description" content="1.测试介绍 ​ 尽量测试，避免调试 2. 例子 ​ 这里使用一道算法题作为调试和测试的例子： ​ 求取字符串中最长的含有不重复字符的子字符串的长度。 2.1 开始之" /><meta name="keywords" content="Debug, Test, 表格驱动测试, 性能测试, 代码覆盖率测试, pprof可视化性能检查" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://azd1997.github.io/post/go/03_testing/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="单元测试" />
+<meta property="og:description" content="1.测试介绍 ​ 尽量测试，避免调试 2. 例子 ​ 这里使用一道算法题作为调试和测试的例子： ​ 求取字符串中最长的含有不重复字符的子字符串的长度。 2.1 开始之" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://azd1997.github.io/post/go/03_testing/" />
+<meta property="article:published_time" content="2019-07-23T10:37:14&#43;08:00"/>
+<meta property="article:modified_time" content="2019-07-23T10:37:14&#43;08:00"/>
+
+<meta itemprop="name" content="单元测试">
+<meta itemprop="description" content="1.测试介绍 ​ 尽量测试，避免调试 2. 例子 ​ 这里使用一道算法题作为调试和测试的例子： ​ 求取字符串中最长的含有不重复字符的子字符串的长度。 2.1 开始之">
+
+
+<meta itemprop="datePublished" content="2019-07-23T10:37:14&#43;08:00" />
+<meta itemprop="dateModified" content="2019-07-23T10:37:14&#43;08:00" />
+<meta itemprop="wordCount" content="8410">
+
+
+
+<meta itemprop="keywords" content="go语言,测试," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="单元测试"/>
+<meta name="twitter:description" content="1.测试介绍 ​ 尽量测试，避免调试 2. 例子 ​ 这里使用一道算法题作为调试和测试的例子： ​ 求取字符串中最长的含有不重复字符的子字符串的长度。 2.1 开始之"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Eiger</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/links/">
+        <li class="mobile-menu-item">Links</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Eiger</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/links/">Links</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">单元测试</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-07-23 </span>
+        <div class="post-category">
+            <a href="/categories/go%E8%AF%AD%E8%A8%80/"> go语言 </a>
+            </div>
+          <span class="more-meta"> 8410 words </span>
+          <span class="more-meta"> 17 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-测试介绍">1.测试介绍</a></li>
+<li><a href="#2-例子">2. 例子</a>
+<ul>
+<li><a href="#2-1-开始之前">2.1 开始之前</a></li>
+<li><a href="#2-2-寻找最长不重复子串算法实现">2.2 寻找最长不重复子串算法实现</a></li>
+</ul></li>
+<li><a href="#3-debug">3. Debug</a></li>
+<li><a href="#4-传统测试">4.传统测试</a></li>
+<li><a href="#5-表格驱动测试">5.表格驱动测试</a></li>
+<li><a href="#6-测试简单例子">6. 测试简单例子</a></li>
+<li><a href="#7-代码覆盖率">7. 代码覆盖率</a></li>
+<li><a href="#8-benchmark">8. Benchmark</a></li>
+<li><a href="#9-使用pprof可视化性能检测">9.使用pprof可视化性能检测</a></li>
+<li><a href="#10-优化性能">10. 优化性能</a>
+<ul>
+<li><a href="#10-1-优化过程">10.1 优化过程</a></li>
+<li><a href="#10-2-感想">10.2 感想</a></li>
+</ul></li>
+<li><a href="#11-http测试">11. http测试</a>
+<ul>
+<li><a href="#11-1-errwrapper函数测试">11.1 errWrapper函数测试</a></li>
+<li><a href="#11-2-开启服务器测试">11.2 开启服务器测试</a></li>
+</ul></li>
+<li><a href="#12-生成文档及示例代码">12. 生成文档及示例代码</a>
+<ul>
+<li><a href="#12-1-使用go-doc生成及查看代码文档">12.1 使用go doc生成及查看代码文档</a></li>
+<li><a href="#12-2-使用go-doc查看标准库文档">12.2 使用go doc查看标准库文档</a></li>
+<li><a href="#12-3-使用godoc查看文档">12.3 使用godoc查看文档</a></li>
+<li><a href="#12-4-添加注释完善文档">12.4 添加注释完善文档</a></li>
+<li><a href="#12-5-生成示例代码">12.5 生成示例代码</a></li>
+<li><a href="#12-6-总结">12.6 总结</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h3 id="1-测试介绍">1.测试介绍</h3>
+
+<p>​        尽量测试，避免调试</p>
+
+<p><img src="/images/1562666185342.png" alt="1562666185342" /></p>
+
+<h3 id="2-例子">2. 例子</h3>
+
+<p>​       这里使用一道算法题作为调试和测试的例子：</p>
+
+<p>​       求取字符串中最长的含有不重复字符的子字符串的长度。</p>
+
+<h4 id="2-1-开始之前">2.1 开始之前</h4>
+
+<p>先了解下Go语言字符串的处理机制</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">compareBytesStringRune</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span>  <span class="p">{</span>
+   <span class="c1">//比较下一个字符串在这三种情况下的存储情况
+</span><span class="c1"></span>   <span class="nb">println</span><span class="p">(</span><span class="s">&#34;sBytes： &#34;</span><span class="p">,</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">s</span><span class="p">))</span>
+   <span class="nb">println</span><span class="p">(</span><span class="s">&#34;sString： &#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">)</span>
+
+   <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">ch</span> <span class="o">:=</span> <span class="k">range</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nb">println</span><span class="p">(</span><span class="s">&#34;按Byte遍历，第&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="s">&#34;个元素为：&#34;</span><span class="p">,</span> <span class="nx">ch</span><span class="p">)</span>
+   <span class="p">}</span>
+   <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">ch</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">s</span> <span class="p">{</span>
+      <span class="nb">println</span><span class="p">(</span><span class="s">&#34;直接String遍历，第&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="s">&#34;个元素为：&#34;</span><span class="p">,</span> <span class="nx">ch</span><span class="p">)</span>
+   <span class="p">}</span>
+   <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">ch</span> <span class="o">:=</span> <span class="k">range</span> <span class="p">[]</span><span class="nb">rune</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nb">println</span><span class="p">(</span><span class="s">&#34;按Rune遍历，第&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="s">&#34;个元素为：&#34;</span><span class="p">,</span> <span class="nx">ch</span><span class="p">)</span>
+   <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+   <span class="nf">compareBytesStringRune</span><span class="p">(</span><span class="s">&#34;azdisgood&#34;</span><span class="p">)</span>
+   <span class="nf">compareBytesStringRune</span><span class="p">(</span><span class="s">&#34;艾振东棒棒的&#34;</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>输出结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">sBytes：  [3/32]0xc000031eb8
+sString：  azd
+按Byte遍历，第 0 个元素为： 97
+按Byte遍历，第 1 个元素为： 122
+按Byte遍历，第 2 个元素为： 100
+直接String遍历，第 0 个元素为： 97
+直接String遍历，第 1 个元素为： 122
+直接String遍历，第 2 个元素为： 100
+按Rune遍历，第 0 个元素为： 97
+按Rune遍历，第 1 个元素为： 122
+按Rune遍历，第 2 个元素为： 100
+sBytes：  [6/32]0xc000031eb8
+sString：  你好
+按Byte遍历，第 0 个元素为： 228
+按Byte遍历，第 1 个元素为： 189
+按Byte遍历，第 2 个元素为： 160
+按Byte遍历，第 3 个元素为： 229
+按Byte遍历，第 4 个元素为： 165
+按Byte遍历，第 5 个元素为： 189
+直接String遍历，第 0 个元素为： 20320
+直接String遍历，第 3 个元素为： 22909
+按Rune遍历，第 0 个元素为： 20320
+按Rune遍历，第 1 个元素为： 22909
+
+Process finished with exit code 0</pre></td></tr></table>
+</div>
+</div>
+<p>得出结论：直接遍历string，其实是按rune进行遍历。当字符串只包含ASCII字符时，三种遍历方法是一样的。rune是Go的可变长度字符表示，表示中文时一个rune代表了三个byte。</p>
+
+<h4 id="2-2-寻找最长不重复子串算法实现">2.2 寻找最长不重复子串算法实现</h4>
+
+<p>V1版本只考虑英文字符串，V2版本则增加了对中文字符串的支持。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="c1">//Leetcode算法题：寻找字符串中连续不重复的最长子串，并返回其长度。
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">maxLengthOfNonRepeatSubStrV1</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+   <span class="c1">//遍历字符串，将每个遍历到的字符作为key，其索引作为value，更新入map。
+</span><span class="c1"></span>
+   <span class="nx">lastOccuredMap</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">byte</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>
+   <span class="nx">start</span> <span class="o">:=</span> <span class="mi">0</span>  <span class="c1">//所遍历的字符其开始位置
+</span><span class="c1"></span>   <span class="nx">maxLength</span> <span class="o">:=</span> <span class="mi">0</span> <span class="c1">//最长不重复子串长度
+</span><span class="c1"></span>
+   <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">ch</span> <span class="o">:=</span> <span class="k">range</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+
+      <span class="c1">//更新字符起始位
+</span><span class="c1"></span>      <span class="nx">lastI</span><span class="p">,</span> <span class="nx">exists</span> <span class="o">:=</span> <span class="nx">lastOccuredMap</span><span class="p">[</span><span class="nx">ch</span><span class="p">]</span>
+      <span class="k">if</span> <span class="nx">exists</span> <span class="o">&amp;&amp;</span> <span class="nx">lastI</span> <span class="o">&gt;=</span> <span class="nx">start</span> <span class="p">{</span>
+         <span class="nx">start</span> <span class="p">=</span> <span class="nx">lastI</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="p">}</span>
+
+      <span class="c1">//当遍历到的字符距离start的间隔比之前存的maxLength大时，更新maxLength
+</span><span class="c1"></span>      <span class="c1">//这是因为当遍历到不重复字符时，没有啥操作，此时就应该更新maxLength
+</span><span class="c1"></span>      <span class="k">if</span> <span class="nx">i</span><span class="o">-</span><span class="nx">start</span><span class="o">+</span><span class="mi">1</span> <span class="p">&gt;</span> <span class="nx">maxLength</span> <span class="p">{</span>
+         <span class="nx">maxLength</span> <span class="p">=</span> <span class="nx">i</span><span class="o">-</span><span class="nx">start</span><span class="o">+</span><span class="mi">1</span>
+      <span class="p">}</span>
+
+      <span class="c1">//写入/更新map
+</span><span class="c1"></span>      <span class="nx">lastOccuredMap</span><span class="p">[</span><span class="nx">ch</span><span class="p">]</span> <span class="p">=</span> <span class="nx">i</span>
+   <span class="p">}</span>
+
+   <span class="k">return</span> <span class="nx">maxLength</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">maxLengthOfNonRepeatSubStrV2</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+   <span class="c1">//遍历字符串，将每个遍历到的字符作为key，其索引作为value，更新入map。
+</span><span class="c1"></span>
+   <span class="nx">lastOccuredMap</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">rune</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>
+   <span class="nx">start</span> <span class="o">:=</span> <span class="mi">0</span>  <span class="c1">//所遍历的字符其开始位置
+</span><span class="c1"></span>   <span class="nx">maxLength</span> <span class="o">:=</span> <span class="mi">0</span> <span class="c1">//最长不重复子串长度
+</span><span class="c1"></span>
+   <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">ch</span> <span class="o">:=</span> <span class="k">range</span> <span class="p">[]</span><span class="nb">rune</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+
+      <span class="c1">//更新字符起始位
+</span><span class="c1"></span>      <span class="nx">lastI</span><span class="p">,</span> <span class="nx">exists</span> <span class="o">:=</span> <span class="nx">lastOccuredMap</span><span class="p">[</span><span class="nx">ch</span><span class="p">]</span>
+      <span class="k">if</span> <span class="nx">exists</span> <span class="o">&amp;&amp;</span> <span class="nx">lastI</span> <span class="o">&gt;=</span> <span class="nx">start</span> <span class="p">{</span>
+         <span class="nx">start</span> <span class="p">=</span> <span class="nx">lastI</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="p">}</span>
+
+      <span class="c1">//当遍历到的字符距离start的间隔比之前存的maxLength大时，更新maxLength
+</span><span class="c1"></span>      <span class="c1">//这是因为当遍历到不重复字符时，没有啥操作，此时就应该更新maxLength
+</span><span class="c1"></span>      <span class="k">if</span> <span class="nx">i</span><span class="o">-</span><span class="nx">start</span><span class="o">+</span><span class="mi">1</span> <span class="p">&gt;</span> <span class="nx">maxLength</span> <span class="p">{</span>
+         <span class="nx">maxLength</span> <span class="p">=</span> <span class="nx">i</span><span class="o">-</span><span class="nx">start</span><span class="o">+</span><span class="mi">1</span>
+      <span class="p">}</span>
+
+      <span class="c1">//写入/更新map
+</span><span class="c1"></span>      <span class="nx">lastOccuredMap</span><span class="p">[</span><span class="nx">ch</span><span class="p">]</span> <span class="p">=</span> <span class="nx">i</span>
+
+   <span class="p">}</span>
+
+   <span class="k">return</span> <span class="nx">maxLength</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+   <span class="nb">print</span><span class="p">(</span><span class="nf">maxLengthOfNonRepeatSubStrV1</span><span class="p">(</span><span class="s">&#34;azdloveazdaawerrz&#34;</span><span class="p">),</span> <span class="s">&#34; &#34;</span><span class="p">)</span>  <span class="c1">// maxLength -&gt; 7
+</span><span class="c1"></span>   <span class="nb">print</span><span class="p">(</span><span class="nf">maxLengthOfNonRepeatSubStrV1</span><span class="p">(</span><span class="s">&#34;helloworld&#34;</span><span class="p">),</span> <span class="s">&#34; &#34;</span><span class="p">)</span>
+   <span class="nb">print</span><span class="p">(</span><span class="nf">maxLengthOfNonRepeatSubStrV1</span><span class="p">(</span><span class="s">&#34;happynewyear&#34;</span><span class="p">),</span> <span class="s">&#34; &#34;</span><span class="p">)</span>
+   <span class="nb">print</span><span class="p">(</span><span class="nf">maxLengthOfNonRepeatSubStrV1</span><span class="p">(</span><span class="s">&#34;azdlovezritistrue&#34;</span><span class="p">),</span> <span class="s">&#34; &#34;</span><span class="p">)</span>
+   <span class="nb">print</span><span class="p">(</span><span class="nf">maxLengthOfNonRepeatSubStrV1</span><span class="p">(</span><span class="s">&#34;哈哈今天天气真好啊&#34;</span><span class="p">),</span> <span class="s">&#34; &#34;</span><span class="p">)</span>
+   <span class="nb">println</span><span class="p">()</span>
+   <span class="nb">print</span><span class="p">(</span><span class="nf">maxLengthOfNonRepeatSubStrV2</span><span class="p">(</span><span class="s">&#34;azdloveazdaawerrz&#34;</span><span class="p">),</span> <span class="s">&#34; &#34;</span><span class="p">)</span>  <span class="c1">// maxLength -&gt; 7
+</span><span class="c1"></span>   <span class="nb">print</span><span class="p">(</span><span class="nf">maxLengthOfNonRepeatSubStrV2</span><span class="p">(</span><span class="s">&#34;helloworld&#34;</span><span class="p">),</span> <span class="s">&#34; &#34;</span><span class="p">)</span>
+   <span class="nb">print</span><span class="p">(</span><span class="nf">maxLengthOfNonRepeatSubStrV2</span><span class="p">(</span><span class="s">&#34;happynewyear&#34;</span><span class="p">),</span> <span class="s">&#34; &#34;</span><span class="p">)</span>
+   <span class="nb">print</span><span class="p">(</span><span class="nf">maxLengthOfNonRepeatSubStrV2</span><span class="p">(</span><span class="s">&#34;azdlovezritistrue&#34;</span><span class="p">),</span> <span class="s">&#34; &#34;</span><span class="p">)</span>
+   <span class="nb">print</span><span class="p">(</span><span class="nf">maxLengthOfNonRepeatSubStrV2</span><span class="p">(</span><span class="s">&#34;哈哈今天天气真好啊&#34;</span><span class="p">),</span> <span class="s">&#34; &#34;</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>输出结果为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">7 5 5 9 11 
+7 5 5 9 5 
+Process finished with exit code 0</pre></td></tr></table>
+</div>
+</div>
+<h3 id="3-debug">3. Debug</h3>
+
+<p>Goland自带调试工具，用例如下：</p>
+
+<p><img src="/images/1562674523960.png" alt="1562674523960" /></p>
+
+<p>显然Debug需要开发者去不断设置断点找出问题所在。</p>
+
+<h3 id="4-传统测试">4.传统测试</h3>
+
+<p>传统测试其实就是上面代码中的类型，只不过专门写了个测试函数，而测试数据一样被写在测试函数中。</p>
+
+<p>也就是说，<strong>传统测试测试数据和测试逻辑混在一起，出错信息不明确</strong>，而且图中例子一旦有一例报错退出了，后边的数据也不会再执行</p>
+
+<p><img src="/images/1562675642285.png" alt="1562675642285" /></p>
+
+<h3 id="5-表格驱动测试">5.表格驱动测试</h3>
+
+<p>表格驱动测试的特点：</p>
+
+<ul>
+<li>测试数据和测试逻辑分离</li>
+<li>出错信息也很明确</li>
+<li>也支持部分失败</li>
+<li>Go语言更容易实现表格驱动测试。</li>
+</ul>
+
+<p><img src="/images/1562676056644.png" alt="1562676056644" /></p>
+
+<h3 id="6-测试简单例子">6. 测试简单例子</h3>
+
+<p>Go语言测试用法为：创建xx_test.go，创建TestXxx(t *testing.T){}，此即为测试函数。而且要注意测试函数名TestXxxx这里Test后跟的第一个字母必须大写。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;testing&#34;</span>
+
+<span class="kd">func</span> <span class="nf">TestMaxLengthOfNonRepeatSubStrV2</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">tests</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">struct</span><span class="p">{</span>
+      <span class="nx">s</span> <span class="kt">string</span>
+      <span class="nx">l</span> <span class="kt">int</span>
+   <span class="p">}</span> <span class="p">{</span>
+        <span class="c1">//常规测试
+</span><span class="c1"></span>        <span class="p">{</span><span class="s">&#34;azdloveazdaawerrz&#34;</span><span class="p">,</span> <span class="mi">7</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">&#34;helloworld&#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">&#34;happynewyear&#34;</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>  <span class="c1">//注意这里故意写错一个
+</span><span class="c1"></span>        <span class="c1">//边缘测试
+</span><span class="c1"></span>        <span class="p">{</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">&#34;b&#34;</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">&#34;bbbbbbbb&#34;</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">&#34;abcabcabc&#34;</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>
+        <span class="c1">//中文支持测试
+</span><span class="c1"></span>        <span class="p">{</span><span class="s">&#34;哈哈今天天气真好啊&#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">&#34;可以一起去看看一起去看看流星雨吗&#34;</span><span class="p">,</span> <span class="mi">6</span><span class="p">},</span>
+   <span class="p">}</span>
+
+   <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">tt</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">tests</span> <span class="p">{</span>
+      <span class="nx">calcL</span> <span class="o">:=</span> <span class="nf">maxLengthOfNonRepeatSubStrV2</span><span class="p">(</span><span class="nx">tt</span><span class="p">.</span><span class="nx">s</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">l</span> <span class="o">!=</span> <span class="nx">calcL</span> <span class="p">{</span>
+         <span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;计算 %s 最长不重复子串错误：应该为 %d， 计算为 %d &#34;</span><span class="p">,</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">s</span><span class="p">,</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">l</span><span class="p">,</span> <span class="nx">calcL</span><span class="p">)</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>还可以在命令行使用<code>go test .</code> 执行当前目录下所有测试文件中测试函数并输出结果。</p>
+
+<p>上面测试函数的输出结果为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">=== RUN   TestMaxLengthOfNonRepeatSubStrV2
+--- FAIL: TestMaxLengthOfNonRepeatSubStrV2 (0.00s)
+    LongestNonRepeatSubString_test.go:27: 计算 happynewyear 最长不重复子串错误：应该为 3， 计算为 5 
+FAIL
+
+Process finished with exit code 1</pre></td></tr></table>
+</div>
+</div>
+<p>前面说过使用表格驱动测试可以支持部分失败，现在添加一行输出信息再看执行结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">tt</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">tests</span> <span class="p">{</span>
+    <span class="nx">calcL</span> <span class="o">:=</span> <span class="nf">maxLengthOfNonRepeatSubStrV2</span><span class="p">(</span><span class="nx">tt</span><span class="p">.</span><span class="nx">s</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">l</span> <span class="o">!=</span> <span class="nx">calcL</span> <span class="p">{</span>
+        <span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;计算 %s 最长不重复子串错误：应该为 %d， 计算为 %d &#34;</span><span class="p">,</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">s</span><span class="p">,</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">l</span><span class="p">,</span> <span class="nx">calcL</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nb">println</span><span class="p">(</span><span class="s">&#34;成功&#34;</span><span class="p">)</span>  <span class="c1">//新增的测试成功信息
+</span><span class="c1"></span>    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>结果为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">=== RUN   TestMaxLengthOfNonRepeatSubStrV2
+成功
+成功
+成功
+成功
+成功
+成功
+成功
+成功
+--- FAIL: TestMaxLengthOfNonRepeatSubStrV2 (0.00s)
+    LongestNonRepeatSubString_test.go:27: 计算 happynewyear 最长不重复子串错误：应该为 3， 计算为 5 
+FAIL
+
+Process finished with exit code 1</pre></td></tr></table>
+</div>
+</div>
+<h3 id="7-代码覆盖率">7. 代码覆盖率</h3>
+
+<p>运行测试函数时可以选择<code>Run 'TestFunc' with Coverage</code>可以得到测试函数的代码覆盖率信息：</p>
+
+<p><img src="/images/1562679530853.png" alt="1562679530853" /></p>
+
+<p>在源代码中此时也可以显示出代码覆盖情况（绿边为覆盖的范围，红边反之）</p>
+
+<p><img src="/images/1562679644486.png" alt="1562679644486" /></p>
+
+<p>检查代码覆盖率也可以使用Go的命令行工具实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ go <span class="nb">test</span> -coverprofile<span class="o">=</span>c.out  // 将代码覆盖检测情况输出
+$ go tool cover -html<span class="o">=</span>c.out  //将c.out以html形式呈现</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="8-benchmark">8. Benchmark</h3>
+
+<p>前面的Test测试指的是测试代码有无漏洞，而Benchmark测试则指性能测试。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">BenchmarkMaxLengthOfNonRepeatSubStrV2</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
+   <span class="c1">//Benchmark只需要少量/一个测试数据即可
+</span><span class="c1"></span>   <span class="nx">testString</span> <span class="o">:=</span> <span class="s">&#34;可以一起去看看一起去看看流星雨吗&#34;</span>
+   <span class="nx">testLength</span> <span class="o">:=</span> <span class="mi">6</span>
+
+   <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">b</span><span class="p">.</span><span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+      <span class="nx">calcL</span> <span class="o">:=</span> <span class="nf">maxLengthOfNonRepeatSubStrV2</span><span class="p">(</span><span class="nx">testString</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">testLength</span> <span class="o">!=</span> <span class="nx">calcL</span> <span class="p">{</span>
+         <span class="nx">b</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;计算 %s 最长不重复子串错误：应该为 %d， 计算为 %d &#34;</span><span class="p">,</span> <span class="nx">testString</span><span class="p">,</span> <span class="nx">testLength</span><span class="p">,</span> <span class="nx">calcL</span><span class="p">)</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>执行的结果为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">goos: windows
+goarch: amd64
+pkg: go-mastering-lecture/08-test/LongestNonRepeatSubString
+BenchmarkMaxLengthOfNonRepeatSubStrV2-4      1000000          1771 ns/op
+PASS
+
+Process finished with exit code 0</pre></td></tr></table>
+</div>
+</div>
+<p>执行1000000遍，每次的平均时间为1771ns。</p>
+
+<h3 id="9-使用pprof可视化性能检测">9.使用pprof可视化性能检测</h3>
+
+<p>现在思考为什么每次执行花1771ns的时间，时间主要花费在哪里？可以怎么去提升运行效率？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ go <span class="nb">test</span> -bench . -cpuprofile<span class="o">=</span>cpu.out  //生成CPU使用数据
+$ go tool pprof cpu.out  //进入pprof交互式命令行工具
+<span class="o">(</span>pprof<span class="o">)</span> <span class="nb">help</span>    //得到help信息
+<span class="o">(</span>pprof<span class="o">)</span> web     //最简单常用的一种做法（需要安装graghviz用以生成svg可视化文件）
+<span class="o">(</span>pprof<span class="o">)</span> quit    //退出pprof</code></pre></td></tr></table>
+</div>
+</div>
+<p>参考博文：<a href="https://blog.csdn.net/weixin_42654444/article/details/82108055">https://blog.csdn.net/weixin_42654444/article/details/82108055</a></p>
+
+<p>我的步骤是：下载安装grapghviz软件，将其执行目录添加到系统<code>$PATH$</code>变量。并在windows默认应用设置“按文件类型设置”将svg文件默认设置由chrome浏览器打开（随便选择一个浏览器，但必须指定，不然使用<code>web</code>命令时会报错）</p>
+
+<p>注意！ Benchmark测试函数必须是能够PASS的，如果FAIL，cpu.out文件中不会有相关信息，最后也就画不出cpu使用图</p>
+
+<p>得到的结果如下：</p>
+
+<p><img src="/images/1562724759199.png" alt="1562724759199" /></p>
+
+<p>框越大说明占用CPU时间越长。显然这里map操作是最耗时的，其次是rune解码。</p>
+
+<h3 id="10-优化性能">10. 优化性能</h3>
+
+<p>既然已经指出map操作和rune操作耗时较长，想办法优化它：</p>
+
+<h4 id="10-1-优化过程">10.1 优化过程</h4>
+
+<p>先试下用slice替换map</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">maxLengthOfNonRepeatSubStrV3</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+   <span class="c1">//元素默认值为0，为0意味着字符还没有出现
+</span><span class="c1"></span>   <span class="c1">//这里直接拿字符的编码作为切片的下标索引，存储的为lastOccurredPosition + 1
+</span><span class="c1"></span>   <span class="c1">//lastOccurredPosition字符在给定字符串当前更新的最后出现的位置
+</span><span class="c1"></span>   <span class="nx">lastOccuredSlice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mh">0xffff</span><span class="p">)</span>  <span class="c1">//中文字rune长度两个字节。
+</span><span class="c1"></span>   <span class="nx">start</span> <span class="o">:=</span> <span class="mi">0</span>  <span class="c1">//所遍历的字符其开始位置
+</span><span class="c1"></span>   <span class="nx">maxLength</span> <span class="o">:=</span> <span class="mi">0</span> <span class="c1">//最长不重复子串长度
+</span><span class="c1"></span>
+   <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">ch</span> <span class="o">:=</span> <span class="k">range</span> <span class="p">[]</span><span class="nb">rune</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+
+      <span class="k">if</span> <span class="nx">lastI</span> <span class="o">:=</span> <span class="nx">lastOccuredSlice</span><span class="p">[</span><span class="nx">ch</span><span class="p">];</span> <span class="nx">lastI</span> <span class="o">&gt;=</span> <span class="nx">start</span> <span class="p">{</span>
+         <span class="nx">start</span> <span class="p">=</span> <span class="nx">lastI</span>
+      <span class="p">}</span>
+
+      <span class="k">if</span> <span class="nx">i</span><span class="o">-</span><span class="nx">start</span><span class="o">+</span><span class="mi">1</span> <span class="p">&gt;</span> <span class="nx">maxLength</span> <span class="p">{</span>
+         <span class="nx">maxLength</span> <span class="p">=</span> <span class="nx">i</span><span class="o">-</span><span class="nx">start</span><span class="o">+</span><span class="mi">1</span>
+      <span class="p">}</span>
+
+      <span class="nx">lastOccuredSlice</span><span class="p">[</span><span class="nx">ch</span><span class="p">]</span> <span class="p">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span>
+   <span class="p">}</span>
+   <span class="k">return</span> <span class="nx">maxLength</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>漏洞测试：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">=== RUN   TestMaxLengthOfNonRepeatSubStr
+成功
+成功
+成功
+成功
+成功
+成功
+成功
+成功
+成功
+--- PASS: TestMaxLengthOfNonRepeatSubStr (0.00s)
+PASS</pre></td></tr></table>
+</div>
+</div>
+<p>性能测试：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">goos: windows
+goarch: amd64
+pkg: go-mastering-lecture/08-test/LongestNonRepeatSubString
+BenchmarkMaxLengthOfNonRepeatSubStr-4          10000        110636 ns/op
+PASS
+
+Process finished with exit code 0</pre></td></tr></table>
+</div>
+</div>
+<p>结果居然是耗时远大于使用map</p>
+
+<p>使用pprof来检查一下：</p>
+
+<p><img src="/images/1562726202101.png" alt="1562726202101" /></p>
+
+<p>原因出现GC（垃圾回收）上，每次运行都初始化一片内存作为slice存储，之后又进行了垃圾回收，导致大量的时间花在这方面。</p>
+
+<p>修改如下：将slice初始化语句放到函数体外部。（顺手纠正了下拼写错误）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">lastOccurredSlice</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mh">0xffff</span><span class="p">)</span>
+<span class="kd">func</span> <span class="nf">maxLengthOfNonRepeatSubStrV4</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+   <span class="c1">//对slice清零
+</span><span class="c1"></span>   <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">lastOccurredSlice</span> <span class="p">{</span>
+      <span class="nx">lastOccurredSlice</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">0</span>
+   <span class="p">}</span>
+   <span class="nx">start</span> <span class="o">:=</span> <span class="mi">0</span>  <span class="c1">//所遍历的字符其开始位置
+</span><span class="c1"></span>   <span class="nx">maxLength</span> <span class="o">:=</span> <span class="mi">0</span> <span class="c1">//最长不重复子串长度
+</span><span class="c1"></span>
+   <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">ch</span> <span class="o">:=</span> <span class="k">range</span> <span class="p">[]</span><span class="nb">rune</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+
+      <span class="k">if</span> <span class="nx">lastI</span> <span class="o">:=</span> <span class="nx">lastOccurredSlice</span><span class="p">[</span><span class="nx">ch</span><span class="p">];</span> <span class="nx">lastI</span> <span class="o">&gt;=</span> <span class="nx">start</span> <span class="p">{</span>
+         <span class="nx">start</span> <span class="p">=</span> <span class="nx">lastI</span>
+      <span class="p">}</span>
+
+      <span class="k">if</span> <span class="nx">i</span><span class="o">-</span><span class="nx">start</span><span class="o">+</span><span class="mi">1</span> <span class="p">&gt;</span> <span class="nx">maxLength</span> <span class="p">{</span>
+         <span class="nx">maxLength</span> <span class="p">=</span> <span class="nx">i</span><span class="o">-</span><span class="nx">start</span><span class="o">+</span><span class="mi">1</span>
+      <span class="p">}</span>
+
+      <span class="nx">lastOccurredSlice</span><span class="p">[</span><span class="nx">ch</span><span class="p">]</span> <span class="p">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span>
+   <span class="p">}</span>
+   <span class="k">return</span> <span class="nx">maxLength</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>性能结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">goos: windows
+goarch: amd64
+pkg: go-mastering-lecture/08-test/LongestNonRepeatSubString
+BenchmarkMaxLengthOfNonRepeatSubStr-4          50000         30862 ns/op
+PASS
+
+Process finished with exit code 0</pre></td></tr></table>
+</div>
+</div>
+<p>这次快了很多，但还是远比使用map慢。继续性能检查：</p>
+
+<p><img src="/images/1562726988993.png" alt="1562726988993" /></p>
+
+<p>可以看出最多的时间被消耗在了memclr上（编译器识别出代码中slice清零那一段，并使用memclr来实现）。</p>
+
+<p>现在这个情况慢是因为数组长度太大(0xff)，而前边map方式其实只需要存给定字符串中出现的字符，所以内存开销小得多。</p>
+
+<p>那么，slice方式使用了固定长度的策略，也就是说无论给定的字符串多长多复杂，程序运行的内存开销都一样（至少在创建和清零这两步）</p>
+
+<p>这意味着，slice方式更适合非常长的、各种各样字符都有的 这样的字符串；而map方式则比较适合短字符串。</p>
+
+<p>其实只要字符串非常长时，使用slice就优于map，因为slice的更新比map更新快很多。</p>
+
+<p>现在，将Benchmark函数中字符串给定部分加长：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">BenchmarkMaxLengthOfNonRepeatSubStr_LongStr</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
+   <span class="c1">//产生长字符串
+</span><span class="c1"></span>   <span class="nx">testString</span> <span class="o">:=</span> <span class="s">&#34;可以一起去看看一起去看看流星雨吗&#34;</span>
+   <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="p">&lt;</span><span class="mi">15</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+      <span class="nx">testString</span> <span class="p">=</span> <span class="nx">testString</span> <span class="o">+</span><span class="nx">testString</span>  <span class="c1">//2^i级别增长
+</span><span class="c1"></span>   <span class="p">}</span>
+   <span class="nx">testLength</span> <span class="o">:=</span> <span class="mi">10</span>   <span class="c1">//变成10
+</span><span class="c1"></span>   <span class="nx">b</span><span class="p">.</span><span class="nf">Logf</span><span class="p">(</span><span class="s">&#34;len(testString) = %d&#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">testString</span><span class="p">))</span>
+    
+   <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">b</span><span class="p">.</span><span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+       <span class="c1">//修改待测试的函数名
+</span><span class="c1"></span>      <span class="nx">calcL</span> <span class="o">:=</span> <span class="nf">maxLengthOfNonRepeatSubStrV4</span><span class="p">(</span><span class="nx">testString</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">testLength</span> <span class="o">!=</span> <span class="nx">calcL</span> <span class="p">{</span>
+         <span class="nx">b</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;计算 %s 最长不重复子串错误：应该为 %d， 计算为 %d &#34;</span><span class="p">,</span> <span class="nx">testString</span><span class="p">,</span> <span class="nx">testLength</span><span class="p">,</span> <span class="nx">calcL</span><span class="p">)</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>对maxLengthOfNonRepeatSubStrV2（map版本）和maxLengthOfNonRepeatSubStrV4（slice版本）进行性能测试，结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">V2：
+goos: windows
+goarch: amd64
+pkg: go-mastering-lecture/08-test/LongestNonRepeatSubString
+BenchmarkMaxLengthOfNonRepeatSubStr_LongStr-4             30      36978810 ns/op
+--- BENCH: BenchmarkMaxLengthOfNonRepeatSubStr_LongStr-4
+    LongestNonRepeatSubString_test.go:54: len(testString) = 1572864
+    LongestNonRepeatSubString_test.go:54: len(testString) = 1572864
+PASS
+
+Process finished with exit code 0
+
+V4：
+goos: windows
+goarch: amd64
+pkg: go-mastering-lecture/08-test/LongestNonRepeatSubString
+BenchmarkMaxLengthOfNonRepeatSubStr_LongStr-4            100      12193029 ns/op
+--- BENCH: BenchmarkMaxLengthOfNonRepeatSubStr_LongStr-4
+    LongestNonRepeatSubString_test.go:54: len(testString) = 1572864
+    LongestNonRepeatSubString_test.go:54: len(testString) = 1572864
+PASS
+
+Process finished with exit code 0</pre></td></tr></table>
+</div>
+</div>
+<p>显然这里slice方式已经比map方式快了。</p>
+
+<p>现在计算的时间将准备字符串等数据的时间算进去了，应该将其排除出去：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">BenchmarkMaxLengthOfNonRepeatSubStr_LongStr</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
+   <span class="c1">//产生长字符串
+</span><span class="c1"></span>   <span class="nx">testString</span> <span class="o">:=</span> <span class="s">&#34;可以一起去看看一起去看看流星雨吗&#34;</span>
+   <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="p">&lt;</span><span class="mi">15</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+      <span class="nx">testString</span> <span class="p">=</span> <span class="nx">testString</span> <span class="o">+</span><span class="nx">testString</span>   <span class="c1">//2^i级别增长
+</span><span class="c1"></span>   <span class="p">}</span>
+   <span class="nx">testLength</span> <span class="o">:=</span> <span class="mi">10</span>  <span class="c1">//变成10
+</span><span class="c1"></span>   <span class="nx">b</span><span class="p">.</span><span class="nf">Logf</span><span class="p">(</span><span class="s">&#34;len(testString) = %d&#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">testString</span><span class="p">))</span>
+
+   <span class="nx">b</span><span class="p">.</span><span class="nf">ResetTimer</span><span class="p">()</span>  <span class="c1">//计时器重置
+</span><span class="c1"></span>
+   <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">b</span><span class="p">.</span><span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+      <span class="c1">//修改待测试的函数名
+</span><span class="c1"></span>      <span class="nx">calcL</span> <span class="o">:=</span> <span class="nf">maxLengthOfNonRepeatSubStrV4</span><span class="p">(</span><span class="nx">testString</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">testLength</span> <span class="o">!=</span> <span class="nx">calcL</span> <span class="p">{</span>
+         <span class="nx">b</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;计算 %s 最长不重复子串错误：应该为 %d， 计算为 %d &#34;</span><span class="p">,</span> <span class="nx">testString</span><span class="p">,</span> <span class="nx">testLength</span><span class="p">,</span> <span class="nx">calcL</span><span class="p">)</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">goos: windows
+goarch: amd64
+pkg: go-mastering-lecture/08-test/LongestNonRepeatSubString
+BenchmarkMaxLengthOfNonRepeatSubStr_LongStr-4            100      12532807 ns/op
+--- BENCH: BenchmarkMaxLengthOfNonRepeatSubStr_LongStr-4
+    LongestNonRepeatSubString_test.go:54: len(testString) = 1572864
+    LongestNonRepeatSubString_test.go:54: len(testString) = 1572864
+PASS
+
+Process finished with exit code 0</pre></td></tr></table>
+</div>
+</div>
+<p>这里注意到耗时其实还变长了些，这可能是每次运行时产生的一些偏差，另一方面也说明当处理超长字符串时，前边数据准备的耗时显得微不足道。</p>
+
+<p>继续对V4版本进行性能检查（注意只检查BenchmarkMaxLengthOfNonRepeatSubStr_LongStr  slice版本）：</p>
+
+<p><img src="/images/1562729315071.png" alt="1562729315071" /></p>
+
+<p>可以看出这回时间大部分耗费在字符串的处理上面。但是没有办法，如果要支持中文字符串，只能这么做。</p>
+
+<p>提示：我是通过创建多个函数来进行方法的比较，也可以在一个函数上修改，通过版本控制来进行版本切换。</p>
+
+<h4 id="10-2-感想">10.2 感想</h4>
+
+<p>分析算法运行性能要根据不同的数据规模来决定；</p>
+
+<p>很多时候性能开销主要在io操作而不在数据操作，所以可以牺牲一些数据操作的性能来换取代码的可读性</p>
+
+<h3 id="11-http测试">11. http测试</h3>
+
+<p>基于02_UnifiedErrorHandling.md中的http服务器的部分，现在进行http服务器的测试。先把完整代码移过来，并作代码的分离。</p>
+
+<p>http.go：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&#34;go-mastering-lecture/08-test/httpServerTest/handler&#34;</span>
+    <span class="s">&#34;net/http&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">userErrorInterface</span> <span class="kd">interface</span> <span class="p">{</span>
+    <span class="kt">error</span>  <span class="c1">//组合自error接口
+</span><span class="c1"></span>    <span class="nf">Message</span><span class="p">()</span> <span class="kt">string</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 127.0.0.1:8080/list/07-errors/fib.txt
+</span><span class="c1"></span>    <span class="nx">http</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="s">&#34;/&#34;</span><span class="p">,</span> <span class="nx">handler</span><span class="p">.</span><span class="nf">ErrWrapperV4</span><span class="p">(</span><span class="nx">handler</span><span class="p">.</span><span class="nx">HandleListFileV4</span><span class="p">))</span>
+    <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">ListenAndServe</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>handler/handler.go</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">handler</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+   <span class="s">&#34;fmt&#34;</span>
+   <span class="s">&#34;io/ioutil&#34;</span>
+   <span class="s">&#34;net/http&#34;</span>
+   <span class="s">&#34;os&#34;</span>
+   <span class="s">&#34;strings&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">appHandler</span> <span class="kd">func</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="kt">error</span>
+
+<span class="kd">func</span> <span class="nf">ErrWrapperV4</span><span class="p">(</span><span class="nx">handler</span> <span class="nx">appHandler</span><span class="p">)</span> <span class="kd">func</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">//对handleFunc的panic作recover保护
+</span><span class="c1"></span>      <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+         <span class="k">if</span> <span class="nx">r</span> <span class="o">:=</span> <span class="nb">recover</span><span class="p">();</span> <span class="nx">r</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;panic: %v\n&#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+            <span class="nx">http</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nf">StatusText</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusInternalServerError</span><span class="p">),</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusInternalServerError</span><span class="p">)</span>
+            <span class="k">return</span>
+         <span class="p">}</span>
+      <span class="p">}()</span>
+
+      <span class="nx">err</span> <span class="o">:=</span> <span class="nf">handler</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+         <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;出错：&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
+         <span class="c1">//增加对自定义错误的区别处理
+</span><span class="c1"></span>         <span class="k">if</span> <span class="nx">userErr</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">err</span><span class="p">.(</span><span class="nx">userError</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+            <span class="c1">//直接把自定义的错误返回给用户，因为是需要他们知道这些信息
+</span><span class="c1"></span>            <span class="nx">http</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">userErr</span><span class="p">.</span><span class="nf">Message</span><span class="p">(),</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusBadRequest</span><span class="p">)</span>
+         <span class="p">}</span>
+
+         <span class="nx">code</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span>
+         <span class="k">switch</span> <span class="p">{</span>
+         <span class="k">case</span> <span class="nx">os</span><span class="p">.</span><span class="nf">IsNotExist</span><span class="p">(</span><span class="nx">err</span><span class="p">):</span>   <span class="c1">//请求的文件不存在
+</span><span class="c1"></span>            <span class="nx">code</span> <span class="p">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusNotFound</span>
+         <span class="k">case</span> <span class="nx">os</span><span class="p">.</span><span class="nf">IsPermission</span><span class="p">(</span><span class="nx">err</span><span class="p">):</span>
+            <span class="nx">code</span> <span class="p">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusForbidden</span>
+         <span class="k">default</span><span class="p">:</span>
+            <span class="nx">code</span> <span class="p">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusInternalServerError</span>
+         <span class="p">}</span>
+         <span class="c1">//http.StatusText(http.StatusNotFound隐藏内部错误，只告诉外部一个错误代码的简单信息
+</span><span class="c1"></span>         <span class="nx">http</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nf">StatusText</span><span class="p">(</span><span class="nx">code</span><span class="p">),</span> <span class="nx">code</span><span class="p">)</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">PREFIX</span>  <span class="p">=</span> <span class="s">&#34;/list/&#34;</span>
+
+<span class="kd">type</span> <span class="nx">userError</span> <span class="kt">string</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="nx">userError</span><span class="p">)</span> <span class="nf">Error</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nx">e</span><span class="p">.</span><span class="nf">Message</span><span class="p">()</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="nx">userError</span><span class="p">)</span> <span class="nf">Message</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nb">string</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">HandleListFileV4</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+   <span class="c1">//增加对URL Path的检查,检查Path中这个&#34;list&#34;是否是出现在最前面
+</span><span class="c1"></span>   <span class="k">if</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Index</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="nx">PREFIX</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+      <span class="c1">//自定义错误
+</span><span class="c1"></span>      <span class="k">return</span> <span class="nf">userError</span><span class="p">(</span><span class="s">&#34;path必须以 &#34;</span><span class="o">+</span> <span class="nx">PREFIX</span> <span class="o">+</span> <span class="s">&#34; 开头&#34;</span><span class="p">)</span>
+   <span class="p">}</span>
+   <span class="nx">path</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="nx">PREFIX</span><span class="p">):]</span>   <span class="c1">//也可以使用strings中的去除前缀方法
+</span><span class="c1"></span>   <span class="nx">file</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span>
+   <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">err</span>
+   <span class="p">}</span>
+   <span class="k">defer</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+
+   <span class="nx">all</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span>
+   <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">err</span>
+   <span class="p">}</span>
+   <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">w</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="nx">all</span><span class="p">)</span>
+   <span class="k">return</span> <span class="nx">err</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="11-1-errwrapper函数测试">11.1 errWrapper函数测试</h4>
+
+<p>创建errWrapper_test.go，准备编写测试代码。</p>
+
+<p>编写errWrapper函数的测试函数如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+   <span class="s">&#34;fmt&#34;</span>
+   <span class="s">&#34;github.com/pkg/errors&#34;</span>
+   <span class="s">&#34;io/ioutil&#34;</span>
+   <span class="s">&#34;net/http&#34;</span>
+   <span class="s">&#34;net/http/httptest&#34;</span>
+   <span class="s">&#34;os&#34;</span>
+   <span class="s">&#34;strings&#34;</span>
+   <span class="s">&#34;testing&#34;</span>
+<span class="p">)</span>
+
+<span class="cm">/*自定义错误事件appHandler*/</span>
+
+<span class="kd">func</span> <span class="nf">errPanic</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+   <span class="nb">panic</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">//创建自定义类型，继承自http服务器文件中的UserErrorInterface
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">testingUserError</span> <span class="kt">string</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="nx">testingUserError</span><span class="p">)</span> <span class="nf">Error</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nx">e</span><span class="p">.</span><span class="nf">Message</span><span class="p">()</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="nx">testingUserError</span><span class="p">)</span> <span class="nf">Message</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nb">string</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">errUserError</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nf">testingUserError</span><span class="p">(</span><span class="s">&#34;user error&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="nf">errNotFound</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nx">os</span><span class="p">.</span><span class="nx">ErrNotExist</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="nf">errNoPermission</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nx">os</span><span class="p">.</span><span class="nx">ErrPermission</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="nf">errUnknown</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;unknown error&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">noError</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+   <span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintln</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">&#34;no error&#34;</span><span class="p">)</span>
+   <span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestErrWrapper</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">tests</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">struct</span><span class="p">{</span>
+      <span class="nx">h</span> <span class="nx">appHandler</span>
+      <span class="nx">code</span> <span class="kt">int</span>
+      <span class="nx">msg</span> <span class="kt">string</span>
+   <span class="p">}</span> <span class="p">{</span>
+      <span class="p">{</span><span class="nx">errPanic</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="s">&#34;Internal Server Error&#34;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">errUserError</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="s">&#34;user error&#34;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">errNotFound</span><span class="p">,</span> <span class="mi">404</span><span class="p">,</span> <span class="s">&#34;Not Found&#34;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">errNoPermission</span><span class="p">,</span> <span class="mi">403</span><span class="p">,</span> <span class="s">&#34;Forbidden&#34;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">errUnknown</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="s">&#34;Internal Server Error&#34;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">noError</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s">&#34;no error&#34;</span><span class="p">},</span>
+   <span class="p">}</span>
+
+   <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">tt</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">tests</span> <span class="p">{</span>
+      <span class="nx">f</span> <span class="o">:=</span> <span class="nf">errWrapperV4</span><span class="p">(</span><span class="nx">tt</span><span class="p">.</span><span class="nx">h</span><span class="p">)</span>
+      <span class="c1">//使用httptest包。
+</span><span class="c1"></span>      <span class="c1">//httptest.ResponseRecorder实现了http.ResponseWriter
+</span><span class="c1"></span>      <span class="nx">response</span> <span class="o">:=</span> <span class="nx">httptest</span><span class="p">.</span><span class="nf">NewRecorder</span><span class="p">()</span>
+      <span class="nx">request</span> <span class="o">:=</span> <span class="nx">httptest</span><span class="p">.</span><span class="nf">NewRequest</span><span class="p">(</span>
+         <span class="nx">http</span><span class="p">.</span><span class="nx">MethodGet</span><span class="p">,</span>
+         <span class="s">&#34;http://www.imooc.com&#34;</span><span class="p">,</span>  <span class="c1">//这里是随便写的
+</span><span class="c1"></span>         <span class="kc">nil</span><span class="p">,</span>
+         <span class="p">)</span>
+
+      <span class="nf">f</span><span class="p">(</span><span class="nx">response</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span>
+
+      <span class="nx">b</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+      <span class="c1">//因为body会末尾有换行，把它去掉
+</span><span class="c1"></span>      <span class="nx">body</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Trim</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">b</span><span class="p">),</span> <span class="s">&#34;\n&#34;</span><span class="p">)</span>
+
+      <span class="k">if</span> <span class="nx">response</span><span class="p">.</span><span class="nx">Code</span> <span class="o">!=</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">code</span> <span class="o">||</span> <span class="nx">body</span> <span class="o">!=</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">msg</span> <span class="p">{</span>
+         <span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;期望获得 （%d， %s）， 但是却得到：（%d， %s）&#34;</span><span class="p">,</span>
+            <span class="nx">tt</span><span class="p">.</span><span class="nx">code</span><span class="p">,</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">msg</span><span class="p">,</span> <span class="nx">response</span><span class="p">.</span><span class="nx">Code</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span>
+      <span class="p">}</span>
+
+   <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>执行结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">=== RUN   TestErrWrapper
+panic: 123
+出错： user error
+出错： file does not exist
+出错： permission denied
+出错： unknown error
+--- FAIL: TestErrWrapper (0.00s)
+    errWrapper_test.go:76: 期望获得 （400， user error）， 但是却得到：（400， user error
+        Internal Server Error）
+FAIL
+
+Process finished with exit code 1</pre></td></tr></table>
+</div>
+</div>
+<p>这不符合我们的预期，输出显示对自定义错误的处理上出了问题，其网页返回不仅有&rdquo;user error&rdquo;还有&rdquo;Internal Server Error&rdquo;，这说明我们前面在errWrapperV4中对自定义错误的处理出了问题，修复如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">if</span> <span class="nx">userErr</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">err</span><span class="p">.(</span><span class="nx">userErrorInterface</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+   <span class="c1">//直接把自定义的错误返回给用户，因为是需要他们知道这些信息
+</span><span class="c1"></span>   <span class="nx">http</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">userErr</span><span class="p">.</span><span class="nf">Message</span><span class="p">(),</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusBadRequest</span><span class="p">)</span>
+   <span class="k">return</span>  <span class="c1">//新增。记得return，不然会继续输出http.Error(w, http.StatusText(code), code)这一段
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>在运行下测试函数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">=== RUN   TestErrWrapper
+panic: 123
+出错： user error
+出错： file does not exist
+出错： permission denied
+出错： unknown error
+--- PASS: TestErrWrapper (0.00s)
+PASS
+
+Process finished with exit code 0</pre></td></tr></table>
+</div>
+</div>
+<p>这回没有问题了，说明我们的错误包装器正确，测试没有问题。</p>
+
+<h4 id="11-2-开启服务器测试">11.2 开启服务器测试</h4>
+
+<p>上一节模拟了url请求（使用假的Request和Response），这一节则通过开启httpserver的方式来实现这个测试。这两种方法间测试的粒度不同，前一种方法只测试函数体内的这些代码，而启用服务器做测试则测试了整个服务器。前者更快，更像个单元测试。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">tests</span> <span class="p">=</span> <span class="p">[]</span><span class="kd">struct</span><span class="p">{</span>
+   <span class="nx">h</span> <span class="nx">appHandler</span>
+   <span class="nx">code</span> <span class="kt">int</span>
+   <span class="nx">msg</span> <span class="kt">string</span>
+<span class="p">}</span> <span class="p">{</span>
+   <span class="p">{</span><span class="nx">errPanic</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="s">&#34;Internal Server Error&#34;</span><span class="p">},</span>
+   <span class="p">{</span><span class="nx">errUserError</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="s">&#34;user error&#34;</span><span class="p">},</span>
+   <span class="p">{</span><span class="nx">errNotFound</span><span class="p">,</span> <span class="mi">404</span><span class="p">,</span> <span class="s">&#34;Not Found&#34;</span><span class="p">},</span>
+   <span class="p">{</span><span class="nx">errNoPermission</span><span class="p">,</span> <span class="mi">403</span><span class="p">,</span> <span class="s">&#34;Forbidden&#34;</span><span class="p">},</span>
+   <span class="p">{</span><span class="nx">errUnknown</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="s">&#34;Internal Server Error&#34;</span><span class="p">},</span>
+   <span class="p">{</span><span class="nx">noError</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s">&#34;no error&#34;</span><span class="p">},</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestErrWrapperInServer</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">tt</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">tests</span> <span class="p">{</span>
+        <span class="nx">f</span> <span class="o">:=</span> <span class="nf">errWrapperV4</span><span class="p">(</span><span class="nx">tt</span><span class="p">.</span><span class="nx">h</span><span class="p">)</span>
+        <span class="nx">server</span> <span class="o">:=</span> <span class="nx">httptest</span><span class="p">.</span><span class="nf">NewServer</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nf">HandlerFunc</span><span class="p">(</span><span class="nx">f</span><span class="p">))</span>       <span class="c1">//将f转为Server (interface)
+</span><span class="c1"></span>        <span class="nx">response</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="nx">server</span><span class="p">.</span><span class="nx">URL</span><span class="p">)</span>
+
+        <span class="nx">b</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+        <span class="nx">body</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Trim</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">b</span><span class="p">),</span> <span class="s">&#34;\n&#34;</span><span class="p">)</span>
+
+        <span class="c1">//response.StatusCode
+</span><span class="c1"></span>        <span class="k">if</span> <span class="nx">response</span><span class="p">.</span><span class="nx">StatusCode</span> <span class="o">!=</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">code</span> <span class="o">||</span> <span class="nx">body</span> <span class="o">!=</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">msg</span> <span class="p">{</span>
+            <span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;期望获得 （%d， %s）， 但是却得到：（%d， %s）&#34;</span><span class="p">,</span>
+                <span class="nx">tt</span><span class="p">.</span><span class="nx">code</span><span class="p">,</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">msg</span><span class="p">,</span> <span class="nx">response</span><span class="p">.</span><span class="nx">StatusCode</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>执行结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">=== RUN   TestErrWrapperInServer
+panic: 123
+出错： user error
+出错： file does not exist
+出错： permission denied
+出错： unknown error
+--- PASS: TestErrWrapperInServer (0.02s)
+PASS
+
+Process finished with exit code 0</pre></td></tr></table>
+</div>
+</div>
+<h3 id="12-生成文档及示例代码">12. 生成文档及示例代码</h3>
+
+<h4 id="12-1-使用go-doc生成及查看代码文档">12.1 使用go doc生成及查看代码文档</h4>
+
+<p>准备好queue.go：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">queue</span>
+
+<span class="kd">type</span> <span class="nx">Queue</span> <span class="p">[]</span><span class="kt">int</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">q</span> <span class="o">*</span><span class="nx">Queue</span><span class="p">)</span> <span class="nf">Push</span><span class="p">(</span><span class="nx">v</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+   <span class="o">*</span><span class="nx">q</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="o">*</span><span class="nx">q</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">q</span> <span class="o">*</span><span class="nx">Queue</span><span class="p">)</span> <span class="nf">Pop</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+   <span class="nx">head</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="nx">q</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+   <span class="o">*</span><span class="nx">q</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">q</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+   <span class="k">return</span> <span class="nx">head</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">q</span> <span class="o">*</span><span class="nx">Queue</span><span class="p">)</span> <span class="nf">IsEmpty</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="o">*</span><span class="nx">q</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>现在利用go doc在终端查看我的queue中的帮助文档（自动生成）：</p>
+
+<p>输入 <code>go doc</code>，将会为当前目录下所有代码生成文档。</p>
+
+<p>继续输入<code>go doc queue</code>，显示<code>package queue</code>中的导入及定义类型信息。</p>
+
+<p>输入go doc SYMBOL可以查看文档中SYMBOL的说明</p>
+
+<p><strong>注意！当要查看某个包的具体文档时，需要切换到包目录下面。</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">E:<span class="se">\G</span>O<span class="se">\s</span>rc<span class="se">\g</span>o-mastering-lecture<span class="se">\0</span><span class="m">8</span>-test<span class="se">\G</span>enerateDocForYourCode<span class="se">\q</span>ueue
+&gt;go doc
+package queue // import <span class="s2">&#34;go-mastering-lecture/08-test/GenerateDocFo
+</span><span class="s2">rYourCode/queue&#34;</span>
+
+<span class="nb">type</span> Queue <span class="o">[]</span>int
+
+E:<span class="se">\G</span>O<span class="se">\s</span>rc<span class="se">\g</span>o-mastering-lecture<span class="se">\0</span><span class="m">8</span>-test<span class="se">\G</span>enerateDocForYourCode<span class="se">\q</span>ueue
+&gt;go doc queue
+package queue // import <span class="s2">&#34;go-mastering-lecture/08-test/GenerateDocFo
+</span><span class="s2">rYourCode/queue&#34;</span>
+
+<span class="nb">type</span> Queue <span class="o">[]</span>int
+
+E:<span class="se">\G</span>O<span class="se">\s</span>rc<span class="se">\g</span>o-mastering-lecture<span class="se">\0</span><span class="m">8</span>-test<span class="se">\G</span>enerateDocForYourCode<span class="se">\q</span>ueue
+&gt;go doc Queue
+<span class="nb">type</span> Queue <span class="o">[]</span>int
+
+func <span class="o">(</span>q *Queue<span class="o">)</span> IsEmpty<span class="o">()</span> bool
+func <span class="o">(</span>q *Queue<span class="o">)</span> Pop<span class="o">()</span> int
+func <span class="o">(</span>q *Queue<span class="o">)</span> Push<span class="o">(</span>v int<span class="o">)</span>
+
+E:<span class="se">\G</span>O<span class="se">\s</span>rc<span class="se">\g</span>o-mastering-lecture<span class="se">\0</span><span class="m">8</span>-test<span class="se">\G</span>enerateDocForYourCode<span class="se">\q</span>ueue
+&gt;go doc IsEmpty
+func <span class="o">(</span>q *Queue<span class="o">)</span> IsEmpty<span class="o">()</span> bool</code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="12-2-使用go-doc查看标准库文档">12.2 使用go doc查看标准库文档</h4>
+
+<p>用法基本一样，而且不需要注意路径问题，只要在GOPATH下即可。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">E:<span class="se">\G</span>O<span class="se">\s</span>rc<span class="se">\g</span>o-mastering-lecture<span class="se">\0</span><span class="m">8</span>-test<span class="se">\G</span>enerateDocForYourCode<span class="se">\q</span>ueue
+&gt;go doc fmt.Println
+func Println<span class="o">(</span>a ...interface<span class="o">{})</span> <span class="o">(</span>n int, err error<span class="o">)</span>
+    Println formats using the default formats <span class="k">for</span> its operands and writes to standard output. Spaces are always added between operands and a newline is appended. It returns the number of bytes written and any write error encountered.</code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="12-3-使用godoc查看文档">12.3 使用godoc查看文档</h4>
+
+<p>godoc不仅支持前面go doc类似的命令行文档显示，有很多显示文档的方式，<code>GOPATH</code>下输入<code>godoc -help</code>即可查看其信息及命令介绍。</p>
+
+<p>最常用的是<code>godoc -http :6060</code>， 端口可自定义。浏览器访问可查看本机GOPATH下所有包包括标准库的html文档。</p>
+
+<p><img src="/images/1563010911803.png" alt="1563010911803" /></p>
+
+<p><img src="/images/1563011125195.png" alt="1563011125195" /></p>
+
+<p><img src="/images/1563010973865.png" alt="1563010973865" /></p>
+
+<p><img src="/images/1563011346205.png" alt="1563011346205" /></p>
+
+<p><img src="/images/1563011372720.png" alt="1563011372720" /></p>
+
+<h4 id="12-4-添加注释完善文档">12.4 添加注释完善文档</h4>
+
+<p>前面得到的文档都没有介绍，只有类型或者定义。要想有介绍，需要自己在包内类型、函数定义前添加注释。</p>
+
+<p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">queue</span>
+
+<span class="c1">// 先进先出队列
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Queue</span> <span class="p">[]</span><span class="kt">int</span>
+
+<span class="c1">// 将元素压入栈底
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">q</span> <span class="o">*</span><span class="nx">Queue</span><span class="p">)</span> <span class="nf">Push</span><span class="p">(</span><span class="nx">v</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+   <span class="o">*</span><span class="nx">q</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="o">*</span><span class="nx">q</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// 将栈顶元素弹出
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">q</span> <span class="o">*</span><span class="nx">Queue</span><span class="p">)</span> <span class="nf">Pop</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+   <span class="nx">head</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="nx">q</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+   <span class="o">*</span><span class="nx">q</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">q</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+   <span class="k">return</span> <span class="nx">head</span>
+<span class="p">}</span>
+
+<span class="c1">// 判断队列是否为空
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">q</span> <span class="o">*</span><span class="nx">Queue</span><span class="p">)</span> <span class="nf">IsEmpty</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="o">*</span><span class="nx">q</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>重新<code>go doc</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">E:<span class="se">\G</span>O<span class="se">\s</span>rc<span class="se">\g</span>o-mastering-lecture<span class="se">\0</span><span class="m">8</span>-test<span class="se">\G</span>enerateDocForYourCode<span class="se">\q</span>ueue&gt;go
+ doc Queue
+<span class="nb">type</span> Queue <span class="o">[]</span>int
+    先进先出队列
+
+func <span class="o">(</span>q *Queue<span class="o">)</span> IsEmpty<span class="o">()</span> bool
+func <span class="o">(</span>q *Queue<span class="o">)</span> Pop<span class="o">()</span> int
+func <span class="o">(</span>q *Queue<span class="o">)</span> Push<span class="o">(</span>v int<span class="o">)</span>
+
+E:<span class="se">\G</span>O<span class="se">\s</span>rc<span class="se">\g</span>o-mastering-lecture<span class="se">\0</span><span class="m">8</span>-test<span class="se">\G</span>enerateDocForYourCode<span class="se">\q</span>ueue&gt;go
+ doc IsEmpty
+func <span class="o">(</span>q *Queue<span class="o">)</span> IsEmpty<span class="o">()</span> bool
+    判断队列是否为空</code></pre></td></tr></table>
+</div>
+</div>
+<p>注释换行再看看？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 将元素压入栈底
+</span><span class="c1">// e.g. q.Push(123)
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">q</span> <span class="o">*</span><span class="nx">Queue</span><span class="p">)</span> <span class="nf">Push</span><span class="p">(</span><span class="nx">v</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+   <span class="o">*</span><span class="nx">q</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="o">*</span><span class="nx">q</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img src="/images/1563012411236.png" alt="1563012411236" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 将元素压入栈底
+</span><span class="c1">//        e.g. q.Push(123)
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">q</span> <span class="o">*</span><span class="nx">Queue</span><span class="p">)</span> <span class="nf">Push</span><span class="p">(</span><span class="nx">v</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+   <span class="o">*</span><span class="nx">q</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="o">*</span><span class="nx">q</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img src="/images/1563012480271.png" alt="1563012480271" /></p>
+
+<p>这个功能很适合给函数添加示例，并易于阅读。</p>
+
+<h4 id="12-5-生成示例代码">12.5 生成示例代码</h4>
+
+<p>将示例代码直接写到注释中是可以的，只不过不适合阅读（如果示例代码很长的话）。现在来介绍如何生成示例代码。更好用的一种方法：</p>
+
+<p>创建queue_test.go （没错，就是用来创建测试代码的文件）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">queue</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+   <span class="s">&#34;fmt&#34;</span>
+   <span class="s">&#34;testing&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">ExampleQueue_Push</span><span class="p">()</span> <span class="p">{</span>
+   <span class="nx">q</span> <span class="o">:=</span> <span class="nx">Queue</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span>
+   <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span>
+   <span class="nx">q</span><span class="p">.</span><span class="nf">Push</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+   <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span>
+
+   <span class="c1">// Output:   //(必须是OutPut:)
+</span><span class="c1"></span>   <span class="c1">// [1]
+</span><span class="c1"></span>   <span class="c1">// [1 2]
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestQueue_Push</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">q</span> <span class="o">:=</span> <span class="nx">Queue</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span>
+   <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span>
+   <span class="nx">q</span><span class="p">.</span><span class="nf">Push</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+   <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Example函数其实也是可以执行的，只不过需要以上面所示的加//Output注释的形式。当不确定具体输出如何时，可以随便写点什么：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">   <span class="c1">// Output:
+</span><span class="c1"></span>   <span class="o">//</span> <span class="mi">3</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>执行后会得出正确答案，再把正确答案粘贴至源代码即可。（你做错了它才给你改，你不做它就不理会）</p>
+
+<p>再去查看文档可得到：</p>
+
+<p><img src="/images/1563014702200.png" alt="1563014702200" /></p>
+
+<p>这就是我们想要的文档示例了。</p>
+
+<h4 id="12-6-总结">12.6 总结</h4>
+
+<p>注意！想要让注释和示例能被识别，必须注意格式</p>
+
+<p><strong>标准注释格式： <code>// + SPACE + [注释]</code></strong></p>
+
+<p><strong>注释中添加e.g示例： <code>// + SPACE + TAB + [e.g. 示例注释]</code></strong></p>
+
+<p><strong>示例代码添加输出：<code>// + SPACE + Output:</code></strong></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-07-23
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/go%E8%AF%AD%E8%A8%80/">go语言</a>
+          <a href="/tags/%E6%B5%8B%E8%AF%95/">测试</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/git/04_deleteallfilesnotrepo/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">删除Github仓库下所有文件但不删除仓库</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/iro/03_installmagicmirror/">
+            <span class="next-text nav-default">安装MagicMirror2</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:374192922@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%8C%AF%E4%B8%9C-%E8%89%BE-b10752175/detail/recent-activity/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/azd1997" class="iconfont icon-github" title="github"></a>
+  <a href="https://azd1997.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

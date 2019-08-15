@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>无显示器、无路由器安装树莓派系统并SSH连接 - Eiger - A young gopher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Eiger" /><meta name="description" content="1.安装系统 ​ 进入树莓派官网下载树莓派带桌面版本系统镜像，使用Win32DiskImager软件或者Etcher等软件将镜像文件烧录入事先准" /><meta name="keywords" content="Iro, 树莓派, 魔镜, SSH" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://azd1997.github.io/post/iro/01_connectyourraspi/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="无显示器、无路由器安装树莓派系统并SSH连接" />
+<meta property="og:description" content="1.安装系统 ​ 进入树莓派官网下载树莓派带桌面版本系统镜像，使用Win32DiskImager软件或者Etcher等软件将镜像文件烧录入事先准" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://azd1997.github.io/post/iro/01_connectyourraspi/" />
+<meta property="article:published_time" content="2019-07-23T10:37:14&#43;08:00"/>
+<meta property="article:modified_time" content="2019-07-23T10:37:14&#43;08:00"/>
+
+<meta itemprop="name" content="无显示器、无路由器安装树莓派系统并SSH连接">
+<meta itemprop="description" content="1.安装系统 ​ 进入树莓派官网下载树莓派带桌面版本系统镜像，使用Win32DiskImager软件或者Etcher等软件将镜像文件烧录入事先准">
+
+
+<meta itemprop="datePublished" content="2019-07-23T10:37:14&#43;08:00" />
+<meta itemprop="dateModified" content="2019-07-23T10:37:14&#43;08:00" />
+<meta itemprop="wordCount" content="673">
+
+
+
+<meta itemprop="keywords" content="Iro,树莓派,魔镜," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="无显示器、无路由器安装树莓派系统并SSH连接"/>
+<meta name="twitter:description" content="1.安装系统 ​ 进入树莓派官网下载树莓派带桌面版本系统镜像，使用Win32DiskImager软件或者Etcher等软件将镜像文件烧录入事先准"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Eiger</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/links/">
+        <li class="mobile-menu-item">Links</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Eiger</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/links/">Links</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">无显示器、无路由器安装树莓派系统并SSH连接</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-07-23 </span>
+        <div class="post-category">
+            <a href="/categories/iro/"> Iro </a>
+            <a href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/"> 树莓派 </a>
+            </div>
+          <span class="more-meta"> 673 words </span>
+          <span class="more-meta"> 2 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-安装系统">1.安装系统</a></li>
+<li><a href="#2-ssh连接">2.SSH连接</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h3 id="1-安装系统">1.安装系统</h3>
+
+<p>​       进入树莓派官网下载树莓派带桌面版本系统镜像，使用Win32DiskImager软件或者Etcher等软件将镜像文件烧录入事先准备的Micro SD卡。将SD卡插上，即可启动树莓派。</p>
+
+<p>​       但为了能够实现SSH连接，需要对烧录了系统的SD卡的boot分区进行一些修改：</p>
+
+<ul>
+<li>新建名称为SSH或ssh的文件。（Raspbian默认不开SSH，需要以此方式提前开启）；</li>
+<li>修改cmdline.txt在行首添加IP:192.168.137.13。这是设置静态IP的方式。要SSH直连树莓派，必须知道树莓派的IP地址，因此有静态设置IP和动态分配IP两种策略。若要在无显示器条件下提前开启静态IP，需要作此操作。树莓派IP必须设为192.168.137.x。</li>
+</ul>
+
+<h3 id="2-ssh连接">2.SSH连接</h3>
+
+<ul>
+<li>设置网卡属性。无线网卡设置共享给以太网卡，以太网卡则将IP固定为192.168.137.1（必须和树莓派所设静态IP处于同一网段）</li>
+</ul>
+
+<p><img src="C:Users37419AppDataRoamingTyporatypora-user-images1562500876686.png" alt="1562500876686" /></p>
+
+<p><img src="C:Users37419AppDataRoamingTyporatypora-user-images1562500909972.png" alt="1562500909972" /></p>
+
+<p><img src="C:Users37419AppDataRoamingTyporatypora-user-images1562500945482.png" alt="1562500945482" /></p>
+
+<ul>
+<li>查询树莓派IP。用网线连接好笔记本和树莓派之后就可以查看树莓派IP，尽管之前设置了静态IP，看看也不坏事不是？ipconfig查看本机网卡IP，arp -a查看所有与本机相连的设备。如截图所示，192.168.137.10即为树莓派IP。（奇怪的是不是写定的192.168.137.13，而是有10和210两个，经过ping测试和ssh测试，192.168.137.10为树莓派IP）</li>
+</ul>
+
+<p><img src="C:Users37419AppDataRoamingTyporatypora-user-images1562500723912.png" alt="1562500723912" /></p>
+
+<p><img src="C:Users37419AppDataRoamingTyporatypora-user-images1562500749779.png" alt="1562500749779" /></p>
+
+<ul>
+<li>SSH连接。使用Putty、Xshell等工具进行SSH连接。ip为所查询到的树莓派IP，port为22。树莓派默认账号为pi，密码为raspberry。至此，成功连接树莓派。</li>
+</ul>
+
+<p><img src="C:Users37419AppDataRoamingTyporatypora-user-images1562500659427.png" alt="1562500659427" /></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-07-23
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/iro/">Iro</a>
+          <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+          <a href="/tags/%E9%AD%94%E9%95%9C/">魔镜</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/go/01_colorlog/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">彩色日志库实现</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/go/02_unifiederrorhandling/">
+            <span class="next-text nav-default">资源管理与出错处理</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:374192922@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%8C%AF%E4%B8%9C-%E8%89%BE-b10752175/detail/recent-activity/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/azd1997" class="iconfont icon-github" title="github"></a>
+  <a href="https://azd1997.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

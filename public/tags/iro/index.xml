@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Iro on Eiger - A young gopher</title>
+    <link>https://azd1997.github.io/tags/iro/</link>
+    <description>Recent content in Iro on Eiger - A young gopher</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 23 Jul 2019 10:37:14 +0800</lastBuildDate>
+    
+	<atom:link href="https://azd1997.github.io/tags/iro/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>初次使用树莓派需要做的配置</title>
+      <link>https://azd1997.github.io/post/iro/02_configraspifirst/</link>
+      <pubDate>Tue, 23 Jul 2019 10:37:14 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/iro/02_configraspifirst/</guid>
+      <description>1.修改用户密码及用户切换 2.系统设置 $ sudo raspi-config进入系统设置界面如下： 最主要的目的是扩展系统分区至整张SD卡。（Expan</description>
+    </item>
+    
+    <item>
+      <title>安装MagicMirror2</title>
+      <link>https://azd1997.github.io/post/iro/03_installmagicmirror/</link>
+      <pubDate>Tue, 23 Jul 2019 10:37:14 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/iro/03_installmagicmirror/</guid>
+      <description>1. 魔镜看法 ​ 魔镜的本质只是一个全屏的WEB网页，而魔镜项目做成了Node.js的一个模块。因此安装魔镜实际上是安装Node.js并在其上安装</description>
+    </item>
+    
+    <item>
+      <title>安装Wukong语音助手</title>
+      <link>https://azd1997.github.io/post/iro/04_installwukongrobot/</link>
+      <pubDate>Tue, 23 Jul 2019 10:37:14 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/iro/04_installwukongrobot/</guid>
+      <description>https://wukong.hahack.com/#/install //TODO:更新唤醒词</description>
+    </item>
+    
+    <item>
+      <title>无显示器、无路由器安装树莓派系统并SSH连接</title>
+      <link>https://azd1997.github.io/post/iro/01_connectyourraspi/</link>
+      <pubDate>Tue, 23 Jul 2019 10:37:14 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/iro/01_connectyourraspi/</guid>
+      <description>1.安装系统 ​ 进入树莓派官网下载树莓派带桌面版本系统镜像，使用Win32DiskImager软件或者Etcher等软件将镜像文件烧录入事先准</description>
+    </item>
+    
+  </channel>
+</rss>

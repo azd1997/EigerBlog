@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>go语言 on Eiger - A young gopher</title>
+    <link>https://azd1997.github.io/tags/go%E8%AF%AD%E8%A8%80/</link>
+    <description>Recent content in go语言 on Eiger - A young gopher</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 23 Jul 2019 10:37:14 +0800</lastBuildDate>
+    
+	<atom:link href="https://azd1997.github.io/tags/go%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go语言协程池</title>
+      <link>https://azd1997.github.io/post/go/01_goroutinepool/</link>
+      <pubDate>Tue, 23 Jul 2019 10:37:14 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/go/01_goroutinepool/</guid>
+      <description>1. Golang并发三件套 ​ 这里不作过多介绍：goroutine、channel、select。goroutine是go语言的协程机制，cha</description>
+    </item>
+    
+    <item>
+      <title>单元测试</title>
+      <link>https://azd1997.github.io/post/go/03_testing/</link>
+      <pubDate>Tue, 23 Jul 2019 10:37:14 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/go/03_testing/</guid>
+      <description>1.测试介绍 ​ 尽量测试，避免调试 2. 例子 ​ 这里使用一道算法题作为调试和测试的例子： ​ 求取字符串中最长的含有不重复字符的子字符串的长度。 2.1 开始之</description>
+    </item>
+    
+    <item>
+      <title>寻找最长不重复子字符串</title>
+      <link>https://azd1997.github.io/post/algo/01_longestnonrepeatsubstring/</link>
+      <pubDate>Tue, 23 Jul 2019 10:37:14 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/01_longestnonrepeatsubstring/</guid>
+      <description>求取字符串中最长的含有不重复字符的子字符串的长度。 1 开始之前 先了解下Go语言字符串的处理机制 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 func compareBytesStringRune(s string)</description>
+    </item>
+    
+    <item>
+      <title>彩色日志库实现</title>
+      <link>https://azd1997.github.io/post/go/01_colorlog/</link>
+      <pubDate>Tue, 23 Jul 2019 10:37:14 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/go/01_colorlog/</guid>
+      <description>https://www.zybuluo.com/aliasliyu4/note/612147</description>
+    </item>
+    
+    <item>
+      <title>资源管理与出错处理</title>
+      <link>https://azd1997.github.io/post/go/02_unifiederrorhandling/</link>
+      <pubDate>Tue, 23 Jul 2019 10:37:14 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/go/02_unifiederrorhandling/</guid>
+      <description>Catch All The Errors! 1. 资源管理与defer调用 defer调用特点： 确保函数结束时发生 多个defer倒序执行 例子： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 package main import &amp;#34;fmt&amp;#34; func</description>
+    </item>
+    
+  </channel>
+</rss>
