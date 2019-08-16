@@ -11,7 +11,7 @@ default:
 	@cp -rpf mycustom/tmp/.git website/;
 	@cp -fp mycustom/tmp/CNAME website/;
 	@echo 'website文件已全部生成';
-	@cd website;
+	@cd website/;
 	ls;
 	@git add .;
 	@git commit -m 'update my blog site  https //eiger.me';
