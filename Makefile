@@ -5,7 +5,7 @@ default:
 	@cp -fp website/CNAME mycustom/tmp/;
 	@cp -rpf website/.git mycustom/tmp/;
 	@echo 'CNAME、.git已备份至mycustom/tmp/下';
-	@cd website;rm -rf *;cd ../
+	@cd website;rm -rf *;cd ../;
 	@echo 'website下内容已清空';
 	@cp -rf public/. website;
 	@cp -rpf mycustom/tmp/.git website/;
