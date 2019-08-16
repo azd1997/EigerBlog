@@ -93,13 +93,6 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/tags/iro/</loc>
-    <lastmod>2019-08-15T13:56:37+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://azd1997.github.io/categories/iro/</loc>
     <lastmod>2019-08-15T13:56:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -107,7 +100,7 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/categories/java/</loc>
+    <loc>https://azd1997.github.io/tags/iro/</loc>
     <lastmod>2019-08-15T13:56:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -121,6 +114,13 @@
   </url>
   
   <url>
+    <loc>https://azd1997.github.io/categories/java/</loc>
+    <lastmod>2019-08-15T13:56:37+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://azd1997.github.io/tags/leetcode/</loc>
     <lastmod>2019-08-15T13:56:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -128,14 +128,14 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/categories/spring-boot/</loc>
+    <loc>https://azd1997.github.io/tags/spring-boot/</loc>
     <lastmod>2019-08-15T13:56:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/tags/spring-boot/</loc>
+    <loc>https://azd1997.github.io/categories/spring-boot/</loc>
     <lastmod>2019-08-15T13:56:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -296,14 +296,14 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/categories/linux/</loc>
+    <loc>https://azd1997.github.io/tags/linux/</loc>
     <lastmod>2019-08-15T13:56:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/tags/linux/</loc>
+    <loc>https://azd1997.github.io/categories/linux/</loc>
     <lastmod>2019-08-15T13:56:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
