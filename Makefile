@@ -5,12 +5,13 @@ default:
 	cp -fp website/CNAME mycustom/tmp/;
 	cp -rpf website/.git mycustom/tmp/;
 	@echo 'CNAME、.git已备份至mycustom/tmp/下';
-	cd website;rm -rf *;cd ../;
+	cd website;ls;rm -rf *;cd ../;
 	@echo 'website下内容已清空';
 	cp -rf public/. website;
 	cp -rpf mycustom/tmp/.git website/;
 	cp -fp mycustom/tmp/CNAME website/;
 	@echo 'website文件已全部生成';
+	ls;
 	cd website/;
 	ls;
 	git add .;
