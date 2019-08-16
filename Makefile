@@ -13,8 +13,8 @@ default:
 	cp -rpf mycustom/tmp/.git website/;
 	cp -fp mycustom/tmp/CNAME website/;
 	@echo 'website文件已全部生成';
-	ls;
-	cd website/;ls;
+	pwd;
+	cd website/;pwd;
 	echo '111'
 	ls;
 	git add .;
