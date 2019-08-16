@@ -146,5 +146,14 @@
       <description>Catch All The Errors! 1. 资源管理与defer调用 defer调用特点： 确保函数结束时发生 多个defer倒序执行 例子： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 package main import &amp;#34;fmt&amp;#34; func</description>
     </item>
     
+    <item>
+      <title>通过U盘安装Ubuntu</title>
+      <link>https://azd1997.github.io/post/linux/01_installubuntu/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://azd1997.github.io/post/linux/01_installubuntu/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
