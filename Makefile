@@ -12,7 +12,8 @@ default:
 	cp -fp mycustom/tmp/CNAME website/;
 	@echo 'website文件已全部生成';
 	ls;
-	cd website/;
+	cd website/;ls;
+	echo '111'
 	ls;
 	git add .;
 	git commit -m 'update my blog site  https //eiger.me';
