@@ -2,8 +2,8 @@
 title: "彩色日志库实现"
 date: 2019-07-23T10:37:14+08:00
 draft: false
-categories: ["go语言"]
-tags: ["go语言", "日志"]
+categories: ["go"]
+tags: ["go", "log"]
 keywords: ["color log"]
 
 ---

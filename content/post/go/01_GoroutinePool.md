@@ -2,8 +2,8 @@
 title: "Go语言协程池"
 date: 2019-07-23T10:37:14+08:00
 draft: false
-categories: ["go语言"]
-tags: ["go语言", "并发"]
+categories: ["go"]
+tags: ["go", "concurrency"]
 keywords: ["协程池", "并发编程", "协程通信"]
 
 ---
@@ -18,11 +18,11 @@ keywords: ["协程池", "并发编程", "协程通信"]
 package main
 
 func main() {
-    
-    c := make(chan bool)  
+
+    c := make(chan bool)
     fmt.Println("我是主协程")
     go worker(c)
-    
+
     //循环等待各个管道数据
     select {
     case finished <- c:
@@ -30,7 +30,7 @@ func main() {
             fmt.Println("worker告诉我工作做完了")
         }
     }
-    
+
     return
 }
 
@@ -92,7 +92,7 @@ func NewPool(num int) *Pool {
         JobsChan:make(chan *Task),
         workerNum:num,
     }
-} 
+}
 
 //Pool创建worker，由worker一直去JobsChan取任务并执行
 func (p *Pool) worker(workerId int) {
@@ -127,7 +127,7 @@ func main() {
             p.EntryChan <- t
         }
     }
-    
+
     //启动协程池
     p.run()
 }

@@ -2,8 +2,8 @@
 title: "资源管理与出错处理"
 date: 2019-07-23T10:37:14+08:00
 draft: false
-categories: ["go语言"]
-tags: ["go语言", "错误处理"]
+categories: ["go"]
+tags: ["go", "error"]
 keywords: ["defer", "panic", "recover", "errorWrapper"]
 
 ---
@@ -208,7 +208,7 @@ if err != nil {
    //fmt.Println("The file exists.")
    //fmt.Println("Error:", err)
    if pathError, ok := err.(*os.PathError); !ok {
-      panic(err) 
+      panic(err)
    } else {
       fmt.Println(pathError.Op, pathError.Path, pathError.Err)
    }
@@ -596,7 +596,7 @@ func handleListFileV3(w http.ResponseWriter, r *http.Request) error {
       return errors.New("path必须以 "+ PREFIX + " 开头")
    }
 
-   path := r.URL.Path[len(PREFIX):]   
+   path := r.URL.Path[len(PREFIX):]
    file, err := os.Open(path)
    if err != nil {
       return err

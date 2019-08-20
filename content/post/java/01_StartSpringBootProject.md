@@ -2,8 +2,8 @@
 title: "Spring Boot实战01——创建Spring Boot应用"
 date: 2019-07-23T10:37:14+08:00
 draft: false
-categories: ["Java", "Spring Boot"]
-tags: ["Java", "Spring Boot"]
+categories: ["java"]
+tags: ["java", "Spring Boot"]
 keywords: ["Java", "Spring Boot"]
 
 ---
@@ -28,5 +28,5 @@ keywords: ["Java", "Spring Boot"]
 
 解决办法：file-->settings-->在搜索栏里输入Http Proxy-->选择Auto-detect proxy settings，点最下面的Check connection-->输入地址https://start.spring.io，如果successful证明连接成功，重新生成一次springboot项目就没问题了。
 
-### 3. 
+### 3.
 

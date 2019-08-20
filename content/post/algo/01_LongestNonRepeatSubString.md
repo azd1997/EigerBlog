@@ -2,8 +2,8 @@
 title: "寻找最长不重复子字符串"
 date: 2019-07-23T10:37:14+08:00
 draft: false
-categories: ["go语言", "算法"]
-tags: ["go语言", "字符串", "Leetcode"]
+categories: ["algo"]
+tags: ["go", "algorithm", "Leetcode"]
 keywords: ["字符串处理", "Leetcode", "最长子串"]
 
 ---
@@ -154,10 +154,10 @@ func main() {
 输出结果为：
 
 ```
-7 5 5 9 11 
-7 5 5 9 5 
+7 5 5 9 11
+7 5 5 9 5
 Process finished with exit code 0
 ```
 
-### 
+###
 

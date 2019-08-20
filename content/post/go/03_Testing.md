@@ -2,8 +2,8 @@
 title: "单元测试"
 date: 2019-07-23T10:37:14+08:00
 draft: false
-categories: ["go语言"]
-tags: ["go语言", "测试"]
+categories: ["go"]
+tags: ["go", "test"]
 keywords: ["Debug", "Test", "表格驱动测试", "性能测试", "代码覆盖率测试", "pprof可视化性能检查"]
 
 ---
@@ -164,8 +164,8 @@ func main() {
 输出结果为：
 
 ```
-7 5 5 9 11 
-7 5 5 9 5 
+7 5 5 9 11
+7 5 5 9 5
 Process finished with exit code 0
 ```
 
@@ -240,7 +240,7 @@ func TestMaxLengthOfNonRepeatSubStrV2(t *testing.T) {
 ```
 === RUN   TestMaxLengthOfNonRepeatSubStrV2
 --- FAIL: TestMaxLengthOfNonRepeatSubStrV2 (0.00s)
-    LongestNonRepeatSubString_test.go:27: 计算 happynewyear 最长不重复子串错误：应该为 3， 计算为 5 
+    LongestNonRepeatSubString_test.go:27: 计算 happynewyear 最长不重复子串错误：应该为 3， 计算为 5
 FAIL
 
 Process finished with exit code 1
@@ -272,7 +272,7 @@ for _, tt := range tests {
 成功
 成功
 --- FAIL: TestMaxLengthOfNonRepeatSubStrV2 (0.00s)
-    LongestNonRepeatSubString_test.go:27: 计算 happynewyear 最长不重复子串错误：应该为 3， 计算为 5 
+    LongestNonRepeatSubString_test.go:27: 计算 happynewyear 最长不重复子串错误：应该为 3， 计算为 5
 FAIL
 
 Process finished with exit code 1
@@ -356,7 +356,7 @@ $ go tool pprof cpu.out  //进入pprof交互式命令行工具
 
 既然已经指出map操作和rune操作耗时较长，想办法优化它：
 
-#### 10.1 优化过程 
+#### 10.1 优化过程
 
 先试下用slice替换map
 
@@ -487,7 +487,7 @@ func BenchmarkMaxLengthOfNonRepeatSubStr_LongStr(b *testing.B) {
    }
    testLength := 10   //变成10
    b.Logf("len(testString) = %d", len(testString))
-    
+
    for i:=0; i<b.N; i++ {
        //修改待测试的函数名
       calcL := maxLengthOfNonRepeatSubStrV4(testString)
@@ -1100,7 +1100,7 @@ Example函数其实也是可以执行的，只不过需要以上面所示的加/
 
 **标准注释格式： `// + SPACE + [注释]`**
 
-**注释中添加e.g示例： `// + SPACE + TAB + [e.g. 示例注释]`**	
+**注释中添加e.g示例： `// + SPACE + TAB + [e.g. 示例注释]`**
 
 **示例代码添加输出：`// + SPACE + Output:`**
 
