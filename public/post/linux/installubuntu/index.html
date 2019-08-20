@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>安装Ubuntu及其他相关使用教程 - Eiger - A young gopher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Eiger" /><meta name="description" content="通过U盘安装Ubuntu 1. 安装 准备好ubuntu镜像文件、rufus(用于制作启动盘，也可以选择别的类似的工具，如UltraISO)、空U盘" /><meta name="keywords" content="Ubuntu, Go, VS Code, Hugo" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://azd1997.github.io/post/linux/installubuntu/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="安装Ubuntu及其他相关使用教程" />
+<meta property="og:description" content="通过U盘安装Ubuntu 1. 安装 准备好ubuntu镜像文件、rufus(用于制作启动盘，也可以选择别的类似的工具，如UltraISO)、空U盘" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://azd1997.github.io/post/linux/installubuntu/" />
+<meta property="article:published_time" content="2019-08-17T02:04:01+08:00" />
+<meta property="article:modified_time" content="2019-08-17T02:04:01+08:00" />
+<meta itemprop="name" content="安装Ubuntu及其他相关使用教程">
+<meta itemprop="description" content="通过U盘安装Ubuntu 1. 安装 准备好ubuntu镜像文件、rufus(用于制作启动盘，也可以选择别的类似的工具，如UltraISO)、空U盘">
+
+
+<meta itemprop="datePublished" content="2019-08-17T02:04:01&#43;08:00" />
+<meta itemprop="dateModified" content="2019-08-17T02:04:01&#43;08:00" />
+<meta itemprop="wordCount" content="5939">
+
+
+
+<meta itemprop="keywords" content="Ubuntu," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="安装Ubuntu及其他相关使用教程"/>
+<meta name="twitter:description" content="通过U盘安装Ubuntu 1. 安装 准备好ubuntu镜像文件、rufus(用于制作启动盘，也可以选择别的类似的工具，如UltraISO)、空U盘"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Eiger</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/links/">
+        <li class="mobile-menu-item">Links</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Eiger</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/links/">Links</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">安装Ubuntu及其他相关使用教程</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-08-17 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> linux </a>
+            </div>
+          <span class="more-meta"> 5939 words </span>
+          <span class="more-meta"> 12 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#通过u盘安装ubuntu">通过U盘安装Ubuntu</a>
+<ul>
+<li><a href="#1-安装">1. 安装</a></li>
+<li><a href="#2-更换软件源">2.更换软件源</a></li>
+<li><a href="#3-安装搜狗中文输入法">3.安装搜狗中文输入法</a></li>
+<li><a href="#4-安装go语言开发环境">4. 安装go语言开发环境</a></li>
+<li><a href="#5-安装远程连接工具">5.安装远程连接工具</a></li>
+<li><a href="#6-设置环境变量">6. 设置环境变量</a></li>
+<li><a href="#7-查找程序所在位置">7. 查找程序所在位置</a></li>
+<li><a href="#8-安装vs-code">8. 安装VS Code</a>
+<ul>
+<li><a href="#8-1-关于vscode插件">8.1. 关于vscode插件</a></li>
+<li><a href="#8-2-vscode一些设置">8.2. vscode一些设置</a></li>
+<li><a href="#8-3-代码片段定义">8.3. 代码片段定义</a></li>
+</ul></li>
+<li><a href="#9-文件-夹-权限查看及修改">9. 文件（夹）权限查看及修改</a></li>
+<li><a href="#10-查看本机端口使用情况及关闭使用端口的程序">10. 查看本机端口使用情况及关闭使用端口的程序</a></li>
+<li><a href="#11-安装chrome">11. 安装chrome</a></li>
+<li><a href="#12-安装hugo">12. 安装Hugo</a></li>
+<li><a href="#13-makefile编写">13. Makefile编写</a></li>
+<li><a href="#14-apt卸载程序">14. apt卸载程序</a></li>
+<li><a href="#15-复制与删除">15. 复制与删除</a></li>
+<li><a href="#16-git查看用户名">16. git查看用户名</a></li>
+<li><a href="#17-安装qq-微信等程序">17. 安装qq、微信等程序</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h1 id="通过u盘安装ubuntu">通过U盘安装Ubuntu</h1>
+
+<h2 id="1-安装">1. 安装</h2>
+
+<p>准备好ubuntu镜像文件、rufus(用于制作启动盘，也可以选择别的类似的工具，如UltraISO)、空U盘、用于安装ubuntu的笔记本电脑。</p>
+
+<p>制作好启动盘后，将U盘插上笔记本，重启电脑，在启动时狂按F1键（我用的是thinkpad，其他电脑百度进入BIOS方法即可）听到叮的一声就可以了，接下来会进入BIOS界面，找到BOOT选项，进入之后将U盘启动移至第一选项，保存更改并退出，电脑继续启动，并进入ubuntu安装界面。</p>
+
+<p>具体安装没有特别情况，一路安装即可。</p>
+
+<h2 id="2-更换软件源">2.更换软件源</h2>
+
+<p>在进行系统更新时发现镜像拉取失败，是时候更换新的软件源了。国内的话有阿里云、清华、华科等ubuntu镜像源比较常用。</p>
+
+<p><strong>换源的方法</strong>：
+编辑<code>/etc/apt/sources.list</code>。</p>
+
+<ol>
+<li><p>首先先备份下默认的source.list文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /etc/apt
+sudo cp sources.list sources.list.old</code></pre></td></tr></table>
+</div>
+</div>
+<p>(ps: .old后缀无所谓，改成别的也可以)</p></li>
+
+<li><p>进入编辑状态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo nano sources.list</code></pre></td></tr></table>
+</div>
+</div>
+<p>清空原本内容，添加以下内容:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse
+deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu bionic-security main restricted universe multiverse</code></pre></td></tr></table>
+</div>
+</div>
+<p>（ps: deb-src为源码仓库，自行根据需求添加，后边http:xxxx是一样的，例如：deb-src http:&hellip;&hellip;）
+执行CTRL+O保存并CTRL+X退出。</p></li>
+
+<li><p>更新软件源、升级系统</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt update
+sudo apt upgrade</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+
+<h2 id="3-安装搜狗中文输入法">3.安装搜狗中文输入法</h2>
+
+<ol>
+<li>进入搜狗输入法官网下载搜狗拼音输入法linux版并安装，完成后重启电脑。</li>
+<li>进入Fcitx Configuation软件，点击“+”号，并取消“Only Show Current Language”选项，在搜索栏搜索“Sougo”，界面显示搜狗选项条，选中后点击“OK”</li>
+</ol>
+
+<p>此时使用CTRL+SPACE可以进行英文输入法和搜狗拼音输入法的切换。在使用搜狗输入法的过程中也可以按shift切换搜狗输入法的中英文。</p>
+
+<h2 id="4-安装go语言开发环境">4. 安装go语言开发环境</h2>
+
+<p>进入<a href="https://studygolang.com">https://studygolang.com</a>,找到下载页面，下载go1.12.7.linux-amd64.tar.gz，解压至<code>/usr/local/</code>目录下，并设置相关的环境变量：</p>
+
+<p>编辑<code>/etc/profile</code>或者<code>$HOME/.profile</code>（编辑前者其更改全局有效，编辑后者仅当前用户生效，和windows下系统变量、用户变量的关系类似），在文件的末尾追加如下内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># go environment</span>
+<span class="nb">export</span> <span class="nv">GOROOT</span><span class="o">=</span>/usr/local/go
+<span class="nb">export</span> <span class="nv">GOPATH</span><span class="o">=</span>/home/eiger/gopath-default
+<span class="nb">export</span> <span class="nv">GOBIN</span><span class="o">=</span><span class="nv">$GOPATH</span>/bin
+<span class="nb">export</span> <span class="nv">GO111MODULE</span><span class="o">=</span>on
+<span class="nb">export</span> <span class="nv">GOPROXY</span><span class="o">=</span>https://goproxy.io
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$GOROOT</span>/bin
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$GOPATH</span>/bin</code></pre></td></tr></table>
+</div>
+</div>
+<p>保存退出后使用source /etc/profile使之生效。</p>
+
+<p>go命令教程： <a href="http://wiki.jikexueyuan.com/project/go-command-tutorial/">http://wiki.jikexueyuan.com/project/go-command-tutorial/</a></p>
+
+<h2 id="5-安装远程连接工具">5.安装远程连接工具</h2>
+
+<p>远程连接工具有VNC、Teamviewer、AnyDesk、向日葵等。其中Teamviewer、AnyDesk、向日葵都是免费的可外网访问的远程控制工具。这里选择安装AnyDesk。理由是Teamviewer我已经添加了很多设备，担心被商用警告，而向日葵连接起来很卡，折中选择了AnyDesk。</p>
+
+<p>安装方法：搜索AnyDesk进入其官网 <a href="https://anydesk.com/en/downloads/linux">https://anydesk.com/en/downloads/linux</a> ，选择Ubuntu适用版本下载。并直接通过安装器安装即可。</p>
+
+<p>为了实现无人值守（也就是可以在远处通过网络直接访问这台电脑而不用经过同意），需要设置无人值守密码。其他用法很简单，略过。</p>
+
+<h2 id="6-设置环境变量">6. 设置环境变量</h2>
+
+<p>参见 <a href="https://www.linuxidc.com/Linux/2016-09/135476.htm">https://www.linuxidc.com/Linux/2016-09/135476.htm</a></p>
+
+<p>一般情况下设置环境变量和查看环境变量，参考 <a href="https://blog.csdn.net/white_idiot/article/details/78253004">https://blog.csdn.net/white_idiot/article/details/78253004</a></p>
+
+<ul>
+<li>设置/etc/profile一劳永逸：）</li>
+<li>source /etc/profile使其生效</li>
+<li>env、export可用来查看所有环境变量</li>
+</ul>
+
+<p>（ps: 解释下export PATH=${JAVA_HOME}/bin:$PATH，:号是PATH变量中值的分隔符，这样写说明将${JAVA_HOME}/bin置于PATH变量的第一个值，而export PATH=$PATH:${JAVA_HOME}/bin则相反）</p>
+
+<h2 id="7-查找程序所在位置">7. 查找程序所在位置</h2>
+
+<p>参见 <a href="https://blog.csdn.net/baidu_38172402/article/details/80795553">https://blog.csdn.net/baidu_38172402/article/details/80795553</a></p>
+
+<ul>
+<li>使用dpkg install或者apt install安装的，使用<code>sudo dpkg -L APPNAME</code>可以列出程序的所有安装文件路径</li>
+<li>自动安装在PATH下的程序（也就是可以用APPNAME &ndash;version或类似方式判断安装成功与否的），可直接使用<code>whereis APPNAME</code></li>
+</ul>
+
+<p>博文中还提及了其他的查询程序位置的方法，按需选择。</p>
+
+<h2 id="8-安装vs-code">8. 安装VS Code</h2>
+
+<p>虽然Ubuntu自带的gedit文本编辑器我觉得挺清爽也挺好用的，但考虑到没啥插件支持，写较长文档时来回翻找很痛苦，以及后期代码开发，于是决定安装一款比较好用的代码编辑器兼文档编辑器：VS Code。</p>
+
+<p>下载地址： <a href="https://code.visualstudio.com/Download">https://code.visualstudio.com/Download</a>
+选择linux版本的.tar.gz压缩包，还是自己手动安装，方便自己知道安装去哪了。</p>
+
+<p>下载解压后复制到/usr/local目录下，设置环境变量<code>export PATH=$PATH:/usr/local/VSCode-linux-x64/bin</code>后<code>source /etc/profile</code>。</p>
+
+<p>现在在终端输入code即可打开VSCode了。</p>
+
+<h3 id="8-1-关于vscode插件">8.1. 关于vscode插件</h3>
+
+<p>如有需要，参考：</p>
+
+<ul>
+<li><a href="https://www.jianshu.com/p/9f13e971fe6b">https://www.jianshu.com/p/9f13e971fe6b</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/29553584">https://zhuanlan.zhihu.com/p/29553584</a></li>
+</ul>
+
+<p>先装几个看上去很不错的插件：</p>
+
+<ul>
+<li>Bookmarks</li>
+<li>GitLens</li>
+
+<li><p>Markdown PDF</p>
+
+<p>转pdf插件，需要chromium，会自动帮你下载，在VSCode底部可看到提示。但我自动安装失败，选择手动安装chrome。之后需要设置markdownpdf的一些设置。具体参看<a href="https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf">https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf</a>
+（VSCode上没法同时进行设置和查阅markdownpdf）。</p>
+
+<p>markdown-pdf的设置（编辑/home/eiger/.config/Code/User/settings.json）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">//</span> <span class="err">markdowm-pdf设置</span>
+<span class="s2">&#34;markdown-pdf.outputDirectoryRelativePathFile&#34;</span><span class="err">:</span> <span class="kc">true</span><span class="err">,</span>
+<span class="s2">&#34;markdown-pdf.outputDirectory&#34;</span><span class="err">:</span> <span class="s2">&#34;.&#34;</span><span class="err">,</span>
+<span class="s2">&#34;markdown-pdf.executablePath&#34;</span><span class="err">:</span> <span class="s2">&#34;/usr/bin/google-chrome&#34;</span><span class="err">,</span>
+<span class="s2">&#34;markdown-pdf.displayHeaderFooter&#34;</span><span class="err">:</span> <span class="kc">true</span><span class="err">,</span>
+<span class="s2">&#34;markdown-pdf.footerTemplate&#34;</span><span class="err">:</span> <span class="s2">&#34;&lt;div style=\&#34;font-size: 9px; margin: 0 auto;\&#34;&gt; &lt;span class=&#39;pageNumber&#39;&gt;&lt;/span&gt; / &lt;span class=&#39;totalPages&#39;&gt;&lt;/span&gt;&lt;/div&gt;&#34;</span><span class="err">,</span>
+<span class="err">//</span> <span class="err">这里添加了“</span> <span class="err">by</span> <span class="err">Eiger</span> <span class="err">”头部</span>
+<span class="s2">&#34;markdown-pdf.headerTemplate&#34;</span><span class="err">:</span> <span class="s2">&#34;&lt;div style=\&#34;font-size: 9px; margin-left: 1cm;\&#34;&gt; &lt;span class=&#39;title&#39;&gt;&lt;/span&gt; &lt;span&gt; by Eiger&lt;/span&gt; &lt;/div&gt; &lt;div style=\&#34;font-size: 9px; margin-left: auto; margin-right: 1cm; \&#34;&gt; &lt;span class=&#39;date&#39;&gt;&lt;/span&gt;&lt;/div&gt;&#34;</span><span class="err">,</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>vscode-pdf</p></li>
+
+<li><p>Markdown All in One</p></li>
+
+<li><p>Markdown Preview Github Styling</p></li>
+</ul>
+
+<h3 id="8-2-vscode一些设置">8.2. vscode一些设置</h3>
+
+<ul>
+<li>取消代码右边栏缩略图。本来屏幕就小，太占位置了这个缩略图，直接在view-&gt;show minimap一项取消选中即可。</li>
+<li>文件大纲视图。在左边栏Explorer菜单的底部点击OUTLINE并自行拖动调整区域大小。</li>
+<li>自动清除行末空格。设置中开启Files.TrimTrailingWhitespace。重启VSCode后生效。</li>
+</ul>
+
+<p>settings.json内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">//</span> <span class="err">文本编辑器设置</span>
+<span class="s2">&#34;editor.minimap.enabled&#34;</span><span class="err">:</span> <span class="kc">false</span><span class="err">,</span>    <span class="err">//</span> <span class="err">关闭minimap</span>
+<span class="s2">&#34;editor.fontSize&#34;</span><span class="err">:</span> <span class="mi">16</span><span class="err">,</span>
+<span class="err">//</span> <span class="err">文件设置</span>
+<span class="s2">&#34;files.autoSave&#34;</span><span class="err">:</span> <span class="s2">&#34;afterDelay&#34;</span><span class="err">,</span>
+<span class="s2">&#34;files.trimTrailingWhitespace&#34;</span><span class="err">:</span> <span class="kc">true</span><span class="err">,</span>   <span class="err">//</span> <span class="err">保存文件时自动剪去行末空格</span>
+<span class="err">//</span> <span class="err">markdowm-pdf设置</span>
+<span class="s2">&#34;markdown-pdf.outputDirectoryRelativePathFile&#34;</span><span class="err">:</span> <span class="kc">true</span><span class="err">,</span>
+<span class="s2">&#34;markdown-pdf.outputDirectory&#34;</span><span class="err">:</span> <span class="s2">&#34;.&#34;</span><span class="err">,</span>
+<span class="s2">&#34;markdown-pdf.executablePath&#34;</span><span class="err">:</span> <span class="s2">&#34;/usr/bin/google-chrome&#34;</span><span class="err">,</span>
+<span class="s2">&#34;markdown-pdf.displayHeaderFooter&#34;</span><span class="err">:</span> <span class="kc">true</span><span class="err">,</span>
+<span class="s2">&#34;markdown-pdf.footerTemplate&#34;</span><span class="err">:</span> <span class="s2">&#34;&lt;div style=\&#34;font-size: 9px; margin: 0 auto;\&#34;&gt; &lt;span class=&#39;pageNumber&#39;&gt;&lt;/span&gt; / &lt;span class=&#39;totalPages&#39;&gt;&lt;/span&gt;&lt;/div&gt;&#34;</span><span class="err">,</span>
+<span class="s2">&#34;markdown-pdf.headerTemplate&#34;</span><span class="err">:</span> <span class="s2">&#34;&lt;div style=\&#34;font-size: 9px; margin-left: 1cm;\&#34;&gt; &lt;span class=&#39;title&#39;&gt;&lt;/span&gt; &lt;span&gt; by Eiger&lt;/span&gt; &lt;/div&gt; &lt;div style=\&#34;font-size: 9px; margin-left: auto; margin-right: 1cm; \&#34;&gt; &lt;span class=&#39;date&#39;&gt;&lt;/span&gt;&lt;/div&gt;&#34;</span><span class="err">,</span>
+<span class="s2">&#34;markdown-pdf.highlightStyle&#34;</span><span class="err">:</span> <span class="s2">&#34;github.css&#34;</span><span class="err">,</span>    <span class="err">//</span> <span class="err">设置高亮风格为github.css</span>
+<span class="err">//</span> <span class="err">文件浏览器窗口删除文件不再弹窗提醒</span>
+<span class="s2">&#34;explorer.confirmDelete&#34;</span><span class="err">:</span> <span class="kc">false</span>
+<span class="err">//</span> <span class="err">go设置</span>
+<span class="s2">&#34;go.useLanguageServer&#34;</span><span class="err">:</span> <span class="kc">true</span><span class="err">,</span>
+<span class="s2">&#34;go.autocompleteUnimportedPackages&#34;</span><span class="err">:</span> <span class="kc">true</span><span class="err">,</span>
+<span class="s2">&#34;go.useCodeSnippetsOnFunctionSuggest&#34;</span><span class="err">:</span> <span class="kc">true</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="8-3-代码片段定义">8.3. 代码片段定义</h3>
+
+<p>File -&gt; Preferences -&gt; User Snippets，可以定义各种文件中的代码片段。</p>
+
+<p>用法参考其官方注释，及博文：</p>
+
+<ul>
+<li><a href="https://blog.csdn.net/maokelong95/article/details/54379046">https://blog.csdn.net/maokelong95/article/details/54379046</a></li>
+<li><a href="https://segmentfault.com/a/1190000018457312">https://segmentfault.com/a/1190000018457312</a></li>
+</ul>
+
+<p>我的go代码片段：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;eiger-go&#34;</span><span class="err">:</span> <span class="p">{</span>
+    <span class="nt">&#34;prefix&#34;</span><span class="p">:</span> <span class="s2">&#34;go&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;body&#34;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&#34;//@author: Eiger &lt;374192922@qq.com&gt;&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;//@date: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;//@description: This file is for $0&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;package $TM_DIRECTORY&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;func main() {&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;    // write your code here&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;$1&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;}&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;&#34;</span>
+    <span class="p">],</span>
+    <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;eiger&#39;s go file template&#34;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>markdown代码片段定义及使用，参考：<a href="https://blog.walterlv.com/post/add-custom-code-snippet-for-vscode.html">https://blog.walterlv.com/post/add-custom-code-snippet-for-vscode.html</a></p>
+
+<p>我的markdown代码片段：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;hugo-blog-header&#34;</span><span class="err">:</span> <span class="p">{</span>
+    <span class="nt">&#34;prefix&#34;</span><span class="p">:</span> <span class="s2">&#34;hugo&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;body&#34;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&#34;---&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;title: \&#34;$1\&#34;&#34;</span><span class="p">,</span>
+        <span class="err">//</span> <span class="err">插入片段后，记得将字母T前边空格删去！</span>
+        <span class="s2">&#34;date: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE T$CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND+08:00&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;draft: false&#34;</span><span class="p">,</span>
+        <span class="err">//</span> <span class="err">category请设为所在目录名</span>
+        <span class="s2">&#34;categories: [\&#34;$2\&#34;]&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;tags: [\&#34;$3\&#34;]&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;keywords: [\&#34;$4\&#34;, \&#34;$5\&#34;]&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;---&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;&#34;</span>
+    <span class="p">],</span>
+    <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;Header of hugo blog&#34;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="9-文件-夹-权限查看及修改">9. 文件（夹）权限查看及修改</h2>
+
+<p>参考： <a href="https://blog.csdn.net/lwc5411117/article/details/79417102">https://blog.csdn.net/lwc5411117/article/details/79417102</a></p>
+
+<ul>
+<li><p>查看文件（夹）权限：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ls -l FILENAME
+<span class="c1"># 或者</span>
+ll FILENAME</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>修改文件（夹）权限：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 形如：</span>
+sudo chmod u+x FILE  <span class="c1"># 为当前用户提升FILE执行权限</span>
+sudo chmod a+w FOLDER  <span class="c1"># 为所有用户提升FOLEDER文件夹写权限（不影响文件夹内子文件夹和文件）</span>
+sudo chmod -R a+w FOLDER  <span class="c1"># 递归修改，影响文件夹内所有内容</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="10-查看本机端口使用情况及关闭使用端口的程序">10. 查看本机端口使用情况及关闭使用端口的程序</h2>
+
+<p>博文参考：</p>
+
+<ul>
+<li><a href="https://www.cnblogs.com/wangtao1993/p/6144183.html">https://www.cnblogs.com/wangtao1993/p/6144183.html</a></li>
+<li><a href="https://www.jianshu.com/p/acb085a8f1cb">https://www.jianshu.com/p/acb085a8f1cb</a></li>
+</ul>
+
+<ol>
+<li><p>使用nmap查看本机ip:127.0.0.1的已使用端口：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">nmap <span class="m">127</span>.0.0.1</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>lsof -i:PORT 查看PORT端口的占用情况：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">lsof -i:8000</code></pre></td></tr></table>
+</div>
+</div>
+<p>(ps: <code>lsof -i</code> 列举所有端口占用情况)</p></li>
+
+<li><p>netstat -ap | grep PORT 查看PORT端口的占用情况：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">netstat -ap <span class="p">|</span> grep <span class="m">8000</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>(ps: <code>netstat -ap</code> 列举所有端口情况； <code>netstat -a</code> 列举所有已建立连接的端口使用情况)</p></li>
+</ol>
+
+<ul>
+<li><p>关闭使用PORT端口的程序</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">kill</span> -9 PID  <span class="c1"># 使用PORT端口的进程，其PID号</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<p>ps: 提示权限不足时，前边加上<code>sudo</code></p>
+
+<h2 id="11-安装chrome">11. 安装chrome</h2>
+
+<p>在安装VSCode的MarkdownPDF插件时，需要安装chrome，由于自动下载失败，所以只好手动安装chrome浏览器并将其执行路径设置到MarkdownPDF设置中的markdown-pdf.executablePath。</p>
+
+<p>安装参考： <a href="https://blog.csdn.net/zl2001bc/article/details/83275309">https://blog.csdn.net/zl2001bc/article/details/83275309</a></p>
+
+<p>安装步骤如下：</p>
+
+<ol>
+<li><p>添加chrome下载源到apt 仓库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo wget http://www.linuxidc.com/files/repo/google-chrome.list -P /etc/apt/sources.list.d/</code></pre></td></tr></table>
+</div>
+</div>
+<p>如果返回地址解析错误，可以搜索其他提供chrome下载的源，替换掉命令中的地址</p></li>
+
+<li><p>导入google 的公钥</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">wget -q -O - https://dl.google.com/linux/linux_signing_key.pub <span class="p">|</span> sudo apt-key add -</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>更新当前系统的可用列表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt-get update</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>安装chrome 稳定版</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt-get install google-chrome-stable</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+
+<p>安装过程如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">eiger@eiger-ThinkPad-X1-Carbon-3rd:~$ sudo wget http://www.linuxidc.com/files/repo/google-chrome.list -P /etc/apt/sources.list.d/
+--2019-08-14 <span class="m">03</span>:37:00--  http://www.linuxidc.com/files/repo/google-chrome.list
+Resolving www.linuxidc.com <span class="o">(</span>www.linuxidc.com<span class="o">)</span>... <span class="m">106</span>.119.182.141, <span class="m">113</span>.107.238.213
+Connecting to www.linuxidc.com <span class="o">(</span>www.linuxidc.com<span class="o">)</span><span class="p">|</span><span class="m">106</span>.119.182.141<span class="p">|</span>:80... connected.
+HTTP request sent, awaiting response... <span class="m">301</span> Moved Permanently
+Location: https://www.linuxidc.com/files/repo/google-chrome.list <span class="o">[</span>following<span class="o">]</span>
+--2019-08-14 <span class="m">03</span>:37:00--  https://www.linuxidc.com/files/repo/google-chrome.list
+Connecting to www.linuxidc.com <span class="o">(</span>www.linuxidc.com<span class="o">)</span><span class="p">|</span><span class="m">106</span>.119.182.141<span class="p">|</span>:443... connected.
+HTTP request sent, awaiting response... <span class="m">200</span> OK
+Length: <span class="m">131</span> <span class="o">[</span>application/octet-stream<span class="o">]</span>
+Saving to: ‘/etc/apt/sources.list.d/google-chrome.list’
+
+google-chrome.list                           <span class="m">100</span>%<span class="o">[==============================================================================================</span>&gt;<span class="o">]</span>     <span class="m">131</span>  --.-KB/s    in 0s
+
+<span class="m">2019</span>-08-14 <span class="m">03</span>:37:00 <span class="o">(</span><span class="m">7</span>.54 MB/s<span class="o">)</span> - ‘/etc/apt/sources.list.d/google-chrome.list’ saved <span class="o">[</span><span class="m">131</span>/131<span class="o">]</span>
+
+eiger@eiger-ThinkPad-X1-Carbon-3rd:~$ wget -q -O - https://dl.google.com/linux/linux_signing_key.pub <span class="p">|</span> sudo apt-key add -
+OK
+eiger@eiger-ThinkPad-X1-Carbon-3rd:~$ sudo apt update
+Hit:1 http://archive.ubuntukylin.com:10006/ubuntukylin xenial InRelease
+Hit:2 http://mirrors.tuna.tsinghua.edu.cn/ubuntu bionic InRelease
+Hit:3 http://mirrors.tuna.tsinghua.edu.cn/ubuntu bionic-updates InRelease
+Hit:4 http://mirrors.tuna.tsinghua.edu.cn/ubuntu bionic-backports InRelease
+Hit:5 http://mirrors.tuna.tsinghua.edu.cn/ubuntu bionic-security InRelease
+Ign:6 https://dl.google.com/linux/chrome/deb stable InRelease
+Hit:7 https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu bionic InRelease
+Get:8 https://dl.google.com/linux/chrome/deb stable Release <span class="o">[</span><span class="m">943</span> B<span class="o">]</span>
+Get:9 https://dl.google.com/linux/chrome/deb stable Release.gpg <span class="o">[</span><span class="m">819</span> B<span class="o">]</span>
+Get:10 https://dl.google.com/linux/chrome/deb stable/main amd64 Packages <span class="o">[</span><span class="m">1</span>,109 B<span class="o">]</span>
+Ign:11 https://repo.fdzh.org/chrome/deb stable InRelease
+Get:12 https://repo.fdzh.org/chrome/deb stable Release <span class="o">[</span><span class="m">1</span>,189 B<span class="o">]</span>
+Get:13 https://repo.fdzh.org/chrome/deb stable Release.gpg <span class="o">[</span><span class="m">819</span> B<span class="o">]</span>
+Ign:13 https://repo.fdzh.org/chrome/deb stable Release.gpg
+Reading package lists... Done
+W: GPG error: https://repo.fdzh.org/chrome/deb stable Release: The following signatures were invalid: EXPKEYSIG 1397BC53640DB551 Google Inc. <span class="o">(</span>Linux Packages Signing Authority<span class="o">)</span> &lt;linux-packages-keymaster@google.com&gt;
+E: The repository <span class="s1">&#39;https://repo.fdzh.org/chrome/deb stable Release&#39;</span> is not signed.
+N: Updating from such a repository can<span class="err">&#39;</span>t be <span class="k">done</span> securely, and is therefore disabled by default.
+N: See apt-secure<span class="o">(</span><span class="m">8</span><span class="o">)</span> manpage <span class="k">for</span> repository creation and user configuration details.
+eiger@eiger-ThinkPad-X1-Carbon-3rd:~$ sudo apt install google-chrome-stable
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following NEW packages will be installed:
+  google-chrome-stable
+<span class="m">0</span> upgraded, <span class="m">1</span> newly installed, <span class="m">0</span> to remove and <span class="m">17</span> not upgraded.
+Need to get <span class="m">59</span>.5 MB of archives.
+After this operation, <span class="m">210</span> MB of additional disk space will be used.
+Get:1 https://dl.google.com/linux/chrome/deb stable/main amd64 google-chrome-stable amd64 <span class="m">76</span>.0.3809.100-1 <span class="o">[</span><span class="m">59</span>.5 MB<span class="o">]</span>
+Fetched <span class="m">59</span>.5 MB in 1min 2s <span class="o">(</span><span class="m">953</span> kB/s<span class="o">)</span>
+Selecting previously unselected package google-chrome-stable.
+<span class="o">(</span>Reading database ... <span class="m">176803</span> files and directories currently installed.<span class="o">)</span>
+Preparing to unpack .../google-chrome-stable_76.0.3809.100-1_amd64.deb ...
+Unpacking google-chrome-stable <span class="o">(</span><span class="m">76</span>.0.3809.100-1<span class="o">)</span> ...
+Processing triggers <span class="k">for</span> mime-support <span class="o">(</span><span class="m">3</span>.60ubuntu1<span class="o">)</span> ...
+Processing triggers <span class="k">for</span> desktop-file-utils <span class="o">(</span><span class="m">0</span>.23-1ubuntu3.18.04.2<span class="o">)</span> ...
+Processing triggers <span class="k">for</span> man-db <span class="o">(</span><span class="m">2</span>.8.3-2ubuntu0.1<span class="o">)</span> ...
+Processing triggers <span class="k">for</span> gnome-menus <span class="o">(</span><span class="m">3</span>.13.3-11ubuntu1.1<span class="o">)</span> ...
+Setting up google-chrome-stable <span class="o">(</span><span class="m">76</span>.0.3809.100-1<span class="o">)</span> ...
+update-alternatives: using /usr/bin/google-chrome-stable to provide /usr/bin/x-www-browser <span class="o">(</span>x-www-browser<span class="o">)</span> in auto mode
+update-alternatives: using /usr/bin/google-chrome-stable to provide /usr/bin/gnome-www-browser <span class="o">(</span>gnome-www-browser<span class="o">)</span> in auto mode
+update-alternatives: using /usr/bin/google-chrome-stable to provide /usr/bin/google-chrome <span class="o">(</span>google-chrome<span class="o">)</span> in auto mode</code></pre></td></tr></table>
+</div>
+</div>
+<p>chrome安装后提供了两个快捷方式：/usr/bin/google-chrome、/usr/bin/google-chrome-stable。因此在为markdownpdf提供chrome执行路径直接选择二者之一即可。</p>
+
+<p>如果安装完打开chrome发生闪退，解决方法参见上面提到的博文</p>
+
+<h2 id="12-安装hugo">12. 安装Hugo</h2>
+
+<p>以前在Windows笔记本上安装了hugo并部署了个人博客： <a href="http://eiger.me">http://eiger.me</a>，现在开始用乌班图正式进行一些开发与学习，将笔记文档复制来复制去觉得太麻烦，于是考虑在乌班图上也装hugo并将原博客项目拉取至此（主要方法就是将原项目上传至Github并拉取到乌班图笔记本，这里就不详述）</p>
+
+<p>hugo的官方安装使用教程： <a href="https://www.gohugo.org/">https://www.gohugo.org/</a></p>
+
+<p>关于如何基于Hugo和Github Pages部署静态博客网站，参考：</p>
+
+<ul>
+<li><a href="https://creaink.github.io/post/Devtools/Hugo/Hugo-intro.html">https://creaink.github.io/post/Devtools/Hugo/Hugo-intro.html</a></li>
+</ul>
+
+<p>这里展示下我用于笔记、博客、主题同步的四个项目：</p>
+
+<ul>
+<li>博客总项目： <a href="https://github.com/azd1997/EigerBlog">https://github.com/azd1997/EigerBlog</a></li>
+<li>博客网站项目： <a href="https://github.com/azd1997/azd1997.github.io">https://github.com/azd1997/azd1997.github.io</a></li>
+<li>博客笔记项目： <a href="https://github.com/azd1997/eigerNotes">https://github.com/azd1997/eigerNotes</a></li>
+<li>博客主题Even项目： <a href="https://github.com/azd1997/hugo-theme-even">https://github.com/azd1997/hugo-theme-even</a></li>
+</ul>
+
+<p>关于Git submodule使用，参考：</p>
+
+<ul>
+<li><a href="https://jianshu.com/p/f8a55b972972">https://jianshu.com/p/f8a55b972972</a></li>
+</ul>
+
+<p>安装hugo：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install hugo</code></pre></td></tr></table>
+</div>
+</div>
+<p>安装路径为<code>/usr/bin/hugo</code>。</p>
+
+<p>但是目前的hugo apt源最新是v0.40.1，而使用主题even至少需要v0.50，所以说我需要使用<code>sudo apt --purge remove hugo</code>完全删除hugo，然后手动去hugo github releases页面（<a href="https://github.com/gohugoio/hugo/releases">https://github.com/gohugoio/hugo/releases</a>）下载最新版本，我下载的是v0.57.1的linux-64bit.deb包。</p>
+
+<p>安装后查看下信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/EigerBlog/themes$ whereis hugo
+hugo: /usr/local/bin/hugo
+eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/EigerBlog/themes$ hugo version
+Hugo Static Site Generator v0.57.1-58C56E9D linux/amd64 BuildDate: <span class="m">2019</span>-08-15T18:53:44Z</code></pre></td></tr></table>
+</div>
+</div>
+<p>列出常用操作：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 生成新站点</span>
+hugo new site /path/to/site
+<span class="c1"># 切换到站点目录，后续操作需在站点根目录下执行</span>
+<span class="nb">cd</span> /path/to/site
+<span class="c1"># 生成新md文档</span>
+hogo new about.md  <span class="c1"># site/content/about.md</span>
+hugo new post/mynote.md  <span class="c1"># site/content/post/mynote.md</span>
+<span class="c1"># 本地调试，主题为even，草稿文档也参与调试</span>
+hugo server --theme<span class="o">=</span>even --buildDrafts
+<span class="c1"># 当config.toml进行了相应设置指定了主题之后，可以这样调试：</span>
+hugo server -D
+<span class="c1"># 生成website网站文件，生成位置site/public</span>
+hugo --theme<span class="o">=</span>even
+<span class="c1"># 当设置好GitPages后，将public下所有内容推到远程GitPage项目即可。</span>
+<span class="c1"># 我的做法是创建一个website目录，每次重新生成网站文件就全部复制到website下，再从website推给Github。为什么这么做，因为我有.git和CNAME不可被删除，而hugo会自动将public原内容清除再生成新的网站。</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>附上我的站点目录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/EigerBlog$ ls
+archetypes   content  layouts   mycustom  resources  themes
+config.toml  data     Makefile  public    static     website</code></pre></td></tr></table>
+</div>
+</div>
+<p>因为在website目录下有<code>.git</code>文件夹和<code>CNAME</code>文件是不能被删除的，这导致每次从public文件夹下复制到website时不能直接全选粘贴，这其实有些麻烦。</p>
+
+<p>为此，直接先写一个Makefile文件(参考<a href="#13-makefile%e7%bc%96%e5%86%99">Makefile编写</a>)将所有命令整合一下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="c"># `make`
+</span><span class="c"></span><span class="nf">default</span><span class="o">:</span>
+        <span class="c1"># 生成网站文件</span>
+        hugo<span class="p">;</span>
+        @echo <span class="s1">&#39;网站文件生成在public/下&#39;</span><span class="p">;</span>
+        <span class="c1"># 临时保存.git与CNAME</span>
+        cp -fp website/CNAME mycustom/tmp/<span class="p">;</span>
+        cp -rpf website/.git mycustom/tmp/<span class="p">;</span>
+        @echo <span class="s1">&#39;CNAME、.git已备份至mycustom/tmp/下&#39;</span><span class="p">;</span>
+        pwd<span class="p">;</span>
+        <span class="c1"># 清空原website文件，将所需文件复制入website</span>
+        <span class="nb">cd</span> website<span class="p">;</span>pwd<span class="p">;</span>rm -rf *<span class="p">;</span><span class="nb">cd</span> ../<span class="p">;</span>
+        @echo <span class="s1">&#39;website下内容已清空&#39;</span><span class="p">;</span>
+        cp -rf public/. website<span class="p">;</span>
+        cp -rpf mycustom/tmp/.git website/<span class="p">;</span>
+        cp -fp mycustom/tmp/CNAME website/<span class="p">;</span>
+        @echo <span class="s1">&#39;website文件已全部生成&#39;</span><span class="p">;</span>
+        pwd<span class="p">;</span>
+        <span class="c1"># now=`date`;\</span>
+        <span class="c1"># echo &#34;make love $${now}&#34;;</span>
+        <span class="c1"># git提交至远程仓库，更新博客</span>
+        <span class="c1"># CUR_DATE = $(shell date &#39;+%Y-%m-%d&#39;);</span>
+        @date<span class="o">=</span><span class="sb">`</span>date +%Y-%m-%d<span class="sb">`</span><span class="p">;</span><span class="se">\
+</span><span class="se"></span>                <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$$</span><span class="s2">{date}&#34;</span><span class="p">;</span><span class="se">\
+</span><span class="se"></span>                <span class="nb">cd</span> website/<span class="p">;</span>pwd<span class="p">;</span><span class="se">\
+</span><span class="se"></span>                git add .<span class="p">;</span><span class="se">\
+</span><span class="se"></span>                git commit -m <span class="s2">&#34;</span><span class="nv">$$</span><span class="s2">{date}  update my blog site:  https://eiger.me&#34;</span><span class="p">;</span><span class="se">\
+</span><span class="se"></span>                git push<span class="p">;</span>
+        <span class="c1"># 注意：必须是双引号括起字符串，双$加花括号包住变量</span>
+        pwd<span class="p">;</span>
+        @echo <span class="s1">&#39;博客网站https://eiger.me更新完成&#39;</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>当前站点根目录下结构：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/EigerBlog$ ls -a
+.   archetypes   content  .git         layouts   mycustom  resources  themes
+..  config.toml  data     .gitmodules  Makefile  public    static     website</code></pre></td></tr></table>
+</div>
+</div>
+<p>现在只需在根目录下执行<code>make</code>即可完成博客更新操作。</p>
+
+<h2 id="13-makefile编写">13. Makefile编写</h2>
+
+<p>推荐参考阮一峰博客：</p>
+
+<ul>
+<li>Makefile教程： <a href="http://ruanyifeng.com/blog/2015/02/make.html">http://ruanyifeng.com/blog/2015/02/make.html</a></li>
+<li>make构建网站： <a href="http://www.ruanyifeng.com/blog/2015/03/build-website-with-make.html">http://www.ruanyifeng.com/blog/2015/03/build-website-with-make.html</a></li>
+</ul>
+
+<h2 id="14-apt卸载程序">14. apt卸载程序</h2>
+
+<p>参考： <a href="https://blog.csdn.net/get_set/article/details/51276609">https://blog.csdn.net/get_set/article/details/51276609</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt --purge remove APPNAME</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="15-复制与删除">15. 复制与删除</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 复制单个文件夹到目标文件夹</span>
+cp file dir
+<span class="c1"># 将文件内容复制到另一文件中</span>
+cp file1 file2
+<span class="c1"># 复制文件夹及其下所有内容到目标文件夹</span>
+cp -r dir1 dir2
+<span class="c1"># 复制文件夹下所有文件到目标文件夹</span>
+cp -r dir1/. dir2
+<span class="c1"># 强制删除单个文件</span>
+rm -f file
+<span class="c1"># 强制删除当前目录所有内容</span>
+rm -rf *</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="16-git查看用户名">16. git查看用户名</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 查看用户名及邮箱</span>
+git config user.name
+git config user.email
+<span class="c1"># 设置用户名及邮箱</span>
+git</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="17-安装qq-微信等程序">17. 安装qq、微信等程序</h2>
+
+<p>参考：<a href="https://blog.csdn.net/qq_25987491/article/details/81364461">https://blog.csdn.net/qq_25987491/article/details/81364461</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-08-17
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ubuntu/">Ubuntu</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/iot/installmainflux/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">安装mainflux全系列</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/go/01_goroutinepool/">
+            <span class="next-text nav-default">Go语言协程池</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:374192922@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%8C%AF%E4%B8%9C-%E8%89%BE-b10752175/detail/recent-activity/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/azd1997" class="iconfont icon-github" title="github"></a>
+  <a href="https://azd1997.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

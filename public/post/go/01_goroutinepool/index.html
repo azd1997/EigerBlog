@@ -54,7 +54,7 @@
 
 
 
-<meta itemprop="keywords" content="go语言,并发," />
+<meta itemprop="keywords" content="go,concurrency," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Go语言协程池"/>
 <meta name="twitter:description" content="1. Golang并发三件套 ​ 这里不作过多介绍：goroutine、channel、select。goroutine是go语言的协程机制，cha"/>
@@ -133,7 +133,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-07-23 </span>
         <div class="post-category">
-            <a href="/categories/go%E8%AF%AD%E8%A8%80/"> go语言 </a>
+            <a href="/categories/go/"> go </a>
             </div>
           <span class="more-meta"> 1160 words </span>
           <span class="more-meta"> 3 mins read </span>
@@ -197,11 +197,11 @@
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    
-    <span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span>  
+
+    <span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span>
     <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;我是主协程&#34;</span><span class="p">)</span>
     <span class="k">go</span> <span class="nf">worker</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
-    
+
     <span class="c1">//循环等待各个管道数据
 </span><span class="c1"></span>    <span class="k">select</span> <span class="p">{</span>
     <span class="k">case</span> <span class="nx">finished</span> <span class="o">&lt;-</span> <span class="nx">c</span><span class="p">:</span>
@@ -209,7 +209,7 @@
             <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;worker告诉我工作做完了&#34;</span><span class="p">)</span>
         <span class="p">}</span>
     <span class="p">}</span>
-    
+
     <span class="k">return</span>
 <span class="p">}</span>
 
@@ -345,7 +345,7 @@
         <span class="nx">JobsChan</span><span class="p">:</span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="o">*</span><span class="nx">Task</span><span class="p">),</span>
         <span class="nx">workerNum</span><span class="p">:</span><span class="nx">num</span><span class="p">,</span>
     <span class="p">}</span>
-<span class="p">}</span> 
+<span class="p">}</span>
 
 <span class="c1">//Pool创建worker，由worker一直去JobsChan取任务并执行
 </span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Pool</span><span class="p">)</span> <span class="nf">worker</span><span class="p">(</span><span class="nx">workerId</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
@@ -380,7 +380,7 @@
             <span class="nx">p</span><span class="p">.</span><span class="nx">EntryChan</span> <span class="o">&lt;-</span> <span class="nx">t</span>
         <span class="p">}</span>
     <span class="p">}</span>
-    
+
     <span class="c1">//启动协程池
 </span><span class="c1"></span>    <span class="nx">p</span><span class="p">.</span><span class="nf">run</span><span class="p">()</span>
 <span class="p">}</span></code></pre></td></tr></table>
@@ -405,17 +405,17 @@
 </div>
 <footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/go%E8%AF%AD%E8%A8%80/">go语言</a>
-          <a href="/tags/%E5%B9%B6%E5%8F%91/">并发</a>
+          <a href="/tags/go/">go</a>
+          <a href="/tags/concurrency/">concurrency</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/git/02_pullrequest/">
+        <a class="prev" href="/post/linux/installubuntu/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Git提交Pull&amp;Request</span>
+            <span class="prev-text nav-default">安装Ubuntu及其他相关使用教程</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
-        <a class="next" href="/post/java/01_startspringbootproject/">
-            <span class="next-text nav-default">Spring Boot实战01——创建Spring Boot应用</span>
+        <a class="next" href="/post/linux/iro-raspi/">
+            <span class="next-text nav-default">Iro——树莓派安装魔镜、语音助手、智能家居全系列</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>

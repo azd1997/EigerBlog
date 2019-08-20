@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ubuntu on Eiger - A young gopher</title>
+    <link>https://azd1997.github.io/tags/ubuntu/</link>
+    <description>Recent content in Ubuntu on Eiger - A young gopher</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 17 Aug 2019 02:04:01 +0800</lastBuildDate>
+    
+	<atom:link href="https://azd1997.github.io/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>安装Ubuntu及其他相关使用教程</title>
+      <link>https://azd1997.github.io/post/linux/installubuntu/</link>
+      <pubDate>Sat, 17 Aug 2019 02:04:01 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/linux/installubuntu/</guid>
+      <description>通过U盘安装Ubuntu 1. 安装 准备好ubuntu镜像文件、rufus(用于制作启动盘，也可以选择别的类似的工具，如UltraISO)、空U盘</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -37,7 +37,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   name = "Archives"
   weight = 20
   identifier = "archives"
-  url = ["/post/", "/post/go/", "/post/java/", "/post/iro", "/post/git", "/post/algo"]
+  url = ["/post/", "/post/go/", "/post/java/", "/post/algo/", "/post/linux/", "/post/iot/", "/post/nlp/"]
 [[menu.main]]
   name = "Tags"
   weight = 30
@@ -166,7 +166,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
     appKey = '你的appKey'
     notify = false  # mail notifier , https://github.com/xCss/Valine/wiki
     verify = false # Verification code
-    avatar = 'mm' 
+    avatar = 'mm'
     placeholder = '说点什么吧...'
     visitor = false
 

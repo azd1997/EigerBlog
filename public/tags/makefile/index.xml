@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>makefile on Eiger - A young gopher</title>
+    <link>https://azd1997.github.io/tags/makefile/</link>
+    <description>Recent content in makefile on Eiger - A young gopher</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 17 Aug 2019 04:45:58 +0800</lastBuildDate>
+    
+	<atom:link href="https://azd1997.github.io/tags/makefile/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Makefile学习全系列</title>
+      <link>https://azd1997.github.io/post/linux/makefile/</link>
+      <pubDate>Sat, 17 Aug 2019 04:45:58 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/linux/makefile/</guid>
+      <description>Makefile学习全系列</description>
+    </item>
+    
+  </channel>
+</rss>

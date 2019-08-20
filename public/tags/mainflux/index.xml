@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mainflux on Eiger - A young gopher</title>
+    <link>https://azd1997.github.io/tags/mainflux/</link>
+    <description>Recent content in mainflux on Eiger - A young gopher</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 17 Aug 2019 03:32:15 +0800</lastBuildDate>
+    
+	<atom:link href="https://azd1997.github.io/tags/mainflux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>mainflux源码阅读全系列</title>
+      <link>https://azd1997.github.io/post/iot/mainfluxcodereading/</link>
+      <pubDate>Sat, 17 Aug 2019 03:32:15 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/iot/mainfluxcodereading/</guid>
+      <description>mainflux源码阅读 mongodb-writer</description>
+    </item>
+    
+    <item>
+      <title>安装mainflux全系列</title>
+      <link>https://azd1997.github.io/post/iot/installmainflux/</link>
+      <pubDate>Sat, 17 Aug 2019 02:47:50 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/iot/installmainflux/</guid>
+      <description>安装mainflux 安装mainflux 1.环境准备 2.protoc安装 3. GNU MAKE安装 4. mainflux编译 4.1 获取mainflux源码 4.2. 编</description>
+    </item>
+    
+  </channel>
+</rss>

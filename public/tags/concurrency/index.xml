@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>concurrency on Eiger - A young gopher</title>
+    <link>https://azd1997.github.io/tags/concurrency/</link>
+    <description>Recent content in concurrency on Eiger - A young gopher</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 23 Jul 2019 10:37:14 +0800</lastBuildDate>
+    
+	<atom:link href="https://azd1997.github.io/tags/concurrency/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go语言协程池</title>
+      <link>https://azd1997.github.io/post/go/01_goroutinepool/</link>
+      <pubDate>Tue, 23 Jul 2019 10:37:14 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/go/01_goroutinepool/</guid>
+      <description>1. Golang并发三件套 ​ 这里不作过多介绍：goroutine、channel、select。goroutine是go语言的协程机制，cha</description>
+    </item>
+    
+  </channel>
+</rss>

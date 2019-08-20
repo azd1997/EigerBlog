@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>IotHub on Eiger - A young gopher</title>
+    <link>https://azd1997.github.io/tags/iothub/</link>
+    <description>Recent content in IotHub on Eiger - A young gopher</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 17 Aug 2019 02:55:10 +0800</lastBuildDate>
+    
+	<atom:link href="https://azd1997.github.io/tags/iothub/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>IotHub物联网平台搭建：从0到1</title>
+      <link>https://azd1997.github.io/post/iot/iothub/</link>
+      <pubDate>Sat, 17 Aug 2019 02:55:10 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/iot/iothub/</guid>
+      <description>Iothub物联网平台搭建：从0到1 1. 项目介绍 2. 准备工作台 本节安装开发物联网平台用到的组件，并将开发环境搭建起来。 2.1 安装组件 在安装组件前建议</description>
+    </item>
+    
+  </channel>
+</rss>
