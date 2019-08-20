@@ -5,14 +5,14 @@ default:
 	@echo '网站文件生成在public/下'; 
 	# 临时保存.git与CNAME
 	cp -fp website/CNAME mycustom/tmp/;
-	cp -rpf website/.git mycustom/tmp/;
+	cp -fp website/.git mycustom/tmp/123.txt;
 	@echo 'CNAME、.git已备份至mycustom/tmp/下';
 	pwd;
 	# 清空原website文件，将所需文件复制入website
 	cd website;pwd;rm -rf *;cd ../;
 	@echo 'website下内容已清空';
 	cp -rf public/. website;
-	cp -rpf mycustom/tmp/.git website/;
+	cp -fp mycustom/tmp/123.txt website/.git;
 	cp -fp mycustom/tmp/CNAME website/;
 	@echo 'website文件已全部生成';
 	pwd;
