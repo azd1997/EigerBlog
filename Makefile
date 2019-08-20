@@ -1,6 +1,7 @@
 # `make`
 default:
 	# 生成网站文件
+	cd public;pwd;rm -rf *;cd ../;
 	hugo;
 	@echo '网站文件生成在public/下'; 
 	# 临时保存.git与CNAME
