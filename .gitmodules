@@ -4,3 +4,6 @@
 [submodule "website"]
 	path = website
 	url = git@github.com:azd1997/azd1997.github.io.git
+[submodule "content/post"]
+	path = content/post
+	url = git@github.com:azd1997/eigerNotes.git
