@@ -1,3 +1,6 @@
 [submodule "themes/even"]
 	path = themes/even
 	url = https://github.com/azd1997/hugo-theme-even
+[submodule "content/post"]
+	path = content/post
+	url = https://github.com/azd1997/eigerNotes
