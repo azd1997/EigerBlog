@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-08-17T02:04:01&#43;08:00" />
 <meta itemprop="dateModified" content="2019-08-20T03:14:14-04:00" />
-<meta itemprop="wordCount" content="7229">
+<meta itemprop="wordCount" content="7561">
 
 
 
@@ -135,8 +135,8 @@
         <div class="post-category">
             <a href="/categories/linux/"> linux </a>
             </div>
-          <span class="more-meta"> 7229 words </span>
-          <span class="more-meta"> 15 mins read </span>
+          <span class="more-meta"> 7561 words </span>
+          <span class="more-meta"> 16 mins read </span>
         
       </div>
     </header>
@@ -925,12 +925,12 @@ update-alternatives: using /usr/bin/google-chrome-stable to provide /usr/bin/goo
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 先查看当前的远程仓库列表</span>
 eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/EigerBlog$ git remote -v
-even	git@github.com:azd1997/hugo-theme-even.git <span class="o">(</span>fetch<span class="o">)</span>
-even	git@github.com:azd1997/hugo-theme-even.git <span class="o">(</span>push<span class="o">)</span>
-origin	git@github.com:azd1997/EigerBlog.git <span class="o">(</span>fetch<span class="o">)</span>
-origin	git@github.com:azd1997/EigerBlog.git <span class="o">(</span>push<span class="o">)</span>
-post	git@github.com:azd1997/eigerNotes.git <span class="o">(</span>fetch<span class="o">)</span>
-post	git@github.com:azd1997/eigerNotes.git <span class="o">(</span>push<span class="o">)</span>
+even    git@github.com:azd1997/hugo-theme-even.git <span class="o">(</span>fetch<span class="o">)</span>
+even    git@github.com:azd1997/hugo-theme-even.git <span class="o">(</span>push<span class="o">)</span>
+origin  git@github.com:azd1997/EigerBlog.git <span class="o">(</span>fetch<span class="o">)</span>
+origin  git@github.com:azd1997/EigerBlog.git <span class="o">(</span>push<span class="o">)</span>
+post    git@github.com:azd1997/eigerNotes.git <span class="o">(</span>fetch<span class="o">)</span>
+post    git@github.com:azd1997/eigerNotes.git <span class="o">(</span>push<span class="o">)</span>
 
 <span class="c1"># 我想将已有的website目录转为仓库，那么首先需要为其创建远程仓库并将其内容同步到远程仓库中。</span>
 <span class="c1"># 然后需要删除本地的该目录。</span>
@@ -977,14 +977,14 @@ eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/EigerBlog$ git remote add website g
 
 <span class="c1"># 再来看看远程主机列表</span>
 eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/EigerBlog$ git remote -v
-even	git@github.com:azd1997/hugo-theme-even.git <span class="o">(</span>fetch<span class="o">)</span>
-even	git@github.com:azd1997/hugo-theme-even.git <span class="o">(</span>push<span class="o">)</span>
-origin	git@github.com:azd1997/EigerBlog.git <span class="o">(</span>fetch<span class="o">)</span>
-origin	git@github.com:azd1997/EigerBlog.git <span class="o">(</span>push<span class="o">)</span>
-post	git@github.com:azd1997/eigerNotes.git <span class="o">(</span>fetch<span class="o">)</span>
-post	git@github.com:azd1997/eigerNotes.git <span class="o">(</span>push<span class="o">)</span>
-website	git@github.com:azd1997/azd1997.github.io.git <span class="o">(</span>fetch<span class="o">)</span>
-website	git@github.com:azd1997/azd1997.github.io.git <span class="o">(</span>push<span class="o">)</span>
+even    git@github.com:azd1997/hugo-theme-even.git <span class="o">(</span>fetch<span class="o">)</span>
+even    git@github.com:azd1997/hugo-theme-even.git <span class="o">(</span>push<span class="o">)</span>
+origin  git@github.com:azd1997/EigerBlog.git <span class="o">(</span>fetch<span class="o">)</span>
+origin  git@github.com:azd1997/EigerBlog.git <span class="o">(</span>push<span class="o">)</span>
+post    git@github.com:azd1997/eigerNotes.git <span class="o">(</span>fetch<span class="o">)</span>
+post    git@github.com:azd1997/eigerNotes.git <span class="o">(</span>push<span class="o">)</span>
+website git@github.com:azd1997/azd1997.github.io.git <span class="o">(</span>fetch<span class="o">)</span>
+website git@github.com:azd1997/azd1997.github.io.git <span class="o">(</span>push<span class="o">)</span>
 
 <span class="c1"># 最后记得把总仓库状态给更新一下。</span>
 eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/EigerBlog$ git add .
@@ -1038,6 +1038,31 @@ To github.com:azd1997/EigerBlog.git
 <li><p>删除post子模块，重新添加子模块。这个比较繁琐，主要是先将post子模块删除（在本地删除post文件夹、<code>.gitmodules</code>删除post部分，<code>.git/modules/content/post</code>删除，移除总仓库的<code>post</code>远程主机），然后重新添加子模块。</p></li>
 </ol>
 
+<p>我采用了第二种方法，完成后我的<code>.gitmodules</code>文件内容变成了：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-toml" data-lang="toml"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-toml" data-lang="toml"><span class="p">[</span><span class="nx">submodule</span> <span class="s2">&#34;themes/even&#34;</span><span class="p">]</span>
+        <span class="nx">path</span> <span class="p">=</span> <span class="nx">themes</span><span class="err">/</span><span class="nx">even</span>
+        <span class="nx">url</span> <span class="p">=</span> <span class="nx">git</span><span class="err">@</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="err">:</span><span class="nx">azd1997</span><span class="err">/</span><span class="nx">hugo</span><span class="err">-</span><span class="nx">theme</span><span class="err">-</span><span class="nx">even</span><span class="p">.</span><span class="nx">git</span>
+<span class="p">[</span><span class="nx">submodule</span> <span class="s2">&#34;content/post&#34;</span><span class="p">]</span>
+        <span class="nx">path</span> <span class="p">=</span> <span class="nx">content</span><span class="err">/</span><span class="nx">post</span>
+        <span class="nx">url</span> <span class="p">=</span> <span class="nx">https</span><span class="err">://</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="err">/</span><span class="nx">azd1997</span><span class="err">/</span><span class="nx">eigerNotes</span>
+<span class="p">[</span><span class="nx">submodule</span> <span class="s2">&#34;website&#34;</span><span class="p">]</span>
+        <span class="nx">path</span> <span class="p">=</span> <span class="nx">website</span>
+        <span class="nx">url</span> <span class="p">=</span> <span class="nx">git</span><span class="err">@</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="err">:</span><span class="nx">azd1997</span><span class="err">/</span><span class="nx">azd1997</span><span class="p">.</span><span class="nx">github</span><span class="p">.</span><span class="nx">io</span><span class="p">.</span><span class="nx">git</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>安装hugo：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1176,11 +1201,13 @@ config.toml  data     Makefile  public    static     website</code></pre></td></
 </span><span class="lnt">40
 </span><span class="lnt">41
 </span><span class="lnt">42
+</span><span class="lnt">43
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="c"># `make`
 </span><span class="c"></span><span class="nf">default</span><span class="o">:</span>
         <span class="c1"># 生成网站文件</span>
+        <span class="nb">cd</span> public<span class="p">;</span>pwd<span class="p">;</span>rm -rf *<span class="p">;</span><span class="nb">cd</span> ../<span class="p">;</span>
         hugo<span class="p">;</span>
         @echo <span class="s1">&#39;网站文件生成在public/下&#39;</span><span class="p">;</span>
         <span class="c1"># 临时保存.git与CNAME</span>
@@ -1237,6 +1264,33 @@ config.toml  data     Makefile  public    static     website</code></pre></td></
 </div>
 </div>
 <p>现在只需在根目录下执行<code>make</code>即可完成博客更新操作。</p>
+
+<p>启用评论系统：</p>
+
+<p>我启用了valine作为评论系统，关于如何启用，参考</p>
+
+<ul>
+<li><a href="https://valine.js.org/quickstart.html">https://valine.js.org/quickstart.html</a></li>
+<li><a href="https://www.smslit.top/2018/07/08/hugo-valine/">https://www.smslit.top/2018/07/08/hugo-valine/</a></li>
+</ul>
+
+<p>值得注意的是AppId和AppKey不要填错，尤其是<code>0</code>和大写字母<code>O</code>的区别。</p>
+
+<p>如果这两项填错，博客中评论区会是这样的(评论失败)：</p>
+
+<!--![hugo-valie-01](/images/hugo-valine-01.png)-->
+
+<p><img src="../../../static/images/hugo-valine-01.png" alt="hugo-valine-01" /></p>
+
+<p>如果输对了的话，评论区是这样的：</p>
+
+<!--![hugo-valine-02](/images/hugo-valine-02.png)-->
+
+<p><img src="../../../static/images/hugo-valine-02.png" alt="hugo-valine-02" /></p>
+
+<p>关于头像配置，参考：<a href="https://valine.js.org/configuration.html">https://valine.js.org/configuration.html</a></p>
+
+<p>关于valine的js源cdn加速配置，我是用的even主题可以在<code>SITE/themes/even/layouts/partials/comments.html</code>中找到valine部分并修改。</p>
 
 <h2 id="13-makefile编写">13. Makefile编写</h2>
 
