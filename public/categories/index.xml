@@ -6,10 +6,28 @@
     <description>Recent content in Categories on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 17 Aug 2019 04:45:58 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 22 Aug 2019 11:00:49 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>cs</title>
+      <link>https://azd1997.github.io/categories/cs/</link>
+      <pubDate>Thu, 22 Aug 2019 11:00:49 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/categories/cs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iot</title>
+      <link>https://azd1997.github.io/categories/iot/</link>
+      <pubDate>Wed, 21 Aug 2019 01:54:34 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/categories/iot/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>linux</title>
@@ -17,15 +35,6 @@
       <pubDate>Sat, 17 Aug 2019 04:45:58 +0800</pubDate>
       
       <guid>https://azd1997.github.io/categories/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>iot</title>
-      <link>https://azd1997.github.io/categories/iot/</link>
-      <pubDate>Sat, 17 Aug 2019 03:32:15 +0800</pubDate>
-      
-      <guid>https://azd1997.github.io/categories/iot/</guid>
       <description></description>
     </item>
     

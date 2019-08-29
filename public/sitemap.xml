@@ -3,14 +3,70 @@
   
   <url>
     <loc>https://azd1997.github.io/categories/</loc>
-    <lastmod>2019-08-20T03:14:14-04:00</lastmod>
+    <lastmod>2019-08-22T11:00:49+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/concepts/</loc>
+    <lastmod>2019-08-22T11:00:49+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/categories/cs/</loc>
+    <lastmod>2019-08-22T11:00:49+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/</loc>
-    <lastmod>2019-08-20T03:14:14-04:00</lastmod>
+    <lastmod>2019-08-22T11:00:49+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/</loc>
+    <lastmod>2019-08-22T11:00:49+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/</loc>
+    <lastmod>2019-08-22T11:00:49+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/cs/concepts/</loc>
+    <lastmod>2019-08-22T11:00:49+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/edgex/</loc>
+    <lastmod>2019-08-21T01:54:34+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/iot/edgex/</loc>
+    <lastmod>2019-08-21T01:54:34+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/categories/iot/</loc>
+    <lastmod>2019-08-21T01:54:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31,20 +87,6 @@
   
   <url>
     <loc>https://azd1997.github.io/post/linux/makefile/</loc>
-    <lastmod>2019-08-20T03:14:14-04:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://azd1997.github.io/post/</loc>
-    <lastmod>2019-08-20T03:14:14-04:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://azd1997.github.io/tags/</loc>
     <lastmod>2019-08-20T03:14:14-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -73,13 +115,6 @@
   
   <url>
     <loc>https://azd1997.github.io/post/linux/docker/</loc>
-    <lastmod>2019-08-20T03:14:14-04:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://azd1997.github.io/categories/iot/</loc>
     <lastmod>2019-08-20T03:14:14-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -163,14 +198,14 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/categories/go/</loc>
+    <loc>https://azd1997.github.io/tags/go/</loc>
     <lastmod>2019-08-20T03:14:14-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/tags/go/</loc>
+    <loc>https://azd1997.github.io/categories/go/</loc>
     <lastmod>2019-08-20T03:14:14-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -198,14 +233,14 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/tags/java/</loc>
+    <loc>https://azd1997.github.io/categories/java/</loc>
     <lastmod>2019-08-20T03:14:14-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/categories/java/</loc>
+    <loc>https://azd1997.github.io/tags/java/</loc>
     <lastmod>2019-08-20T03:14:14-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

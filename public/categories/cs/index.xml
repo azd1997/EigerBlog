@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cs on Eiger - A young gopher</title>
+    <link>https://azd1997.github.io/categories/cs/</link>
+    <description>Recent content in cs on Eiger - A young gopher</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 22 Aug 2019 11:00:49 +0800</lastBuildDate>
+    
+	<atom:link href="https://azd1997.github.io/categories/cs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>计算机科学中一些常用术语</title>
+      <link>https://azd1997.github.io/post/cs/concepts/</link>
+      <pubDate>Thu, 22 Aug 2019 11:00:49 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/cs/concepts/</guid>
+      <description>计算机科学中一些常用术语 1. 原语 原语操作 原子操作 原语 内核或微核提供核外调用的过程或函数称为原语(primitive)。 原语是一段用机器指令编写</description>
+    </item>
+    
+  </channel>
+</rss>

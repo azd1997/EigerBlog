@@ -6,10 +6,19 @@
     <description>Recent content in iot on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 17 Aug 2019 03:32:15 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 21 Aug 2019 01:54:34 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/categories/iot/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>edgeX安装使用全系列</title>
+      <link>https://azd1997.github.io/post/iot/edgex/</link>
+      <pubDate>Wed, 21 Aug 2019 01:54:34 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/iot/edgex/</guid>
+      <description>edgeX安装使用全系列 1. 开发者篇 1.1 介绍 EdgeX Foundry是一组为边缘网关平台提供的微服务集合，还包含了一系列的SDK。主要的SDK编写语言为</description>
+    </item>
     
     <item>
       <title>mainflux源码阅读全系列</title>

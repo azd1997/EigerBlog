@@ -6,10 +6,28 @@
     <description>Recent content on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 17 Aug 2019 04:45:58 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 22 Aug 2019 11:00:49 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>计算机科学中一些常用术语</title>
+      <link>https://azd1997.github.io/post/cs/concepts/</link>
+      <pubDate>Thu, 22 Aug 2019 11:00:49 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/cs/concepts/</guid>
+      <description>计算机科学中一些常用术语 1. 原语 原语操作 原子操作 原语 内核或微核提供核外调用的过程或函数称为原语(primitive)。 原语是一段用机器指令编写</description>
+    </item>
+    
+    <item>
+      <title>edgeX安装使用全系列</title>
+      <link>https://azd1997.github.io/post/iot/edgex/</link>
+      <pubDate>Wed, 21 Aug 2019 01:54:34 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/iot/edgex/</guid>
+      <description>edgeX安装使用全系列 1. 开发者篇 1.1 介绍 EdgeX Foundry是一组为边缘网关平台提供的微服务集合，还包含了一系列的SDK。主要的SDK编写语言为</description>
+    </item>
     
     <item>
       <title>Makefile学习全系列</title>
