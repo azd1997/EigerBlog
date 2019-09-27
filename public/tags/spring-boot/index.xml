@@ -13,10 +13,10 @@
     
     <item>
       <title>Spring Boot实战01——创建Spring Boot应用</title>
-      <link>https://azd1997.github.io/post/java/01_startspringbootproject/</link>
+      <link>https://azd1997.github.io/post/java/springboot/</link>
       <pubDate>Tue, 23 Jul 2019 10:37:14 +0800</pubDate>
       
-      <guid>https://azd1997.github.io/post/java/01_startspringbootproject/</guid>
+      <guid>https://azd1997.github.io/post/java/springboot/</guid>
       <description>创建Spring Boot应用 1. 安装IdeaU ​ 官网下载即可，学生等可以申请免费使用。 2. 创建Spring Boot应用 如果报错： 解决办法：fil</description>
     </item>
     

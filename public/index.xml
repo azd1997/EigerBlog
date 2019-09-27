@@ -6,10 +6,37 @@
     <description>Recent content on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 22 Aug 2019 11:00:49 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 26 Sep 2019 22:05:29 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>数据结构与算法（2）——数组</title>
+      <link>https://azd1997.github.io/post/algo/dsa02/</link>
+      <pubDate>Thu, 26 Sep 2019 22:05:29 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/dsa02/</guid>
+      <description>1. 导语 为什么数组下表从0开始而非1开始？ 2. 如何实现随机访问 数组(array) 是一种线性表数据结构，用一组连续的内存空间，存储一组相同类型的数</description>
+    </item>
+    
+    <item>
+      <title>Go语言学习笔记</title>
+      <link>https://azd1997.github.io/post/go/go-learning-note/</link>
+      <pubDate>Thu, 12 Sep 2019 05:00:45 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/go/go-learning-note/</guid>
+      <description>Go语言学习笔记 1. 文件操作</description>
+    </item>
+    
+    <item>
+      <title>JavaSE核心编程笔记</title>
+      <link>https://azd1997.github.io/post/java/javase/</link>
+      <pubDate>Thu, 05 Sep 2019 02:55:16 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/java/javase/</guid>
+      <description>JavaSE核心编程笔记</description>
+    </item>
     
     <item>
       <title>计算机科学中一些常用术语</title>
@@ -112,10 +139,10 @@
     
     <item>
       <title>Spring Boot实战01——创建Spring Boot应用</title>
-      <link>https://azd1997.github.io/post/java/01_startspringbootproject/</link>
+      <link>https://azd1997.github.io/post/java/springboot/</link>
       <pubDate>Tue, 23 Jul 2019 10:37:14 +0800</pubDate>
       
-      <guid>https://azd1997.github.io/post/java/01_startspringbootproject/</guid>
+      <guid>https://azd1997.github.io/post/java/springboot/</guid>
       <description>创建Spring Boot应用 1. 安装IdeaU ​ 官网下载即可，学生等可以申请免费使用。 2. 创建Spring Boot应用 如果报错： 解决办法：fil</description>
     </item>
     
