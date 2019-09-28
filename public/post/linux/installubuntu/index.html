@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-08-17T02:04:01&#43;08:00" />
 <meta itemprop="dateModified" content="2019-08-20T03:14:14-04:00" />
-<meta itemprop="wordCount" content="8261">
+<meta itemprop="wordCount" content="8464">
 
 
 
@@ -135,7 +135,7 @@
         <div class="post-category">
             <a href="/categories/linux/"> linux </a>
             </div>
-          <span class="more-meta"> 8261 words </span>
+          <span class="more-meta"> 8464 words </span>
           <span class="more-meta"> 17 mins read </span>
         
       </div>
@@ -163,7 +163,10 @@
 </ul></li>
 <li><a href="#9-文件-夹-权限查看及修改">9. 文件（夹）权限查看及修改</a></li>
 <li><a href="#10-查看本机端口使用情况及关闭使用端口的程序">10. 查看本机端口使用情况及关闭使用端口的程序</a></li>
-<li><a href="#11-安装chrome">11. 安装chrome</a></li>
+<li><a href="#11-安装chrome">11. 安装chrome</a>
+<ul>
+<li><a href="#11-1-离线安装插件">11.1 离线安装插件</a></li>
+</ul></li>
 <li><a href="#12-安装hugo">12. 安装Hugo</a></li>
 <li><a href="#13-makefile编写">13. Makefile编写</a></li>
 <li><a href="#14-apt卸载程序">14. apt卸载程序</a></li>
@@ -817,6 +820,12 @@ update-alternatives: using /usr/bin/google-chrome-stable to provide /usr/bin/goo
 <p>chrome安装后提供了两个快捷方式：/usr/bin/google-chrome、/usr/bin/google-chrome-stable。因此在为markdownpdf提供chrome执行路径直接选择二者之一即可。</p>
 
 <p>如果安装完打开chrome发生闪退，解决方法参见上面提到的博文</p>
+
+<h3 id="11-1-离线安装插件">11.1 离线安装插件</h3>
+
+<p>没有梯子的话想要安装chrome插件需要下载.crx插件文件拖拽到chrome extensions界面完成安装，但是新版chrome已经禁用了该方法。解决办法是：将待安装的.crx修改后缀名为.zip，解压到文件夹，在chrome extensions界面开启开发者选项，选择load unpacked可以直接将该文件夹安装进去。</p>
+
+<p>推荐安装的chrome插件： octotree 用于github左边栏树形文件导航。</p>
 
 <h2 id="12-安装hugo">12. 安装Hugo</h2>
 

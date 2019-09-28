@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-09-26T22:05:29&#43;08:00" />
 <meta itemprop="dateModified" content="2019-09-26T22:05:29&#43;08:00" />
-<meta itemprop="wordCount" content="2631">
+<meta itemprop="wordCount" content="2687">
 
 
 
@@ -135,7 +135,7 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 2631 words </span>
+          <span class="more-meta"> 2687 words </span>
           <span class="more-meta"> 6 mins read </span>
         
       </div>
@@ -154,7 +154,8 @@
 <li><a href="#4-警惕数组越界访问">4. 警惕数组越界访问</a></li>
 <li><a href="#5-容器能否完全替代数组">5. 容器能否完全替代数组</a></li>
 <li><a href="#6-数组下标为什么从0开始">6. 数组下标为什么从0开始</a></li>
-<li><a href="#思考">思考</a></li>
+<li><a href="#7-思考">7. 思考</a></li>
+<li><a href="#8-练习">8. 练习</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -280,7 +281,7 @@
 <li><strong>支持动态扩容</strong></li>
 </ul>
 
-<p>动态扩容的原理其实就是在结构体里封装一个底层数组，当底层数组满时为其另分配一个1.5倍大小的内存空间，并将数据搬移过去。</p>
+<p>动态扩容的原理其实就是在结构体里封装一个底层数组和一个用来标志当前数据长度的变量，当底层数组满时为其另分配一个1.5倍大小的内存空间，并将数据搬移过去。</p>
 
 <p>因此，当容器发生扩容时涉及内存申请和数据搬移，比较耗时，最好能提前知道数据规模，在<strong>创建数组容器时指定大小以避免扩容</strong></p>
 
@@ -298,7 +299,7 @@
 
 <p>更主要的是历史原因，C语言这么搞，后来者（其他的高级语言）为了减少C语言使用者的学习成本，也这么设计了。</p>
 
-<h2 id="思考">思考</h2>
+<h2 id="7-思考">7. 思考</h2>
 
 <ol>
 <li><p>JVM标记清除垃圾回收算法</p>
@@ -314,6 +315,22 @@
 <p><code>address = base_address + (i*n+j) * type_size</code></p></li>
 </ol>
 
+<h2 id="8-练习">8. 练习</h2>
+
+<ol>
+<li>实现动态扩容数组</li>
+<li>实现动态增删改查</li>
+<li>合并两个有序数组到新的有序数组</li>
+</ol>
+
+<p>代码实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"></code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     <div class="post-copyright">
@@ -336,7 +353,11 @@
           <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/cs/simplehttpserver/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">实现一个简单的HTTP服务器</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
         <a class="next" href="/post/go/go-learning-note/">
             <span class="next-text nav-default">Go语言学习笔记</span>
             <span class="next-text nav-mobile">Next</span>

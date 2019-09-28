@@ -6,10 +6,19 @@
     <description>Recent content on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 26 Sep 2019 22:05:29 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 28 Sep 2019 03:16:29 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>实现一个简单的HTTP服务器</title>
+      <link>https://azd1997.github.io/post/cs/simplehttpserver/</link>
+      <pubDate>Sat, 28 Sep 2019 03:16:29 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/cs/simplehttpserver/</guid>
+      <description>1. 构建TCP服务器 1.1. 包装TCPServer类 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 # simpleHttpServer/server/socket_server.py import</description>
+    </item>
     
     <item>
       <title>数据结构与算法（2）——数组</title>

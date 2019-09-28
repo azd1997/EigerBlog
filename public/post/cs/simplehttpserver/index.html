@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>实现一个简单的HTTP服务器 - Eiger - A young gopher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Eiger" /><meta name="description" content="1. 构建TCP服务器 1.1. 包装TCPServer类 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 # simpleHttpServer/server/socket_server.py import" /><meta name="keywords" content="HTTP, TCP, 面向字节流" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://azd1997.github.io/post/cs/simplehttpserver/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="实现一个简单的HTTP服务器" />
+<meta property="og:description" content="1. 构建TCP服务器 1.1. 包装TCPServer类 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 # simpleHttpServer/server/socket_server.py import" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://azd1997.github.io/post/cs/simplehttpserver/" />
+<meta property="article:published_time" content="2019-09-28T03:16:29+08:00" />
+<meta property="article:modified_time" content="2019-09-28T03:16:29+08:00" />
+<meta itemprop="name" content="实现一个简单的HTTP服务器">
+<meta itemprop="description" content="1. 构建TCP服务器 1.1. 包装TCPServer类 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 # simpleHttpServer/server/socket_server.py import">
+
+
+<meta itemprop="datePublished" content="2019-09-28T03:16:29&#43;08:00" />
+<meta itemprop="dateModified" content="2019-09-28T03:16:29&#43;08:00" />
+<meta itemprop="wordCount" content="3661">
+
+
+
+<meta itemprop="keywords" content="HTTP,TCP,Python," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="实现一个简单的HTTP服务器"/>
+<meta name="twitter:description" content="1. 构建TCP服务器 1.1. 包装TCPServer类 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 # simpleHttpServer/server/socket_server.py import"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Eiger</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/links/">
+        <li class="mobile-menu-item">Links</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Eiger</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/links/">Links</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">实现一个简单的HTTP服务器</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-09-28 </span>
+        <div class="post-category">
+            <a href="/categories/cs/"> cs </a>
+            </div>
+          <span class="more-meta"> 3661 words </span>
+          <span class="more-meta"> 8 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#1-构建tcp服务器">1. 构建TCP服务器</a>
+<ul>
+<li><a href="#1-1-包装tcpserver类">1.1. 包装TCPServer类</a></li>
+<li><a href="#1-2-构造handler">1.2.构造Handler</a></li>
+<li><a href="#1-3-完善tcpserver">1.3. 完善TCPServer</a></li>
+<li><a href="#1-4-测试tcpserver">1.4. 测试TCPServer</a></li>
+<li><a href="#1-5-多线程处理请求">1.5. 多线程处理请求</a></li>
+</ul></li>
+<li><a href="#2-构造一个http服务器">2. 构造一个HTTP服务器</a>
+<ul>
+<li><a href="#2-1-包装basehttpserver">2.1. 包装BaseHTTPServer</a></li>
+<li><a href="#2-2-编写basehttprequesthandler">2.2. 编写BaseHTTPRequestHandler</a></li>
+<li><a href="#2-3-测试basehttpserver">2.3. 测试BaseHTTPServer</a></li>
+<li><a href="#2-4-构造一个简单的http服务器">2.4. 构造一个简单的HTTP服务器</a></li>
+<li><a href="#2-5-测试simplehttpserver">2.5. 测试SimpleHTTPServer</a></li>
+</ul></li>
+<li><a href="#最后">最后</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h2 id="1-构建tcp服务器">1. 构建TCP服务器</h2>
+
+<h3 id="1-1-包装tcpserver类">1.1. 包装TCPServer类</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># simpleHttpServer/server/socket_server.py</span>
+
+<span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="k">class</span> <span class="nc">TCPServer</span><span class="p">:</span>
+
+    <span class="c1"># TODO：handle_class</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_address</span><span class="p">,</span> <span class="n">handler_class</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server_address</span> <span class="o">=</span> <span class="n">server_address</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">HandlerClass</span> <span class="o">=</span> <span class="n">handler_class</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">socket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>     <span class="c1"># 参数1协议，参数2指定字节流</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_shutdown</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="c1"># 服务器启动函数</span>
+    <span class="k">def</span> <span class="nf">serve_forever</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_address</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_shutdown</span><span class="p">:</span>
+            <span class="c1"># 1.接收请求</span>
+            <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span>
+            <span class="c1"># 2.处理请求，需要捕获异常。这里是阻塞式的处理请求</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">process_request</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># 接收请求</span>
+    <span class="k">def</span> <span class="nf">get_request</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+
+    <span class="c1"># 处理请求</span>
+    <span class="k">def</span> <span class="nf">process_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">):</span>
+        <span class="c1"># TODO: 处理请求</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+    <span class="c1"># 关闭请求</span>
+    <span class="k">def</span> <span class="nf">close_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SHUT_WR</span><span class="p">)</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="c1"># 关闭服务器</span>
+    <span class="k">def</span> <span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_shutdown</span> <span class="o">=</span> <span class="bp">True</span>     <span class="c1"># 跳出循环标志</span>
+        <span class="k">pass</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>TCP服务器在进行网络通信时需要接收请求、处理请求、关闭请求，接收和关闭都是基于socket api。而处理请求正是需要自定义的部分，这里将请求处理这块功能构建一个handler类。</p>
+
+<h3 id="1-2-构造handler">1.2.构造Handler</h3>
+
+<p>由于TCP是面向字节流的协议，所以它处理请求时，需要解码，而发送消息时需要编码，与之相关的一系列功能都实现在<code>StreamRequestHandler</code>中构造handler如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># simpleHttpServer/handler/base_handler.py</span>
+
+<span class="k">class</span> <span class="nc">BaseRequestHandler</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">server</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span> <span class="o">=</span> <span class="n">request</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client_address</span> <span class="o">=</span> <span class="n">client_address</span>
+
+    <span class="c1"># 没有实现，留给具体业务逻辑实现</span>
+    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">StreamRequestHandler</span><span class="p">(</span><span class="n">BaseRequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">):</span>
+        <span class="n">BaseRequestHandler</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wbuf</span> <span class="o">=</span> <span class="p">[]</span>      <span class="c1"># 定义缓存区</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rfile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">makefile</span><span class="p">(</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span>        <span class="c1"># unix 一切皆文件</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wfile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">makefile</span><span class="p">(</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 编码。字符串-&gt;字节码</span>
+    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="c1"># 判断msg是否为字节码，不是则编码</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">msg</span>
+
+    <span class="c1"># 解码。字节码解码为字符串</span>
+    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">msg</span>
+
+    <span class="c1"># 读</span>
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rfile</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c1"># 读行</span>
+    <span class="k">def</span> <span class="nf">readline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">65536</span><span class="p">):</span>   <span class="c1"># http报文默认最大长度65536</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rfile</span><span class="o">.</span><span class="n">readline</span><span class="p">(</span><span class="n">length</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c1"># 写内容到handler缓冲区</span>
+    <span class="k">def</span> <span class="nf">write_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wbuf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c1"># 发送</span>
+    <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">wbuf</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wfile</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wbuf</span> <span class="o">=</span> <span class="p">[]</span>      <span class="c1"># 清空缓冲</span>
+
+    <span class="c1"># 关闭</span>
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="1-3-完善tcpserver">1.3. 完善TCPServer</h3>
+
+<p>实现handler之后可以将之前的TODO项给完成：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">TCPServer</span><span class="p">:</span>
+
+    <span class="o">...</span>
+
+    <span class="c1"># 处理请求</span>
+    <span class="k">def</span> <span class="nf">process_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">):</span>
+        <span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandlerClass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">)</span>
+        <span class="n">handler</span><span class="o">.</span><span class="n">handle</span><span class="p">()</span>
+        <span class="c1"># 3.关闭请求</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="1-4-测试tcpserver">1.4. 测试TCPServer</h3>
+
+<p>构建测试类和测试函数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># simpleHttpServer/test/test.py</span>
+
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="kn">from</span> <span class="nn">server.socket_server</span> <span class="kn">import</span> <span class="n">TCPServer</span>
+<span class="kn">from</span> <span class="nn">handler.base_handler</span> <span class="kn">import</span> <span class="n">StreamRequestHandler</span>
+
+
+<span class="k">class</span> <span class="nc">TestBaseRequestHandler</span><span class="p">(</span><span class="n">StreamRequestHandler</span><span class="p">):</span>
+    <span class="c1"># 实现一个handle，覆盖默认的handle</span>
+    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Server received msg: &#39;</span> <span class="o">+</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_content</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
+        <span class="k">pass</span>
+
+
+<span class="c1"># 测试SocketServer(TCPServer)</span>
+<span class="k">class</span> <span class="nc">SocketServerTest</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">run_server</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tcp_server</span> <span class="o">=</span> <span class="n">TCPServer</span><span class="p">((</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">8888</span><span class="p">),</span> <span class="n">TestBaseRequestHandler</span><span class="p">)</span>
+        <span class="n">tcp_server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+
+    <span class="c1"># 客户端的具体连接逻辑</span>
+    <span class="k">def</span> <span class="nf">client_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">8888</span><span class="p">))</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Hello TCPServer</span><span class="se">\r\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Client recv msg: &#39;</span> <span class="o">+</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">gen_clients</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="n">clients</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+            <span class="c1"># 新建线程连接客户端</span>
+            <span class="n">client_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client_connect</span><span class="p">)</span>
+            <span class="n">clients</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">client_thread</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">clients</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">server_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_server</span><span class="p">)</span>
+        <span class="n">server_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="n">clients</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gen_clients</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">client</span> <span class="ow">in</span> <span class="n">clients</span><span class="p">:</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="n">server_thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">client</span> <span class="ow">in</span> <span class="n">clients</span><span class="p">:</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">SocketServerTest</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>运行起来后能看到5台客户端节点（运行在5个线程上）先后发送数据给TCPServer并接受TCPServer的回应。但这个过程中由于TCPServer处理请求的过程中是先接受请求再处理请求。也就是说当多个客户端连接时，服务器想要接收客户端2的请求必须等客户端1的请求处理完成之后，这样的话并发效率太低。</p>
+
+<h3 id="1-5-多线程处理请求">1.5. 多线程处理请求</h3>
+
+<p>修改的地方为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="o">...</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="o">...</span>
+
+
+<span class="k">class</span> <span class="nc">TCPServer</span><span class="p">:</span>
+
+    <span class="o">...</span>
+
+    <span class="c1"># 服务器启动函数</span>
+    <span class="k">def</span> <span class="nf">serve_forever</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_address</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_shutdown</span><span class="p">:</span>
+            <span class="c1"># 1.接收请求</span>
+            <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span>
+            <span class="c1"># 2.处理请求，需要捕获异常。这里是阻塞式的处理请求</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># self.process_request(request, client_address)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">process_request_multithread</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">pass</span>
+
+    <span class="o">...</span>
+
+    <span class="c1"># 多线程处理请求</span>
+    <span class="k">def</span> <span class="nf">process_request_multithread</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">process_request</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">))</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>至此，TCPServer就基本完善了。</p>
+
+<h2 id="2-构造一个http服务器">2. 构造一个HTTP服务器</h2>
+
+<h3 id="2-1-包装basehttpserver">2.1. 包装BaseHTTPServer</h3>
+
+<p>直接基于（继承自）TCPServer类构造BaseHTTPServer：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># simpleHttpServer/server/base_http_server.py</span>
+
+<span class="kn">from</span> <span class="nn">server.socket_server</span> <span class="kn">import</span> <span class="n">TCPServer</span>
+
+
+<span class="k">class</span> <span class="nc">BaseHTTPServer</span><span class="p">(</span><span class="n">TCPServer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_address</span><span class="p">,</span> <span class="n">handler_class</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server_name</span> <span class="o">=</span> <span class="s1">&#39;BaseHTTPServer&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;v0.1&#39;</span>
+        <span class="n">TCPServer</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_address</span><span class="p">,</span> <span class="n">handler_class</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="2-2-编写basehttprequesthandler">2.2. 编写BaseHTTPRequestHandler</h3>
+
+<p>同样的，HTTPServer也需要传入handler，且自然是HTTP数据报文的编解码相关方法集合。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">handler.base_handler</span> <span class="kn">import</span> <span class="n">StreamRequestHandler</span>
+<span class="kn">from</span> <span class="nn">util</span> <span class="kn">import</span> <span class="n">date_time_string</span>
+<span class="c1"># 引入的date_time_string方法获取当前时间并构造成字符串</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
+                    <span class="n">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(filename)s</span><span class="s1">[line:</span><span class="si">%(lineno)d</span><span class="s1">] - </span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">BaseHTTPRequestHandler</span><span class="p">(</span><span class="n">StreamRequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_http_version</span> <span class="o">=</span> <span class="s1">&#39;HTTP/1.1&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_line</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">StreamRequestHandler</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">)</span>
+
+    <span class="c1"># 请求的处理</span>
+    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># 1. 解析请求</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_request</span><span class="p">():</span>
+                <span class="k">return</span>
+            <span class="c1"># 2. 方法执行(GET/POST)</span>
+            <span class="n">method_name</span> <span class="o">=</span> <span class="s1">&#39;do_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span>
+            <span class="c1"># 自检是否拥有这个方法</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_name</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">write_error</span><span class="p">(</span><span class="mi">404</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
+                <span class="k">return</span>
+            <span class="n">method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span>
+            <span class="n">method</span><span class="p">()</span> <span class="c1"># 需要进行应答报文的封装</span>
+            <span class="c1"># 3. 发送结果</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">do_GET</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;&lt;h1&gt;Hello World&lt;/h1&gt;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_response</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;Success&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_header</span><span class="p">(</span><span class="s1">&#39;Content-Length&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_headers</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_content</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c1"># 解析请求头</span>
+    <span class="k">def</span> <span class="nf">parse_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+            <span class="c1"># 如果遇到空行，表示请求头已经结束，不是则解析</span>
+            <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&#34;:&#34;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">headers</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># 行为空则退出循环</span>
+                <span class="k">break</span>
+        <span class="k">return</span> <span class="n">headers</span>
+
+    <span class="c1"># 解析请求</span>
+    <span class="k">def</span> <span class="nf">parse_request</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># 1. 解析请求行</span>
+        <span class="n">first_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_line</span> <span class="o">=</span> <span class="n">first_line</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_line</span><span class="p">:</span>   <span class="c1"># 如果请求行为空，直接返回</span>
+            <span class="k">return</span>
+        <span class="n">words</span> <span class="o">=</span> <span class="n">first_line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>  <span class="c1"># 切割空行</span>
+        <span class="c1"># 请求方法、请求地址、请求的HTTP版本</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">words</span>
+
+        <span class="c1"># 2. 解析请求头</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_headers</span><span class="p">()</span>
+
+        <span class="c1"># 3. 解析请求内容</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;Content-Length&#39;</span>
+        <span class="c1"># 检查内容长度这个键是否存在</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">body_length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">body_length</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="c1"># 写入应答头</span>
+    <span class="k">def</span> <span class="nf">write_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_content</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c1"># 写入正常HTTP应答的头部</span>
+    <span class="k">def</span> <span class="nf">write_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">msg</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%s</span><span class="s2">, code: </span><span class="si">%s</span><span class="s2">.&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request_line</span><span class="p">,</span> <span class="n">code</span><span class="p">))</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RESPONSES</span><span class="p">[</span><span class="n">code</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># 状态行封装</span>
+        <span class="n">response_line</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> </span><span class="si">%d</span><span class="s1"> </span><span class="si">%s</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_http_version</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_content</span><span class="p">(</span><span class="n">response_line</span><span class="p">)</span>
+        <span class="c1"># 应答头</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_header</span><span class="p">(</span><span class="s1">&#39;Server&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">server_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">version</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_header</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">date_time_string</span><span class="p">())</span>
+        <span class="k">pass</span>
+
+    <span class="n">DEFAULT_ERROR_MESSAGE_TEMPLATE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;&#39;&#39;
+</span><span class="s1">    &lt;head&gt;
+</span><span class="s1">    &lt;title&gt;Error response&lt;/title&gt;
+</span><span class="s1">    &lt;/head&gt;
+</span><span class="s1">    &lt;body&gt;
+</span><span class="s1">    &lt;h1&gt;Error response&lt;/h1&gt;
+</span><span class="s1">    &lt;p&gt;Error code: </span><span class="si">%(code)d</span><span class="s1">.
+</span><span class="s1">    &lt;p&gt;Message: </span><span class="si">%(message)s</span><span class="s1">.
+</span><span class="s1">    &lt;p&gt;Error code explanation: </span><span class="si">%(code)s</span><span class="s1"> = </span><span class="si">%(explain)s</span><span class="s1">.
+</span><span class="s1">    &lt;/body&gt;
+</span><span class="s1">    &#39;&#39;&#39;</span>
+
+    <span class="n">RESPONSES</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">100</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Continue&#39;</span><span class="p">,</span> <span class="s1">&#39;Request received, please continue&#39;</span><span class="p">),</span>
+        <span class="mi">101</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Switching Protocols&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;Switching to new protocol; obey Upgrade header&#39;</span><span class="p">),</span>
+
+        <span class="mi">200</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;OK&#39;</span><span class="p">,</span> <span class="s1">&#39;Request fulfilled, document follows&#39;</span><span class="p">),</span>
+        <span class="mi">201</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Created&#39;</span><span class="p">,</span> <span class="s1">&#39;Document created, URL follows&#39;</span><span class="p">),</span>
+        <span class="mi">202</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Accepted&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;Request accepted, processing continues off-line&#39;</span><span class="p">),</span>
+        <span class="mi">203</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Non-Authoritative Information&#39;</span><span class="p">,</span> <span class="s1">&#39;Request fulfilled from cache&#39;</span><span class="p">),</span>
+        <span class="mi">204</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;No Content&#39;</span><span class="p">,</span> <span class="s1">&#39;Request fulfilled, nothing follows&#39;</span><span class="p">),</span>
+        <span class="mi">205</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Reset Content&#39;</span><span class="p">,</span> <span class="s1">&#39;Clear input form for further input.&#39;</span><span class="p">),</span>
+        <span class="mi">206</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Partial Content&#39;</span><span class="p">,</span> <span class="s1">&#39;Partial content follows.&#39;</span><span class="p">),</span>
+
+        <span class="mi">300</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Multiple Choices&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;Object has several resources -- see URI list&#39;</span><span class="p">),</span>
+        <span class="mi">301</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Moved Permanently&#39;</span><span class="p">,</span> <span class="s1">&#39;Object moved permanently -- see URI list&#39;</span><span class="p">),</span>
+        <span class="mi">302</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Found&#39;</span><span class="p">,</span> <span class="s1">&#39;Object moved temporarily -- see URI list&#39;</span><span class="p">),</span>
+        <span class="mi">303</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;See Other&#39;</span><span class="p">,</span> <span class="s1">&#39;Object moved -- see Method and URL list&#39;</span><span class="p">),</span>
+        <span class="mi">304</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Not Modified&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;Document has not changed since given time&#39;</span><span class="p">),</span>
+        <span class="mi">305</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Use Proxy&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;You must use proxy specified in Location to access this &#39;</span>
+              <span class="s1">&#39;resource.&#39;</span><span class="p">),</span>
+        <span class="mi">307</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Temporary Redirect&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;Object moved temporarily -- see URI list&#39;</span><span class="p">),</span>
+
+        <span class="mi">400</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Bad Request&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;Bad request syntax or unsupported method&#39;</span><span class="p">),</span>
+        <span class="mi">401</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Unauthorized&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;No permission -- see authorization schemes&#39;</span><span class="p">),</span>
+        <span class="mi">402</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Payment Required&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;No payment -- see charging schemes&#39;</span><span class="p">),</span>
+        <span class="mi">403</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Forbidden&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;Request forbidden -- authorization will not help&#39;</span><span class="p">),</span>
+        <span class="mi">404</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Not Found&#39;</span><span class="p">,</span> <span class="s1">&#39;Nothing matches the given URI&#39;</span><span class="p">),</span>
+        <span class="mi">405</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Method Not Allowed&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;Specified method is invalid for this resource.&#39;</span><span class="p">),</span>
+        <span class="mi">406</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Not Acceptable&#39;</span><span class="p">,</span> <span class="s1">&#39;URI not available in preferred format.&#39;</span><span class="p">),</span>
+        <span class="mi">407</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Proxy Authentication Required&#39;</span><span class="p">,</span> <span class="s1">&#39;You must authenticate with &#39;</span>
+                                               <span class="s1">&#39;this proxy before proceeding.&#39;</span><span class="p">),</span>
+        <span class="mi">408</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Request Timeout&#39;</span><span class="p">,</span> <span class="s1">&#39;Request timed out; try again later.&#39;</span><span class="p">),</span>
+        <span class="mi">409</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Conflict&#39;</span><span class="p">,</span> <span class="s1">&#39;Request conflict.&#39;</span><span class="p">),</span>
+        <span class="mi">410</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Gone&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;URI no longer exists and has been permanently removed.&#39;</span><span class="p">),</span>
+        <span class="mi">411</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Length Required&#39;</span><span class="p">,</span> <span class="s1">&#39;Client must specify Content-Length.&#39;</span><span class="p">),</span>
+        <span class="mi">412</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Precondition Failed&#39;</span><span class="p">,</span> <span class="s1">&#39;Precondition in headers is false.&#39;</span><span class="p">),</span>
+        <span class="mi">413</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Request Entity Too Large&#39;</span><span class="p">,</span> <span class="s1">&#39;Entity is too large.&#39;</span><span class="p">),</span>
+        <span class="mi">414</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Request-URI Too Long&#39;</span><span class="p">,</span> <span class="s1">&#39;URI is too long.&#39;</span><span class="p">),</span>
+        <span class="mi">415</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Unsupported Media Type&#39;</span><span class="p">,</span> <span class="s1">&#39;Entity body in unsupported format.&#39;</span><span class="p">),</span>
+        <span class="mi">416</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Requested Range Not Satisfiable&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;Cannot satisfy request range.&#39;</span><span class="p">),</span>
+        <span class="mi">417</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Expectation Failed&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;Expect condition could not be satisfied.&#39;</span><span class="p">),</span>
+
+        <span class="mi">500</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Internal Server Error&#39;</span><span class="p">,</span> <span class="s1">&#39;Server got itself in trouble&#39;</span><span class="p">),</span>
+        <span class="mi">501</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Not Implemented&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;Server does not support this operation&#39;</span><span class="p">),</span>
+        <span class="mi">502</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Bad Gateway&#39;</span><span class="p">,</span> <span class="s1">&#39;Invalid responses from another server/proxy.&#39;</span><span class="p">),</span>
+        <span class="mi">503</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Service Unavailable&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;The server cannot process the request due to a high load&#39;</span><span class="p">),</span>
+        <span class="mi">504</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Gateway Timeout&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;The gateway server did not receive a timely response&#39;</span><span class="p">),</span>
+        <span class="mi">505</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;HTTP Version Not Supported&#39;</span><span class="p">,</span> <span class="s1">&#39;Cannot fulfill request.&#39;</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="c1"># 写入错误HTTP请求的结果</span>
+    <span class="k">def</span> <span class="nf">write_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">s_msg</span><span class="p">,</span> <span class="n">l_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RESPONSES</span><span class="p">[</span><span class="n">code</span><span class="p">]</span>     <span class="c1"># s-short; l-long</span>
+        <span class="k">if</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">s_msg</span> <span class="o">=</span> <span class="n">msg</span>
+        <span class="c1"># 错误的html信息</span>
+        <span class="n">response_content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_ERROR_MESSAGE_TEMPLATE</span> <span class="o">%</span> <span class="p">{</span>
+            <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="n">code</span><span class="p">,</span>
+            <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="n">s_msg</span><span class="p">,</span>
+            <span class="s1">&#39;explain&#39;</span><span class="p">:</span> <span class="n">l_msg</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_response</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">s_msg</span><span class="p">)</span>
+        <span class="c1"># 请求头与应答正文间空行</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_headers</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_content</span><span class="p">(</span><span class="n">response_content</span><span class="p">)</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># 结束应答头</span>
+    <span class="k">def</span> <span class="nf">end_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_content</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="2-3-测试basehttpserver">2.3. 测试BaseHTTPServer</h3>
+
+<p>添加测试文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># simpleHttpServer/test/test.py</span>
+
+<span class="kn">from</span> <span class="nn">server.base_http_server</span> <span class="kn">import</span> <span class="n">BaseHTTPServer</span>
+<span class="kn">from</span> <span class="nn">handler.base_http_handler</span> <span class="kn">import</span> <span class="n">BaseHTTPRequestHandler</span>
+
+<span class="k">class</span> <span class="nc">BaseHTTPRequestHandlerTest</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">run_server</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BaseHTTPServer</span><span class="p">((</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">9999</span><span class="p">),</span> <span class="n">BaseHTTPRequestHandler</span><span class="p">)</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run_server</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># SocketServerTest().run()</span>
+    <span class="n">BaseHTTPRequestHandlerTest</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>如果正常的话，启动程序后在浏览器访问该url会看到HelloWorld网页。</p>
+
+<h3 id="2-4-构造一个简单的http服务器">2.4. 构造一个简单的HTTP服务器</h3>
+
+<p>上一节的HTTP服务器只有一个默认的GET方法（直接返回Hello网页），在这一小节将实现GET方法和POST方法，实现访问WEB资源和表单登录的功能。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># simpleHttpServer/server/simple_http_server.py</span>
+
+<span class="kn">from</span> <span class="nn">server.base_http_server</span> <span class="kn">import</span> <span class="n">BaseHTTPServer</span>
+
+
+<span class="k">class</span> <span class="nc">SimpleHTTPServer</span><span class="p">(</span><span class="n">BaseHTTPServer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_address</span><span class="p">,</span> <span class="n">handler_class</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server_name</span> <span class="o">=</span> <span class="s1">&#39;SimpleHTTPServer&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;v0.1&#39;</span>
+        <span class="n">BaseHTTPServer</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_address</span><span class="p">,</span> <span class="n">handler_class</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">handler.simple_http_handler</span> <span class="kn">import</span> <span class="n">SimpleHTTPRequestHandler</span>
+    <span class="n">SimpleHTTPServer</span><span class="p">((</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">8888</span><span class="p">),</span> <span class="n">SimpleHTTPRequestHandler</span><span class="p">)</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>对应的handler:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># simpleHttpServer/handler/simple_http_server.py</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">handler.base_http_handler</span> <span class="kn">import</span> <span class="n">BaseHTTPRequestHandler</span>
+<span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">parse</span>
+
+<span class="c1"># 获取当前文件夹目录并转换为绝对路径，再与&#39;../resources&#39;合并，就得到了resources路径</span>
+<span class="n">RESOURCES_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)),</span> <span class="s1">&#39;../resources&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SimpleHTTPRequestHandler</span><span class="p">(</span><span class="n">BaseHTTPRequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">):</span>
+        <span class="n">BaseHTTPRequestHandler</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">do_GET</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">found</span><span class="p">,</span> <span class="n">resource_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_resources</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_error</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">resource_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="c1"># 调用系统API获取文件内容长度，在fs的第7个位置</span>
+                <span class="n">fs</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fstat</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
+                <span class="n">clength</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">fs</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">write_response</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">write_header</span><span class="p">(</span><span class="s1">&#39;Content-Length&#39;</span><span class="p">,</span> <span class="n">clength</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">end_headers</span><span class="p">()</span>
+                <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+                    <span class="n">buf</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">buf</span><span class="p">:</span>
+                        <span class="k">break</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">write_content</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+                <span class="c1"># 不需要self.send()。因为handle中下一步就是send</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># 判断路径并获取资源</span>
+    <span class="k">def</span> <span class="nf">get_resources</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">url_result</span> <span class="o">=</span> <span class="n">parse</span><span class="o">.</span><span class="n">urlparse</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">resource_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">url_result</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">resource_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
+            <span class="n">resource_path</span> <span class="o">=</span> <span class="n">resource_path</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="n">resource_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">RESOURCES_PATH</span><span class="p">,</span> <span class="n">resource_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">resource_path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">resource_path</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">True</span><span class="p">,</span> <span class="n">resource_path</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span><span class="p">,</span> <span class="n">resource_path</span>
+
+    <span class="k">def</span> <span class="nf">do_POST</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># 账号密码的校验</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="n">body</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+        <span class="n">password</span> <span class="o">=</span> <span class="n">body</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">username</span> <span class="o">==</span> <span class="s1">&#39;eiger&#39;</span> <span class="ow">and</span> <span class="n">password</span> <span class="o">==</span> <span class="s1">&#39;123456&#39;</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;success&#39;</span><span class="p">,</span> <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;failed&#39;</span><span class="p">,</span> <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_response</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_header</span><span class="p">(</span><span class="s1">&#39;Content-Length&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="p">))</span>
+        <span class="c1"># 避免跨域问题</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_header</span><span class="p">(</span><span class="s1">&#39;Access-Control-Allow-Origin&#39;</span><span class="p">,</span> <span class="s1">&#39;http://</span><span class="si">%s</span><span class="s1">:</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">server_address</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">server_address</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_headers</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_content</span><span class="p">(</span><span class="n">response</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>现在就实现了一个带有GET和POST方法的简单http服务器</p>
+
+<h3 id="2-5-测试simplehttpserver">2.5. 测试SimpleHTTPServer</h3>
+
+<p>在simpleHttpServer/resources/目录下有index.html，其中有一段登陆用的脚本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js">    <span class="kd">function</span> <span class="nx">submitData</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">username</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#inputUsername&#34;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+        <span class="kd">var</span> <span class="nx">password</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#inputPassword&#34;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">username</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">password</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">alert</span><span class="p">(</span><span class="s2">&#34;账户或密码为空！&#34;</span><span class="p">)</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+                <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+                <span class="c1">// 注意这里写定了必须是8888端口
+</span><span class="c1"></span>                <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://localhost:8888/api/login&#39;</span><span class="p">,</span>
+                <span class="nx">data</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+                    <span class="s2">&#34;username&#34;</span><span class="o">:</span> <span class="nx">username</span><span class="p">,</span>
+                    <span class="s2">&#34;password&#34;</span><span class="o">:</span> <span class="nx">password</span>
+                <span class="p">}),</span>
+                <span class="nx">dataType</span><span class="o">:</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span>
+                <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">message</span> <span class="o">==</span> <span class="s1">&#39;success&#39;</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#loginModal&#39;</span><span class="p">).</span><span class="nx">modal</span><span class="p">(</span><span class="s1">&#39;hide&#39;</span><span class="p">);</span>
+                        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">);</span>
+                        <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="o">=</span><span class="s2">&#34;https://eiger.me&#34;</span><span class="p">;</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;账号密码校验失败&#39;</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">})</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>也就是说，当启动SimpleHTTPServer后浏览器访问<code>localhost:8888/index.html</code>会进入index.html并可以以账号eiger、密码123456进行登录，成功登陆后会跳转至我的个人博客网站。这表示测试成功。</p>
+
+<h2 id="最后">最后</h2>
+
+<p>完整代码：<a href="https://github.com/azd1997/python-simpleHttpServer">https://github.com/azd1997/python-simpleHttpServer</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-09-28
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/http/">HTTP</a>
+          <a href="/tags/tcp/">TCP</a>
+          <a href="/tags/python/">Python</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/algo/dsa02/">
+            <span class="next-text nav-default">数据结构与算法（2）——数组</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+  <span id="/post/cs/simplehttpserver/" class="leancloud_visitors" data-flag-title="实现一个简单的HTTP服务器">
+		<span class="post-meta-item-text">文章阅读量 </span>
+		<span class="leancloud-visitors-count">0</span>
+		<p></p>
+	  </span>
+  <div id="vcomments"></div>
+  <script src="http://pirogue.org/js/av-min.js"></script>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'bpOXpWYjWw1gNOYNe2PrWjKV-gzGzoHsz',
+        appKey: '07yqjMVRu9Nyoqrzj4X7IhL5',
+        notify:  true , 
+        verify:  false , 
+        avatar:'mm', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:374192922@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%8C%AF%E4%B8%9C-%E8%89%BE-b10752175/detail/recent-activity/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/azd1997" class="iconfont icon-github" title="github"></a>
+  <a href="https://azd1997.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
