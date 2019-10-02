@@ -6,7 +6,7 @@
     <description>Recent content in Categories on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 28 Sep 2019 03:16:29 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 30 Sep 2019 04:52:16 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>cs</title>
       <link>https://azd1997.github.io/categories/cs/</link>
-      <pubDate>Sat, 28 Sep 2019 03:16:29 +0800</pubDate>
+      <pubDate>Mon, 30 Sep 2019 04:52:16 +0800</pubDate>
       
       <guid>https://azd1997.github.io/categories/cs/</guid>
       <description></description>
@@ -30,7 +30,7 @@
     </item>
     
     <item>
-      <title>go</title>
+      <title>Go</title>
       <link>https://azd1997.github.io/categories/go/</link>
       <pubDate>Thu, 12 Sep 2019 05:00:45 +0800</pubDate>
       
