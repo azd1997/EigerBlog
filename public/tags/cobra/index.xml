@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cobra on Eiger - A young gopher</title>
+    <link>https://azd1997.github.io/tags/cobra/</link>
+    <description>Recent content in cobra on Eiger - A young gopher</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 16 Oct 2019 03:11:59 +0800</lastBuildDate>
+    
+	<atom:link href="https://azd1997.github.io/tags/cobra/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Cobra简介</title>
+      <link>https://azd1997.github.io/post/go/01_corbrausage/</link>
+      <pubDate>Wed, 16 Oct 2019 03:11:59 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/go/01_corbrausage/</guid>
+      <description>Cobra官方文档 https://github.com/spf13/cobra/blob/master/README.md 本文主要译自官方文档，并加以着重和个人理解。 本文假设读者已有go语言flag包、os包编写命令行程序经验 Cobra 应用结构 1 2 3</description>
+    </item>
+    
+  </channel>
+</rss>

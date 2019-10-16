@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pflag on Eiger - A young gopher</title>
+    <link>https://azd1997.github.io/tags/pflag/</link>
+    <description>Recent content in pflag on Eiger - A young gopher</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 16 Oct 2019 03:15:39 +0800</lastBuildDate>
+    
+	<atom:link href="https://azd1997.github.io/tags/pflag/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>pflag简介</title>
+      <link>https://azd1997.github.io/post/go/03_pflagusage/</link>
+      <pubDate>Wed, 16 Oct 2019 03:15:39 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/go/03_pflagusage/</guid>
+      <description>官方文档 https://github.com/spf13/pflag/blob/master/README.md 使用 导入： 1 import flag &amp;#34;github.com/spf13/pflag&amp;#34; Pflag和官方Flag大部分用法都是相同且兼容的。唯一注意的一点是，如果直接实例化Flag结构体，那么会没有f</description>
+    </item>
+    
+  </channel>
+</rss>

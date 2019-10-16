@@ -3,7 +3,77 @@
   
   <url>
     <loc>https://azd1997.github.io/categories/</loc>
-    <lastmod>2019-09-30T04:52:16+08:00</lastmod>
+    <lastmod>2019-10-16T03:15:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/</loc>
+    <lastmod>2019-10-16T03:15:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/categories/go/</loc>
+    <lastmod>2019-10-16T03:15:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/pflag/</loc>
+    <lastmod>2019-10-16T03:15:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/go/03_pflagusage/</loc>
+    <lastmod>2019-10-16T03:15:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/</loc>
+    <lastmod>2019-10-16T03:15:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/</loc>
+    <lastmod>2019-10-16T03:15:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/viper/</loc>
+    <lastmod>2019-10-16T03:14:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/go/02_viperusage/</loc>
+    <lastmod>2019-10-16T03:14:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/cobra/</loc>
+    <lastmod>2019-10-16T03:11:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/go/01_corbrausage/</loc>
+    <lastmod>2019-10-16T03:11:59+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -16,28 +86,7 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/</loc>
-    <lastmod>2019-09-30T04:52:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://azd1997.github.io/tags/iso/osi%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B/</loc>
-    <lastmod>2019-09-30T04:52:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://azd1997.github.io/post/</loc>
-    <lastmod>2019-09-30T04:52:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://azd1997.github.io/tags/</loc>
     <lastmod>2019-09-30T04:52:16+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -114,13 +163,6 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/categories/go/</loc>
-    <lastmod>2019-09-12T05:00:45+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://azd1997.github.io/tags/go/</loc>
     <lastmod>2019-09-12T05:00:45+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -135,14 +177,14 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/tags/java/</loc>
+    <loc>https://azd1997.github.io/categories/java/</loc>
     <lastmod>2019-09-05T02:55:16+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/categories/java/</loc>
+    <loc>https://azd1997.github.io/tags/java/</loc>
     <lastmod>2019-09-05T02:55:16+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

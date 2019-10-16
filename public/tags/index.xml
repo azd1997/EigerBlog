@@ -6,10 +6,37 @@
     <description>Recent content in Tags on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 30 Sep 2019 04:52:16 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 16 Oct 2019 03:15:39 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>pflag</title>
+      <link>https://azd1997.github.io/tags/pflag/</link>
+      <pubDate>Wed, 16 Oct 2019 03:15:39 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/tags/pflag/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>viper</title>
+      <link>https://azd1997.github.io/tags/viper/</link>
+      <pubDate>Wed, 16 Oct 2019 03:14:47 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/tags/viper/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cobra</title>
+      <link>https://azd1997.github.io/tags/cobra/</link>
+      <pubDate>Wed, 16 Oct 2019 03:11:59 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/tags/cobra/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>ISO/OSI参考模型</title>
@@ -75,7 +102,7 @@
     </item>
     
     <item>
-      <title>Go</title>
+      <title>go</title>
       <link>https://azd1997.github.io/tags/go/</link>
       <pubDate>Thu, 12 Sep 2019 05:00:45 +0800</pubDate>
       
@@ -84,7 +111,7 @@
     </item>
     
     <item>
-      <title>Java</title>
+      <title>java</title>
       <link>https://azd1997.github.io/tags/java/</link>
       <pubDate>Thu, 05 Sep 2019 02:55:16 +0800</pubDate>
       

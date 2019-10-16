@@ -6,10 +6,37 @@
     <description>Recent content in Posts on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 30 Sep 2019 04:52:16 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 16 Oct 2019 03:15:39 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>pflag简介</title>
+      <link>https://azd1997.github.io/post/go/03_pflagusage/</link>
+      <pubDate>Wed, 16 Oct 2019 03:15:39 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/go/03_pflagusage/</guid>
+      <description>官方文档 https://github.com/spf13/pflag/blob/master/README.md 使用 导入： 1 import flag &amp;#34;github.com/spf13/pflag&amp;#34; Pflag和官方Flag大部分用法都是相同且兼容的。唯一注意的一点是，如果直接实例化Flag结构体，那么会没有f</description>
+    </item>
+    
+    <item>
+      <title>Viper简介</title>
+      <link>https://azd1997.github.io/post/go/02_viperusage/</link>
+      <pubDate>Wed, 16 Oct 2019 03:14:47 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/go/02_viperusage/</guid>
+      <description>Viper官方文档 https://github.com/spf13/viper/blob/master/README.md 将值存入Viper 设置默认值 如果没有通过配置文件、环境变量等设置值，那么将使用默认值。默认值以如下方式设置： 1 2 3 viper.SetDefault(&amp;#34;ContentDir&amp;#34;, &amp;#34;content&amp;#34;) viper.SetDefault(&amp;#34;LayoutDir&amp;#34;,</description>
+    </item>
+    
+    <item>
+      <title>Cobra简介</title>
+      <link>https://azd1997.github.io/post/go/01_corbrausage/</link>
+      <pubDate>Wed, 16 Oct 2019 03:11:59 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/go/01_corbrausage/</guid>
+      <description>Cobra官方文档 https://github.com/spf13/cobra/blob/master/README.md 本文主要译自官方文档，并加以着重和个人理解。 本文假设读者已有go语言flag包、os包编写命令行程序经验 Cobra 应用结构 1 2 3</description>
+    </item>
     
     <item>
       <title>计算机网络01——体系结构</title>

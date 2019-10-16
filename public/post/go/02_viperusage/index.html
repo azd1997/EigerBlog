@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Viper简介 - Eiger - A young gopher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Eiger" /><meta name="description" content="Viper官方文档 https://github.com/spf13/viper/blob/master/README.md 将值存入Viper 设置默认值 如果没有通过配置文件、环境变量等设置值，那么将使用默认值。默认值以如下方式设置： 1 2 3 viper.SetDefault(&amp;#34;ContentDir&amp;#34;, &amp;#34;content&amp;#34;) viper.SetDefault(&amp;#34;LayoutDir&amp;#34;," /><meta name="keywords" content="viper" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://azd1997.github.io/post/go/02_viperusage/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Viper简介" />
+<meta property="og:description" content="Viper官方文档 https://github.com/spf13/viper/blob/master/README.md 将值存入Viper 设置默认值 如果没有通过配置文件、环境变量等设置值，那么将使用默认值。默认值以如下方式设置： 1 2 3 viper.SetDefault(&#34;ContentDir&#34;, &#34;content&#34;) viper.SetDefault(&#34;LayoutDir&#34;," />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://azd1997.github.io/post/go/02_viperusage/" />
+<meta property="article:published_time" content="2019-10-16T03:14:47+08:00" />
+<meta property="article:modified_time" content="2019-10-16T03:14:47+08:00" />
+<meta itemprop="name" content="Viper简介">
+<meta itemprop="description" content="Viper官方文档 https://github.com/spf13/viper/blob/master/README.md 将值存入Viper 设置默认值 如果没有通过配置文件、环境变量等设置值，那么将使用默认值。默认值以如下方式设置： 1 2 3 viper.SetDefault(&#34;ContentDir&#34;, &#34;content&#34;) viper.SetDefault(&#34;LayoutDir&#34;,">
+
+
+<meta itemprop="datePublished" content="2019-10-16T03:14:47&#43;08:00" />
+<meta itemprop="dateModified" content="2019-10-16T03:14:47&#43;08:00" />
+<meta itemprop="wordCount" content="2428">
+
+
+
+<meta itemprop="keywords" content="viper," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Viper简介"/>
+<meta name="twitter:description" content="Viper官方文档 https://github.com/spf13/viper/blob/master/README.md 将值存入Viper 设置默认值 如果没有通过配置文件、环境变量等设置值，那么将使用默认值。默认值以如下方式设置： 1 2 3 viper.SetDefault(&#34;ContentDir&#34;, &#34;content&#34;) viper.SetDefault(&#34;LayoutDir&#34;,"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Eiger</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/links/">
+        <li class="mobile-menu-item">Links</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Eiger</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/links/">Links</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Viper简介</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-10-16 </span>
+        <div class="post-category">
+            <a href="/categories/go/"> go </a>
+            </div>
+          <span class="more-meta"> 2428 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#viper官方文档">Viper官方文档</a></li>
+<li><a href="#将值存入viper">将值存入Viper</a>
+<ul>
+<li><a href="#设置默认值">设置默认值</a></li>
+<li><a href="#读取配置文件">读取配置文件</a></li>
+<li><a href="#写入配置文件">写入配置文件</a></li>
+<li><a href="#监视并重加载配置文件-热更新配置">监视并重加载配置文件（热更新配置）</a></li>
+<li><a href="#从io-reader中读取配置">从io.Reader中读取配置</a></li>
+<li><a href="#设置覆盖">设置覆盖</a></li>
+<li><a href="#注册别名及使用别名">注册别名及使用别名</a></li>
+<li><a href="#操作环境变量">操作环境变量</a></li>
+<li><a href="#与flags操作">与Flags操作</a></li>
+<li><a href="#flag接口">Flag接口</a></li>
+<li><a href="#远程k-v存储的支持">远程K/V存储的支持</a></li>
+</ul></li>
+<li><a href="#从viper取值">从Viper取值</a>
+<ul>
+<li><a href="#访问嵌套键值数据">访问嵌套键值数据</a></li>
+<li><a href="#从viper抽取子树">从Viper抽取子树</a></li>
+<li><a href="#unmashaling-数据编出">Unmashaling 数据编出</a></li>
+<li><a href="#marshaling-数据编入">Marshaling 数据编入</a></li>
+</ul></li>
+<li><a href="#viper还是vipers">Viper还是Vipers</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h2 id="viper官方文档">Viper官方文档</h2>
+
+<ul>
+<li><a href="https://github.com/spf13/viper/blob/master/README.md">https://github.com/spf13/viper/blob/master/README.md</a></li>
+</ul>
+
+<h2 id="将值存入viper">将值存入Viper</h2>
+
+<h3 id="设置默认值">设置默认值</h3>
+
+<p>如果没有通过配置文件、环境变量等设置值，那么将使用默认值。默认值以如下方式设置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">viper</span><span class="p">.</span><span class="nf">SetDefault</span><span class="p">(</span><span class="s">&#34;ContentDir&#34;</span><span class="p">,</span> <span class="s">&#34;content&#34;</span><span class="p">)</span>
+<span class="nx">viper</span><span class="p">.</span><span class="nf">SetDefault</span><span class="p">(</span><span class="s">&#34;LayoutDir&#34;</span><span class="p">,</span> <span class="s">&#34;layouts&#34;</span><span class="p">)</span>
+<span class="nx">viper</span><span class="p">.</span><span class="nf">SetDefault</span><span class="p">(</span><span class="s">&#34;Taxonomies&#34;</span><span class="p">,</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;tag&#34;</span><span class="p">:</span> <span class="s">&#34;tags&#34;</span><span class="p">,</span> <span class="s">&#34;category&#34;</span><span class="p">:</span> <span class="s">&#34;categories&#34;</span><span class="p">})</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="读取配置文件">读取配置文件</h3>
+
+<p>一个Viper实例只支持单个配置文件路径。读取配置文件的例子如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">viper</span><span class="p">.</span><span class="nf">SetConfigName</span><span class="p">(</span><span class="s">&#34;config&#34;</span><span class="p">)</span> <span class="c1">// name of config file (without extension)
+</span><span class="c1"></span><span class="nx">viper</span><span class="p">.</span><span class="nf">AddConfigPath</span><span class="p">(</span><span class="s">&#34;/etc/appname/&#34;</span><span class="p">)</span>   <span class="c1">// path to look for the config file in
+</span><span class="c1"></span><span class="nx">viper</span><span class="p">.</span><span class="nf">AddConfigPath</span><span class="p">(</span><span class="s">&#34;$HOME/.appname&#34;</span><span class="p">)</span>  <span class="c1">// call multiple times to add many search paths
+</span><span class="c1"></span><span class="nx">viper</span><span class="p">.</span><span class="nf">AddConfigPath</span><span class="p">(</span><span class="s">&#34;.&#34;</span><span class="p">)</span>               <span class="c1">// optionally look for config in the working directory
+</span><span class="c1"></span><span class="nx">err</span> <span class="o">:=</span> <span class="nx">viper</span><span class="p">.</span><span class="nf">ReadInConfig</span><span class="p">()</span> <span class="c1">// Find and read the config file
+</span><span class="c1"></span><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span> <span class="c1">// Handle errors reading the config file
+</span><span class="c1"></span>    <span class="nb">panic</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;Fatal error config file: %s \n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">))</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>当然也可以自己指定当找不到配置文件时怎么处理：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">viper</span><span class="p">.</span><span class="nf">ReadInConfig</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">err</span><span class="p">.(</span><span class="nx">viper</span><span class="p">.</span><span class="nx">ConfigFileNotFoundError</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+        <span class="c1">// Config file not found; ignore error if desired
+</span><span class="c1"></span>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// Config file was found but another error was produced
+</span><span class="c1"></span>    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="o">//</span> <span class="nx">Config</span> <span class="nx">file</span> <span class="nx">found</span> <span class="nx">and</span> <span class="nx">successfully</span> <span class="nx">parsed</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="写入配置文件">写入配置文件</h3>
+
+<p>运行时也可以通过下列方式将配置的修改写入配置文件：</p>
+
+<ul>
+<li>WriteConfig - writes the current viper configuration to the predefined path, if exists. Errors if no predefined path. Will overwrite the current config file, if it exists.</li>
+<li>SafeWriteConfig - writes the current viper configuration to the predefined path. Errors if no predefined path. Will not overwrite the current config file, if it exists.</li>
+<li>WriteConfigAs - writes the current viper configuration to the given filepath. Will overwrite the given file, if it exists.</li>
+<li>SafeWriteConfigAs - writes the current viper configuration to the given filepath. Will not overwrite the given file, if it exists.</li>
+</ul>
+
+<p>带有safe前缀的两个写方法不会覆盖原本配置文件而是新建。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">viper</span><span class="p">.</span><span class="nf">WriteConfig</span><span class="p">()</span> <span class="c1">// writes current config to predefined path set by &#39;viper.AddConfigPath()&#39; and &#39;viper.SetConfigName&#39;
+</span><span class="c1"></span><span class="nx">viper</span><span class="p">.</span><span class="nf">SafeWriteConfig</span><span class="p">()</span>
+<span class="nx">viper</span><span class="p">.</span><span class="nf">WriteConfigAs</span><span class="p">(</span><span class="s">&#34;/path/to/my/.config&#34;</span><span class="p">)</span>
+<span class="nx">viper</span><span class="p">.</span><span class="nf">SafeWriteConfigAs</span><span class="p">(</span><span class="s">&#34;/path/to/my/.config&#34;</span><span class="p">)</span> <span class="c1">// will error since it has already been written
+</span><span class="c1"></span><span class="nx">viper</span><span class="p">.</span><span class="nf">SafeWriteConfigAs</span><span class="p">(</span><span class="s">&#34;/path/to/my/.other_config&#34;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="监视并重加载配置文件-热更新配置">监视并重加载配置文件（热更新配置）</h3>
+
+<p>Viper支持在程序运行时重新读配置文件并加载进来。操作方式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">viper</span><span class="p">.</span><span class="nf">WatchConfig</span><span class="p">()</span>  <span class="c1">// 1.这一句保证热更新配置
+</span><span class="c1">// 2.下面这句是可选的，可以用来设定当配置改变时执行什么动作
+</span><span class="c1"></span><span class="nx">viper</span><span class="p">.</span><span class="nf">OnConfigChange</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">e</span> <span class="nx">fsnotify</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Config file changed:&#34;</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+<span class="p">})</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>切记！WatchConfig()必须在添加所有配置路径完成之后！！！</strong></p>
+
+<h3 id="从io-reader中读取配置">从io.Reader中读取配置</h3>
+
+<p>Viper还可以从io.Reader读取配置。Viper可以从配置文件（.yaml;.toml;.json;&hellip;）、环境变量、远程K/V存储（如etcd）。</p>
+
+<p>也可以实现自己需要的配置源，并将其赋给Viper。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">viper</span><span class="p">.</span><span class="nf">SetConfigType</span><span class="p">(</span><span class="s">&#34;yaml&#34;</span><span class="p">)</span> <span class="c1">// or viper.SetConfigType(&#34;YAML&#34;)
+</span><span class="c1"></span>
+<span class="c1">// any approach to require this configuration into your program.
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">yamlExample</span> <span class="p">=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">`
+</span><span class="s">Hacker: true
+</span><span class="s">name: steve
+</span><span class="s">hobbies:
+</span><span class="s">- skateboarding
+</span><span class="s">- snowboarding
+</span><span class="s">- go
+</span><span class="s">clothing:
+</span><span class="s">  jacket: leather
+</span><span class="s">  trousers: denim
+</span><span class="s">age: 35
+</span><span class="s">eyes : brown
+</span><span class="s">beard: true
+</span><span class="s">`</span><span class="p">)</span>
+
+<span class="nx">viper</span><span class="p">.</span><span class="nf">ReadConfig</span><span class="p">(</span><span class="nx">bytes</span><span class="p">.</span><span class="nf">NewBuffer</span><span class="p">(</span><span class="nx">yamlExample</span><span class="p">))</span>  <span class="c1">// 从io.Reader中读取配置
+</span><span class="c1"></span>
+<span class="nx">viper</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">)</span> <span class="o">//</span> <span class="nx">this</span> <span class="nx">would</span> <span class="nx">be</span> <span class="s">&#34;steve&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="设置覆盖">设置覆盖</h3>
+
+<p>可以根据命令行指令或者程序逻辑对配置做修改（覆盖原本的值）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">viper</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;Verbose&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+<span class="nx">viper</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;LogFile&#34;</span><span class="p">,</span> <span class="nx">LogFile</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="注册别名及使用别名">注册别名及使用别名</h3>
+
+<p>别名可以为一个值提供多个键。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">viper</span><span class="p">.</span><span class="nf">RegisterAlias</span><span class="p">(</span><span class="s">&#34;loud&#34;</span><span class="p">,</span> <span class="s">&#34;Verbose&#34;</span><span class="p">)</span>
+
+<span class="nx">viper</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;verbose&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span> <span class="c1">// same result as next line
+</span><span class="c1"></span><span class="nx">viper</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;loud&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>   <span class="c1">// same result as prior line
+</span><span class="c1"></span>
+<span class="nx">viper</span><span class="p">.</span><span class="nf">GetBool</span><span class="p">(</span><span class="s">&#34;loud&#34;</span><span class="p">)</span> <span class="c1">// true
+</span><span class="c1"></span><span class="nx">viper</span><span class="p">.</span><span class="nf">GetBool</span><span class="p">(</span><span class="s">&#34;verbose&#34;</span><span class="p">)</span> <span class="o">//</span> <span class="kc">true</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="操作环境变量">操作环境变量</h3>
+
+<p>以下5个函数用以操作环境变量：</p>
+
+<ul>
+<li><code>AutomaticEnv()</code></li>
+<li><code>BindEnv(string...) : error</code></li>
+<li><code>SetEnvPrefix(string)</code></li>
+<li><code>SetEnvKeyReplacer(string...) *strings.Replacer</code></li>
+<li><code>AllowEmptyEnv(bool)</code></li>
+</ul>
+
+<p><strong>注意！Viper对环境变量的处理是大小写敏感的</strong></p>
+
+<p><code>SetEnvPrefix(string)</code>设置环境变量前缀之后，<code>BindEnv(string...) : error</code>和<code>AutomaticEnv()</code>都会使用这个前缀。</p>
+
+<p><em>关于这几个API的细节用法详见官方文档。</em></p>
+
+<p>一个简单的例子如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nf">SetEnvPrefix</span><span class="p">(</span><span class="s">&#34;spf&#34;</span><span class="p">)</span> <span class="c1">// will be uppercased automatically
+</span><span class="c1"></span><span class="nf">BindEnv</span><span class="p">(</span><span class="s">&#34;id&#34;</span><span class="p">)</span>
+
+<span class="nx">os</span><span class="p">.</span><span class="nf">Setenv</span><span class="p">(</span><span class="s">&#34;SPF_ID&#34;</span><span class="p">,</span> <span class="s">&#34;13&#34;</span><span class="p">)</span> <span class="c1">// typically done outside of the app
+</span><span class="c1"></span>
+<span class="nx">id</span> <span class="o">:=</span> <span class="nf">Get</span><span class="p">(</span><span class="s">&#34;id&#34;</span><span class="p">)</span> <span class="o">//</span> <span class="mi">13</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="与flags操作">与Flags操作</h3>
+
+<p><code>BindPFlag()</code>像前边的<code>BindEnv(string...) : error</code>类似。需要知道的是：绑定的时候并没有设置值。这意味着绑定操作可以尽可能早，甚至放到<code>init()</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">serverCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">().</span><span class="nf">Int</span><span class="p">(</span><span class="s">&#34;port&#34;</span><span class="p">,</span> <span class="mi">1138</span><span class="p">,</span> <span class="s">&#34;Port to run Application server on&#34;</span><span class="p">)</span>
+<span class="nx">viper</span><span class="p">.</span><span class="nf">BindPFlag</span><span class="p">(</span><span class="s">&#34;port&#34;</span><span class="p">,</span> <span class="nx">serverCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">().</span><span class="nf">Lookup</span><span class="p">(</span><span class="s">&#34;port&#34;</span><span class="p">))</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>不仅可以绑定单个的Flag，也可以绑定Flags(集合)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">pflag</span><span class="p">.</span><span class="nf">Int</span><span class="p">(</span><span class="s">&#34;flagname&#34;</span><span class="p">,</span> <span class="mi">1234</span><span class="p">,</span> <span class="s">&#34;help message for flagname&#34;</span><span class="p">)</span>
+
+<span class="nx">pflag</span><span class="p">.</span><span class="nf">Parse</span><span class="p">()</span>
+<span class="nx">viper</span><span class="p">.</span><span class="nf">BindPFlags</span><span class="p">(</span><span class="nx">pflag</span><span class="p">.</span><span class="nx">CommandLine</span><span class="p">)</span>
+
+<span class="nx">i</span> <span class="o">:=</span> <span class="nx">viper</span><span class="p">.</span><span class="nf">GetInt</span><span class="p">(</span><span class="s">&#34;flagname&#34;</span><span class="p">)</span> <span class="o">//</span> <span class="nx">retrieve</span> <span class="nx">values</span> <span class="nx">from</span> <span class="nx">viper</span> <span class="nx">instead</span> <span class="nx">of</span> <span class="nx">pflag</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>也可以添加官方flag包的flag集合：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;flag&#34;</span>
+	<span class="s">&#34;github.com/spf13/pflag&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+	<span class="c1">// using standard library &#34;flag&#34; package
+</span><span class="c1"></span>	<span class="nx">flag</span><span class="p">.</span><span class="nf">Int</span><span class="p">(</span><span class="s">&#34;flagname&#34;</span><span class="p">,</span> <span class="mi">1234</span><span class="p">,</span> <span class="s">&#34;help message for flagname&#34;</span><span class="p">)</span>
+
+	<span class="c1">// 将官方标志集给添加到pflag包的commandline实例
+</span><span class="c1"></span>	<span class="nx">pflag</span><span class="p">.</span><span class="nx">CommandLine</span><span class="p">.</span><span class="nf">AddGoFlagSet</span><span class="p">(</span><span class="nx">flag</span><span class="p">.</span><span class="nx">CommandLine</span><span class="p">)</span>
+	<span class="nx">pflag</span><span class="p">.</span><span class="nf">Parse</span><span class="p">()</span>
+	<span class="nx">viper</span><span class="p">.</span><span class="nf">BindPFlags</span><span class="p">(</span><span class="nx">pflag</span><span class="p">.</span><span class="nx">CommandLine</span><span class="p">)</span>
+
+	<span class="nx">i</span> <span class="o">:=</span> <span class="nx">viper</span><span class="p">.</span><span class="nf">GetInt</span><span class="p">(</span><span class="s">&#34;flagname&#34;</span><span class="p">)</span> <span class="c1">// retrieve value from viper
+</span><span class="c1"></span>
+	<span class="o">...</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="flag接口">Flag接口</h3>
+
+<p>如果不使用Pflags的话，Viper也提供了两个Go接口来绑定其他flag系统</p>
+
+<p><code>FlagValue</code>接口表示单个Flag：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">myFlag</span> <span class="kd">struct</span> <span class="p">{}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="nx">myFlag</span><span class="p">)</span> <span class="nf">HasChanged</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">false</span> <span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="nx">myFlag</span><span class="p">)</span> <span class="nf">Name</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&#34;my-flag-name&#34;</span> <span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="nx">myFlag</span><span class="p">)</span> <span class="nf">ValueString</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&#34;my-flag-value&#34;</span> <span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="nx">myFlag</span><span class="p">)</span> <span class="nf">ValueType</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&#34;string&#34;</span> <span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>只要自选的或者自建的flag实现了这个接口，就可以了和Viper绑定。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">viper</span><span class="p">.</span><span class="nf">BindFlagValue</span><span class="p">(</span><span class="s">&#34;my-flag-name&#34;</span><span class="p">,</span> <span class="nx">myFlag</span><span class="p">{})</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>另一个接口是<code>FlagValueSet</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">myFlagSet</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">flags</span> <span class="p">[]</span><span class="nx">myFlag</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="nx">myFlagSet</span><span class="p">)</span> <span class="nf">VisitAll</span><span class="p">(</span><span class="nx">fn</span> <span class="kd">func</span><span class="p">(</span><span class="nx">FlagValue</span><span class="p">))</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">flag</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">flags</span> <span class="p">{</span>
+		<span class="nf">fn</span><span class="p">(</span><span class="nx">flag</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>绑定方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">fSet</span> <span class="o">:=</span> <span class="nx">myFlagSet</span><span class="p">{</span>
+	<span class="nx">flags</span><span class="p">:</span> <span class="p">[]</span><span class="nx">myFlag</span><span class="p">{</span><span class="nx">myFlag</span><span class="p">{},</span> <span class="nx">myFlag</span><span class="p">{}},</span>
+<span class="p">}</span>
+<span class="nx">viper</span><span class="p">.</span><span class="nf">BindFlagValues</span><span class="p">(</span><span class="s">&#34;my-flags&#34;</span><span class="p">,</span> <span class="nx">fSet</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="远程k-v存储的支持">远程K/V存储的支持</h3>
+
+<p><em>参阅官方文档</em></p>
+
+<h2 id="从viper取值">从Viper取值</h2>
+
+<p>有以下方法取用Viper实例的值：</p>
+
+<ul>
+<li><code>Get(key string) : interface{}</code></li>
+<li><code>GetBool(key string) : bool</code></li>
+<li><code>GetFloat64(key string) : float64</code></li>
+<li><code>GetInt(key string) : int</code></li>
+<li><code>GetIntSlice(key string) : []int</code></li>
+<li><code>GetString(key string) : string</code></li>
+<li><code>GetStringMap(key string) : map[string]interface{}</code></li>
+<li><code>GetStringMapString(key string) : map[string]string</code></li>
+<li><code>GetStringSlice(key string) : []string</code></li>
+<li><code>GetTime(key string) : time.Time</code></li>
+<li><code>GetDuration(key string) : time.Duration</code></li>
+<li><code>IsSet(key string) : bool</code></li>
+<li><code>AllSettings() : map[string]interface{}</code></li>
+</ul>
+
+<p><strong>谨记！</strong> 如果没有找到key对应的配置值，则会默认返回该数据类型的0值。
+如果要检查key存不存在，可以使用<code>IsSet(key string) bool</code>方法。</p>
+
+<p>Example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">viper</span><span class="p">.</span><span class="nf">GetString</span><span class="p">(</span><span class="s">&#34;logfile&#34;</span><span class="p">)</span> <span class="c1">// case-insensitive Setting &amp; Getting
+</span><span class="c1"></span><span class="k">if</span> <span class="nx">viper</span><span class="p">.</span><span class="nf">GetBool</span><span class="p">(</span><span class="s">&#34;verbose&#34;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;verbose enabled&#34;</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="访问嵌套键值数据">访问嵌套键值数据</h3>
+
+<p>以访问如下json配置为例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;host&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;address&#34;</span><span class="p">:</span> <span class="s2">&#34;localhost&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;port&#34;</span><span class="p">:</span> <span class="mi">5799</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;datastore&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;metric&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;host&#34;</span><span class="p">:</span> <span class="s2">&#34;127.0.0.1&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;port&#34;</span><span class="p">:</span> <span class="mi">3099</span>
+        <span class="p">},</span>
+        <span class="nt">&#34;warehouse&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;host&#34;</span><span class="p">:</span> <span class="s2">&#34;198.0.0.1&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;port&#34;</span><span class="p">:</span> <span class="mi">2112</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>第一种访问方式是使用&rsquo;.&lsquo;分隔符。如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nf">GetString</span><span class="p">(</span><span class="s">&#34;datastore.metric.host&#34;</span><span class="p">)</span> <span class="o">//</span> <span class="p">(</span><span class="nx">returns</span> <span class="s">&#34;127.0.0.1&#34;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>该访问方式与文件路径访问类似。需要知道的是：
+- 查找会一级一级向下寻找，直到寻找到；
+- 如果某一级比如说&rdquo;datastore.metric&rdquo;被环境变量、Flag等等set方法覆盖了，那么其下级的所有键值都会被隐藏掉无法访问到。
+- 如果有某个键直接匹配了带分隔的路径，那么其值将覆盖原本带分隔的方式得到的值，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;datastore.metric.host&#34;</span><span class="p">:</span> <span class="s2">&#34;0.0.0.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;host&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;address&#34;</span><span class="p">:</span> <span class="s2">&#34;localhost&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;port&#34;</span><span class="p">:</span> <span class="mi">5799</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;datastore&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;metric&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;host&#34;</span><span class="p">:</span> <span class="s2">&#34;127.0.0.1&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;port&#34;</span><span class="p">:</span> <span class="mi">3099</span>
+        <span class="p">},</span>
+        <span class="nt">&#34;warehouse&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;host&#34;</span><span class="p">:</span> <span class="s2">&#34;198.0.0.1&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;port&#34;</span><span class="p">:</span> <span class="mi">2112</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="err">GetString(</span><span class="s2">&#34;datastore.metric.host&#34;</span><span class="err">)</span> <span class="err">//</span> <span class="err">returns</span> <span class="s2">&#34;0.0.0.0&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="从viper抽取子树">从Viper抽取子树</h3>
+
+<p>例如，Viper读取配置文件后代表了：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">app:</span>
+  <span class="err">cache</span><span class="mi">1</span><span class="err">:</span>
+    <span class="err">max-items:</span> <span class="mi">100</span>
+    <span class="err">item-size:</span> <span class="mi">64</span>
+  <span class="err">cache</span><span class="mi">2</span><span class="err">:</span>
+    <span class="err">max-items:</span> <span class="mi">200</span>
+    <span class="err">item-size:</span> <span class="mi">80</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>可以作抽取：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">subv</span> <span class="o">:=</span> <span class="nx">viper</span><span class="p">.</span><span class="nf">Sub</span><span class="p">(</span><span class="s">&#34;app.cache1&#34;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>subv</code>代表着</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">max-items:</span> <span class="mi">100</span>
+<span class="err">item-size:</span> <span class="mi">64</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这个特性可以方便多套配置的切换或者是同时使用。例如有个创建Cache的方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">NewCache</span><span class="p">(</span><span class="nx">cfg</span> <span class="o">*</span><span class="nx">Viper</span><span class="p">)</span> <span class="o">*</span><span class="nx">Cache</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>那么可以做到：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">cfg1</span> <span class="o">:=</span> <span class="nx">viper</span><span class="p">.</span><span class="nf">Sub</span><span class="p">(</span><span class="s">&#34;app.cache1&#34;</span><span class="p">)</span>
+<span class="nx">cache1</span> <span class="o">:=</span> <span class="nf">NewCache</span><span class="p">(</span><span class="nx">cfg1</span><span class="p">)</span>
+
+<span class="nx">cfg2</span> <span class="o">:=</span> <span class="nx">viper</span><span class="p">.</span><span class="nf">Sub</span><span class="p">(</span><span class="s">&#34;app.cache2&#34;</span><span class="p">)</span>
+<span class="nx">cache2</span> <span class="o">:=</span> <span class="nf">NewCache</span><span class="p">(</span><span class="nx">cfg2</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="unmashaling-数据编出">Unmashaling 数据编出</h3>
+
+<p>Viper可以将其存的配置编出给结构体、表等。</p>
+
+<p>有两个方法：</p>
+
+<ul>
+<li><code>Unmarshal(rawVal interface{}) : error</code></li>
+<li><code>UnmarshalKey(key string, rawVal interface{}) : error</code></li>
+</ul>
+
+<p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">config</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Port</span> <span class="kt">int</span>
+	<span class="nx">Name</span> <span class="kt">string</span>
+	<span class="nx">PathMap</span> <span class="kt">string</span> <span class="s">`mapstructure:&#34;path_map&#34;`</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">C</span> <span class="nx">config</span>
+
+<span class="nx">err</span> <span class="o">:=</span> <span class="nx">viper</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">C</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;unable to decode into struct, %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="marshaling-数据编入">Marshaling 数据编入</h3>
+
+<p>Viper可以将Viper实例中保存的配置信息编入到字符串，而不是编入到文件。用例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">import</span> <span class="p">(</span>
+    <span class="nx">yaml</span> <span class="s">&#34;gopkg.in/yaml.v2&#34;</span>
+    <span class="c1">// ...
+</span><span class="c1"></span><span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">yamlStringSettings</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+    <span class="nx">c</span> <span class="o">:=</span> <span class="nx">viper</span><span class="p">.</span><span class="nf">AllSettings</span><span class="p">()</span>
+    <span class="nx">bs</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">yaml</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;unable to marshal config to YAML: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">string</span><span class="p">(</span><span class="nx">bs</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="viper还是vipers">Viper还是Vipers</h2>
+
+<p>一般情况下采用单例模式足以应付应用配置需求。</p>
+
+<p><em>参阅官方文档</em></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-10-16
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/viper/">viper</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/go/03_pflagusage/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">pflag简介</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/go/01_corbrausage/">
+            <span class="next-text nav-default">Cobra简介</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+  <span id="/post/go/02_viperusage/" class="leancloud_visitors" data-flag-title="Viper简介">
+		<span class="post-meta-item-text">文章阅读量 </span>
+		<span class="leancloud-visitors-count">0</span>
+		<p></p>
+	  </span>
+  <div id="vcomments"></div>
+  <script src="http://pirogue.org/js/av-min.js"></script>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'bpOXpWYjWw1gNOYNe2PrWjKV-gzGzoHsz',
+        appKey: '07yqjMVRu9Nyoqrzj4X7IhL5',
+        notify:  true , 
+        verify:  false , 
+        avatar:'mm', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:374192922@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%8C%AF%E4%B8%9C-%E8%89%BE-b10752175/detail/recent-activity/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/azd1997" class="iconfont icon-github" title="github"></a>
+  <a href="https://azd1997.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
