@@ -6,10 +6,19 @@
     <description>Recent content in 数据结构 on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 26 Sep 2019 22:05:29 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 18 Oct 2019 03:22:06 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>数据结构与算法（3）——链表</title>
+      <link>https://azd1997.github.io/post/algo/dsa03/</link>
+      <pubDate>Fri, 18 Oct 2019 03:22:06 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/dsa03/</guid>
+      <description>1. 导语 链表的一个经典应用场景是LRU缓存淘汰算法 缓存提高数据读取性能，应用广泛，常见的有CPU缓存、数据库缓存、浏览器缓存。 缓存大小有限，当</description>
+    </item>
     
     <item>
       <title>数据结构与算法（2）——数组</title>
