@@ -6,10 +6,19 @@
     <description>Recent content on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 18 Oct 2019 03:22:06 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 29 Oct 2019 09:30:35 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Go面试每日一题汇总</title>
+      <link>https://azd1997.github.io/post/go/go-interview-questions/</link>
+      <pubDate>Tue, 29 Oct 2019 09:30:35 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/go/go-interview-questions/</guid>
+      <description>声明 本篇所收集题目来自《Golang来啦》公众号，仅作学习之用！ https://mp.weixin.qq.com/s/rEXhrAqEOg9Ja4wYomOsGw Go面试题汇总 1. defer后进先出 1 2 3 4 5 6 7 8 9 10 11 func main() { defer_call() } func defer_call() { defer</description>
+    </item>
     
     <item>
       <title>数据结构与算法（3）——链表</title>

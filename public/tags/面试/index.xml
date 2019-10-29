@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>面试 on Eiger - A young gopher</title>
+    <link>https://azd1997.github.io/tags/%E9%9D%A2%E8%AF%95/</link>
+    <description>Recent content in 面试 on Eiger - A young gopher</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 29 Oct 2019 09:30:35 +0800</lastBuildDate>
+    
+	<atom:link href="https://azd1997.github.io/tags/%E9%9D%A2%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go面试每日一题汇总</title>
+      <link>https://azd1997.github.io/post/go/go-interview-questions/</link>
+      <pubDate>Tue, 29 Oct 2019 09:30:35 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/go/go-interview-questions/</guid>
+      <description>声明 本篇所收集题目来自《Golang来啦》公众号，仅作学习之用！ https://mp.weixin.qq.com/s/rEXhrAqEOg9Ja4wYomOsGw Go面试题汇总 1. defer后进先出 1 2 3 4 5 6 7 8 9 10 11 func main() { defer_call() } func defer_call() { defer</description>
+    </item>
+    
+  </channel>
+</rss>
