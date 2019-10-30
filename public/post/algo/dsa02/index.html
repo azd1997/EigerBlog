@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-09-26T22:05:29&#43;08:00" />
 <meta itemprop="dateModified" content="2019-09-26T22:05:29&#43;08:00" />
-<meta itemprop="wordCount" content="2699">
+<meta itemprop="wordCount" content="4675">
 
 
 
@@ -135,8 +135,8 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 2699 words </span>
-          <span class="more-meta"> 6 mins read </span>
+          <span class="more-meta"> 4675 words </span>
+          <span class="more-meta"> 10 mins read </span>
         
       </div>
     </header>
@@ -326,9 +326,737 @@
 <p>代码实现：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"></code></pre></td>
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// staticArray.go
+</span><span class="c1"></span>
+<span class="cm">/*
+</span><span class="cm">不使用length标记数组长度，而通过切片自身长度和容量来实现的固定数组，太折腾了。
+</span><span class="cm">重难点在于插入时需要注意一些细节。
+</span><span class="cm">一般的数组模拟都是
+</span><span class="cm">type StaticArray struct {
+</span><span class="cm">    data []int
+</span><span class="cm">    length int
+</span><span class="cm">}
+</span><span class="cm">这样实现起来方便许多
+</span><span class="cm">*/</span>
+
+<span class="kn">package</span> <span class="nx">ex5_array</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;errors&#34;</span>
+	<span class="s">&#34;fmt&#34;</span>
+<span class="p">)</span>
+
+<span class="c1">// StaticArray 使用固定容量的切片来模拟固定长度的数组
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">StaticArray</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">data</span> <span class="p">[]</span><span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="c1">// NewStaticArray 根据容量生成固定容量的数组
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">NewStaticArray</span><span class="p">(</span><span class="nx">cap</span> <span class="kt">uint</span><span class="p">)</span> <span class="o">*</span><span class="nx">StaticArray</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">cap</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">StaticArray</span><span class="p">{</span><span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">cap</span><span class="p">)}</span>
+<span class="p">}</span>
+
+<span class="c1">// Cap 数组容量
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">StaticArray</span><span class="p">)</span> <span class="nf">Cap</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Len 数组已使用长度
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">StaticArray</span><span class="p">)</span> <span class="nf">Len</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Find 根据索引查找元素，支持负数索引
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">StaticArray</span><span class="p">)</span> <span class="nf">Find</span><span class="p">(</span><span class="nx">index</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">res</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">l</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">.</span><span class="nf">Len</span><span class="p">()</span>
+	<span class="nx">err</span> <span class="p">=</span> <span class="nf">isIndexOut</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">OP_FIND</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="kd">var</span> <span class="nx">realIndex</span> <span class="kt">int</span>
+	<span class="nx">realIndex</span> <span class="p">=</span> <span class="nf">toRealIndex</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="nx">l</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">realIndex</span><span class="p">],</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">// Insert 根据下标插入元素，保持原元素的相对位置。 有一种取巧的插入是把直接把插入位置上的元素搬到末尾，这里不用
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">StaticArray</span><span class="p">)</span> <span class="nf">Insert</span><span class="p">(</span><span class="nx">index</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">elem</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// 检查数组是否已满
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">a</span><span class="p">.</span><span class="nf">isFull</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;array is full&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 插入到数组所使用部分的末尾。append
+</span><span class="c1"></span>	<span class="nx">l</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">.</span><span class="nf">Len</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">index</span> <span class="o">==</span> <span class="nx">l</span> <span class="o">||</span> <span class="nx">index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+		<span class="nx">a</span><span class="p">.</span><span class="nx">data</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">data</span><span class="p">,</span> <span class="nx">elem</span><span class="p">)</span>
+		<span class="k">return</span> <span class="kc">nil</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 一般位置插入(检查越界，转换索引，插入)
+</span><span class="c1"></span>	<span class="nx">err</span> <span class="p">=</span> <span class="nf">isIndexOut</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">OP_INSERT</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="kd">var</span> <span class="nx">realIndex</span> <span class="kt">int</span>
+	<span class="nx">realIndex</span> <span class="p">=</span> <span class="nf">toRealIndex</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="nx">l</span><span class="p">)</span>
+
+	<span class="c1">// 在真正的插入之前  记得要给数组追加一个元素，用来给插入占位置，不然插入会索引越界
+</span><span class="c1"></span>	<span class="c1">// 并且每次报错时，应该重新将这个位置删除。（这个设计太操蛋了，还是加个length好）
+</span><span class="c1"></span>	<span class="nx">a</span><span class="p">.</span><span class="nx">data</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+	<span class="c1">// 原数据向后挪移
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">l</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&gt;=</span><span class="nx">realIndex</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span> <span class="p">{</span>
+		<span class="nx">a</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+	<span class="p">}</span>
+	<span class="nx">a</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">realIndex</span><span class="p">]</span> <span class="p">=</span> <span class="nx">elem</span>
+
+	<span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">// Del 删数据，后续前移
+</span><span class="c1">// 注意：在这样的没有length标记字段的设计里，没办法回收空间，删除只能通过重新分配内存实现
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">StaticArray</span><span class="p">)</span> <span class="nf">Del</span><span class="p">(</span><span class="nx">index</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="nx">l</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">.</span><span class="nf">Len</span><span class="p">()</span>
+	<span class="kd">var</span> <span class="nx">err</span> <span class="kt">error</span>
+	<span class="nx">err</span> <span class="p">=</span> <span class="nf">isIndexOut</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">OP_DELETE</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="kd">var</span> <span class="nx">realIndex</span> <span class="kt">int</span>
+	<span class="nx">realIndex</span> <span class="p">=</span> <span class="nf">toRealIndex</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="nx">l</span><span class="p">)</span>
+
+	<span class="c1">// 删除通过拷贝另一个切片实现
+</span><span class="c1"></span>	<span class="nx">slice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">l</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">a</span><span class="p">.</span><span class="nf">Cap</span><span class="p">())</span>
+	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">realIndex</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">slice</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+	<span class="p">}</span>
+	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">realIndex</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">l</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">slice</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+	<span class="p">}</span>
+	<span class="nx">a</span><span class="p">.</span><span class="nx">data</span> <span class="p">=</span> <span class="nx">slice</span>
+	<span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">// Update 更新元素值
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">StaticArray</span><span class="p">)</span> <span class="nf">Update</span><span class="p">(</span><span class="nx">index</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">new</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="nx">l</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">.</span><span class="nf">Len</span><span class="p">()</span>
+	<span class="kd">var</span> <span class="nx">err</span> <span class="kt">error</span>
+	<span class="nx">err</span> <span class="p">=</span> <span class="nf">isIndexOut</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">OP_DELETE</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="kd">var</span> <span class="nx">realIndex</span> <span class="kt">int</span>
+	<span class="nx">realIndex</span> <span class="p">=</span> <span class="nf">toRealIndex</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="nx">l</span><span class="p">)</span>
+
+	<span class="nx">a</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">realIndex</span><span class="p">]</span> <span class="p">=</span> <span class="nx">new</span>
+	<span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">// Print 打印
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">StaticArray</span><span class="p">)</span> <span class="nf">Print</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="p">(</span>
+	<span class="nx">OP_INSERT</span> <span class="p">=</span> <span class="kc">iota</span>
+	<span class="nx">OP_DELETE</span>
+	<span class="nx">OP_UPDATE</span>
+	<span class="nx">OP_FIND</span>
+<span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">opMap</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">uint8</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
+	<span class="nx">OP_INSERT</span> <span class="p">:</span> <span class="s">&#34;op_insert&#34;</span><span class="p">,</span>
+	<span class="nx">OP_DELETE</span> <span class="p">:</span> <span class="s">&#34;op_delete&#34;</span><span class="p">,</span>
+	<span class="nx">OP_UPDATE</span> <span class="p">:</span> <span class="s">&#34;op_update&#34;</span><span class="p">,</span>
+	<span class="nx">OP_FIND</span> <span class="p">:</span> <span class="s">&#34;op_find&#34;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1">// isIndexOut 判断索引是否越界
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">isIndexOut</span><span class="p">(</span><span class="nx">index</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">listLength</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">op</span> <span class="kt">uint8</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="k">switch</span> <span class="nx">op</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="nx">OP_INSERT</span><span class="p">:</span>
+		<span class="k">if</span> <span class="nx">index</span> <span class="p">&gt;</span> <span class="nx">listLength</span> <span class="o">||</span> <span class="nx">index</span> <span class="p">&lt;</span> <span class="o">-</span><span class="nx">listLength</span><span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+			<span class="nx">err</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;index out of range&#34;</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="k">case</span> <span class="nx">OP_DELETE</span><span class="p">,</span> <span class="nx">OP_UPDATE</span><span class="p">,</span> <span class="nx">OP_FIND</span><span class="p">:</span>
+		<span class="k">if</span> <span class="nx">index</span> <span class="o">&gt;=</span> <span class="nx">listLength</span> <span class="o">||</span> <span class="nx">index</span> <span class="p">&lt;</span> <span class="o">-</span><span class="nx">listLength</span> <span class="p">{</span>
+			<span class="nx">err</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;index out of range&#34;</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="k">default</span><span class="p">:</span>
+		<span class="nx">err</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;unknown operation&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;%s: %s&#34;</span><span class="p">,</span> <span class="nx">opMap</span><span class="p">[</span><span class="nx">op</span><span class="p">],</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">// toRealIndex 处理int型索引下标，将其转换为自然数。调用之前需根据不同操作检查索引越界
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">toRealIndex</span><span class="p">(</span><span class="nx">index</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">listLength</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">realIndex</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">// 0, 1, 2, 3 中间插入4 =&gt; 0, 1, 4, 2, 3
+</span><span class="c1"></span>	<span class="c1">// 现长度4， 插入正索引2， 插入负索引-3
+</span><span class="c1"></span>	<span class="c1">// 0, 1, 2, 3 中间插入4 =&gt; 0, 1, 4, 2, 3
+</span><span class="c1"></span>	<span class="c1">// 现长度4， 插入正索引4， 插入负索引-1
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">index</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nx">realIndex</span> <span class="p">=</span> <span class="nx">listLength</span> <span class="o">+</span> <span class="nx">index</span> <span class="o">+</span> <span class="mi">1</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="nx">realIndex</span> <span class="p">=</span> <span class="nx">index</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">realIndex</span>
+<span class="p">}</span>
+
+<span class="c1">// isFull 判断数组是否已满
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">StaticArray</span><span class="p">)</span> <span class="nf">isFull</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nf">Len</span><span class="p">()</span> <span class="o">==</span> <span class="nx">a</span><span class="p">.</span><span class="nf">Cap</span><span class="p">()</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>测试：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// staticArray_test.go
+</span><span class="c1"></span>
+
+<span class="kn">package</span> <span class="nx">ex5_array</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;testing&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">TestStaticArray</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nf">NewStaticArray</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1">// len = 0, cap = 5}
+</span><span class="c1"></span>	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;len = %d, cap = %d\n&#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Len</span><span class="p">(),</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Cap</span><span class="p">())</span>
+
+	<span class="kd">var</span> <span class="nx">err</span> <span class="kt">error</span>
+	<span class="c1">//if err = s.Insert(2, 99); err == nil {
+</span><span class="c1"></span>	<span class="c1">//	t.Error(&#34;本应出错&#34;)
+</span><span class="c1"></span>	<span class="c1">//}
+</span><span class="c1"></span>
+	<span class="c1">// 正常插入五个数
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;len = %d, cap = %d\n&#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Len</span><span class="p">(),</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Cap</span><span class="p">())</span>
+	<span class="nx">s</span><span class="p">.</span><span class="nf">Print</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">91</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;len = %d, cap = %d\n&#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Len</span><span class="p">(),</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Cap</span><span class="p">())</span>
+	<span class="nx">s</span><span class="p">.</span><span class="nf">Print</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">92</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;len = %d, cap = %d\n&#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Len</span><span class="p">(),</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Cap</span><span class="p">())</span>
+	<span class="nx">s</span><span class="p">.</span><span class="nf">Print</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">93</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;len = %d, cap = %d\n&#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Len</span><span class="p">(),</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Cap</span><span class="p">())</span>
+	<span class="nx">s</span><span class="p">.</span><span class="nf">Print</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Insert</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">94</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;len = %d, cap = %d\n&#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Len</span><span class="p">(),</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Cap</span><span class="p">())</span>
+	<span class="nx">s</span><span class="p">.</span><span class="nf">Print</span><span class="p">()</span>
+
+	<span class="c1">// 试试满了还插
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">);</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;本应出错&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">s</span><span class="p">.</span><span class="nf">Print</span><span class="p">()</span>
+
+	<span class="c1">// 更改
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Update</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">99</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">s</span><span class="p">.</span><span class="nf">Print</span><span class="p">()</span>
+
+	<span class="c1">// 删除
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Del</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">s</span><span class="p">.</span><span class="nf">Print</span><span class="p">()</span>
+
+	<span class="k">return</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>测试输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">===</span> RUN   TestStaticArray
+<span class="nv">len</span> <span class="o">=</span> <span class="m">0</span>, <span class="nv">cap</span> <span class="o">=</span> <span class="m">5</span>
+<span class="nv">len</span> <span class="o">=</span> <span class="m">1</span>, <span class="nv">cap</span> <span class="o">=</span> <span class="m">5</span>
+<span class="o">[</span><span class="m">90</span><span class="o">]</span>
+<span class="nv">len</span> <span class="o">=</span> <span class="m">2</span>, <span class="nv">cap</span> <span class="o">=</span> <span class="m">5</span>
+<span class="o">[</span><span class="m">90</span> <span class="m">91</span><span class="o">]</span>
+<span class="nv">len</span> <span class="o">=</span> <span class="m">3</span>, <span class="nv">cap</span> <span class="o">=</span> <span class="m">5</span>
+<span class="o">[</span><span class="m">90</span> <span class="m">91</span> <span class="m">92</span><span class="o">]</span>
+<span class="nv">len</span> <span class="o">=</span> <span class="m">4</span>, <span class="nv">cap</span> <span class="o">=</span> <span class="m">5</span>
+<span class="o">[</span><span class="m">93</span> <span class="m">90</span> <span class="m">91</span> <span class="m">92</span><span class="o">]</span>
+<span class="nv">len</span> <span class="o">=</span> <span class="m">5</span>, <span class="nv">cap</span> <span class="o">=</span> <span class="m">5</span>
+<span class="o">[</span><span class="m">93</span> <span class="m">90</span> <span class="m">91</span> <span class="m">94</span> <span class="m">92</span><span class="o">]</span>
+<span class="o">[</span><span class="m">93</span> <span class="m">90</span> <span class="m">91</span> <span class="m">94</span> <span class="m">92</span><span class="o">]</span>
+<span class="o">[</span><span class="m">99</span> <span class="m">90</span> <span class="m">91</span> <span class="m">94</span> <span class="m">92</span><span class="o">]</span>
+<span class="o">[</span><span class="m">99</span> <span class="m">90</span> <span class="m">91</span> <span class="m">92</span><span class="o">]</span>
+--- PASS: TestStaticArray <span class="o">(</span><span class="m">0</span>.00s<span class="o">)</span>
+PASS
+
+Process finished with <span class="nb">exit</span> code <span class="m">0</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>基本上没看出啥问题。</p>
+
+<p>下面再附上一个常规的数组模拟实现。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Array</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">data</span>   <span class="p">[]</span><span class="kt">int</span>
+	<span class="nx">length</span> <span class="kt">uint</span>
+<span class="p">}</span>
+
+<span class="c1">//为数组初始化内存
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">NewArray</span><span class="p">(</span><span class="nx">capacity</span> <span class="kt">uint</span><span class="p">)</span> <span class="o">*</span><span class="nx">Array</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">capacity</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">Array</span><span class="p">{</span>
+		<span class="nx">data</span><span class="p">:</span>   <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">capacity</span><span class="p">,</span> <span class="nx">capacity</span><span class="p">),</span>
+		<span class="nx">length</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Array</span><span class="p">)</span> <span class="nf">Len</span><span class="p">()</span> <span class="kt">uint</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">this</span><span class="p">.</span><span class="nx">length</span>
+<span class="p">}</span>
+
+<span class="c1">//判断索引是否越界
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Array</span><span class="p">)</span> <span class="nf">isIndexOutOfRange</span><span class="p">(</span><span class="nx">index</span> <span class="kt">uint</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">index</span> <span class="o">&gt;=</span> <span class="nb">uint</span><span class="p">(</span><span class="nb">cap</span><span class="p">(</span><span class="nx">this</span><span class="p">.</span><span class="nx">data</span><span class="p">))</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">true</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="kc">false</span>
+<span class="p">}</span>
+
+<span class="c1">//通过索引查找数组，索引范围[0,n-1]
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Array</span><span class="p">)</span> <span class="nf">Find</span><span class="p">(</span><span class="nx">index</span> <span class="kt">uint</span><span class="p">)</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">this</span><span class="p">.</span><span class="nf">isIndexOutOfRange</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;out of index range&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">this</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">index</span><span class="p">],</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">//插入数值到索引index上
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Array</span><span class="p">)</span> <span class="nf">Insert</span><span class="p">(</span><span class="nx">index</span> <span class="kt">uint</span><span class="p">,</span> <span class="nx">v</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">this</span><span class="p">.</span><span class="nf">Len</span><span class="p">()</span> <span class="o">==</span> <span class="nb">uint</span><span class="p">(</span><span class="nb">cap</span><span class="p">(</span><span class="nx">this</span><span class="p">.</span><span class="nx">data</span><span class="p">))</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;full array&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">index</span> <span class="o">!=</span> <span class="nx">this</span><span class="p">.</span><span class="nx">length</span> <span class="o">&amp;&amp;</span> <span class="nx">this</span><span class="p">.</span><span class="nf">isIndexOutOfRange</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;out of index range&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nx">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&gt;</span> <span class="nx">index</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span> <span class="p">{</span>
+		<span class="nx">this</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">this</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+	<span class="p">}</span>
+	<span class="nx">this</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span> <span class="p">=</span> <span class="nx">v</span>
+	<span class="nx">this</span><span class="p">.</span><span class="nx">length</span><span class="o">++</span>
+	<span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Array</span><span class="p">)</span> <span class="nf">InsertToTail</span><span class="p">(</span><span class="nx">v</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">this</span><span class="p">.</span><span class="nf">Insert</span><span class="p">(</span><span class="nx">this</span><span class="p">.</span><span class="nf">Len</span><span class="p">(),</span> <span class="nx">v</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">//删除索引index上的值
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Array</span><span class="p">)</span> <span class="nf">Delete</span><span class="p">(</span><span class="nx">index</span> <span class="kt">uint</span><span class="p">)</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">this</span><span class="p">.</span><span class="nf">isIndexOutOfRange</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;out of index range&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">v</span> <span class="o">:=</span> <span class="nx">this</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nx">index</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">this</span><span class="p">.</span><span class="nf">Len</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">this</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">this</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+	<span class="p">}</span>
+	<span class="nx">this</span><span class="p">.</span><span class="nx">length</span><span class="o">--</span>
+	<span class="k">return</span> <span class="nx">v</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">//打印数列
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Array</span><span class="p">)</span> <span class="nf">Print</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">format</span> <span class="kt">string</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nb">uint</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">this</span><span class="p">.</span><span class="nf">Len</span><span class="p">();</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">format</span> <span class="o">+=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;|%+v&#34;</span><span class="p">,</span> <span class="nx">this</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">format</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div>
     </div>

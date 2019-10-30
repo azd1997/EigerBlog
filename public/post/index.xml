@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 30 Oct 2019 01:54:25 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 30 Oct 2019 02:37:50 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>计算机网络02——物理层</title>
+      <link>https://azd1997.github.io/post/cs/cn02/</link>
+      <pubDate>Wed, 30 Oct 2019 02:37:50 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/cs/cn02/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>计算机组成原理</title>
