@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-10-29T09:30:35&#43;08:00" />
 <meta itemprop="dateModified" content="2019-10-29T09:30:35&#43;08:00" />
-<meta itemprop="wordCount" content="918">
+<meta itemprop="wordCount" content="3411">
 
 
 
@@ -135,8 +135,8 @@
         <div class="post-category">
             <a href="/categories/go/"> go </a>
             </div>
-          <span class="more-meta"> 918 words </span>
-          <span class="more-meta"> 2 mins read </span>
+          <span class="more-meta"> 3411 words </span>
+          <span class="more-meta"> 7 mins read </span>
         
       </div>
     </header>
@@ -156,6 +156,15 @@
 <li><a href="#3-切片初始化与append">3. 切片初始化与append</a></li>
 <li><a href="#4-命名返回值">4. 命名返回值</a></li>
 <li><a href="#5-new-和make-的区别">5. new()和make()的区别</a></li>
+<li><a href="#6-切片append">6. 切片append</a></li>
+<li><a href="#7-切片append">7. 切片append</a></li>
+<li><a href="#8-短变量声明">8. 短变量声明</a></li>
+<li><a href="#9-结构体之-操作符">9. 结构体之 == 操作符</a></li>
+<li><a href="#10-结构体指针访问内部成员">10. 结构体指针访问内部成员</a></li>
+<li><a href="#11-类型定义与类型别名">11. 类型定义与类型别名</a></li>
+<li><a href="#12-字符串拼接">12. 字符串拼接</a></li>
+<li><a href="#13-自增变量iota">13. 自增变量iota</a></li>
+<li><a href="#14-变量初始化为nil">14. 变量初始化为nil</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -167,8 +176,9 @@
 
 <h2 id="声明">声明</h2>
 
-<p>本篇所收集题目来自《Golang来啦》公众号，仅作学习之用！
-<a href="https://mp.weixin.qq.com/s/rEXhrAqEOg9Ja4wYomOsGw">https://mp.weixin.qq.com/s/rEXhrAqEOg9Ja4wYomOsGw</a></p>
+<p>本篇所收集题目来自《Golang来啦》公众号，仅作学习之用！</p>
+
+<p><a href="https://mp.weixin.qq.com/s/rEXhrAqEOg9Ja4wYomOsGw">https://mp.weixin.qq.com/s/rEXhrAqEOg9Ja4wYomOsGw</a></p>
 
 <h2 id="go面试题汇总">Go面试题汇总</h2>
 
@@ -367,6 +377,462 @@ make<span class="o">(</span>T,args<span class="o">)</span> 返回初始化之后
 
 <span class="c1">#new() 只能新建命名类型，比如基础数据类型、比如使用 type Name Typ 这样形式声明的命名类型，不能用于未命名类型，比如匿名结构体</span>
 <span class="c1">#make()</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="6-切片append">6. 切片append</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">list</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">([]</span><span class="kt">int</span><span class="p">)</span>
+    <span class="nx">list</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">list</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">list</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>能否通过编译?如果能，输出是什么?</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="p">:</span>
+<span class="nx">不能</span><span class="err">。</span><span class="nb">new</span><span class="p">([]</span><span class="kt">int</span><span class="p">)</span> <span class="nx">返回切片指针</span><span class="err">，</span><span class="nx">切片本身是引用类型</span><span class="err">，</span><span class="nx">根据切片指针无法索引其内部元素</span><span class="err">，</span><span class="nx">也就没办法使用append</span><span class="err">。</span>
+<span class="nx">换言之</span><span class="err">，</span><span class="nx">想要使用append</span><span class="err">，</span><span class="nx">其参数一必须是切片本身</span><span class="err">。</span>
+
+<span class="o">//</span> <span class="nx">可以使用</span> <span class="nb">make</span><span class="p">()</span> <span class="nx">初始化之后再用</span><span class="err">。</span><span class="nx">同样的</span><span class="err">，</span><span class="kd">map</span> <span class="nx">和</span> <span class="nx">channel</span> <span class="nx">建议使用</span> <span class="nb">make</span><span class="p">()</span> <span class="nx">或字面量的方式初始化</span><span class="err">，</span><span class="nx">不要用</span> <span class="nb">new</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="7-切片append">7. 切片append</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">s1</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+    <span class="nx">s2</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+    <span class="nx">s1</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">s1</span><span class="p">,</span> <span class="nx">s2</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s1</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>能否通过编译?如果能，输出是什么?</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">不能</span><span class="err">。</span><span class="nx">切片的append方法参数二不能是切片</span><span class="err">，</span><span class="nx">必须是切片内元素类型</span><span class="err">，</span><span class="nx">可以一次传多个</span><span class="err">。</span><span class="nx">但必须写成如下形式之一</span><span class="err">：</span>
+<span class="mf">1.</span>  <span class="nx">s1</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">s1</span><span class="p">,</span> <span class="nx">s2</span><span class="o">...</span><span class="p">)</span>
+<span class="mf">2.</span>  <span class="nx">s1</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">s1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="o">//</span> <span class="nb">append</span><span class="p">()</span> <span class="nx">的第二个参数不能直接使用</span> <span class="nx">slice</span><span class="err">，</span><span class="nx">需使用</span> <span class="err">…</span> <span class="nx">操作符</span><span class="err">，</span><span class="nx">将一个切片追加到另一个切片上</span><span class="err">：</span><span class="nb">append</span><span class="p">(</span><span class="nx">s1</span><span class="p">,</span><span class="nx">s2</span><span class="err">…</span><span class="p">)</span><span class="err">。</span><span class="nx">或者直接跟上元素</span><span class="err">，</span><span class="nx">形如</span><span class="err">：</span><span class="nb">append</span><span class="p">(</span><span class="nx">s1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="8-短变量声明">8. 短变量声明</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span><span class="p">(</span>
+    <span class="nx">size</span> <span class="o">:=</span> <span class="mi">1024</span>
+    <span class="nx">max_size</span> <span class="p">=</span> <span class="nx">size</span><span class="o">*</span><span class="mi">2</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">size</span><span class="p">,</span><span class="nx">max_size</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>能否通过编译?如果能，输出是什么?</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">不能</span><span class="err">。</span><span class="nx">短变量声明</span> <span class="nx">size</span> <span class="o">:=</span> <span class="mi">1024</span> <span class="nx">只能用在函数或者方法内部</span><span class="err">，</span><span class="nx">不能用于外部变量</span><span class="err">。</span>
+
+<span class="c1">// 变量声明的简短模式，形如：x := 100。但这种声明方式有限制：
+</span><span class="c1">// 1. 必须使用显示初始化；
+</span><span class="c1">// 2. 不能提供数据类型，编译器会自动推导；
+</span><span class="c1"></span><span class="o">//</span> <span class="mf">3.</span> <span class="nx">只能在函数内部使用简短模式</span><span class="err">；</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="9-结构体之-操作符">9. 结构体之 == 操作符</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">sn1</span> <span class="o">:=</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">age</span>  <span class="kt">int</span>
+        <span class="nx">name</span> <span class="kt">string</span>
+    <span class="p">}{</span><span class="nx">age</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">name</span><span class="p">:</span> <span class="s">&#34;qq&#34;</span><span class="p">}</span>
+    <span class="nx">sn2</span> <span class="o">:=</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">age</span>  <span class="kt">int</span>
+        <span class="nx">name</span> <span class="kt">string</span>
+    <span class="p">}{</span><span class="nx">age</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">name</span><span class="p">:</span> <span class="s">&#34;qq&#34;</span><span class="p">}</span>
+
+    <span class="k">if</span> <span class="nx">sn1</span> <span class="o">==</span> <span class="nx">sn2</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;sn1 == sn2&#34;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="nx">sm1</span> <span class="o">:=</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">age</span> <span class="kt">int</span>
+        <span class="nx">m</span>   <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
+    <span class="p">}{</span><span class="nx">age</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">m</span><span class="p">:</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;a&#34;</span><span class="p">:</span> <span class="s">&#34;1&#34;</span><span class="p">}}</span>
+    <span class="nx">sm2</span> <span class="o">:=</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">age</span> <span class="kt">int</span>
+        <span class="nx">m</span>   <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
+    <span class="p">}{</span><span class="nx">age</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">m</span><span class="p">:</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;a&#34;</span><span class="p">:</span> <span class="s">&#34;1&#34;</span><span class="p">}}</span>
+
+    <span class="k">if</span> <span class="nx">sm1</span> <span class="o">==</span> <span class="nx">sm2</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;sm1 == sm2&#34;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>能否通过编译?如果能，输出是什么?</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">不能</span><span class="err">。</span>
+<span class="nx">sn1</span> <span class="o">==</span> <span class="nx">sn2</span> <span class="nx">是可以比较是否相等的</span><span class="err">，</span><span class="nx">因为其内部元素类型及内存分布完全一致</span><span class="err">。</span>
+<span class="nx">但是</span> <span class="nx">sm1</span> <span class="o">==</span> <span class="nx">sm2</span> <span class="nx">是不被允许的</span><span class="err">，</span><span class="nx">其内部元素</span> <span class="nx">m</span> <span class="nx">是</span> <span class="kd">map</span><span class="err">，</span><span class="nx">不能进行比较</span><span class="err">。</span>
+<span class="nx">两个结构体之间能用</span> <span class="o">==</span> <span class="nx">判断相等的前提是其内部元素类型都可比较</span><span class="err">，</span><span class="nx">而且顺序完全一致</span><span class="err">。</span>
+
+<span class="c1">// 参考答案及解析：编译不通过 invalid operation: sm1 == sm2
+</span><span class="c1"></span>
+<span class="c1">// 这道题目考的是结构体的比较，有几个需要注意的地方：
+</span><span class="c1"></span>
+<span class="c1">// 结构体只能比较是否相等，但是不能比较大小。
+</span><span class="c1">// 相同类型的结构体才能够进行比较，结构体是否相同不但与属性类型有关，还与属性顺序相关，sn3 与 sn1 就是不同的结构体；
+</span><span class="c1">// 1    sn3:= struct {
+</span><span class="c1">// 2        name string
+</span><span class="c1">// 3        age  int
+</span><span class="c1">// 4    }{age:11,name:&#34;qq&#34;}
+</span><span class="c1">// 如果 struct 的所有成员都可以比较，则该 struct 就可以通过 == 或 != 进行比较是否相等，比较时逐个项进行比较，如果每一项都相等，则两个结构体才相等，否则不相等；
+</span><span class="c1"></span><span class="o">//</span> <span class="nx">那什么是可比较的呢</span><span class="err">，</span><span class="nx">常见的有</span> <span class="kt">bool</span><span class="err">、</span><span class="nx">数值型</span><span class="err">、</span><span class="nx">字符</span><span class="err">、</span><span class="nx">指针</span><span class="err">、</span><span class="nx">数组等</span><span class="err">，</span><span class="nx">像切片</span><span class="err">、</span><span class="kd">map</span><span class="err">、</span><span class="nx">函数等是不能比较的</span><span class="err">。</span> <span class="nx">具体可以参考</span> <span class="nx">Go</span> <span class="nx">说明文档</span><span class="err">。</span><span class="nx">https</span><span class="p">:</span><span class="o">//</span><span class="nx">golang</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">ref</span><span class="o">/</span><span class="nx">spec</span><span class="err">#</span><span class="nx">Comparison_operators</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="10-结构体指针访问内部成员">10. 结构体指针访问内部成员</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="mf">1.</span><span class="nx">通过指针变量</span> <span class="nx">p</span> <span class="nx">访问其成员变量</span> <span class="nx">name</span><span class="err">，</span><span class="nx">有哪几种方式</span><span class="err">？</span>
+
+<span class="nx">A</span><span class="p">.</span><span class="nx">p</span><span class="p">.</span><span class="nx">name</span>
+<span class="nx">B</span><span class="p">.(</span><span class="o">&amp;</span><span class="nx">p</span><span class="p">).</span><span class="nx">name</span>
+<span class="nx">C</span><span class="p">.(</span><span class="o">*</span><span class="nx">p</span><span class="p">).</span><span class="nx">name</span>
+<span class="nx">D</span><span class="p">.</span><span class="nx">p</span><span class="o">-</span><span class="p">&gt;</span><span class="nx">name</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span> <span class="nx">A</span><span class="err">、</span><span class="nf">C</span> <span class="p">(</span><span class="nx">应该没什么好解释的</span><span class="p">))</span>
+
+<span class="o">//</span> <span class="o">&amp;</span> <span class="nx">取址运算符</span><span class="err">，</span><span class="o">*</span> <span class="nx">指针解引用</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="11-类型定义与类型别名">11. 类型定义与类型别名</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">MyInt1</span> <span class="kt">int</span>
+<span class="kd">type</span> <span class="nx">MyInt2</span> <span class="p">=</span> <span class="kt">int</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">i</span> <span class="kt">int</span> <span class="p">=</span><span class="mi">0</span>
+    <span class="kd">var</span> <span class="nx">i1</span> <span class="nx">MyInt1</span> <span class="p">=</span> <span class="nx">i</span>
+    <span class="kd">var</span> <span class="nx">i2</span> <span class="nx">MyInt2</span> <span class="p">=</span> <span class="nx">i</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i1</span><span class="p">,</span><span class="nx">i2</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>能否通过编译？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span> <span class="nx">不能</span><span class="err">。</span>
+<span class="kd">type</span> <span class="nx">MyInt2</span> <span class="p">=</span> <span class="kt">int</span> <span class="nx">是类型别名</span><span class="err">，</span><span class="nx">所以是可以将int类型的i赋给i2的</span><span class="err">；</span>
+<span class="kd">type</span> <span class="nx">MyInt1</span> <span class="kt">int</span> <span class="nx">是类型定义</span><span class="err">，</span><span class="nx">所以不可以将int类型的i赋给MyInt1类型的i2</span><span class="err">；</span>
+
+<span class="c1">// 参考答案及解析：编译不通过，cannot use i (type int) as type MyInt1 in assignment。
+</span><span class="c1">// 这道题考的是类型别名与类型定义的区别。
+</span><span class="c1">// 第 5 行代码是基于类型 int 创建了新类型 MyInt1，第 6 行代码是创建了 int 的类型别名 MyInt2，注意类型别名的定义时 = 。所以，第 10 行代码相当于是将 int 类型的变量赋值给 MyInt1 类型的变量，Go 是强类型语言，编译当然不通过；而 MyInt2 只是 int 的别名，本质上还是 int，可以赋值。
+</span><span class="c1"></span><span class="o">//</span> <span class="nx">第</span> <span class="mi">10</span> <span class="nx">行代码的赋值可以使用强制类型转化</span> <span class="kd">var</span> <span class="nx">i1</span> <span class="nx">MyInt1</span> <span class="p">=</span> <span class="nf">MyInt1</span><span class="p">(</span><span class="nx">i</span><span class="p">).</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="12-字符串拼接">12. 字符串拼接</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">关于字符串连接</span><span class="err">，</span><span class="nx">下面语法正确的是</span><span class="err">？</span>
+
+<span class="nx">A</span><span class="p">.</span> <span class="nx">str</span> <span class="o">:=</span> <span class="err">&#39;</span><span class="nx">abc</span><span class="err">&#39;</span> <span class="o">+</span> <span class="err">&#39;</span><span class="mi">123</span><span class="err">&#39;</span>
+<span class="nx">B</span><span class="p">.</span> <span class="nx">str</span> <span class="o">:=</span> <span class="s">&#34;abc&#34;</span> <span class="o">+</span> <span class="s">&#34;123&#34;</span>
+<span class="nx">C</span><span class="p">.</span> <span class="nx">str</span> <span class="o">:=</span> <span class="err">&#39;</span><span class="mi">123</span><span class="err">&#39;</span> <span class="o">+</span> <span class="s">&#34;abc&#34;</span>
+<span class="nx">D</span><span class="p">.</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;abc%d&#34;</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span> <span class="nx">B</span>
+<span class="nx">单引号声明的字面量为byte类型</span><span class="err">，</span><span class="nx">而双引号声明的字面量为string类型</span><span class="err">。</span><span class="nx">二者不可以直接连接</span><span class="err">。</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;abc%d&#34;</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span><span class="nx">从字符串拼接角度倒是没问题</span><span class="err">，</span><span class="nx">只是缺少返回结果的接收变量</span><span class="err">。</span>
+
+<span class="c1">//参考答案及解析：BD。
+</span><span class="c1"></span><span class="o">//</span><span class="nx">知识点</span><span class="err">：</span><span class="nx">字符串连接</span><span class="err">。</span><span class="nx">除了以上两种连接方式</span><span class="err">，</span><span class="nx">还有</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Join</span><span class="p">()</span><span class="err">、</span><span class="nx">buffer</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">()</span><span class="nx">等</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="13-自增变量iota">13. 自增变量iota</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">const</span> <span class="p">(</span>
+    <span class="nx">x</span> <span class="p">=</span> <span class="kc">iota</span>
+    <span class="nx">_</span>
+    <span class="nx">y</span>
+    <span class="nx">z</span> <span class="p">=</span> <span class="s">&#34;zz&#34;</span>
+    <span class="nx">k</span>
+    <span class="nx">p</span> <span class="p">=</span> <span class="kc">iota</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span>  <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="nx">y</span><span class="p">,</span><span class="nx">z</span><span class="p">,</span><span class="nx">k</span><span class="p">,</span><span class="nx">p</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>能否通过编译？若能，输出什么？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">能</span><span class="err">。</span>
+
+<span class="nx">输出结果</span><span class="err">：</span>
+<span class="mi">0</span><span class="err">，</span> <span class="mi">2</span><span class="err">，</span> <span class="nx">zz</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span>
+
+<span class="c1">// 参考答案及解析：编译通过，输出：0 2 zz zz 5。
+</span><span class="c1">// 知识点：iota 的使用。给大家贴篇文章，讲的很详细 https://www.cnblogs.com/zsy/p/5370052.html
+</span><span class="c1"></span>
+<span class="nx">错误反思</span><span class="p">:</span>
+<span class="kd">const</span><span class="p">()</span> <span class="nx">内定义的常量</span><span class="err">，</span><span class="nx">若不明确指出其常量值</span><span class="err">，</span><span class="nx">则默认为紧邻的上一个常量的值</span><span class="err">。</span><span class="nx">这就是为什么正确答案中</span> <span class="nx">k</span> <span class="nx">的值也是</span> <span class="nx">zz</span> <span class="nx">了</span><span class="err">。</span>
+<span class="kd">const</span><span class="p">()</span> <span class="nx">常量组中提供了</span> <span class="kc">iota</span> <span class="nx">这种自增常量</span><span class="err">。</span> <span class="nx">使得紧邻着的下一个的值中的iota值增1</span><span class="err">。</span>
+<span class="nx">比如这里</span> <span class="nx">x</span> <span class="p">=</span> <span class="kc">iota</span> <span class="p">,</span><span class="nx">因为是const后第一次出现</span><span class="err">，</span><span class="nx">所以值为0</span><span class="p">.</span>
+<span class="nx">接下来第二个使用</span> <span class="nx">_</span> <span class="nx">忽略的值就是1</span><span class="err">，</span> <span class="nx">而再下一个</span><span class="err">，</span> <span class="nx">y</span> <span class="nx">的值就是2</span><span class="p">.</span>
+<span class="nx">中间可以使用具体指明的值来覆盖这个自增产生的默认规律</span><span class="err">，</span><span class="nx">比如</span> <span class="nx">z</span> <span class="p">=</span> <span class="s">&#34;zz&#34;</span> <span class="nx">所带来的默认规律</span> <span class="err">（</span><span class="nx">后边的常量默认与之相同</span><span class="err">）</span> <span class="nx">覆盖了</span> <span class="nx">iota带来的这种规律</span><span class="err">，</span><span class="nx">所以</span> <span class="nx">k</span> <span class="nx">仍是</span> <span class="s">&#34;zz&#34;</span> <span class="err">！</span>
+<span class="nx">在</span> <span class="nx">p</span> <span class="p">=</span> <span class="kc">iota</span> <span class="nx">处</span><span class="err">，</span><span class="nx">相当于又把iota的自增规律拉起来了</span><span class="err">。（</span><span class="nx">想象下图片处理的</span><span class="err">”</span><span class="nx">图层</span><span class="err">“</span><span class="nx">概念</span><span class="err">）</span>
+<span class="nx">除非是在另一个常量组中</span><span class="err">，</span><span class="nx">否则只要是在一个</span> <span class="kd">const</span><span class="p">()</span> <span class="nx">中</span><span class="err">，</span><span class="nx">iota的增长就一直存在</span><span class="err">，</span><span class="nx">可以被覆盖</span><span class="err">，</span><span class="nx">但不会被重置</span><span class="err">。</span>
+
+<span class="nx">iota的高级一点的用法</span><span class="err">，</span><span class="nx">用在常量表达式中</span><span class="err">。</span>
+<span class="kd">const</span> <span class="p">(</span>
+    <span class="nx">a</span> <span class="p">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="kc">iota</span>   <span class="c1">// a = 1
+</span><span class="c1"></span>    <span class="nx">b</span>               <span class="c1">// b继承了这个表达式（默认，除非自己指定），但iota值自增了，所以 b = 2
+</span><span class="c1"></span>    <span class="nx">c</span>               <span class="c1">// c = 4
+</span><span class="c1"></span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="14-变量初始化为nil">14. 变量初始化为nil</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面赋值正确的是</span><span class="p">()</span>
+
+<span class="nx">A</span><span class="p">.</span> <span class="kd">var</span> <span class="nx">x</span> <span class="p">=</span> <span class="kc">nil</span>
+<span class="nx">B</span><span class="p">.</span> <span class="kd">var</span> <span class="nx">x</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">=</span> <span class="kc">nil</span>
+<span class="nx">C</span><span class="p">.</span> <span class="kd">var</span> <span class="nx">x</span> <span class="kt">string</span> <span class="p">=</span> <span class="kc">nil</span>
+<span class="nx">D</span><span class="p">.</span> <span class="kd">var</span> <span class="nx">x</span> <span class="kt">error</span> <span class="p">=</span> <span class="kc">nil</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span> <span class="nx">B</span><span class="err">、</span><span class="nx">D</span>
+
+<span class="c1">// 参考答案及解析：BD。知识点：nil 值。nil 只能赋值给指针、chan、func、interface、map 或 slice 类型的变量。强调下 D 选项的 error 类型，它是一种内置接口类型，看下方贴出的源码就知道，所以 D 是对的。
+</span><span class="c1">// type error interface {
+</span><span class="c1">//     Error() string
+</span><span class="c1"></span><span class="o">//</span> <span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div>
     </div>
