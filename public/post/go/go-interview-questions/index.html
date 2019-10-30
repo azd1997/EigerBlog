@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-10-29T09:30:35&#43;08:00" />
 <meta itemprop="dateModified" content="2019-10-29T09:30:35&#43;08:00" />
-<meta itemprop="wordCount" content="3411">
+<meta itemprop="wordCount" content="3410">
 
 
 
@@ -135,7 +135,7 @@
         <div class="post-category">
             <a href="/categories/go/"> go </a>
             </div>
-          <span class="more-meta"> 3411 words </span>
+          <span class="more-meta"> 3410 words </span>
           <span class="more-meta"> 7 mins read </span>
         
       </div>
@@ -214,12 +214,12 @@
 <p>输出结果是?</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">解答:
-panic时defer后进先出，都defer完了才 panic：触发异常。</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">解答</span><span class="p">:</span>
+<span class="nx">panic时defer后进先出</span><span class="err">，</span><span class="nx">都defer完了才</span> <span class="nx">panic</span><span class="err">：</span><span class="nx">触发异常</span><span class="err">。</span></code></pre></td></tr></table>
 </div>
 </div>
 <h3 id="2-for-range迭代变量复用">2. for-range迭代变量复用</h3>
@@ -258,18 +258,18 @@ panic时defer后进先出，都defer完了才 panic：触发异常。</code></pr
 <p>输出结果是？</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">解答：
-由于for k, v :<span class="o">=</span> range slice/array/map 遍历时 k, v 其实是两个被复用的变量，其在遍历过程中地址并不更改，所以上面代码中指针引用 val 其会导致最终 m 中全是 <span class="m">3</span>.
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">解答</span><span class="err">：</span>
+<span class="nx">由于for</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">slice</span><span class="o">/</span><span class="nx">array</span><span class="o">/</span><span class="kd">map</span> <span class="nx">遍历时</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span> <span class="nx">其实是两个被复用的变量</span><span class="err">，</span><span class="nx">其在遍历过程中地址并不更改</span><span class="err">，</span><span class="nx">所以上面代码中指针引用</span> <span class="nx">val</span> <span class="nx">其会导致最终</span> <span class="nx">m</span> <span class="nx">中全是</span> <span class="mf">3.</span>
 
-解决办法:
-在循环体内每次将 val 赋值给另一个变量。 p ：<span class="o">=</span> val<span class="p">;</span> m<span class="o">[</span>key<span class="o">]</span> <span class="o">=</span> <span class="p">&amp;</span>p</code></pre></td></tr></table>
+<span class="nx">解决办法</span><span class="p">:</span>
+<span class="nx">在循环体内每次将</span> <span class="nx">val</span> <span class="nx">赋值给另一个变量</span><span class="err">。</span> <span class="nx">p</span> <span class="err">：</span><span class="p">=</span> <span class="nx">val</span><span class="p">;</span> <span class="nx">m</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">p</span></code></pre></td></tr></table>
 </div>
 </div>
 <h3 id="3-切片初始化与append">3. 切片初始化与append</h3>
@@ -308,7 +308,7 @@ panic时defer后进先出，都defer完了才 panic：触发异常。</code></pr
 <p>这两段代码输出?</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -316,12 +316,12 @@ panic时defer后进先出，都defer完了才 panic：触发异常。</code></pr
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">输出:
-//1. <span class="o">[</span><span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span><span class="o">]</span>
-//2. <span class="o">[</span><span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span>, <span class="m">4</span><span class="o">]</span>
-
-解析:
-复合数据结构初始化时其内部元素为各自零值。</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">输出</span><span class="p">:</span>
+<span class="c1">//1. [0, 0, 0, 0, 0, 1, 2, 3]
+</span><span class="c1">//2. [1, 2, 3, 4]
+</span><span class="c1"></span>
+<span class="nx">解析</span><span class="p">:</span>
+<span class="nx">复合数据结构初始化时其内部元素为各自零值</span><span class="err">。</span></code></pre></td></tr></table>
 </div>
 </div>
 <h3 id="4-命名返回值">4. 命名返回值</h3>
@@ -340,24 +340,24 @@ panic时defer后进先出，都defer完了才 panic：触发异常。</code></pr
 <p>指出代码缺陷。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">答案:
-第二个返回值没有命名。
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="p">:</span>
+<span class="nx">第二个返回值没有命名</span><span class="err">。</span>
 
-解析:
-在函数有多个返回值时，只要有一个返回值有命名，其他的也必须命名。如果有多个返回值必须加上括号<span class="o">()</span>；如果只有一个返回值且命名也必须加上括号<span class="o">()</span>。这里的第一个返回值有命名 sum，第二个没有命名，所以错误。</code></pre></td></tr></table>
+<span class="nx">解析</span><span class="p">:</span>
+<span class="nx">在函数有多个返回值时</span><span class="err">，</span><span class="nx">只要有一个返回值有命名</span><span class="err">，</span><span class="nx">其他的也必须命名</span><span class="err">。</span><span class="nx">如果有多个返回值必须加上括号</span><span class="p">()</span><span class="err">；</span><span class="nx">如果只有一个返回值且命名也必须加上括号</span><span class="p">()</span><span class="err">。</span><span class="nx">这里的第一个返回值有命名</span> <span class="nx">sum</span><span class="err">，</span><span class="nx">第二个没有命名</span><span class="err">，</span><span class="nx">所以错误</span><span class="err">。</span></code></pre></td></tr></table>
 </div>
 </div>
 <h3 id="5-new-和make-的区别">5. new()和make()的区别</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -365,18 +365,16 @@ panic时defer后进先出，都defer完了才 panic：触发异常。</code></pr
 </span><span class="lnt">6
 </span><span class="lnt">7
 </span><span class="lnt">8
-</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">解答:
-new<span class="o">(</span>T<span class="o">)</span> 和 make<span class="o">(</span>T,args<span class="o">)</span> 是 Go 语言内建函数，用来分配内存，但适用的类型不同。
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">解答</span><span class="p">:</span>
+<span class="nb">new</span><span class="p">(</span><span class="nx">T</span><span class="p">)</span> <span class="nx">和</span> <span class="nb">make</span><span class="p">(</span><span class="nx">T</span><span class="p">,</span><span class="nx">args</span><span class="p">)</span> <span class="nx">是</span> <span class="nx">Go</span> <span class="nx">语言内建函数</span><span class="err">，</span><span class="nx">用来分配内存</span><span class="err">，</span><span class="nx">但适用的类型不同</span><span class="err">。</span>
 
-new<span class="o">(</span>T<span class="o">)</span> 会为 T 类型的新值分配已置零的内存空间，并返回地址（指针），即类型为 *T 的值。换句话说就是，返回一个指针，该指针指向新分配的、类型为 T 的零值。适用于值类型，如数组、结构体等。
+<span class="nb">new</span><span class="p">(</span><span class="nx">T</span><span class="p">)</span> <span class="nx">会为</span> <span class="nx">T</span> <span class="nx">类型的新值分配已置零的内存空间</span><span class="err">，</span><span class="nx">并返回地址</span><span class="err">（</span><span class="nx">指针</span><span class="err">），</span><span class="nx">即类型为</span> <span class="o">*</span><span class="nx">T</span> <span class="nx">的值</span><span class="err">。</span><span class="nx">换句话说就是</span><span class="err">，</span><span class="nx">返回一个指针</span><span class="err">，</span><span class="nx">该指针指向新分配的</span><span class="err">、</span><span class="nx">类型为</span> <span class="nx">T</span> <span class="nx">的零值</span><span class="err">。</span><span class="nx">适用于值类型</span><span class="err">，</span><span class="nx">如数组</span><span class="err">、</span><span class="nx">结构体等</span><span class="err">。</span>
 
-make<span class="o">(</span>T,args<span class="o">)</span> 返回初始化之后的 T 类型的值，这个值并不是 T 类型的零值，也不是指针 *T，是经过初始化之后的 T 的引用。make<span class="o">()</span> 只适用于 slice、map 和 channel.
+<span class="nb">make</span><span class="p">(</span><span class="nx">T</span><span class="p">,</span><span class="nx">args</span><span class="p">)</span> <span class="nx">返回初始化之后的</span> <span class="nx">T</span> <span class="nx">类型的值</span><span class="err">，</span><span class="nx">这个值并不是</span> <span class="nx">T</span> <span class="nx">类型的零值</span><span class="err">，</span><span class="nx">也不是指针</span> <span class="o">*</span><span class="nx">T</span><span class="err">，</span><span class="nx">是经过初始化之后的</span> <span class="nx">T</span> <span class="nx">的引用</span><span class="err">。</span><span class="nb">make</span><span class="p">()</span> <span class="nx">只适用于</span> <span class="nx">slice</span><span class="err">、</span><span class="kd">map</span> <span class="nx">和</span> <span class="nx">channel</span><span class="p">.</span>
 
-<span class="c1">#new() 只能新建命名类型，比如基础数据类型、比如使用 type Name Typ 这样形式声明的命名类型，不能用于未命名类型，比如匿名结构体</span>
-<span class="c1">#make()</span></code></pre></td></tr></table>
+<span class="o">//</span> <span class="nb">new</span><span class="p">()</span> <span class="nx">只能新建命名类型</span><span class="err">，</span><span class="nx">比如基础数据类型</span><span class="err">、</span><span class="nx">比如使用</span> <span class="kd">type</span> <span class="nx">Name</span> <span class="nx">Typ</span> <span class="nx">这样形式声明的命名类型</span><span class="err">，</span><span class="nx">不能用于未命名类型</span><span class="err">，</span><span class="nx">比如匿名结构体</span></code></pre></td></tr></table>
 </div>
 </div>
 <h3 id="6-切片append">6. 切片append</h3>
