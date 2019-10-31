@@ -2,35 +2,56 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://azd1997.github.io/categories/</loc>
-    <lastmod>2019-10-30T02:37:50+08:00</lastmod>
+    <loc>https://azd1997.github.io/categories/algo/</loc>
+    <lastmod>2019-10-30T07:06:46+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/categories/cs/</loc>
-    <lastmod>2019-10-30T02:37:50+08:00</lastmod>
+    <loc>https://azd1997.github.io/categories/</loc>
+    <lastmod>2019-10-30T07:06:46+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/</loc>
-    <lastmod>2019-10-30T02:37:50+08:00</lastmod>
+    <lastmod>2019-10-30T07:06:46+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/post/</loc>
-    <lastmod>2019-10-30T02:37:50+08:00</lastmod>
+    <lastmod>2019-10-30T07:06:46+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/tags/</loc>
+    <lastmod>2019-10-30T07:06:46+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/</loc>
+    <lastmod>2019-10-30T07:06:46+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/algo/dsa33/</loc>
+    <lastmod>2019-10-30T07:06:46+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/categories/cs/</loc>
     <lastmod>2019-10-30T02:37:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -72,14 +93,14 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/tags/go/</loc>
+    <loc>https://azd1997.github.io/categories/go/</loc>
     <lastmod>2019-10-29T09:30:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/categories/go/</loc>
+    <loc>https://azd1997.github.io/tags/go/</loc>
     <lastmod>2019-10-29T09:30:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -95,13 +116,6 @@
   <url>
     <loc>https://azd1997.github.io/tags/%E9%9D%A2%E8%AF%95/</loc>
     <lastmod>2019-10-29T09:30:35+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://azd1997.github.io/categories/algo/</loc>
-    <lastmod>2019-10-18T03:22:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -226,14 +240,14 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/tags/java/</loc>
+    <loc>https://azd1997.github.io/categories/java/</loc>
     <lastmod>2019-09-05T02:55:16+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/categories/java/</loc>
+    <loc>https://azd1997.github.io/tags/java/</loc>
     <lastmod>2019-09-05T02:55:16+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

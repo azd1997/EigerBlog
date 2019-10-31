@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-09-26T22:05:29&#43;08:00" />
 <meta itemprop="dateModified" content="2019-09-26T22:05:29&#43;08:00" />
-<meta itemprop="wordCount" content="4675">
+<meta itemprop="wordCount" content="4703">
 
 
 
@@ -135,7 +135,7 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 4675 words </span>
+          <span class="more-meta"> 4703 words </span>
           <span class="more-meta"> 10 mins read </span>
         
       </div>
@@ -516,6 +516,7 @@
 </span><span class="lnt">188
 </span><span class="lnt">189
 </span><span class="lnt">190
+</span><span class="lnt">191
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// staticArray.go
@@ -523,6 +524,7 @@
 <span class="cm">/*
 </span><span class="cm">不使用length标记数组长度，而通过切片自身长度和容量来实现的固定数组，太折腾了。
 </span><span class="cm">重难点在于插入时需要注意一些细节。
+</span><span class="cm">此外，实现了反向索引。
 </span><span class="cm">一般的数组模拟都是
 </span><span class="cm">type StaticArray struct {
 </span><span class="cm">    data []int
@@ -894,7 +896,7 @@ PASS
 Process finished with <span class="nb">exit</span> code <span class="m">0</span></code></pre></td></tr></table>
 </div>
 </div>
-<p>基本上没看出啥问题。</p>
+<p>基本上没看出啥问题。（不过不保证有没有潜在的bug）</p>
 
 <p>下面再附上一个常规的数组模拟实现。</p>
 <div class="highlight"><div class="chroma">

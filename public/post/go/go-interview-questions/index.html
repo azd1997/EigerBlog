@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-10-29T09:30:35&#43;08:00" />
 <meta itemprop="dateModified" content="2019-10-29T09:30:35&#43;08:00" />
-<meta itemprop="wordCount" content="3410">
+<meta itemprop="wordCount" content="6319">
 
 
 
@@ -135,8 +135,8 @@
         <div class="post-category">
             <a href="/categories/go/"> go </a>
             </div>
-          <span class="more-meta"> 3410 words </span>
-          <span class="more-meta"> 7 mins read </span>
+          <span class="more-meta"> 6319 words </span>
+          <span class="more-meta"> 13 mins read </span>
         
       </div>
     </header>
@@ -165,6 +165,21 @@
 <li><a href="#12-字符串拼接">12. 字符串拼接</a></li>
 <li><a href="#13-自增变量iota">13. 自增变量iota</a></li>
 <li><a href="#14-变量初始化为nil">14. 变量初始化为nil</a></li>
+<li><a href="#15-init函数">15. init函数</a></li>
+<li><a href="#16-函数变量是指向函数的指针">16. 函数变量是指向函数的指针</a></li>
+<li><a href="#17-类型分支仅针对接口类型使用">17. 类型分支仅针对接口类型使用</a></li>
+<li><a href="#18-channel">18. channel</a></li>
+<li><a href="#19-空map也可以读">19. 空map也可以读</a></li>
+<li><a href="#20-可变函数入参slice-可以改变该切片">20. 可变函数入参slice&hellip;可以改变该切片</a></li>
+<li><a href="#21-不同类型数值变量不能直接相加">21. 不同类型数值变量不能直接相加</a></li>
+<li><a href="#22-基于切片构造切片a-i-j-k">22. 基于切片构造切片a[i:j:k]</a></li>
+<li><a href="#23-不同长度数组类型不同">23. 不同长度数组类型不同</a></li>
+<li><a href="#24-map没有cap操作">24. map没有cap操作</a></li>
+<li><a href="#25-空接口动态类型与值都为nil">25. 空接口动态类型与值都为nil</a></li>
+<li><a href="#26-map删除不存在键不报错">26. map删除不存在键不报错</a></li>
+<li><a href="#27-25个关键字">27. 25个关键字</a></li>
+<li><a href="#28-printf之verb">28. Printf之verb</a></li>
+<li><a href="#29-结构体嵌套之同名方法屏蔽">29. 结构体嵌套之同名方法屏蔽</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -833,6 +848,738 @@
 </span><span class="c1"></span><span class="o">//</span> <span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div>
+<h3 id="15-init函数">15. init函数</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">关于init函数</span><span class="err">，</span><span class="nx">下面说法正确的是</span><span class="p">()</span>
+
+<span class="nx">A</span><span class="p">.</span> <span class="nx">一个包中</span><span class="err">，</span><span class="nx">可以包含多个</span> <span class="nx">init</span> <span class="nx">函数</span><span class="err">；</span>
+<span class="nx">B</span><span class="p">.</span> <span class="nx">程序编译时</span><span class="err">，</span><span class="nx">先执行依赖包的</span> <span class="nx">init</span> <span class="nx">函数</span><span class="err">，</span><span class="nx">再执行</span> <span class="nx">main</span> <span class="nx">包内的</span> <span class="nx">init</span> <span class="nx">函数</span><span class="err">；</span>
+<span class="nx">C</span><span class="p">.</span> <span class="nx">main</span> <span class="nx">包中</span><span class="err">，</span><span class="nx">不能有</span> <span class="nx">init</span> <span class="nx">函数</span><span class="err">；</span>
+<span class="nx">D</span><span class="p">.</span> <span class="nx">init</span> <span class="nx">函数可以被其他函数调用</span><span class="err">；</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">A</span>
+
+<span class="c1">// 参考答案及解析：AB。关于 init() 函数有几个需要注意的地方：
+</span><span class="c1"></span>
+<span class="c1">// init() 函数是用于程序执行前做包的初始化的函数，比如初始化包里的变量等;
+</span><span class="c1">// 一个包可以出线多个 init() 函数,一个源文件也可以包含多个 init() 函数；
+</span><span class="c1">// 同一个包中多个 init() 函数的执行顺序没有明确定义，但是不同包的init函数是根据包导入的依赖关系决定的（看下图）;
+</span><span class="c1">// init() 函数在代码中不能被显示调用、不能被引用（赋值给函数变量），否则出现编译错误;
+</span><span class="c1">// 一个包被引用多次，如 A import B,C import B,A import C，B 被引用多次，但 B 包只会初始化一次；
+</span><span class="c1"></span><span class="o">//</span> <span class="nx">引入包</span><span class="err">，</span><span class="nx">不可出现死循坏</span><span class="err">。</span><span class="nx">即</span> <span class="nx">A</span> <span class="kn">import</span> <span class="nx">B</span><span class="p">,</span><span class="nx">B</span> <span class="kn">import</span> <span class="nx">A</span><span class="err">，</span><span class="nx">这种情况编译失败</span><span class="err">；</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img src="/images/go-interview-questions_15.jpg" alt="go-interview-questions_15" />
+<!--![go-interview-questions_15](../../../static/images/go-interview-questions_15.png)--></p>
+
+<h3 id="16-函数变量是指向函数的指针">16. 函数变量是指向函数的指针</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么以及原因</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">hello</span><span class="p">()</span> <span class="p">[]</span><span class="kt">string</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">h</span> <span class="o">:=</span> <span class="nx">hello</span>
+    <span class="k">if</span> <span class="nx">h</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;nil&#34;</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;not nil&#34;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">A</span><span class="p">.</span> <span class="kc">nil</span>
+<span class="nx">B</span><span class="p">.</span> <span class="nx">not</span> <span class="kc">nil</span>
+<span class="nx">C</span><span class="p">.</span> <span class="nx">compilation</span> <span class="kt">error</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">B</span><span class="err">。</span><span class="nx">h是hello函数的一个指针</span>
+
+<span class="o">//</span> <span class="nx">答案及解析</span><span class="err">：</span><span class="nx">B</span><span class="err">。</span><span class="nx">这道题目里面</span><span class="err">，</span><span class="nx">是将</span> <span class="nf">hello</span><span class="p">()</span> <span class="nx">赋值给变量</span> <span class="nx">h</span><span class="err">，</span><span class="nx">而不是函数的返回值</span><span class="err">，</span><span class="nx">所以输出</span> <span class="nx">not</span> <span class="kc">nil</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="17-类型分支仅针对接口类型使用">17. 类型分支仅针对接口类型使用</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码能否编译通过</span><span class="err">？</span><span class="nx">如果可以</span><span class="err">，</span><span class="nx">输出什么</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">GetValue</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">i</span> <span class="o">:=</span> <span class="nf">GetValue</span><span class="p">()</span>
+    <span class="k">switch</span> <span class="nx">i</span><span class="p">.(</span><span class="kd">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="kt">int</span><span class="p">:</span>
+        <span class="nb">println</span><span class="p">(</span><span class="s">&#34;int&#34;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="kt">string</span><span class="p">:</span>
+        <span class="nb">println</span><span class="p">(</span><span class="s">&#34;string&#34;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="kd">interface</span><span class="p">{}:</span>
+        <span class="nb">println</span><span class="p">(</span><span class="s">&#34;interface&#34;</span><span class="p">)</span>
+    <span class="k">default</span><span class="p">:</span>
+        <span class="nb">println</span><span class="p">(</span><span class="s">&#34;unknown&#34;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">不能</span><span class="err">，</span><span class="nx">类型分支是给接口用的</span>
+
+<span class="o">//</span><span class="nx">参考答案及解析</span><span class="err">：</span><span class="nx">编译失败</span><span class="err">。</span><span class="nx">考点</span><span class="err">：</span><span class="nx">类型选择</span><span class="err">，</span><span class="nx">类型选择的语法形如</span><span class="err">：</span><span class="nx">i</span><span class="p">.(</span><span class="kd">type</span><span class="p">)</span><span class="err">，</span><span class="nx">其中</span> <span class="nx">i</span> <span class="nx">是接口</span><span class="err">，</span><span class="kd">type</span> <span class="nx">是固定关键字</span><span class="err">，</span><span class="nx">需要注意的是</span><span class="err">，</span><span class="nx">只有接口类型才可以使用类型选择</span><span class="err">。</span><span class="nx">看下关于接口的文章</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="18-channel">18. channel</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">关于channel</span><span class="err">，</span><span class="nx">下面语法正确的是</span><span class="p">()</span>
+
+<span class="nx">A</span><span class="p">.</span> <span class="kd">var</span> <span class="nx">ch</span> <span class="kd">chan</span> <span class="kt">int</span>
+<span class="nx">B</span><span class="p">.</span> <span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+<span class="nx">C</span><span class="p">.</span> <span class="o">&lt;-</span> <span class="nx">ch</span>
+<span class="nx">D</span><span class="p">.</span> <span class="nx">ch</span> <span class="o">&lt;-</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">ABC</span>
+
+<span class="o">//</span> <span class="nx">参考答案及解析</span><span class="err">：</span><span class="nx">ABC</span><span class="err">。</span><span class="nx">A</span><span class="err">、</span><span class="nx">B都是声明</span> <span class="nx">channel</span><span class="err">；</span><span class="nx">C</span> <span class="nx">读取</span> <span class="nx">channel</span><span class="err">；</span><span class="nx">写</span> <span class="nx">channel</span> <span class="nx">是必须带上值</span><span class="err">，</span><span class="nx">所以</span> <span class="nx">D</span> <span class="nx">错误</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="19-空map也可以读">19. 空map也可以读</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="nx">A</span><span class="mf">.0</span>
+<span class="nx">B</span><span class="mf">.1</span>
+<span class="nx">C</span><span class="p">.</span><span class="nx">Compilation</span> <span class="kt">error</span>
+
+<span class="kd">type</span> <span class="nx">person</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">name</span> <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">m</span> <span class="kd">map</span><span class="p">[</span><span class="nx">person</span><span class="p">]</span><span class="kt">int</span>
+    <span class="nx">p</span> <span class="o">:=</span> <span class="nx">person</span><span class="p">{</span><span class="s">&#34;mike&#34;</span><span class="p">}</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">m</span><span class="p">[</span><span class="nx">p</span><span class="p">])</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">C</span><span class="err">。</span><span class="nx">声明了map但是没有初始化</span><span class="err">，</span><span class="nx">这样使用</span> <span class="nx">m</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span><span class="nx">会造成</span> <span class="nx">panic</span><span class="p">:</span> <span class="nx">空指针调用</span>
+
+
+<span class="o">//</span> <span class="nx">参考答案及解析</span><span class="err">：</span><span class="nx">A</span><span class="err">。</span><span class="nx">打印一个</span> <span class="kd">map</span> <span class="nx">中不存在的值时</span><span class="err">，</span><span class="nx">返回元素类型的零值</span><span class="err">。</span><span class="nx">这个例子中</span><span class="err">，</span><span class="nx">m</span> <span class="nx">的类型是</span> <span class="kd">map</span><span class="p">[</span><span class="nx">person</span><span class="p">]</span><span class="kt">int</span><span class="err">，</span><span class="nx">因为</span> <span class="nx">m</span> <span class="nx">中不存在</span> <span class="nx">p</span><span class="err">，</span><span class="nx">所以打印</span> <span class="kt">int</span> <span class="nx">类型的零值</span><span class="err">，</span><span class="nx">即</span> <span class="mi">0</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="20-可变函数入参slice-可以改变该切片">20. 可变函数入参slice&hellip;可以改变该切片</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="nx">A</span><span class="mf">.18</span>
+<span class="nx">B</span><span class="mf">.5</span>
+<span class="nx">C</span><span class="p">.</span><span class="nx">Compilation</span> <span class="kt">error</span>
+
+<span class="kd">func</span> <span class="nf">hello</span><span class="p">(</span><span class="nx">num</span> <span class="o">...</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">num</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="mi">18</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">i</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">}</span>
+    <span class="nf">hello</span><span class="p">(</span><span class="nx">i</span><span class="o">...</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">B</span><span class="err">。</span> <span class="nx">实参是值传递</span><span class="err">，</span><span class="nx">所以</span> <span class="nx">num</span> <span class="nx">只是由</span> <span class="nx">i</span> <span class="nx">的元素的副本构建成的一个切片</span><span class="err">，</span><span class="nx">修改</span> <span class="nx">num</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="nx">不会对</span> <span class="nx">i</span> <span class="nx">造成任何影响</span>
+
+<span class="c1">// 参考答案及解析：18。知识点：可变函数。https://mp.weixin.qq.com/s/aOaNkCKudeI7fArogzpCsw
+</span><span class="c1"></span><span class="o">//</span> <span class="nx">可变函数最后一个入参如果是切片并使用了</span><span class="o">...</span><span class="err">，</span><span class="nx">切片本身会作为参数直接传入</span><span class="err">，</span><span class="nx">不会再创建一个新的切片</span><span class="err">。</span><span class="nx">这样</span><span class="err">，</span><span class="nx">在函数内对这个入参的操作会影响这个切片</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="21-不同类型数值变量不能直接相加">21. 不同类型数值变量不能直接相加</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">a</span> <span class="o">:=</span> <span class="mi">5</span>
+    <span class="nx">b</span> <span class="o">:=</span> <span class="mf">8.1</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">A</span><span class="mf">.13.1</span>
+<span class="nx">B</span><span class="mf">.13</span>
+<span class="nx">C</span><span class="p">.</span><span class="nx">compilation</span> <span class="kt">error</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">C</span><span class="err">。</span> <span class="nx">不能直接加</span><span class="err">，</span><span class="nx">a</span> <span class="nx">是int</span><span class="p">,</span> <span class="nx">b</span> <span class="nx">是float64</span><span class="p">,</span> <span class="nx">要显式转换类型</span><span class="p">.</span>
+
+<span class="o">//</span> <span class="nx">参考答案及解析</span><span class="err">：</span><span class="nx">C</span><span class="err">。</span><span class="nx">a</span> <span class="nx">的类型是</span> <span class="kt">int</span><span class="err">，</span><span class="nx">b</span> <span class="nx">的类型是</span> <span class="kt">float</span><span class="err">，</span><span class="nx">两个不同类型的数值不能相加</span><span class="err">，</span><span class="nx">编译报错</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="22-基于切片构造切片a-i-j-k">22. 基于切片构造切片a[i:j:k]</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&#34;fmt&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">a</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+    <span class="nx">t</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">}</span>
+<span class="nx">A</span><span class="mf">.3</span>
+<span class="nx">B</span><span class="mf">.4</span>
+<span class="nx">C</span><span class="p">.</span><span class="nx">compilation</span> <span class="kt">error</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">C</span><span class="err">。</span>  <span class="nx">t</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span><span class="err">，</span> <span class="nx">第二个选项是间隔</span><span class="err">。</span>
+
+<span class="c1">// 参考答案及解析：B。知识点：操作符 [i,j]。基于数组（切片）可以使用操作符 [i,j] 创建新的切片，从索引 i，到索引 j 结束，截取已有数组（切片）的任意部分，返回新的切片，新切片的值包含原数组（切片）的 i 索引的值，但是不包含 j 索引的值。i、j 都是可选的，i 如果省略，默认是 0，j 如果省略，默认是原数组（切片）的长度。i、j 都不能超过这个长度值。
+</span><span class="c1"></span>
+<span class="c1">// 假如底层数组的大小为 k，截取之后获得的切片的长度和容量的计算方法：长度：j-i，容量：k-i。
+</span><span class="c1"></span>
+<span class="c1">// 截取操作符还可以有第三个参数，形如 [i,j,k]，第三个参数 k 用来限制新切片的容量，但不能超过原数组（切片）的底层数组大小。截取获得的切片的长度和容量分别是：j-i、k-i。
+</span><span class="c1"></span>
+<span class="c1">// 所以例子中，切片 t 为 [4]，长度和容量都是 1。
+</span><span class="c1"></span>
+<span class="o">//</span> <span class="nx">详细的知识点可以看下关于切片的文章</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="23-不同长度数组类型不同">23. 不同长度数组类型不同</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">a</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">}</span>
+    <span class="nx">b</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">}</span>
+    <span class="k">if</span> <span class="nx">a</span> <span class="o">==</span> <span class="nx">b</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;equal&#34;</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;not equal&#34;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">A</span><span class="p">.</span> <span class="nx">compilation</span> <span class="kt">error</span>
+<span class="nx">B</span><span class="p">.</span> <span class="nx">equal</span>
+<span class="nx">C</span><span class="p">.</span> <span class="nx">not</span> <span class="nx">equal</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">A</span><span class="err">。</span> <span class="nx">类型不同不可比较</span><span class="err">，</span><span class="nx">使用</span> <span class="nx">a</span> <span class="o">==</span> <span class="nx">b</span> <span class="nx">触发panic</span>
+
+<span class="o">//</span> <span class="nx">参考答案及解析</span><span class="err">：</span><span class="nx">A</span><span class="err">。</span><span class="nx">Go</span> <span class="nx">中的数组是值类型</span><span class="err">，</span><span class="nx">可比较</span><span class="err">，</span><span class="nx">另外一方面</span><span class="err">，</span><span class="nx">数组的长度也是数组类型的组成部分</span><span class="err">，</span><span class="nx">所以</span> <span class="nx">a</span> <span class="nx">和</span> <span class="nx">b</span> <span class="nx">是不同的类型</span><span class="err">，</span><span class="nx">是不能比较的</span><span class="err">，</span><span class="nx">所以编译错误</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="24-map没有cap操作">24. map没有cap操作</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">关于</span> <span class="nb">cap</span><span class="p">()</span> <span class="nx">函数的适用类型</span><span class="err">，</span><span class="nx">下面说法正确的是</span><span class="p">()</span>
+
+<span class="nx">A</span><span class="p">.</span> <span class="nx">array</span>
+<span class="nx">B</span><span class="p">.</span> <span class="nx">slice</span>
+<span class="nx">C</span><span class="p">.</span> <span class="kd">map</span>
+<span class="nx">D</span><span class="p">.</span> <span class="nx">channel</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">ABCD</span>
+
+<span class="o">//</span><span class="nx">参考答案及解析</span><span class="err">：</span><span class="nx">ABD</span><span class="err">。</span><span class="nx">知识点</span><span class="err">：</span><span class="nb">cap</span><span class="p">()</span><span class="err">，</span><span class="nb">cap</span><span class="p">()</span> <span class="nx">函数不适用</span> <span class="kd">map</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="25-空接口动态类型与值都为nil">25. 空接口动态类型与值都为nil</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">i</span> <span class="kd">interface</span><span class="p">{}</span>
+    <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;nil&#34;</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;not nil&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">A</span><span class="p">.</span> <span class="kc">nil</span>
+<span class="nx">B</span><span class="p">.</span> <span class="nx">not</span> <span class="kc">nil</span>
+<span class="nx">C</span><span class="p">.</span> <span class="nx">compilation</span> <span class="kt">error</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">B</span><span class="err">。</span><span class="nx">空接口不是nil</span><span class="err">，</span> <span class="nx">但可以和</span> <span class="kc">nil</span> <span class="nx">作</span> <span class="o">==</span> <span class="nx">比较</span>
+
+<span class="o">//</span><span class="nx">参考答案及解析</span><span class="err">：</span><span class="nx">A</span><span class="err">。</span><span class="nx">当且仅当接口的动态值和动态类型都为</span> <span class="kc">nil</span> <span class="nx">时</span><span class="err">，</span><span class="nx">接口类型值才为</span> <span class="kc">nil</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="26-map删除不存在键不报错">26. map删除不存在键不报错</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">s</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>
+    <span class="nb">delete</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="s">&#34;h&#34;</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="s">&#34;h&#34;</span><span class="p">])</span>
+<span class="p">}</span>
+
+<span class="nx">A</span><span class="p">.</span> <span class="nx">runtime</span> <span class="nx">panic</span>
+<span class="nx">B</span><span class="p">.</span> <span class="mi">0</span>
+<span class="nx">C</span><span class="p">.</span> <span class="nx">compilation</span> <span class="kt">error</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">C</span><span class="err">。</span><span class="nx">此时还是空map</span><span class="p">,</span><span class="nx">删除一个不存在的键会panic</span><span class="err">。</span>
+
+<span class="o">//</span><span class="nx">参考答案及解析</span><span class="err">：</span><span class="nx">B</span><span class="err">。</span><span class="nx">删除</span> <span class="kd">map</span> <span class="nx">不存在的键值对时</span><span class="err">，</span><span class="nx">不会报错</span><span class="err">，</span><span class="nx">相当于没有任何作用</span><span class="err">；</span><span class="nx">获取不存在的减值对时</span><span class="err">，</span><span class="nx">返回值类型对应的零值</span><span class="err">，</span><span class="nx">所以返回</span> <span class="mi">0</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="27-25个关键字">27. 25个关键字</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="mf">1.</span><span class="nx">下面属于关键字的是</span><span class="err">（）</span>
+
+<span class="nx">A</span><span class="p">.</span><span class="kd">func</span>
+<span class="nx">B</span><span class="p">.</span><span class="kd">struct</span>
+<span class="nx">C</span><span class="p">.</span><span class="nx">class</span>
+<span class="nx">D</span><span class="p">.</span><span class="k">defer</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">C</span>
+
+<span class="nx">看反题了</span><span class="err">。。。</span>
+<span class="o">//</span> <span class="nx">参考答案及解析</span><span class="err">：</span><span class="nx">ABD</span><span class="err">。</span><span class="nx">知识点</span><span class="err">：</span><span class="nx">Go</span> <span class="nx">语言的关键字</span><span class="err">。</span><span class="nx">Go</span> <span class="nx">语言有</span> <span class="mi">25</span> <span class="nx">个关键字</span><span class="err">，</span><span class="nx">看下图</span><span class="err">：</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img src="/images/go-interview-questions_27.jpg" alt="go-interview-questions_27" />
+<!--![go-interview-questions_27](../../../static/images/go-interview-questions_27.png)--></p>
+
+<h3 id="28-printf之verb">28. Printf之verb</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">i</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">5</span>
+    <span class="nx">j</span> <span class="o">:=</span> <span class="o">+</span><span class="mi">5</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%+d %+d&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">A</span><span class="p">.</span> <span class="o">-</span><span class="mi">5</span> <span class="o">+</span><span class="mi">5</span>
+<span class="nx">B</span><span class="p">.</span> <span class="o">+</span><span class="mi">5</span> <span class="o">+</span><span class="mi">5</span>
+<span class="nx">C</span><span class="p">.</span> <span class="mi">0</span>  <span class="mi">0</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="o">%+</span><span class="nx">d</span> <span class="nx">是什么动词</span><span class="err">？</span> <span class="nx">猜B</span>
+
+<span class="o">//</span> <span class="nx">参考答案及解析</span><span class="err">：</span><span class="nx">A</span><span class="err">。</span><span class="o">%</span><span class="nx">d表示输出十进制数字</span><span class="err">，</span><span class="o">+</span><span class="nx">表示输出数值的符号</span><span class="err">。</span><span class="nx">这里不表示取反</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="29-结构体嵌套之同名方法屏蔽">29. 结构体嵌套之同名方法屏蔽</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="kd">type</span> <span class="nx">People</span> <span class="kd">struct</span><span class="p">{}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">People</span><span class="p">)</span> <span class="nf">ShowA</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;showA&#34;</span><span class="p">)</span>
+    <span class="nx">p</span><span class="p">.</span><span class="nf">ShowB</span><span class="p">()</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">People</span><span class="p">)</span> <span class="nf">ShowB</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;showB&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Teacher</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">People</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">Teacher</span><span class="p">)</span> <span class="nf">ShowB</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;teacher showB&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">t</span> <span class="o">:=</span> <span class="nx">Teacher</span><span class="p">{}</span>
+    <span class="nx">t</span><span class="p">.</span><span class="nf">ShowB</span><span class="p">()</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="s">&#34;teacher showB&#34;</span>
+
+<span class="c1">// 参考答案及解析：teacher showB。知识点：结构体嵌套。
+</span><span class="c1">// 在嵌套结构体中，People 称为内部类型，Teacher 称为外部类型；
+</span><span class="c1">// 通过嵌套，内部类型的属性、方法，可以为外部类型所有，就好像是外部类型自己的一样。
+</span><span class="c1"></span><span class="o">//</span> <span class="nx">此外</span><span class="err">，</span><span class="nx">外部类型还可以定义自己的属性和方法</span><span class="err">，</span><span class="nx">甚至可以定义与内部相同的方法</span><span class="err">，</span><span class="nx">这样内部类型的方法就会被</span><span class="err">“</span><span class="nx">屏蔽</span><span class="err">”。</span><span class="o">//</span> <span class="nx">这个例子中的</span> <span class="nf">ShowB</span><span class="p">()</span> <span class="nx">就是同名方法</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>// 看到第13天。</p>
+
     </div>
 
     <div class="post-copyright">
