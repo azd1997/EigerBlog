@@ -6,10 +6,28 @@
     <description>Recent content on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 30 Oct 2019 07:06:46 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 06 Nov 2019 05:20:19 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Leetcode26——删除排序数组的重复项</title>
+      <link>https://azd1997.github.io/post/algo/lt26/</link>
+      <pubDate>Wed, 06 Nov 2019 05:20:19 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/lt26/</guid>
+      <description>1. 题意 难度： easy 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。 不要使用额外的数组空间，你必</description>
+    </item>
+    
+    <item>
+      <title>覃超数据结构与算法7天训练营笔记</title>
+      <link>https://azd1997.github.io/post/algo/training-classroom/</link>
+      <pubDate>Mon, 04 Nov 2019 20:39:10 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/training-classroom/</guid>
+      <description>0. 前言 0.1 学习目标 对于算法和数据结构理解达到职业顶尖级别 一线互联网公司面试 Leetcode 300+ 积累 0.2 学习方法 参考书籍：《异类：不一样的成功启示录》 三步走： chunk it</description>
+    </item>
     
     <item>
       <title>字符串匹配算法</title>

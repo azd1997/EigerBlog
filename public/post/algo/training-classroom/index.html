@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>覃超数据结构与算法7天训练营笔记 - Eiger - A young gopher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Eiger" /><meta name="description" content="0. 前言 0.1 学习目标 对于算法和数据结构理解达到职业顶尖级别 一线互联网公司面试 Leetcode 300&#43; 积累 0.2 学习方法 参考书籍：《异类：不一样的成功启示录》 三步走： chunk it" /><meta name="keywords" content="五遍刷题法" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://azd1997.github.io/post/algo/training-classroom/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="覃超数据结构与算法7天训练营笔记" />
+<meta property="og:description" content="0. 前言 0.1 学习目标 对于算法和数据结构理解达到职业顶尖级别 一线互联网公司面试 Leetcode 300&#43; 积累 0.2 学习方法 参考书籍：《异类：不一样的成功启示录》 三步走： chunk it" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://azd1997.github.io/post/algo/training-classroom/" />
+<meta property="article:published_time" content="2019-11-04T20:39:10+08:00" />
+<meta property="article:modified_time" content="2019-11-04T20:39:10+08:00" />
+<meta itemprop="name" content="覃超数据结构与算法7天训练营笔记">
+<meta itemprop="description" content="0. 前言 0.1 学习目标 对于算法和数据结构理解达到职业顶尖级别 一线互联网公司面试 Leetcode 300&#43; 积累 0.2 学习方法 参考书籍：《异类：不一样的成功启示录》 三步走： chunk it">
+
+
+<meta itemprop="datePublished" content="2019-11-04T20:39:10&#43;08:00" />
+<meta itemprop="dateModified" content="2019-11-04T20:39:10&#43;08:00" />
+<meta itemprop="wordCount" content="1644">
+
+
+
+<meta itemprop="keywords" content="数据结构,算法," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="覃超数据结构与算法7天训练营笔记"/>
+<meta name="twitter:description" content="0. 前言 0.1 学习目标 对于算法和数据结构理解达到职业顶尖级别 一线互联网公司面试 Leetcode 300&#43; 积累 0.2 学习方法 参考书籍：《异类：不一样的成功启示录》 三步走： chunk it"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Eiger</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/links/">
+        <li class="mobile-menu-item">Links</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Eiger</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/links/">Links</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">覃超数据结构与算法7天训练营笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-11-04 </span>
+        <div class="post-category">
+            <a href="/categories/algo/"> algo </a>
+            </div>
+          <span class="more-meta"> 1644 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#0-前言">0. 前言</a>
+<ul>
+<li><a href="#0-1-学习目标">0.1 学习目标</a></li>
+</ul></li>
+<li><a href="#0-2-学习方法">0.2 学习方法</a></li>
+<li><a href="#1-总览">1. 总览</a>
+<ul>
+<li><a href="#1-1-数据结构">1.1 数据结构</a></li>
+<li><a href="#1-2-算法">1.2 算法</a></li>
+<li><a href="#1-3-脑图">1.3 脑图</a></li>
+</ul></li>
+<li><a href="#2-训练准备与复杂度分析">2. 训练准备与复杂度分析</a>
+<ul>
+<li><a href="#2-1-训练环境设置">2.1 训练环境设置</a></li>
+<li><a href="#2-2-编码技巧">2.2 编码技巧</a></li>
+<li><a href="#2-3-编程风格">2.3 编程风格</a></li>
+<li><a href="#2-4-时间复杂度">2.4 时间复杂度</a>
+<ul>
+<li><a href="#2-4-1-常见时间复杂度">2.4.1 常见时间复杂度</a></li>
+<li><a href="#2-4-2-算法的意义">2.4.2 算法的意义</a></li>
+<li><a href="#2-4-3-更复杂的情况-递归">2.4.3 更复杂的情况——递归</a></li>
+<li><a href="#2-4-4-主定理">2.4.4 主定理</a></li>
+<li><a href="#2-4-5-思考题">2.4.5 思考题</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#3-数组-链表和跳表">3. 数组、链表和跳表</a>
+<ul>
+<li><a href="#3-1-数组与链表">3.1 数组与链表</a></li>
+<li><a href="#3-2-跳表">3.2 跳表</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h2 id="0-前言">0. 前言</h2>
+
+<h3 id="0-1-学习目标">0.1 学习目标</h3>
+
+<ul>
+<li>对于算法和数据结构理解达到职业顶尖级别</li>
+<li>一线互联网公司面试</li>
+<li>Leetcode 300+ 积累</li>
+</ul>
+
+<h2 id="0-2-学习方法">0.2 学习方法</h2>
+
+<p>参考书籍：《异类：不一样的成功启示录》</p>
+
+<p>三步走：</p>
+
+<ol>
+<li>chunk it up 切碎知识点（庖丁解牛、脉络连接）
+
+<ul>
+<li>见sec1</li>
+</ul></li>
+<li>Deliberate Practicing 刻意练习
+
+<ul>
+<li>反复练习</li>
+<li>过遍数（五毒神掌）: 五遍刷题法
+
+<ul>
+<li>切题四件套（练习和面试时需要的做题过程）</li>
+<li>clarification 看到题时和面试官多确认几遍，保证自己理解没错</li>
+<li>possible solutions 想所有可能的解法
+
+<ul>
+<li>compare (time/space)</li>
+<li>optimal (加强)</li>
+</ul></li>
+<li>coding (多写)</li>
+<li>test cases (多测一些测试样例，有始有终)</li>
+<li>刷题第一遍：</li>
+<li>5~10分钟读题加思考</li>
+<li>然后直接看解法。注意！多解法，比较解法优劣</li>
+<li>背诵、默写好的解法</li>
+<li>刷题第二遍：</li>
+<li>马上自己写 -&gt; 提交到leetcode反复debug至通过</li>
+<li>多种解法比较、体会 -&gt; 优化。 leetcode有统计执行时间和内存消耗</li>
+<li>刷题第三遍</li>
+<li>过了一天后，再重复做题</li>
+<li>不同解法的熟练程度 -&gt; 专项练习</li>
+<li>刷题第四遍</li>
+<li>过了一周再反复回来练习，同时对于不熟练的题目再进行专项练习</li>
+<li>刷题第五遍</li>
+<li>面试前一周恢复性训练</li>
+</ul></li>
+<li>练习弱点</li>
+</ul></li>
+<li>Feedback 反馈（主动式、被动式）
+
+<ul>
+<li>即时反馈</li>
+<li>主动型反馈（自己去找）
+
+<ul>
+<li>高手代码（Github, Leetcode, etc）</li>
+<li>第一视角直播</li>
+</ul></li>
+<li>被动式反馈（高手给你指点）
+
+<ul>
+<li>code review</li>
+</ul></li>
+</ul></li>
+</ol>
+
+<h2 id="1-总览">1. 总览</h2>
+
+<h3 id="1-1-数据结构">1.1 数据结构</h3>
+
+<ul>
+<li>一维
+
+<ul>
+<li>基础： 数组array(string), 链表linked list</li>
+<li>高级：栈stack, 队列queue, 双端队列deque, 集合set, 映射map, etc</li>
+</ul></li>
+<li>二维
+
+<ul>
+<li>基础： 树tree, 图graph</li>
+<li>高级： 二叉搜索树binary search tree (red-black tree, AVL), 堆heap, 并查集disjoint set, 字典树trie, etc</li>
+</ul></li>
+<li>特殊
+
+<ul>
+<li>位运算 Bitwise, 布隆过滤器bloom filter</li>
+<li>LRU Cache</li>
+</ul></li>
+</ul>
+
+<h3 id="1-2-算法">1.2 算法</h3>
+
+<p>所有算法都可以使用下列三种运算操作组合表示而成</p>
+
+<ul>
+<li>if-else, switch -&gt; branch</li>
+<li>for, while loop -&gt; iteration</li>
+<li>递归（recursion） (Divide&amp;Conquer, Backtrace)</li>
+</ul>
+
+<p>高级算法：</p>
+
+<ul>
+<li>搜索search, 深度优先搜索Depth first search, 广度优先搜索Broad first search, A*, etc</li>
+<li>动态规划 Dynamic Programming</li>
+<li>二分查找 binary search</li>
+<li>贪心 greedy</li>
+<li>数学 math, 几何 geometry</li>
+</ul>
+
+<p>注意：在头脑中各种算法的思想和代码模板</p>
+
+<h3 id="1-3-脑图">1.3 脑图</h3>
+
+<p><img src="/images/tc01.svg" alt="tc01" /></p>
+
+<h2 id="2-训练准备与复杂度分析">2. 训练准备与复杂度分析</h2>
+
+<h3 id="2-1-训练环境设置">2.1 训练环境设置</h3>
+
+<p>推荐 VSCode + Leetcode插件</p>
+
+<h3 id="2-2-编码技巧">2.2 编码技巧</h3>
+
+<p>刻意练习常用编辑器、IDE的快捷键操作</p>
+
+<h3 id="2-3-编程风格">2.3 编程风格</h3>
+
+<p>参考《clean code》</p>
+
+<ul>
+<li>自顶向下。</li>
+</ul>
+
+<p>就是说每一个代码文件，要像写杂志一般，把最核心最重要的代码放在前面，细节则放到末尾。比如说一个命令行程序，可以将总的处理命令行参数的函数放在前头，而具体的各个命令所调用的函数在后，工具函数则放在文件最末。</p>
+
+<h3 id="2-4-时间复杂度">2.4 时间复杂度</h3>
+
+<h4 id="2-4-1-常见时间复杂度">2.4.1 常见时间复杂度</h4>
+
+<ul>
+<li>O(1)</li>
+<li>O(logn)</li>
+<li>O(n)</li>
+<li>O(n^2)</li>
+<li>O(n^3)</li>
+<li>O(2^n)</li>
+<li>O(n!)</li>
+</ul>
+
+<p>只看最高时间复杂度的运算。</p>
+
+<p>经典的斐波那契数列的例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="nf">fib</span><span class="p">(</span><span class="kt">int</span> <span class="nf">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span><span class="o">&lt;=</span><span class="n">2</span><span class="p">)</span> <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">2</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="o">//</span> <span class="n">时间复杂度</span> <span class="nf">O</span><span class="p">(</span><span class="n">k</span><span class="o">^</span><span class="n">n</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>Tip:</strong> 编程时一定要对自己写的代码分析时间空间复杂度，要养成习惯！！！</p>
+
+<h4 id="2-4-2-算法的意义">2.4.2 算法的意义</h4>
+
+<p>例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 1. 从1到n循环累加
+</span><span class="c1"></span><span class="n">y</span> <span class="o">=</span> <span class="n">0</span>
+<span class="nf">for</span> <span class="n">i</span><span class="o">=</span><span class="n">1</span> <span class="nf">to</span> <span class="n">n</span><span class="o">:</span>
+    <span class="n">y</span> <span class="o">+=</span> <span class="n">i</span>
+
+<span class="c1">// 2. 利用等差数列求和公式
+</span><span class="c1"></span><span class="n">y</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="n">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">2</span>
+
+<span class="nf">显然采用算法2时间复杂度为常数级</span></code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="2-4-3-更复杂的情况-递归">2.4.3 更复杂的情况——递归</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="nf">fib</span><span class="p">(</span><span class="kt">int</span> <span class="nf">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span><span class="o">&lt;=</span><span class="n">2</span><span class="p">)</span> <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">2</span><span class="p">);</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>直接用递归时间复杂度为指数级，性能极差。例如求 f(6), 因为在递归的过程中，f(5),f(4), &hellip;, f(1), f(0)被多次重复计算。</p>
+
+<p>那么优化策略就很明显了： 缓存中间结果， 或者直接使用循环而非递归实现</p>
+
+<h4 id="2-4-4-主定理">2.4.4 主定理</h4>
+
+<p>对于递归代码，其时间复杂度有<strong>主定理</strong>进行描述和证明。具体理论这里略去。</p>
+
+<p>直接给出常用结论：</p>
+
+<table>
+<thead>
+<tr>
+<th>算法</th>
+<th>递归关系</th>
+<th>运行时间复杂度</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>binary search</td>
+<td>T(n)=T(n/2)+O(1)</td>
+<td>O(logn)</td>
+</tr>
+
+<tr>
+<td>binary tree traversal</td>
+<td>T(n)=2T(n/2)+O(1)</td>
+<td>O(n)</td>
+</tr>
+
+<tr>
+<td>optimal sorted matrix search</td>
+<td>T(n)=2T(n/2)+O(logn)</td>
+<td>O(n)</td>
+</tr>
+
+<tr>
+<td>merge sort</td>
+<td>T(n)=2T(n/2)+O(n)</td>
+<td>O(nlogn)</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="2-4-5-思考题">2.4.5 思考题</h4>
+
+<ul>
+<li>二叉树遍历-前序、中序、后序： 时间复杂度多少？    O(n)</li>
+<li>图的遍历： 时间复杂度多少     O(n)</li>
+<li>搜索算法： DFS、BFS时间复杂度多少     O(n)</li>
+<li>二分查找： 时间复杂度多少？       O(logn)</li>
+</ul>
+
+<h2 id="3-数组-链表和跳表">3. 数组、链表和跳表</h2>
+
+<h3 id="3-1-数组与链表">3.1 数组与链表</h3>
+
+<ul>
+<li>数组支持常数级别的按下标访问（随机访问），插入和删除复杂度为O(n)</li>
+<li>链表在找到目标结点之后插入和删除为常数级，查找某个结点需要遍历，复杂度O(n)</li>
+</ul>
+
+<p>|operation|array|linkedlist|
+|-|-|-|
+|prepend|O(n)，某些情况下可以O(1)|O(1)|
+|apppend|不扩容，O(1)|不计算查找，O(1)|
+|lookup|按下标，O(1)|O(n)|
+|insert|O(n)|O(不计算查找，O(1))|
+|delete|O(n)|不计算查找， O(1)|</p>
+
+<h3 id="3-2-跳表">3.2 跳表</h3>
+
+<p>Redis、LevelDB使用跳表。</p>
+
+<p>跳表是为了优化链表的查找性能的，</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-11-04
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+          <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/algo/lt26/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Leetcode26——删除排序数组的重复项</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/algo/dsa33/">
+            <span class="next-text nav-default">字符串匹配算法</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+  <span id="/post/algo/training-classroom/" class="leancloud_visitors" data-flag-title="覃超数据结构与算法7天训练营笔记">
+		<span class="post-meta-item-text">文章阅读量 </span>
+		<span class="leancloud-visitors-count">0</span>
+		<p></p>
+	  </span>
+  <div id="vcomments"></div>
+  <script src="http://pirogue.org/js/av-min.js"></script>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'bpOXpWYjWw1gNOYNe2PrWjKV-gzGzoHsz',
+        appKey: '07yqjMVRu9Nyoqrzj4X7IhL5',
+        notify:  true , 
+        verify:  false , 
+        avatar:'mm', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:374192922@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%8C%AF%E4%B8%9C-%E8%89%BE-b10752175/detail/recent-activity/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/azd1997" class="iconfont icon-github" title="github"></a>
+  <a href="https://azd1997.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

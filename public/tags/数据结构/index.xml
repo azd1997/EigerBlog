@@ -6,10 +6,19 @@
     <description>Recent content in 数据结构 on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 18 Oct 2019 03:22:06 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 04 Nov 2019 20:39:10 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>覃超数据结构与算法7天训练营笔记</title>
+      <link>https://azd1997.github.io/post/algo/training-classroom/</link>
+      <pubDate>Mon, 04 Nov 2019 20:39:10 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/training-classroom/</guid>
+      <description>0. 前言 0.1 学习目标 对于算法和数据结构理解达到职业顶尖级别 一线互联网公司面试 Leetcode 300+ 积累 0.2 学习方法 参考书籍：《异类：不一样的成功启示录》 三步走： chunk it</description>
+    </item>
     
     <item>
       <title>数据结构与算法（3）——链表</title>
