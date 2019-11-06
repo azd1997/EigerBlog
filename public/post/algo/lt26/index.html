@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-11-06T05:20:19&#43;08:00" />
 <meta itemprop="dateModified" content="2019-11-06T05:20:19&#43;08:00" />
-<meta itemprop="wordCount" content="1549">
+<meta itemprop="wordCount" content="1802">
 
 
 
@@ -135,7 +135,7 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 1549 words </span>
+          <span class="more-meta"> 1802 words </span>
           <span class="more-meta"> 4 mins read </span>
         
       </div>
@@ -154,6 +154,7 @@
 <ul>
 <li><a href="#3-1-双指针法">3.1 双指针法</a></li>
 <li><a href="#3-2-一个有意思的解答">3.2 一个有意思的解答</a></li>
+<li><a href="#3-3-最简最优解答">3.3 最简最优解答</a></li>
 </ul></li>
 <li><a href="#4-总结">4. 总结</a></li>
 <li><a href="#5-我的leetcode题解">5. 我的Leetcode题解</a></li>
@@ -308,7 +309,7 @@ for (int i = 0; i &lt; len; i++) {
 
 	<span class="c1">// 这里不检查排序数组为空的情况，为空还叫啥排序数组
 </span><span class="c1"></span>
-	<span class="kd">var</span> <span class="nx">index</span> <span class="kt">int</span>		<span class="c1">// item存此前最大的值, index为item在数组中的下标，默认值为0
+	<span class="kd">var</span> <span class="nx">index</span> <span class="kt">int</span>		<span class="c1">// 默认值为0
 </span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
 		<span class="k">if</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span> <span class="p">{</span>	<span class="c1">//默认从小到大排好序的数组，所以i一定比index大，除了少数情况会等于
 </span><span class="c1"></span>			<span class="k">if</span> <span class="nx">i</span> <span class="p">&gt;</span> <span class="nx">index</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">{</span>  <span class="c1">// 说明中间有重复数字，只要所有数字有一个数字被重复了，都需要这样判断。这可以是下一版本的优化点，
@@ -399,15 +400,75 @@ for (int i = 0; i &lt; len; i++) {
 <span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div>
-<p>这个思路是：倒序遍历，遇到还没有遍历到的前面部分和已经遍历过的（除了当前这次比较）进行拼接成新数组。等于说，如果双指针法是进行了O(n)的指针移动和数组改值，那么这种思路则就是进行了O(n)的数组重新生成。在go语言中这种切片的append只要容量够，就不会重分配数组空间，这题中数组长度没有增大，所以是可以的。</p>
+<p>这个思路是：倒序遍历，遇到还没有遍历到的前面部分和已经遍历过的（除了当前这次比较）进行拼接成新数组。等于说，如果双指针法是进行了O(n)的指针移动和数组改值，那么这种思路则就是进行了O(n)的数组重新生成。</p>
 
+<p>在go语言中这种切片的append只要容量够，就不会重分配数组空间，这题中数组长度没有增大，所以是可以的。</p>
+
+<p>而且这里涉及了go语言的一个奇特的地方：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">nums</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span>
+<span class="nx">a</span> <span class="o">:=</span> <span class="nx">nums</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>    <span class="c1">// panic: index out of range
+</span><span class="c1"></span><span class="nx">nums</span> <span class="p">=</span> <span class="nb">append</span><span class="p">([]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">},</span> <span class="nx">nums</span><span class="p">[</span><span class="mi">4</span><span class="p">:])</span>  <span class="c1">// 编译通过
+</span><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>   <span class="o">//</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">]</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="3-3-最简最优解答">3.3 最简最优解答</h3>
+
+<p>目前看到的个人认为最好的解答，我写成了go版本。</p>
+
+<p>解法一、二都是双指针的思路。其实完全不需要双指针也可以做到.</p>
+
+<p>只要当前元素大于前一个元素，那么就直接把它加到前缀不重复子数组的末尾就可以了，因为数组已经是排好序的啊！</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">removeDuplicates</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+
+    <span class="c1">// 这里不检查排序数组为空的情况，为空还叫啥排序数组
+</span><span class="c1"></span>
+	<span class="kd">var</span> <span class="nx">index</span> <span class="kt">int</span>
+	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">{</span>
+			<span class="nx">index</span><span class="o">++</span>
+			<span class="nx">nums</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+		<span class="p">}</span>
+		<span class="c1">// 若现在的数没有比前缀不重复子数组最大值大，那说明重复了，啥也不干
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">index</span><span class="o">+</span><span class="mi">1</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="4-总结">4. 总结</h2>
 
-<p>这是一道利用<strong>双指针移动</strong>思路的题目</p>
+<p>这是一道利用<strong>双指针移动</strong>思路的题目，但双指针移动在本题不是必须也不是最优。</p>
 
 <h2 id="5-我的leetcode题解">5. 我的Leetcode题解</h2>
 
-<p>&lt;&gt;</p>
+<p><a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/solution/shan-chu-pai-xu-shu-zu-zhong-zhong-fu-xiang-you-hu/">https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/solution/shan-chu-pai-xu-shu-zu-zhong-zhong-fu-xiang-you-hu/</a></p>
 
     </div>
 
