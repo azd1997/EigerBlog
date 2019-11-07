@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>坑 on Eiger - A young gopher</title>
+    <link>https://azd1997.github.io/tags/%E5%9D%91/</link>
+    <description>Recent content in 坑 on Eiger - A young gopher</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 06 Nov 2019 09:33:59 +0800</lastBuildDate>
+    
+	<atom:link href="https://azd1997.github.io/tags/%E5%9D%91/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go语言猎奇</title>
+      <link>https://azd1997.github.io/post/go/go-tips/</link>
+      <pubDate>Wed, 06 Nov 2019 09:33:59 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/go/go-tips/</guid>
+      <description>本篇博客收集遇到的各种各样奇怪的平时难注意到的Go语言使用细节，或者说”坑“。 1. 切片打散 1 2 3 4 5 6 7 8 9 10 11 12 nums := []int{0,1,2,3} // 1. 这个挺容易理解的 nums</description>
+    </item>
+    
+  </channel>
+</rss>

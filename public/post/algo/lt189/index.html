@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Leetcode189——旋转数组 - Eiger - A young gopher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Eiger" /><meta name="description" content="1. 题意 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 1 2 3 4 5 6 输入: [1,2,3,4,5,6,7] 和 k = 3 输出: [5,6,7,1,2,3,4] 解释: 向右旋转 1 步: [7,1,2,3,4,5,6] 向右旋转" /><meta name="keywords" content="数组" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://azd1997.github.io/post/algo/lt189/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Leetcode189——旋转数组" />
+<meta property="og:description" content="1. 题意 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 1 2 3 4 5 6 输入: [1,2,3,4,5,6,7] 和 k = 3 输出: [5,6,7,1,2,3,4] 解释: 向右旋转 1 步: [7,1,2,3,4,5,6] 向右旋转" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://azd1997.github.io/post/algo/lt189/" />
+<meta property="article:published_time" content="2019-11-06T22:36:36+08:00" />
+<meta property="article:modified_time" content="2019-11-06T22:36:36+08:00" />
+<meta itemprop="name" content="Leetcode189——旋转数组">
+<meta itemprop="description" content="1. 题意 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 1 2 3 4 5 6 输入: [1,2,3,4,5,6,7] 和 k = 3 输出: [5,6,7,1,2,3,4] 解释: 向右旋转 1 步: [7,1,2,3,4,5,6] 向右旋转">
+
+
+<meta itemprop="datePublished" content="2019-11-06T22:36:36&#43;08:00" />
+<meta itemprop="dateModified" content="2019-11-06T22:36:36&#43;08:00" />
+<meta itemprop="wordCount" content="2537">
+
+
+
+<meta itemprop="keywords" content="leetcode," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Leetcode189——旋转数组"/>
+<meta name="twitter:description" content="1. 题意 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 1 2 3 4 5 6 输入: [1,2,3,4,5,6,7] 和 k = 3 输出: [5,6,7,1,2,3,4] 解释: 向右旋转 1 步: [7,1,2,3,4,5,6] 向右旋转"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Eiger</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/links/">
+        <li class="mobile-menu-item">Links</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Eiger</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/links/">Links</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Leetcode189——旋转数组</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-11-06 </span>
+        <div class="post-category">
+            <a href="/categories/algo/"> algo </a>
+            </div>
+          <span class="more-meta"> 2537 words </span>
+          <span class="more-meta"> 6 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#1-题意">1. 题意</a></li>
+<li><a href="#2-解题过程及解法整理">2. 解题过程及解法整理</a>
+<ul>
+<li><a href="#2-1-解法一-失败的尝试">2.1 解法一 (失败的尝试)</a></li>
+<li><a href="#2-2-解法二-暴力旋转">2.2 解法二 暴力旋转</a></li>
+<li><a href="#2-3-解法三-暴力旋转优化k">2.3 解法三 暴力旋转优化k</a></li>
+<li><a href="#2-4-解法四-辅助数组记录原始状态">2.4 解法四 辅助数组记录原始状态</a></li>
+<li><a href="#2-5-解法五-数组拼接">2.5 解法五 数组拼接</a></li>
+<li><a href="#2-6-解法六-三次反转">2.6 解法六 三次反转</a></li>
+<li><a href="#2-7-解法七-环状替换">2.7 解法七 环状替换</a></li>
+</ul></li>
+<li><a href="#3-总结">3. 总结</a></li>
+<li><a href="#4-leetcode题解">4. Leetcode题解</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h2 id="1-题意">1. 题意</h2>
+
+<p>给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。</p>
+
+<p>示例 1:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">输入: [1,2,3,4,5,6,7] 和 k = 3
+输出: [5,6,7,1,2,3,4]
+解释:
+向右旋转 1 步: [7,1,2,3,4,5,6]
+向右旋转 2 步: [6,7,1,2,3,4,5]
+向右旋转 3 步: [5,6,7,1,2,3,4]</pre></td></tr></table>
+</div>
+</div>
+<p>示例 2:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">输入: [-1,-100,3,99] 和 k = 2
+输出: [3,99,-1,-100]
+解释:
+向右旋转 1 步: [99,-1,-100,3]
+向右旋转 2 步: [3,99,-1,-100]</pre></td></tr></table>
+</div>
+</div>
+<p>说明:</p>
+
+<ul>
+<li>尽可能想出更多的解决方案，至少有三种不同的方法可以解决这个问题。</li>
+<li>要求使用空间复杂度为 O(1) 的 原地 算法。</li>
+</ul>
+
+<h2 id="2-解题过程及解法整理">2. 解题过程及解法整理</h2>
+
+<p>解法六、七为符合题意的优秀解答</p>
+
+<h3 id="2-1-解法一-失败的尝试">2.1 解法一 (失败的尝试)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">//	nums=[1,2,3,4,5,6,7], l=7, k=3, k1=3
+</span><span class="c1">// 首先需要明确的是，k1 = k % len(nums) 才是真正需要右移的位数，或者叫旋转的次数
+</span><span class="c1"></span>	<span class="c1">// 直接把数字进行k1位的循环右移
+</span><span class="c1"></span>	<span class="c1">// nums[0]-&gt;nums[3]; ...; nums[4]-&gt;nums[7]=nums[0]
+</span><span class="c1"></span>
+<span class="c1">// 计算k1，循环右移k1位
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_1</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">k</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="nx">l</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">l</span><span class="o">==</span><span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>		<span class="c1">// 此时不用做任何动作
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="nx">k1</span> <span class="o">:=</span> <span class="nx">k</span> <span class="o">%</span> <span class="nx">l</span>
+	<span class="k">if</span> <span class="nx">k1</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="kd">var</span> <span class="nx">newIndex</span> <span class="kt">int</span>
+	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">k1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>	<span class="c1">//真实有意义的移动只有k1次
+</span><span class="c1"></span>		<span class="nx">newIndex</span> <span class="p">=</span> <span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="nx">k1</span><span class="p">)</span> <span class="o">%</span> <span class="nx">l</span>
+		<span class="nx">nums</span><span class="p">[</span><span class="nx">newIndex</span><span class="p">],</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">newIndex</span><span class="p">]</span>   <span class="c1">// 问题出在这一步，各个位置上原来的数据信息丢失了。导致后面的交换就全错了。解决见解法 四、七
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="k">return</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="2-2-解法二-暴力旋转">2.2 解法二 暴力旋转</h3>
+
+<p>尝试解题失败后，从暴力解题出发。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 纯暴力解法，每一次k就旋转1次，旋转一次意味着整体的数据后移
+</span><span class="c1">// 不符合题意，时间复杂度O(n*n),空间复杂度O(1)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_2</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">k</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">// 边界条件
+</span><span class="c1"></span>	<span class="nx">l</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">l</span><span class="o">==</span><span class="mi">0</span> <span class="o">||</span> <span class="nx">k</span><span class="o">==</span><span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>		<span class="c1">// 此时不用做任何动作
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="c1">// 旋转k次
+</span><span class="c1"></span>	<span class="kd">var</span> <span class="nx">tmp</span> <span class="kt">int</span>
+	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">k</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="c1">// 每次旋转的操作
+</span><span class="c1"></span>		<span class="nx">tmp</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">l</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+		<span class="c1">// 前l-1个数据后移一位
+</span><span class="c1"></span>		<span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="nx">l</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">j</span><span class="p">&gt;</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">--</span> <span class="p">{</span>
+			<span class="nx">nums</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+		<span class="p">}</span>
+		<span class="nx">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">tmp</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="2-3-解法三-暴力旋转优化k">2.3 解法三 暴力旋转优化k</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 纯暴力解法还可以优化k项
+</span><span class="c1">// 虽然仍然不符合题目要求
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_3</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">k</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">// 边界条件
+</span><span class="c1"></span>	<span class="nx">l</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">l</span><span class="o">==</span><span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>		<span class="c1">// 此时不用做任何动作
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="nx">k1</span> <span class="o">:=</span> <span class="nx">k</span> <span class="o">%</span> <span class="nx">l</span>		<span class="c1">// 优化k大于l的情况
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">k1</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 旋转k次
+</span><span class="c1"></span>	<span class="kd">var</span> <span class="nx">tmp</span> <span class="kt">int</span>
+	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">k1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="c1">// 每次旋转的操作
+</span><span class="c1"></span>		<span class="nx">tmp</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">l</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+		<span class="c1">// 前l-1个数据后移一位
+</span><span class="c1"></span>		<span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="nx">l</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">j</span><span class="p">&gt;</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">--</span> <span class="p">{</span>
+			<span class="nx">nums</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+		<span class="p">}</span>
+		<span class="nx">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">tmp</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="2-4-解法四-辅助数组记录原始状态">2.4 解法四 辅助数组记录原始状态</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 利用辅助数组记录数组的原始信息，解决一开始Sol_1_1结果错误的问题（原来位置的值丢失）
+</span><span class="c1">// 不符合题解要求，时间复杂度和空间复杂度O(n)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_4</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">k</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">// 边界条件
+</span><span class="c1"></span>	<span class="c1">// 边界条件
+</span><span class="c1"></span>	<span class="nx">l</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">l</span><span class="o">==</span><span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>		<span class="c1">// 此时不用做任何动作
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="nx">k1</span> <span class="o">:=</span> <span class="nx">k</span> <span class="o">%</span> <span class="nx">l</span>		<span class="c1">// 优化k大于l的情况
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">k1</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 辅助数组 nums1保留nums内容
+</span><span class="c1"></span>	<span class="nx">nums1</span> <span class="o">:=</span> <span class="nb">append</span><span class="p">([]</span><span class="kt">int</span><span class="p">{},</span> <span class="nx">nums</span><span class="o">...</span><span class="p">)</span>
+
+	<span class="kd">var</span> <span class="nx">newIndex</span> <span class="kt">int</span>
+	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">l</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>	<span class="c1">//真实有意义的移动只有k1次
+</span><span class="c1"></span>		<span class="nx">newIndex</span> <span class="p">=</span> <span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="nx">k1</span><span class="p">)</span> <span class="o">%</span> <span class="nx">l</span>
+		<span class="nx">nums</span><span class="p">[</span><span class="nx">newIndex</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+	<span class="p">}</span>
+	<span class="k">return</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="2-5-解法五-数组拼接">2.5 解法五 数组拼接</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 数组拼接，把切片前部挪到后部后面，实现最终旋转
+</span><span class="c1">// 不符合题意，不是原地修改，时间复杂度O(k),O(k) x  O(n)O(n)
+</span><span class="c1">// 由于go语言切片的copy方法特性，这种做法尽管不合题意，但leetcode执行效率非常高
+</span><span class="c1">//34/34 cases passed (72 ms)
+</span><span class="c1">//Your runtime beats 97.85 % of golang submissions
+</span><span class="c1">//Your memory usage beats 95.26 % of golang submissions (7.5 MB)
+</span><span class="c1">// 如果不是本题测试所限，可以不使用辅助数组，尽管用到额外空间，如果内存充沛应该是比较高效的选择
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_5</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">k</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">// 边界条件
+</span><span class="c1"></span>	<span class="nx">l</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">l</span><span class="o">==</span><span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>		<span class="c1">// 此时不用做任何动作
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="nx">k1</span> <span class="o">:=</span> <span class="nx">k</span> <span class="o">%</span> <span class="nx">l</span>		<span class="c1">// 优化k大于l的情况
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">k1</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 数组拼接，尽管占用的内存一样，但用的不是原来那块，需要内存分配
+</span><span class="c1"></span>	<span class="c1">//fmt.Println(nums[l-k1:])
+</span><span class="c1"></span>	<span class="c1">//fmt.Println(nums[:l-k1])
+</span><span class="c1"></span>	<span class="c1">// !!!!! 需要警惕的是：在go中函数传值是值类型，而切片是引用类型，在该函数内，nums在这一步重新分配了内存，其指针改变，
+</span><span class="c1"></span>	<span class="c1">// 对于测试样例来说，测试样例时指针是不变的，所以直接下面这样写，无论如何都通不过测试
+</span><span class="c1"></span>	<span class="c1">//nums = append(nums[l-k1:], nums[:l-k1]...)
+</span><span class="c1"></span>	<span class="c1">// 所以需要一个辅助数组存新的数组内容，再把辅助数组内容复制到原来的nums，只是这样一来，时空复杂度还是O(n)O(n)
+</span><span class="c1"></span>	<span class="nx">nums1</span> <span class="o">:=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">nums</span><span class="p">[</span><span class="nx">l</span><span class="o">-</span><span class="nx">k1</span><span class="p">:],</span> <span class="nx">nums</span><span class="p">[:</span><span class="nx">l</span><span class="o">-</span><span class="nx">k1</span><span class="p">]</span><span class="o">...</span><span class="p">)</span>
+	<span class="nb">copy</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">nums1</span><span class="p">)</span>
+	<span class="c1">//fmt.Println(nums)
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="2-6-解法六-三次反转">2.6 解法六 三次反转</h3>
+
+<p><img src="https://pic.leetcode-cn.com/0e29d4f2abe05133b800540a7e2a61e7f3f3812071e6e1f74852eb806878723b-image.png" alt="image.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 三重翻转。先全部翻转一次，再翻转前k个，再翻转后边的
+</span><span class="c1">// 这种解法满足题意，O(n)时间，O(1)空间。并且由于没有分配数组空间等操作，总执行时间并不落后解法五
+</span><span class="c1">//34/34 cases passed (68 ms)
+</span><span class="c1">//Your runtime beats 99.28 % of golang submissions
+</span><span class="c1">//Your memory usage beats 90 % of golang submissions (7.6 MB)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_6</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">k</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">// 边界条件
+</span><span class="c1"></span>	<span class="nx">l</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">l</span><span class="o">==</span><span class="mi">0</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
+	<span class="nx">k1</span> <span class="o">:=</span> <span class="nx">k</span> <span class="o">%</span> <span class="nx">l</span>		<span class="c1">// 优化k大于l的情况
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">k1</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
+
+	<span class="c1">// 连续三次翻转
+</span><span class="c1"></span>	<span class="nf">reverse</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+	<span class="nf">reverse</span><span class="p">(</span><span class="nx">nums</span><span class="p">[:</span><span class="nx">k1</span><span class="p">])</span>
+	<span class="nf">reverse</span><span class="p">(</span><span class="nx">nums</span><span class="p">[</span><span class="nx">k1</span><span class="p">:])</span>
+<span class="p">}</span>
+
+<span class="c1">// 数组的原地反转
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">reverse</span><span class="p">(</span><span class="nx">a</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// go语言有多重赋值，不需要我们再提供中间变量
+</span><span class="c1"></span>	<span class="nx">l</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">l</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">a</span><span class="p">[</span><span class="nx">l</span><span class="o">-</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="nx">a</span><span class="p">[</span><span class="nx">l</span><span class="o">-</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="2-7-解法七-环状替换">2.7 解法七 环状替换</h3>
+
+<p>参考：<a href="https://leetcode-cn.com/problems/rotate-array/solution/xuan-zhuan-shu-zu-by-leetcode/">https://leetcode-cn.com/problems/rotate-array/solution/xuan-zhuan-shu-zu-by-leetcode/</a></p>
+
+<p><img src="https://pic.leetcode-cn.com/35b5b327f297a7f50a00dd716e0d840eeefd56939e8c1c61f045d1309197101f-image.png" alt="image.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 环状替换
+</span><span class="c1">// 在解答Sol_1_1中因为直接对k次旋转后的位置进行处理，原始数据丢失，所以失败了。
+</span><span class="c1">// Sol_1_4将原数组拷贝了一份用来保留原始信息，解决了这个问题，但它不是一个O(1)空间复杂度的方法
+</span><span class="c1"></span>
+<span class="c1">// 看到的一个非常好的理解思路：
+</span><span class="c1">// 把元素看做同学，把下标看做座位，大家换座位。
+</span><span class="c1">// 第一个同学离开座位去第k+1个座位，第k+1个座位的同学被挤出去了，他就去坐他后k个座位，如此反复。
+</span><span class="c1">// 但是会出现一种情况，就是其中一个同学被挤开之后，坐到了第一个同学的位置（空位置，没人被挤出来），但是此时还有人没有调换位置，这样就顺着让第二个同学换位置。
+</span><span class="c1">// 那么什么时候就可以保证每个同学都换完了呢？n个同学，换n次，所以用一个count来计数即可。
+</span><span class="c1"></span>
+<span class="c1">//34/34 cases passed (72 ms)
+</span><span class="c1">//Your runtime beats 97.85 % of golang submissions
+</span><span class="c1">//Your memory usage beats 89.47 % of golang submissions (7.6 MB)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_7</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">k</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">// 边界条件
+</span><span class="c1"></span>	<span class="nx">l</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">l</span><span class="o">==</span><span class="mi">0</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
+	<span class="nx">k1</span> <span class="o">:=</span> <span class="nx">k</span> <span class="o">%</span> <span class="nx">l</span>		<span class="c1">// 优化k大于l的情况
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">k1</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
+
+	<span class="kd">var</span> <span class="nx">count</span> <span class="kt">int</span>
+	<span class="k">for</span> <span class="nx">start</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">count</span> <span class="p">&lt;</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">start</span><span class="o">++</span> <span class="p">{</span>	<span class="c1">// n个同学就需要换n次, 用count来控制终止
+</span><span class="c1"></span>		<span class="c1">// start标记每一个环的起始出发位置
+</span><span class="c1"></span>
+		<span class="c1">// current标记当前数据的数组下标，prev则用来标记当前数据
+</span><span class="c1"></span>		<span class="nx">current</span> <span class="o">:=</span> <span class="nx">start</span>
+		<span class="nx">prev</span> <span class="o">:=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">start</span><span class="p">]</span>
+
+		<span class="k">for</span> <span class="p">{</span>
+			<span class="nx">next</span> <span class="o">:=</span> <span class="p">(</span><span class="nx">current</span> <span class="o">+</span> <span class="nx">k1</span><span class="p">)</span> <span class="o">%</span> <span class="nx">l</span>		<span class="c1">// 当前数据的最终位置
+</span><span class="c1"></span>			<span class="nx">temp</span> <span class="o">:=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">next</span><span class="p">]</span>				<span class="c1">// 将原next位置的数据备份
+</span><span class="c1"></span>			<span class="nx">nums</span><span class="p">[</span><span class="nx">next</span><span class="p">]</span> <span class="p">=</span> <span class="nx">prev</span>				<span class="c1">// 将当前数据(prev)赋给next位置
+</span><span class="c1"></span>
+			<span class="nx">prev</span> <span class="p">=</span> <span class="nx">temp</span>						<span class="c1">// 再更新prev为原next位置的数据
+</span><span class="c1"></span>			<span class="nx">current</span> <span class="p">=</span> <span class="nx">next</span>					<span class="c1">// 更新当前下标为next
+</span><span class="c1"></span>
+			<span class="nx">count</span><span class="o">++</span>
+
+			<span class="c1">// 避免start -&gt; next -&gt; start的死循环，出现这种情况，start++
+</span><span class="c1"></span>			<span class="c1">// 或者说，当成环后，则将环的起始出发点向后移一位
+</span><span class="c1"></span>			<span class="k">if</span> <span class="nx">start</span> <span class="o">==</span> <span class="nx">current</span> <span class="p">{</span>	<span class="c1">// 成环，跑到了start位置，则跳出内层循环
+</span><span class="c1"></span>				<span class="k">break</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="3-总结">3. 总结</h2>
+
+<ul>
+<li>三次反转：实现题意旋转</li>
+<li>环装替换：外层循环控制内层循环终止</li>
+</ul>
+
+<h2 id="4-leetcode题解">4. Leetcode题解</h2>
+
+<p><a href="https://leetcode-cn.com/problems/rotate-array/solution/xuan-zhuan-shu-zu-you-hua-yu-zheng-li-by-eiger/">https://leetcode-cn.com/problems/rotate-array/solution/xuan-zhuan-shu-zu-you-hua-yu-zheng-li-by-eiger/</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-11-06
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/leetcode/">leetcode</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/go/go-tips/">
+            <span class="next-text nav-default">Go语言猎奇</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+  <span id="/post/algo/lt189/" class="leancloud_visitors" data-flag-title="Leetcode189——旋转数组">
+		<span class="post-meta-item-text">文章阅读量 </span>
+		<span class="leancloud-visitors-count">0</span>
+		<p></p>
+	  </span>
+  <div id="vcomments"></div>
+  <script src="http://pirogue.org/js/av-min.js"></script>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'bpOXpWYjWw1gNOYNe2PrWjKV-gzGzoHsz',
+        appKey: '07yqjMVRu9Nyoqrzj4X7IhL5',
+        notify:  true , 
+        verify:  false , 
+        avatar:'mm', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:374192922@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%8C%AF%E4%B8%9C-%E8%89%BE-b10752175/detail/recent-activity/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/azd1997" class="iconfont icon-github" title="github"></a>
+  <a href="https://azd1997.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

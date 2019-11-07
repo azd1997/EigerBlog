@@ -3,48 +3,83 @@
   
   <url>
     <loc>https://azd1997.github.io/categories/algo/</loc>
-    <lastmod>2019-11-06T05:20:19+08:00</lastmod>
+    <lastmod>2019-11-06T22:36:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/categories/</loc>
-    <lastmod>2019-11-06T05:20:19+08:00</lastmod>
+    <lastmod>2019-11-06T22:36:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/</loc>
-    <lastmod>2019-11-06T05:20:19+08:00</lastmod>
+    <lastmod>2019-11-06T22:36:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/tags/leetcode/</loc>
-    <lastmod>2019-11-06T05:20:19+08:00</lastmod>
+    <lastmod>2019-11-06T22:36:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/post/algo/lt26/</loc>
-    <lastmod>2019-11-06T05:20:19+08:00</lastmod>
+    <loc>https://azd1997.github.io/post/algo/lt189/</loc>
+    <lastmod>2019-11-06T22:36:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/post/</loc>
-    <lastmod>2019-11-06T05:20:19+08:00</lastmod>
+    <lastmod>2019-11-06T22:36:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/tags/</loc>
+    <lastmod>2019-11-06T22:36:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/go/</loc>
+    <lastmod>2019-11-06T09:33:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/categories/go/</loc>
+    <lastmod>2019-11-06T09:33:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/go/go-tips/</loc>
+    <lastmod>2019-11-06T09:33:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/%E5%9D%91/</loc>
+    <lastmod>2019-11-06T09:33:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/algo/lt26/</loc>
     <lastmod>2019-11-06T05:20:19+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -123,20 +158,6 @@
   <url>
     <loc>https://azd1997.github.io/post/cs/computer-composition-principle/</loc>
     <lastmod>2019-10-30T01:54:25+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://azd1997.github.io/tags/go/</loc>
-    <lastmod>2019-10-29T09:30:35+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://azd1997.github.io/categories/go/</loc>
-    <lastmod>2019-10-29T09:30:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
