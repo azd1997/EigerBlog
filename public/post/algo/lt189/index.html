@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-11-06T22:36:36&#43;08:00" />
 <meta itemprop="dateModified" content="2019-11-06T22:36:36&#43;08:00" />
-<meta itemprop="wordCount" content="2537">
+<meta itemprop="wordCount" content="2981">
 
 
 
@@ -135,7 +135,7 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 2537 words </span>
+          <span class="more-meta"> 2981 words </span>
           <span class="more-meta"> 6 mins read </span>
         
       </div>
@@ -628,6 +628,49 @@
 </span><span class="lnt">45
 </span><span class="lnt">46
 </span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 环状替换
@@ -676,6 +719,49 @@
 			<span class="p">}</span>
 		<span class="p">}</span>
 	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 在Sol_1_7基础上优化一些局部变量的初始化
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_8</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">k</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">// 边界条件
+</span><span class="c1"></span>	<span class="nx">l</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">l</span><span class="o">==</span><span class="mi">0</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
+	<span class="nx">k</span> <span class="p">=</span> <span class="nx">k</span> <span class="o">%</span> <span class="nx">l</span>		<span class="c1">// 优化k大于l的情况
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">k</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
+
+	<span class="c1">// 避免在循环中多次分配内存及回收
+</span><span class="c1"></span>	<span class="kd">var</span> <span class="nx">count</span> <span class="kt">int</span>
+	<span class="kd">var</span> <span class="nx">current</span> <span class="kt">int</span>
+	<span class="kd">var</span> <span class="nx">prev</span> <span class="kt">int</span>
+	<span class="kd">var</span> <span class="nx">next</span> <span class="kt">int</span>
+	<span class="kd">var</span> <span class="nx">temp</span> <span class="kt">int</span>
+	<span class="k">for</span> <span class="nx">start</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">count</span> <span class="p">&lt;</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">start</span><span class="o">++</span> <span class="p">{</span>	<span class="c1">// n个同学就需要换n次, 用count来控制终止
+</span><span class="c1"></span>		<span class="c1">// start标记每一个环的起始出发位置
+</span><span class="c1"></span>
+		<span class="c1">// current标记当前数据的数组下标，prev则用来标记当前数据
+</span><span class="c1"></span>		<span class="nx">current</span> <span class="p">=</span> <span class="nx">start</span>
+		<span class="nx">prev</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">start</span><span class="p">]</span>
+
+		<span class="k">for</span> <span class="p">{</span>
+            <span class="nx">next</span> <span class="p">=</span> <span class="p">(</span><span class="nx">current</span> <span class="o">+</span> <span class="nx">k</span><span class="p">)</span> <span class="o">%</span> <span class="nx">l</span>		<span class="c1">// 当前数据的最终位置
+</span><span class="c1"></span>
+            <span class="c1">// 注意：这里的交换不能使用真的交换，必须保证原来那个位置数据不动
+</span><span class="c1"></span>			<span class="nx">temp</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">next</span><span class="p">]</span>				<span class="c1">// 将原next位置的数据备份
+</span><span class="c1"></span>			<span class="nx">nums</span><span class="p">[</span><span class="nx">next</span><span class="p">]</span> <span class="p">=</span> <span class="nx">prev</span>				<span class="c1">// 将当前数据(prev)赋给next位置
+</span><span class="c1"></span>
+			<span class="nx">prev</span> <span class="p">=</span> <span class="nx">temp</span>						<span class="c1">// 再更新prev为原next位置的数据
+</span><span class="c1"></span>			<span class="nx">current</span> <span class="p">=</span> <span class="nx">next</span>					<span class="c1">// 更新当前下标为next
+</span><span class="c1"></span>
+			<span class="nx">count</span><span class="o">++</span>
+
+			<span class="c1">// 避免start -&gt; next -&gt; start的死循环，出现这种情况，start++
+</span><span class="c1"></span>			<span class="c1">// 或者说，当成环后，则将环的起始出发点向后移一位
+</span><span class="c1"></span>			<span class="k">if</span> <span class="nx">start</span> <span class="o">==</span> <span class="nx">current</span> <span class="p">{</span>	<span class="c1">// 成环，跑到了start位置，则跳出内层循环
+</span><span class="c1"></span>				<span class="k">break</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
 <span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div>
@@ -683,7 +769,7 @@
 
 <ul>
 <li>三次反转：实现题意旋转</li>
-<li>环装替换：外层循环控制内层循环终止</li>
+<li>环状替换：外层循环也控制内层循环终止</li>
 </ul>
 
 <h2 id="4-leetcode题解">4. Leetcode题解</h2>
@@ -712,7 +798,11 @@
           <a href="/tags/leetcode/">leetcode</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/algo/lt88/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Leetcode88——合并两个有序数组</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
         <a class="next" href="/post/go/go-tips/">
             <span class="next-text nav-default">Go语言猎奇</span>
             <span class="next-text nav-mobile">Next</span>

@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Leetcode88——合并两个有序数组 - Eiger - A young gopher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Eiger" /><meta name="description" content="题意 给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。 说明: 初始化 nums1 和 nums2 的元素数量分别为 m 和 n。 你可以假设 nums1 有足够" /><meta name="keywords" content="" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://azd1997.github.io/post/algo/lt88/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Leetcode88——合并两个有序数组" />
+<meta property="og:description" content="题意 给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。 说明: 初始化 nums1 和 nums2 的元素数量分别为 m 和 n。 你可以假设 nums1 有足够" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://azd1997.github.io/post/algo/lt88/" />
+<meta property="article:published_time" content="2019-11-08T01:59:13+08:00" />
+<meta property="article:modified_time" content="2019-11-08T01:59:13+08:00" />
+<meta itemprop="name" content="Leetcode88——合并两个有序数组">
+<meta itemprop="description" content="题意 给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。 说明: 初始化 nums1 和 nums2 的元素数量分别为 m 和 n。 你可以假设 nums1 有足够">
+
+
+<meta itemprop="datePublished" content="2019-11-08T01:59:13&#43;08:00" />
+<meta itemprop="dateModified" content="2019-11-08T01:59:13&#43;08:00" />
+<meta itemprop="wordCount" content="6052">
+
+
+
+<meta itemprop="keywords" content="leetcode," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Leetcode88——合并两个有序数组"/>
+<meta name="twitter:description" content="题意 给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。 说明: 初始化 nums1 和 nums2 的元素数量分别为 m 和 n。 你可以假设 nums1 有足够"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Eiger</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/links/">
+        <li class="mobile-menu-item">Links</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Eiger</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/links/">Links</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Leetcode88——合并两个有序数组</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-11-08 </span>
+        <div class="post-category">
+            <a href="/categories/algo/"> algo </a>
+            </div>
+          <span class="more-meta"> 6052 words </span>
+          <span class="more-meta"> 13 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#题意">题意</a></li>
+<li><a href="#解题之前我的思考-挺菜的">解题之前我的思考（挺菜的）</a></li>
+<li><a href="#解法一-暴力-合并数组再重排">解法一： 暴力（合并数组再重排）</a></li>
+<li><a href="#解法二-双指针法-从前向后">解法二： 双指针法/从前向后</a></li>
+<li><a href="#解法三-双指针法-从后向前">解法三： 双指针法/从后向前</a></li>
+<li><a href="#解法四-我自己的想法-二分查找加速填充-从后向前">解法四： 我自己的想法（二分查找加速填充） + 从后向前</a></li>
+<li><a href="#总结与反思">总结与反思</a></li>
+<li><a href="#链接">链接</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h2 id="题意">题意</h2>
+
+<p>给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。</p>
+
+<p>说明:</p>
+
+<ul>
+<li>初始化 nums1 和 nums2 的元素数量分别为 m 和 n。</li>
+
+<li><p>你可以假设 nums1 有足够的空间（空间大小大于或等于 m + n）来保存 nums2 中的元素。
+示例:</p>
+
+<p>输入:
+nums1 = [1,2,3,0,0,0], m = 3
+nums2 = [2,5,6],       n = 3</p>
+
+<p>输出: [1,2,2,3,5,6]</p></li>
+</ul>
+
+<h2 id="解题之前我的思考-挺菜的">解题之前我的思考（挺菜的）</h2>
+
+<p>合并两个有序数组
+假设nums1(长度m)空间足够，nums2(长度n)并入nums1</p>
+
+<p>解法：
+1. 最蠢最暴力解法：遍历nums2,将nums2[i]从前向后与nums1[j]比较，当nums2[i]&gt;nums1[j]时插到其后
+        （或者当nums2[i]&lt;nums1[j]时插到其前，这种少一点数据搬迁工作量，而多了一些数据大小比较的工作量）
+        时间复杂度O(n*m/2*m/2) 空间复杂度O(1)
+        n是nums2遍历循环，第一个m是遍历nums1大小比较，第二个m是找到插入位置后插入操作
+2. 在解法1基础上优化一些：用一个变量index标记nums2[i]插入到nums1的位置，nums2[i+1]就直接从这个位置起开始比较nums1的数据
+        时间复杂度比较难求，但显然比解法1高效许多
+3. 在解法2基础上加上二分查找比较，比一个一个比较快多了，毕竟二分查找本身时间复杂度是O(logn)
+4. 标记加二分查找使得找到插入位置变得高效，但是还有数据搬迁仍然非常耗时。在解法4中引入辅助数组a=[]int。
+        这个辅助数组有两种用法：
+        4.1 如果不要求nums1指针不变，直接用a=[m+n]int存合并后的有序数组，然后再让nums1指向a。
+            这种做法下如果要保证nums1指针不变，那么就将a数据拷贝给nums1
+        4.2 如果要求nums1要求指针不变，除了上面的4.1后一种做法外，还以用这个辅助数组来存储nums1和nums2(这里a可以是一个m+n的，也可以是拆成两个)
+            各数据的新下标位置并不实际搬移数据，等到a记录了所有数据的新位置，再计算搬移量来进行搬移
+5. 还能不能更快呢？</p>
+
+<p><em>参考官方题解等，我实现了Sol1_1~Sol_1_6.</em></p>
+
+<h2 id="解法一-暴力-合并数组再重排">解法一： 暴力（合并数组再重排）</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 合并两个数组再排序
+</span><span class="c1">// 时间复杂度O((m+n)log(m+n))，空间复杂度O(1)
+</span><span class="c1">// ！！！没有利用原数组有序这一特性，所以有提升空间
+</span><span class="c1">//59/59 cases passed (0 ms)
+</span><span class="c1">//Your runtime beats 100 % of golang submissions
+</span><span class="c1">//Your memory usage beats 94.16 % of golang submissions (3.6 MB)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_1</span><span class="p">(</span><span class="nx">nums1</span><span class="p">,</span> <span class="nx">nums2</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">m</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">// 不检查m,n是否是nums1,nums2长度，题已给定
+</span><span class="c1"></span>
+	<span class="c1">// 边界条件 m=0 || n=0
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">m</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="c1">//nums1 = append(nums1, nums2...)		// 原地
+</span><span class="c1"></span>		<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+		<span class="p">}</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 一般情况下合并两数组再重新排序
+</span><span class="c1"></span>	<span class="c1">//nums1 = append(nums1, nums2...)
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">m</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="o">+</span><span class="nx">m</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">nums1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="nx">m</span><span class="p">]</span>
+	<span class="p">}</span>
+	<span class="nx">sort</span><span class="p">.</span><span class="nf">Sort</span><span class="p">(</span><span class="nx">sort</span><span class="p">.</span><span class="nf">IntSlice</span><span class="p">(</span><span class="nx">nums1</span><span class="p">))</span>		<span class="c1">// 时间复杂度O((m+n)log(m+n))且不稳定
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="解法二-双指针法-从前向后">解法二： 双指针法/从前向后</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 双指针从前向后
+</span><span class="c1">// 每次从nums1原有效数据的备份nums1_1数组和nums2的“头部”（已经填入nums1的不计）取出数据进行比较，小者先填入nums1。
+</span><span class="c1">// 如果相等，随便哪个先入，这里让nums1_1的“头部”值先入
+</span><span class="c1">// 时间复杂度O(m+n), 空间复杂度O(m)
+</span><span class="c1">//59/59 cases passed (0 ms)
+</span><span class="c1">//Your runtime beats 100 % of golang submissions
+</span><span class="c1">//Your memory usage beats 75.32 % of golang submissions (3.6 MB)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_2</span><span class="p">(</span><span class="nx">nums1</span><span class="p">,</span> <span class="nx">nums2</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">m</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">// 不检查m,n是否是nums1,nums2长度，题已给定
+</span><span class="c1"></span>
+	<span class="c1">// 边界条件 m=0 || n=0
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">m</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="c1">//nums1 = append(nums1, nums2...)		// 原地
+</span><span class="c1"></span>		<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+		<span class="p">}</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 一般情况下
+</span><span class="c1"></span>	<span class="nx">nums1_1</span> <span class="o">:=</span> <span class="nb">append</span><span class="p">([]</span><span class="kt">int</span><span class="p">{},</span> <span class="nx">nums1</span><span class="p">[:</span><span class="nx">m</span><span class="p">]</span><span class="o">...</span><span class="p">)</span>	<span class="c1">// 将nums1前m个有效数据拷贝至nums1_1
+</span><span class="c1"></span>
+	<span class="kd">var</span> <span class="nx">p1</span><span class="p">,</span> <span class="nx">p2</span> <span class="kt">int</span>	<span class="c1">// p1,p2分别代表nums1_1, nums2 &#34;头部&#34;数据的下标
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">m</span><span class="o">+</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="c1">// p1,p2有个限制
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">p1</span> <span class="o">==</span> <span class="nx">m</span> <span class="p">{</span>	<span class="c1">// 如果p1先到底，则将p2后续直接复制过来
+</span><span class="c1"></span>			<span class="c1">// p1, p2之前各有p1,p2个数据已经填到nums1,所以nums1现在有的应该是p1+p2个，那么剩下的就是nums1[p1+p2:]
+</span><span class="c1"></span>			<span class="nb">copy</span><span class="p">(</span><span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="p">:],</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">:])</span>
+			<span class="k">break</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="nx">p2</span> <span class="o">==</span> <span class="nx">n</span> <span class="p">{</span>
+			<span class="nb">copy</span><span class="p">(</span><span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="p">:],</span> <span class="nx">nums1_1</span><span class="p">[</span><span class="nx">p1</span><span class="p">:])</span>
+			<span class="k">break</span>
+		<span class="p">}</span>
+
+		<span class="k">if</span> <span class="nx">nums1_1</span><span class="p">[</span><span class="nx">p1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums1_1</span><span class="p">[</span><span class="nx">p1</span><span class="p">]</span>
+			<span class="nx">p1</span><span class="o">++</span>	<span class="c1">// p1后移
+</span><span class="c1"></span>		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span>
+			<span class="nx">p2</span><span class="o">++</span>	<span class="c1">// p2后移
+</span><span class="c1"></span>		<span class="p">}</span>
+
+		<span class="c1">// 这样写，那么最后p1p2一般会有其中一个先到末尾，就不能在继续加了，也就是有个p1&lt;m,p2&lt;n的限制。
+</span><span class="c1"></span>
+	<span class="p">}</span>
+	<span class="c1">// 最后nums1就得到排好序的合并数组了
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// Sol_1_2中的循环语句也可以进行改写，如下所示，本质上两者是一个方法
+</span><span class="c1">//59/59 cases passed (0 ms)
+</span><span class="c1">//Your runtime beats 100 % of golang submissions
+</span><span class="c1">//Your memory usage beats 69.81 % of golang submissions (3.6 MB)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_3</span><span class="p">(</span><span class="nx">nums1</span><span class="p">,</span> <span class="nx">nums2</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">m</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">// 不检查m,n是否是nums1,nums2长度，题已给定
+</span><span class="c1"></span>
+	<span class="c1">// 边界条件 m=0 || n=0
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">m</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="c1">//nums1 = append(nums1, nums2...)		// 原地
+</span><span class="c1"></span>		<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+		<span class="p">}</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 一般情况下
+</span><span class="c1"></span>	<span class="nx">nums1_1</span> <span class="o">:=</span> <span class="nb">append</span><span class="p">([]</span><span class="kt">int</span><span class="p">{},</span> <span class="nx">nums1</span><span class="p">[:</span><span class="nx">m</span><span class="p">]</span><span class="o">...</span><span class="p">)</span>	<span class="c1">// 将nums1前m个有效数据拷贝至nums1_1
+</span><span class="c1"></span>
+	<span class="kd">var</span> <span class="nx">p1</span><span class="p">,</span> <span class="nx">p2</span> <span class="kt">int</span>	<span class="c1">// p1,p2分别代表nums1_1, nums2 &#34;头部&#34;数据的下标
+</span><span class="c1"></span>	<span class="c1">// p1,p2未到末尾之前，两个数组的“头部”数据都需要进行大小比较
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">p1</span><span class="p">&lt;</span><span class="nx">m</span> <span class="o">&amp;&amp;</span> <span class="nx">p2</span><span class="p">&lt;</span><span class="nx">n</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">nums1_1</span><span class="p">[</span><span class="nx">p1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums1_1</span><span class="p">[</span><span class="nx">p1</span><span class="p">]</span>		<span class="c1">// 在把当前这个数据加到nums1之前，nums1已经有了p1+p2个数据，所以nums1即将填充的数据是nums[p1+p2]
+</span><span class="c1"></span>			<span class="nx">p1</span><span class="o">++</span>	<span class="c1">// p1后移
+</span><span class="c1"></span>		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span>
+			<span class="nx">p2</span><span class="o">++</span>	<span class="c1">// p2后移
+</span><span class="c1"></span>		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 退出循环之后，p1, p2可能有其中之一还没到末尾
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">p1</span> <span class="p">&lt;</span> <span class="nx">m</span> <span class="p">{</span>	<span class="c1">// 如果p1先到底，则将p2后续直接复制过来
+</span><span class="c1"></span>		<span class="nb">copy</span><span class="p">(</span><span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="p">:],</span> <span class="nx">nums1_1</span><span class="p">[</span><span class="nx">p1</span><span class="p">:])</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">p2</span> <span class="p">&lt;</span> <span class="nx">n</span> <span class="p">{</span>
+		<span class="nb">copy</span><span class="p">(</span><span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="p">:],</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">:])</span>
+	<span class="p">}</span>
+	<span class="c1">// 最后nums1就得到排好序的合并数组了
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// 其实Sol_1_3还有可优化的的地方。如果遍历到的两个“头部数据”相等的情况很多，可以一次将两个数据都填到nums1去
+</span><span class="c1">//59/59 cases passed (0 ms)
+</span><span class="c1">//Your runtime beats 100 % of golang submissions
+</span><span class="c1">//Your memory usage beats 75.32 % of golang submissions (3.6 MB)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_4</span><span class="p">(</span><span class="nx">nums1</span><span class="p">,</span> <span class="nx">nums2</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">m</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">// 不检查m,n是否是nums1,nums2长度，题已给定
+</span><span class="c1"></span>
+	<span class="c1">// 边界条件 m=0 || n=0
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">m</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="c1">//nums1 = append(nums1, nums2...)		// 原地
+</span><span class="c1"></span>		<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+		<span class="p">}</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 一般情况下
+</span><span class="c1"></span>	<span class="nx">nums1_1</span> <span class="o">:=</span> <span class="nb">append</span><span class="p">([]</span><span class="kt">int</span><span class="p">{},</span> <span class="nx">nums1</span><span class="p">[:</span><span class="nx">m</span><span class="p">]</span><span class="o">...</span><span class="p">)</span>	<span class="c1">// 将nums1前m个有效数据拷贝至nums1_1
+</span><span class="c1"></span>
+	<span class="kd">var</span> <span class="nx">p1</span><span class="p">,</span> <span class="nx">p2</span> <span class="kt">int</span>	<span class="c1">// p1,p2分别代表nums1_1, nums2 &#34;头部&#34;数据的下标
+</span><span class="c1"></span>	<span class="c1">// p1,p2未到末尾之前，两个数组的“头部”数据都需要进行大小比较
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">p1</span><span class="p">&lt;</span><span class="nx">m</span> <span class="o">&amp;&amp;</span> <span class="nx">p2</span><span class="p">&lt;</span><span class="nx">n</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">nums1_1</span><span class="p">[</span><span class="nx">p1</span><span class="p">]</span> <span class="o">==</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="p">],</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">],</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span>
+			<span class="nx">p1</span><span class="o">++</span>
+			<span class="nx">p2</span><span class="o">++</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">nums1_1</span><span class="p">[</span><span class="nx">p1</span><span class="p">]</span> <span class="p">&lt;</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums1_1</span><span class="p">[</span><span class="nx">p1</span><span class="p">]</span>
+			<span class="nx">p1</span><span class="o">++</span>	<span class="c1">// p1后移
+</span><span class="c1"></span>		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span>
+			<span class="nx">p2</span><span class="o">++</span>	<span class="c1">// p2后移
+</span><span class="c1"></span>		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 退出循环之后，p1, p2可能有其中之一还没到末尾
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">p1</span> <span class="p">&lt;</span> <span class="nx">m</span> <span class="p">{</span>	<span class="c1">// 如果p1先到底，则将p2后续直接复制过来
+</span><span class="c1"></span>		<span class="nb">copy</span><span class="p">(</span><span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="p">:],</span> <span class="nx">nums1_1</span><span class="p">[</span><span class="nx">p1</span><span class="p">:])</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">p2</span> <span class="p">&lt;</span> <span class="nx">n</span> <span class="p">{</span>
+		<span class="nb">copy</span><span class="p">(</span><span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="p">:],</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">:])</span>
+	<span class="p">}</span>
+	<span class="c1">// 最后nums1就得到排好序的合并数组了
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="解法三-双指针法-从后向前">解法三： 双指针法/从后向前</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span><span class="lnt">96
+</span><span class="lnt">97
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 双指针法，从后向前。
+</span><span class="c1">// Sol_1_2~Sol_1_4都使用了一个额外的数组，但是nums1数组本身后边原本是零值的，不需要保存，如果从后向前填充，则不需要额外数组
+</span><span class="c1">// 时间O(n), 空间O(1)
+</span><span class="c1">//59/59 cases passed (0 ms)
+</span><span class="c1">//Your runtime beats 100 % of golang submissions
+</span><span class="c1">//Your memory usage beats 94.16 % of golang submissions (3.6 MB)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_5</span><span class="p">(</span><span class="nx">nums1</span><span class="p">,</span> <span class="nx">nums2</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">m</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">// 不检查m,n是否是nums1,nums2长度，题已给定
+</span><span class="c1"></span>
+	<span class="c1">// 边界条件 m=0 || n=0
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">m</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+		<span class="p">}</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 一般情况下,从后向前遍历
+</span><span class="c1"></span>	<span class="nx">p1</span> <span class="o">:=</span> <span class="nx">m</span><span class="o">-</span><span class="mi">1</span>	<span class="c1">// p1,p2分别代表nums1, nums2 原本状态中有效数据最后一个的下标，每次当最后这个数据被填充到nums1末尾时，p1或p2前移
+</span><span class="c1"></span>	<span class="nx">p2</span> <span class="o">:=</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span>
+	<span class="c1">// p1,p2未到最左边之前，两个数组的“尾部”数据都需要进行大小比较
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">p1</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">p2</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="p">]</span> <span class="o">==</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">],</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span>		<span class="c1">// (n+m-1)-(m-p1-1)-(n-p2-1) = p1+p2+1 是当前比较的大者应该填充的位置
+</span><span class="c1"></span>			<span class="nx">p1</span><span class="o">--</span>
+			<span class="nx">p2</span><span class="o">--</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="p">]</span>
+			<span class="nx">p1</span><span class="o">--</span>	<span class="c1">// p1前移
+</span><span class="c1"></span>		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span>
+			<span class="nx">p2</span><span class="o">--</span>	<span class="c1">// p2前移
+</span><span class="c1"></span>		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 退出循环之后，p1, p2可能有其中之一还没到末尾.
+</span><span class="c1"></span>	<span class="c1">// 如果是p1还没到nums1最左边（越过），则不用干什么。
+</span><span class="c1"></span>	<span class="c1">// 如果是p2还没到nums2最左边（越过），则将其拷贝给nums1
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">p2</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nb">copy</span><span class="p">(</span><span class="nx">nums1</span><span class="p">[:</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="o">+</span><span class="mi">2</span><span class="p">],</span> <span class="nx">nums2</span><span class="p">[:</span><span class="nx">p2</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>		<span class="c1">// 注意go切片[a:b]右半边b是不包含的
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="c1">// 最后nums1就得到排好序的合并数组了
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// 如果觉得前面Sol_1_5中nums1填入数据的最终下标有点绕，我们可以给它一个指针p,p从n+m-1开始递减
+</span><span class="c1">//59/59 cases passed (0 ms)
+</span><span class="c1">//Your runtime beats 100 % of golang submissions
+</span><span class="c1">//Your memory usage beats 94.16 % of golang submissions (3.6 MB)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_6</span><span class="p">(</span><span class="nx">nums1</span><span class="p">,</span> <span class="nx">nums2</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">m</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">// 不检查m,n是否是nums1,nums2长度，题已给定
+</span><span class="c1"></span>
+	<span class="c1">// 边界条件 m=0 || n=0
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">m</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+		<span class="p">}</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 一般情况下,从后向前遍历
+</span><span class="c1"></span>	<span class="nx">p1</span> <span class="o">:=</span> <span class="nx">m</span><span class="o">-</span><span class="mi">1</span>	<span class="c1">// p1,p2分别代表nums1, nums2 原本状态中有效数据最后一个的下标，每次当最后这个数据被填充到nums1末尾时，p1或p2前移
+</span><span class="c1"></span>	<span class="nx">p2</span> <span class="o">:=</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span>
+	<span class="nx">p</span> <span class="o">:=</span> <span class="nx">m</span><span class="o">+</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span>	<span class="c1">// p指向两数组“尾部”数据大者将要填入的位置，递减
+</span><span class="c1"></span>	<span class="c1">// p1,p2未到最左边之前，两个数组的“尾部”数据都需要进行大小比较
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">p1</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">p2</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="p">]</span> <span class="o">==</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">p</span><span class="p">],</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">p</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">],</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span>		<span class="c1">// (n+m-1)-(m-p1-1)-(n-p2-1) = p1+p2+1 是当前比较的大者应该填充的位置
+</span><span class="c1"></span>			<span class="nx">p1</span><span class="o">--</span>
+			<span class="nx">p2</span><span class="o">--</span>
+			<span class="nx">p</span> <span class="p">=</span> <span class="nx">p</span><span class="o">-</span><span class="mi">2</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="p">]</span>
+			<span class="nx">p1</span><span class="o">--</span>	<span class="c1">// p1前移
+</span><span class="c1"></span>			<span class="nx">p</span><span class="o">--</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span>
+			<span class="nx">p2</span><span class="o">--</span>	<span class="c1">// p2前移
+</span><span class="c1"></span>			<span class="nx">p</span><span class="o">--</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 退出循环之后，p1, p2可能有其中之一还没到末尾.
+</span><span class="c1"></span>	<span class="c1">// 如果是p1还没到nums1最左边（越过），则不用干什么。
+</span><span class="c1"></span>	<span class="c1">// 如果是p2还没到nums2最左边（越过），则将其拷贝给nums1
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">p2</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nb">copy</span><span class="p">(</span><span class="nx">nums1</span><span class="p">[:</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="nx">nums2</span><span class="p">[:</span><span class="nx">p2</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>		<span class="c1">// 注意go切片[a:b]右半边b是不包含的
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="c1">// 最后nums1就得到排好序的合并数组了
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="解法四-我自己的想法-二分查找加速填充-从后向前">解法四： 我自己的想法（二分查找加速填充） + 从后向前</h2>
+
+<p>Sol_1_7其实还有优化空间，那就是从nums1和nums2中选较短的来作循环遍历，这样的话，整体时间复杂度就是O（min(m,n)），嫌麻烦我就没再继续写了。</p>
+
+<p>至于代码中的switch语句只是go提供的一个语法糖。看作if&hellip;else if &hellip;else 即可。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// -------------------------------------------------------最后再来实现下我最初的解题想法
+</span><span class="c1"></span>
+<span class="c1">// index标记之前的插入位置，使用二分查找逼近目标值，再顺序比较确定位置
+</span><span class="c1">// 时间复杂度粗略估计也是O(n), 空间复杂度O(1)。当输入数组长度很大时，预计会比前边的双指针法从后向前更快。
+</span><span class="c1">//59/59 cases passed (0 ms)
+</span><span class="c1">//Your runtime beats 100 % of golang submissions
+</span><span class="c1">//Your memory usage beats 94.16 % of golang submissions (3.6 MB)
+</span><span class="c1">// 注意！！！Sol_1_7其实还有优化空间，那就是从nums1和nums2中选较短的来遍历，这样的话，整体时间复杂度就是O（min(m,n)）。
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_7</span><span class="p">(</span><span class="nx">nums1</span><span class="p">,</span> <span class="nx">nums2</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">m</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">// 不检查m,n是否是nums1,nums2长度，题已给定
+</span><span class="c1"></span>
+	<span class="c1">// 边界条件 m=0 || n=0
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">m</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+			<span class="nx">nums1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+		<span class="p">}</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="nx">p1</span> <span class="o">:=</span> <span class="nx">m</span><span class="o">-</span><span class="mi">1</span>	<span class="c1">// nums1原始状态下有效数据右端指针，逐渐左移
+</span><span class="c1"></span>	<span class="nx">p</span> <span class="o">:=</span> <span class="nx">n</span><span class="o">+</span><span class="nx">m</span><span class="o">-</span><span class="mi">1</span>	<span class="c1">// nums1要将要填充的范围的右端，从n+m-1开始，逐渐左移
+</span><span class="c1"></span>	<span class="nx">index</span> <span class="o">:=</span> <span class="mi">0</span>	<span class="c1">// 查找出的插入位置
+</span><span class="c1"></span>	<span class="nx">repeated</span> <span class="o">:=</span> <span class="mi">1</span>	<span class="c1">// nums2某一数值重复次数计数器，记得用完要恢复为1
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span> <span class="p">{</span>	<span class="c1">// nums2向左遍历
+</span><span class="c1"></span>
+		<span class="c1">// 优化：利用上nums2中出现连续相同值的情况，不需要多次计算，只算一次就行
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">i</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">{</span>
+				<span class="c1">// 统计重复次数
+</span><span class="c1"></span>				<span class="nx">repeated</span><span class="o">++</span>
+				<span class="k">continue</span>	<span class="c1">// 下一次循环， i++
+</span><span class="c1"></span>			<span class="p">}</span>
+		<span class="p">}</span>
+
+		<span class="c1">// 在二分查找递归之前，处理三个特殊情况：
+</span><span class="c1"></span>		<span class="c1">// 1. nums2[i]比nums1[0]小或等， 应该把nums1[0:m-1]先拷贝到nums1后边
+</span><span class="c1"></span>		<span class="c1">// 而且一旦出现过这个情形，后边所有nums2[i]不需要再比较，直接把nums1[0:p1+1]拷贝到后边，再把nums2剩下的拷过去
+</span><span class="c1"></span>		<span class="c1">// 2. nums2[i]比nums1[p1]大， 把nums2[i]考到后边
+</span><span class="c1"></span>		<span class="c1">// 3. nums2[i]比nums1[p1]相等，则两个都往后拷
+</span><span class="c1"></span>		<span class="c1">// 只有当nums[i]处于nums[0:p1+1]的内部，才需要进行二分查找寻找插入位置。
+</span><span class="c1"></span>		<span class="k">switch</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="nx">nums1</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+			<span class="nb">copy</span><span class="p">(</span><span class="nx">nums1</span><span class="p">[</span><span class="nx">p</span><span class="o">-</span><span class="nx">p1</span><span class="p">:</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="nx">nums1</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nx">p1</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>	<span class="c1">// nums1的这个范围是： 右侧p+1(不含)；左侧p-(p1-0)=p-p1
+</span><span class="c1"></span>			<span class="c1">// p指针还需不需要向左移了呢？可以移也可以不.这里选择不移
+</span><span class="c1"></span>			<span class="nb">copy</span><span class="p">(</span><span class="nx">nums1</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nx">i</span><span class="o">+</span><span class="nx">repeated</span><span class="p">],</span> <span class="nx">nums2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nx">i</span><span class="o">+</span><span class="nx">repeated</span><span class="p">])</span>	<span class="c1">// 直接把nums2左边剩余全拷贝过来
+</span><span class="c1"></span>			<span class="c1">//fmt.Printf(&#34;nums1=%v, i=%d, p=%d, p1=%d, index=%d\n&#34;, nums1, i, p, p1, index)
+</span><span class="c1"></span>			<span class="nx">repeated</span> <span class="p">=</span> <span class="mi">1</span>		<span class="c1">// 用完恢复repeated初始值
+</span><span class="c1"></span>			<span class="k">return</span>
+		<span class="k">case</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="p">]:</span>
+			<span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">&lt;=</span><span class="nx">repeated</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+				<span class="nx">nums1</span><span class="p">[</span><span class="nx">p</span><span class="o">-</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>		<span class="c1">// 这里的都是重复值
+</span><span class="c1"></span>			<span class="p">}</span>
+			<span class="nx">p</span> <span class="p">=</span> <span class="nx">p</span><span class="o">-</span><span class="nx">repeated</span><span class="o">-</span><span class="mi">1</span>
+			<span class="nx">p1</span><span class="o">--</span>
+			<span class="c1">//fmt.Printf(&#34;nums1=%v, i=%d, p=%d, p1=%d, index=%d\n&#34;, nums1, i, p, p1, index)
+</span><span class="c1"></span>			<span class="nx">repeated</span> <span class="p">=</span> <span class="mi">1</span>		<span class="c1">// 用完恢复repeated初始值
+</span><span class="c1"></span>			<span class="k">continue</span>	<span class="c1">// 下一次循环 i--
+</span><span class="c1"></span>		<span class="k">case</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="p">]:</span>
+			<span class="nb">copy</span><span class="p">(</span><span class="nx">nums1</span><span class="p">[</span><span class="nx">p</span><span class="o">-</span><span class="nx">repeated</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="p">:</span><span class="nx">i</span><span class="o">+</span><span class="nx">repeated</span><span class="p">])</span>
+			<span class="nx">p</span> <span class="p">=</span> <span class="nx">p</span> <span class="o">-</span> <span class="nx">repeated</span>
+			<span class="c1">//fmt.Printf(&#34;nums1=%v, i=%d, p=%d, p1=%d, index=%d\n&#34;, nums1, i, p, p1, index)
+</span><span class="c1"></span>			<span class="nx">repeated</span> <span class="p">=</span> <span class="mi">1</span>		<span class="c1">// 用完恢复repeated初始值
+</span><span class="c1"></span>			<span class="k">continue</span>	<span class="c1">// 下一次循环
+</span><span class="c1"></span>		<span class="k">default</span><span class="p">:</span>	<span class="c1">// nums2[i]在nums1[0:p1+1]内部 而非边界或之外
+</span><span class="c1"></span>			<span class="c1">// 找到nums2在nums1[0:p1+1]中相等的索引或是比nums1元素小（最接近）的位置
+</span><span class="c1"></span>			<span class="c1">// 比如： nums1[0:p1] = 1,3,5,9,13;    nums2[i] = 7;  得到的索引就是2(7比9小，9的下标是3)，
+</span><span class="c1"></span>			<span class="c1">// 并且在把7,9,13拷贝到后边之后 p1更新为2.
+</span><span class="c1"></span>			<span class="c1">// 但是要注意
+</span><span class="c1"></span>			<span class="c1">//fmt.Printf(&#34;[准备findIndex]  nums1=%v, i=%d, p=%d, p1=%d, index=%d\n&#34;, nums1, i, p, p1, index)
+</span><span class="c1"></span>			<span class="nf">findIndex</span><span class="p">(</span><span class="nx">nums1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">p1</span><span class="p">,</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="o">&amp;</span><span class="nx">index</span><span class="p">)</span>	<span class="c1">// 为了不使用nums[m:n]生成新切片的开销，这里不这么做，而是提供左右索引来框定范围
+</span><span class="c1"></span>			<span class="c1">//fmt.Printf(&#34;[结束findIndex]   nums1=%v, i=%d, p=%d, p1=%d, index=%d\n&#34;, nums1, i, p, p1, index)
+</span><span class="c1"></span>			<span class="nb">copy</span><span class="p">(</span><span class="nx">nums1</span><span class="p">[</span><span class="nx">p</span><span class="o">-</span><span class="nx">p1</span><span class="o">+</span><span class="nx">index</span><span class="p">:</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">index</span><span class="p">:</span><span class="nx">p1</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>	<span class="c1">// 拷贝过去的长度为 p1-index+1; (p+1)-(p1-index+1)
+</span><span class="c1"></span>			<span class="nb">copy</span><span class="p">(</span><span class="nx">nums1</span><span class="p">[</span><span class="nx">p</span><span class="o">-</span><span class="nx">p1</span><span class="o">+</span><span class="nx">index</span><span class="o">-</span><span class="nx">repeated</span><span class="p">:</span><span class="nx">p</span><span class="o">-</span><span class="nx">p1</span><span class="o">+</span><span class="nx">index</span><span class="p">],</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="p">:</span><span class="nx">i</span><span class="o">+</span><span class="nx">repeated</span><span class="p">])</span>	<span class="c1">// 将nums2的当前元素及之前重复的一并拷到nums1可用位置的最后面
+</span><span class="c1"></span>			<span class="nx">p</span> <span class="p">=</span> <span class="nx">p</span> <span class="o">-</span> <span class="nx">p1</span> <span class="o">+</span> <span class="nx">index</span> <span class="o">-</span> <span class="nx">repeated</span> <span class="o">-</span> <span class="mi">1</span>	<span class="c1">// p = p - (p1-index) - repeated - 1
+</span><span class="c1"></span>			<span class="nx">p1</span> <span class="p">=</span> <span class="nx">index</span> <span class="o">-</span> <span class="mi">1</span>
+			<span class="c1">//fmt.Printf(&#34;[最终结果      ]   nums1=%v, i=%d, p=%d, p1=%d, index=%d\n&#34;, nums1, i, p, p1, index)
+</span><span class="c1"></span>			<span class="nx">repeated</span> <span class="p">=</span> <span class="mi">1</span>		<span class="c1">// 用完恢复repeated初始值
+</span><span class="c1"></span>			<span class="k">continue</span>	<span class="c1">// 下一次循环
+</span><span class="c1"></span>		<span class="p">}</span>
+	<span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="c1">// 其实思路就是：先用二分查找加速逼近目标值，再进行顺序比较。
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">findIndex</span><span class="p">(</span><span class="nx">nums1</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">left</span><span class="p">,</span> <span class="nx">right</span><span class="p">,</span> <span class="nx">target</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">index</span> <span class="o">*</span><span class="kt">int</span><span class="p">){</span>
+    <span class="c1">// 这里就不检查left和right的有效性了
+</span><span class="c1"></span>
+	<span class="c1">// 什么时候二分查找会比顺序比较更高效呢？二分查找的时间复杂度是log2n, 顺序比较平均n/2，
+</span><span class="c1"></span>	<span class="c1">// 粗浅的来看当n满足log2n&lt;n/2时使用二分查找比较有优势，这样的n&gt;=8。
+</span><span class="c1"></span>	<span class="c1">// 由于这里设定的阈值是一旦长度区间小于某个数，就转为顺序比较，因此这个常数设为7
+</span><span class="c1"></span>	<span class="c1">// 这里当然忽略了许多东西，但这里就不纠结了
+</span><span class="c1"></span>	<span class="k">switch</span> <span class="nx">right</span><span class="o">-</span><span class="nx">left</span> <span class="p">&gt;</span> <span class="mi">6</span> <span class="p">{</span>	<span class="c1">// right-left+1 &gt; 7
+</span><span class="c1"></span>	<span class="k">case</span> <span class="kc">true</span><span class="p">:</span>
+		<span class="c1">// 进入二分查找
+</span><span class="c1"></span>
+		<span class="c1">// 要简化二分查找代码，就保证每次输入left,right满足： nums1[left] &lt; target &lt; nums1[right]
+</span><span class="c1"></span>		<span class="c1">// 不要做过多的 == 判断
+</span><span class="c1"></span>
+		<span class="c1">// 求二分位，比较，而后递归
+</span><span class="c1"></span>		<span class="nx">med</span> <span class="o">:=</span> <span class="p">(</span><span class="nx">left</span><span class="o">+</span><span class="nx">right</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+		<span class="k">switch</span> <span class="p">{</span>	<span class="c1">// nums1[left] &lt; target &lt; nums1[right]
+</span><span class="c1"></span>		<span class="k">case</span> <span class="nx">target</span> <span class="o">==</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">med</span><span class="p">]:</span>
+			<span class="c1">// 找到完全匹配的位置，哪怕在这个位置的左边可能还有相等值，也不要继续更新区间递归，因为平均来说不划算
+</span><span class="c1"></span>			<span class="o">*</span><span class="nx">index</span> <span class="p">=</span> <span class="nx">med</span>
+			<span class="k">return</span>
+		<span class="k">case</span> <span class="nx">target</span> <span class="p">&lt;</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">med</span><span class="p">]:</span>
+			<span class="nf">findIndex</span><span class="p">(</span><span class="nx">nums1</span><span class="p">,</span> <span class="nx">left</span><span class="p">,</span> <span class="nx">med</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span>
+		<span class="k">case</span> <span class="nx">target</span> <span class="p">&gt;</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">med</span><span class="p">]:</span>
+			<span class="nf">findIndex</span><span class="p">(</span><span class="nx">nums1</span><span class="p">,</span> <span class="nx">med</span><span class="p">,</span> <span class="nx">right</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span>
+		<span class="p">}</span>
+
+	<span class="k">case</span> <span class="kc">false</span><span class="p">:</span>
+		<span class="c1">// 进入顺序比较
+</span><span class="c1"></span>		<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">left</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;=</span><span class="nx">right</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="nx">target</span> <span class="o">&lt;=</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">{</span>		<span class="c1">// 第一次小于就退出
+</span><span class="c1"></span>				<span class="o">*</span><span class="nx">index</span> <span class="p">=</span> <span class="nx">i</span>
+				<span class="k">return</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 这样，要么是在递归二分的过程中遇到了相等的中间值，要么是没遇到但是区间比较小变成了顺序比较扫描出了index结果
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="总结与反思">总结与反思</h2>
+
+<ul>
+<li>双指针法应用于有序数组</li>
+<li>从后向前遍历有时有奇效</li>
+<li>有序数组中二分查找加速逼近目标</li>
+</ul>
+
+<h2 id="链接">链接</h2>
+
+<ul>
+<li>Leetcode题解：<a href="https://leetcode-cn.com/problems/merge-sorted-array/solution/he-bing-liang-ge-you-xu-shu-zu-you-hua-yu-zheng-li/">https://leetcode-cn.com/problems/merge-sorted-array/solution/he-bing-liang-ge-you-xu-shu-zu-you-hua-yu-zheng-li/</a></li>
+<li>Github: <a href="https://github.com/azd1997/Leetcode-training/blob/master/lt88/1.go">https://github.com/azd1997/Leetcode-training/blob/master/lt88/1.go</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-11-08
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/leetcode/">leetcode</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/algo/lt189/">
+            <span class="next-text nav-default">Leetcode189——旋转数组</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+  <span id="/post/algo/lt88/" class="leancloud_visitors" data-flag-title="Leetcode88——合并两个有序数组">
+		<span class="post-meta-item-text">文章阅读量 </span>
+		<span class="leancloud-visitors-count">0</span>
+		<p></p>
+	  </span>
+  <div id="vcomments"></div>
+  <script src="http://pirogue.org/js/av-min.js"></script>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'bpOXpWYjWw1gNOYNe2PrWjKV-gzGzoHsz',
+        appKey: '07yqjMVRu9Nyoqrzj4X7IhL5',
+        notify:  true , 
+        verify:  false , 
+        avatar:'mm', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:374192922@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%8C%AF%E4%B8%9C-%E8%89%BE-b10752175/detail/recent-activity/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/azd1997" class="iconfont icon-github" title="github"></a>
+  <a href="https://azd1997.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

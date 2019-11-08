@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 06 Nov 2019 22:36:36 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 08 Nov 2019 01:59:13 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Leetcode88——合并两个有序数组</title>
+      <link>https://azd1997.github.io/post/algo/lt88/</link>
+      <pubDate>Fri, 08 Nov 2019 01:59:13 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/lt88/</guid>
+      <description>题意 给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。 说明: 初始化 nums1 和 nums2 的元素数量分别为 m 和 n。 你可以假设 nums1 有足够</description>
+    </item>
     
     <item>
       <title>Leetcode189——旋转数组</title>
