@@ -6,10 +6,19 @@
     <description>Recent content on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 08 Nov 2019 01:59:13 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 08 Nov 2019 08:33:08 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Leetcode21——合并两个有序链表</title>
+      <link>https://azd1997.github.io/post/algo/lt21/</link>
+      <pubDate>Fri, 08 Nov 2019 08:33:08 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/lt21/</guid>
+      <description>解法二超越100%golang提交 题意 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例： 1 2</description>
+    </item>
     
     <item>
       <title>Leetcode88——合并两个有序数组</title>

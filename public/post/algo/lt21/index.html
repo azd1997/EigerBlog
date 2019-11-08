@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Leetcode21——合并两个有序链表 - Eiger - A young gopher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Eiger" /><meta name="description" content="解法二超越100%golang提交 题意 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例： 1 2" /><meta name="keywords" content="链表" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://azd1997.github.io/post/algo/lt21/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Leetcode21——合并两个有序链表" />
+<meta property="og:description" content="解法二超越100%golang提交 题意 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例： 1 2" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://azd1997.github.io/post/algo/lt21/" />
+<meta property="article:published_time" content="2019-11-08T08:33:08+08:00" />
+<meta property="article:modified_time" content="2019-11-08T08:33:08+08:00" />
+<meta itemprop="name" content="Leetcode21——合并两个有序链表">
+<meta itemprop="description" content="解法二超越100%golang提交 题意 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例： 1 2">
+
+
+<meta itemprop="datePublished" content="2019-11-08T08:33:08&#43;08:00" />
+<meta itemprop="dateModified" content="2019-11-08T08:33:08&#43;08:00" />
+<meta itemprop="wordCount" content="2309">
+
+
+
+<meta itemprop="keywords" content="leetcode,链表," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Leetcode21——合并两个有序链表"/>
+<meta name="twitter:description" content="解法二超越100%golang提交 题意 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例： 1 2"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Eiger</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/links/">
+        <li class="mobile-menu-item">Links</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Eiger</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/links/">Links</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Leetcode21——合并两个有序链表</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-11-08 </span>
+        <div class="post-category">
+            <a href="/categories/algo/"> algo </a>
+            </div>
+          <span class="more-meta"> 2309 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#题意">题意</a></li>
+<li><a href="#我的审题思路">我的审题思路</a></li>
+<li><a href="#解法一-三指针法">解法一：三指针法</a></li>
+<li><a href="#解法二-三指针法-优化连续等值结点">解法二： 三指针法/优化连续等值结点</a></li>
+<li><a href="#解法三-递归">解法三： 递归</a></li>
+<li><a href="#总结与反思">总结与反思</a></li>
+<li><a href="#链接">链接</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<p><em>解法二超越100%golang提交</em></p>
+
+<h2 id="题意">题意</h2>
+
+<p>将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 </p>
+
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4
+输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4</pre></td></tr></table>
+</div>
+</div>
+<p>来源：力扣（LeetCode）
+链接：<a href="https://leetcode-cn.com/problems/merge-two-sorted-lists">https://leetcode-cn.com/problems/merge-two-sorted-lists</a>
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+
+<h2 id="我的审题思路">我的审题思路</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4
+输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4</pre></td></tr></table>
+</div>
+</div>
+<p>解法：</p>
+
+<p>首先题目没有说明头节点存不存数据，这是有问题的，下边我的解题以头节点存数据为准。
+ 1. 显然很容易想到双指针法（三指针法），从前向后遍历取两链表“头部”比较，小者先入新链表</p>
+
+<p>假设第一个节点是存了数据的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">ListNode</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Val</span> <span class="kt">int</span>
+	<span class="nx">Next</span> <span class="o">*</span><span class="nx">ListNode</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="解法一-三指针法">解法一：三指针法</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 三指针法
+</span><span class="c1">// 用三个指针来进行向后扫描
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_1</span><span class="p">(</span><span class="nx">l1</span><span class="p">,</span> <span class="nx">l2</span> <span class="o">*</span><span class="nx">ListNode</span><span class="p">)</span> <span class="o">*</span><span class="nx">ListNode</span> <span class="p">{</span>
+
+	<span class="c1">// 边界条件（包含了 l1==0 &amp;&amp; l2==0 ）
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">l1</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">l2</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">l2</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">l1</span>
+	<span class="p">}</span>
+
+	<span class="kd">var</span> <span class="nx">l3</span> <span class="o">*</span><span class="nx">ListNode</span>	<span class="c1">// 返回的链表头指针
+</span><span class="c1"></span>	<span class="nx">p1</span><span class="p">,</span> <span class="nx">p2</span> <span class="o">:=</span> <span class="nx">l1</span><span class="p">,</span> <span class="nx">l2</span>	<span class="c1">// l1,l2的两个“头部”指针
+</span><span class="c1"></span>
+	<span class="c1">// 先生成l3第一个节点
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">l1</span><span class="p">.</span><span class="nx">Val</span> <span class="o">&lt;=</span> <span class="nx">l2</span><span class="p">.</span><span class="nx">Val</span> <span class="p">{</span>
+		<span class="nx">l3</span> <span class="p">=</span> <span class="nx">l1</span>
+		<span class="nx">p1</span> <span class="p">=</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">Next</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="nx">l3</span> <span class="p">=</span> <span class="nx">l2</span>
+		<span class="nx">p2</span> <span class="p">=</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">Next</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 接下来开始向后扫描两个链表的值
+</span><span class="c1"></span>	<span class="nx">p3</span> <span class="o">:=</span> <span class="nx">l3</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="c1">// 有一方先扫完了，就退出循环
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">p1</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">||</span> <span class="nx">p2</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">break</span>
+		<span class="p">}</span>
+
+		<span class="c1">// 比较然后填充数据
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">Val</span> <span class="o">&lt;=</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">Val</span> <span class="p">{</span>
+			<span class="nx">p3</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">p1</span>
+			<span class="nx">p3</span> <span class="p">=</span> <span class="nx">p3</span><span class="p">.</span><span class="nx">Next</span>	<span class="c1">// p3后移
+</span><span class="c1"></span>			<span class="nx">p1</span> <span class="p">=</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">Next</span>	<span class="c1">// p1后移
+</span><span class="c1"></span>		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">p3</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">p2</span>
+			<span class="nx">p3</span> <span class="p">=</span> <span class="nx">p3</span><span class="p">.</span><span class="nx">Next</span>
+			<span class="nx">p2</span> <span class="p">=</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">Next</span>
+		<span class="p">}</span>
+		<span class="c1">//fmt.Println(&#34;测试&#34;)
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nx">p1</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="c1">// 直接将l1剩余的这些接到l3
+</span><span class="c1"></span>		<span class="nx">p3</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">p1</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">p2</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="c1">// 直接将l2剩余的这些接到l3
+</span><span class="c1"></span>		<span class="nx">p3</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">p2</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">l3</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="解法二-三指针法-优化连续等值结点">解法二： 三指针法/优化连续等值结点</h2>
+
+<p>后来经试验题解区高赞答案，没有比该解法更高效的。当然该解法还有些小细节可以优化，就不过多处理。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 三指针法优化，处理连续相同数字节点
+</span><span class="c1">// 对上面解法优化一下：两个链表都会有连续相等值情况，这时直接批量接到l3会更高效：节省了赋值次数和比较次数
+</span><span class="c1">// 所以加了两个指针用来记录相同数字开始的地方
+</span><span class="c1">// 时间复杂度O(min(m,n)), 空间O(1)
+</span><span class="c1">// 208/208 cases passed (0 ms)
+</span><span class="c1">//Your runtime beats 100 % of golang submissions
+</span><span class="c1">//Your memory usage beats 97.85 % of golang submissions (2.5 MB)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_2</span><span class="p">(</span><span class="nx">l1</span><span class="p">,</span> <span class="nx">l2</span> <span class="o">*</span><span class="nx">ListNode</span><span class="p">)</span> <span class="o">*</span><span class="nx">ListNode</span> <span class="p">{</span>
+
+	<span class="c1">// 边界条件（包含了 l1==0 &amp;&amp; l2==0 ）
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">l1</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">l2</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">l2</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">l1</span>
+	<span class="p">}</span>
+
+	<span class="kd">var</span> <span class="nx">l3</span> <span class="o">*</span><span class="nx">ListNode</span>	<span class="c1">// 返回的链表头指针
+</span><span class="c1"></span>	<span class="nx">p1</span><span class="p">,</span> <span class="nx">p2</span> <span class="o">:=</span> <span class="nx">l1</span><span class="p">,</span> <span class="nx">l2</span>	<span class="c1">// l1,l2的两个“头部”指针, 不断后移
+</span><span class="c1"></span>
+	<span class="c1">// 先生成l3第一个节点
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">l1</span><span class="p">.</span><span class="nx">Val</span> <span class="o">&lt;=</span> <span class="nx">l2</span><span class="p">.</span><span class="nx">Val</span> <span class="p">{</span>
+		<span class="nx">l3</span> <span class="p">=</span> <span class="nx">l1</span>
+		<span class="nx">p1</span> <span class="p">=</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">Next</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="nx">l3</span> <span class="p">=</span> <span class="nx">l2</span>
+		<span class="nx">p2</span> <span class="p">=</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">Next</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 接下来开始向后扫描两个链表的值
+</span><span class="c1"></span>	<span class="nx">p3</span> <span class="o">:=</span> <span class="nx">l3</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="c1">// 有一方先扫完了，就退出循环
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">p1</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">||</span> <span class="nx">p2</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">break</span>
+		<span class="p">}</span>
+
+		<span class="c1">// 现在 p1, p2保证非空
+</span><span class="c1"></span>		<span class="k">switch</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">Val</span> <span class="o">==</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">Val</span><span class="p">:</span>
+			<span class="c1">// l1,l2都向后去寻找新数值，并返回新数值的前一个节点
+</span><span class="c1"></span>			<span class="nx">p3</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">p1</span>
+			<span class="nx">p1</span> <span class="p">=</span> <span class="nf">findLarger</span><span class="p">(</span><span class="nx">p1</span><span class="p">)</span>		<span class="c1">// p1可能后移了
+</span><span class="c1"></span>			<span class="nx">p3</span> <span class="p">=</span> <span class="nx">p1</span>							<span class="c1">// p3此时的next指针非空，但不管，后边会覆盖
+</span><span class="c1"></span>			<span class="nx">p1</span> <span class="p">=</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">Next</span>					<span class="c1">// p1后移至待比较数值位置
+</span><span class="c1"></span>			<span class="nx">p3</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">p2</span>
+			<span class="nx">p2</span> <span class="p">=</span> <span class="nf">findLarger</span><span class="p">(</span><span class="nx">p2</span><span class="p">)</span>
+			<span class="nx">p3</span> <span class="p">=</span> <span class="nx">p2</span>							<span class="c1">// p3此时的next指针非空，但不管，后边会覆盖
+</span><span class="c1"></span>			<span class="nx">p2</span> <span class="p">=</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">Next</span>					<span class="c1">// p2后移至待比较数值位置
+</span><span class="c1"></span>			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;11111&#34;</span><span class="p">)</span>
+
+		<span class="k">case</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">Val</span> <span class="p">&lt;</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">Val</span><span class="p">:</span>
+			<span class="c1">// l1向后去寻找新数值，并返回新数值的前一个节点
+</span><span class="c1"></span>			<span class="nx">p3</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">p1</span>
+			<span class="nx">p1</span> <span class="p">=</span> <span class="nf">findLarger</span><span class="p">(</span><span class="nx">p1</span><span class="p">)</span>
+			<span class="nx">p3</span> <span class="p">=</span> <span class="nx">p1</span>
+			<span class="nx">p1</span> <span class="p">=</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">Next</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;222222&#34;</span><span class="p">)</span>
+		<span class="k">case</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">Val</span> <span class="p">&gt;</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">Val</span><span class="p">:</span>
+			<span class="c1">// l2向后去寻找新数值，并返回新数值的前一个节点
+</span><span class="c1"></span>			<span class="nx">p3</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">p2</span>
+			<span class="nx">p2</span> <span class="p">=</span> <span class="nf">findLarger</span><span class="p">(</span><span class="nx">p2</span><span class="p">)</span>
+			<span class="nx">p3</span> <span class="p">=</span> <span class="nx">p2</span>
+			<span class="nx">p2</span> <span class="p">=</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">Next</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;33333333&#34;</span><span class="p">)</span>
+		<span class="p">}</span>
+
+	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nx">p1</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="c1">// 直接将l1剩余的这些接到l3
+</span><span class="c1"></span>		<span class="nx">p3</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">p1</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">p2</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="c1">// 直接将l2剩余的这些接到l3
+</span><span class="c1"></span>		<span class="nx">p3</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">p2</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">l3</span>
+<span class="p">}</span>
+
+<span class="c1">// 找出更大数之前那个节点
+</span><span class="c1">// 3 -&gt; 3 -&gt; 3 -&gt; 5 返回最后那个 3 的节点
+</span><span class="c1">// nodeVal为node的值
+</span><span class="c1">// 注意传入的p本身就是一份拷贝，绝对不能修改p.Next，只能修改p， 避免破坏原本的链表
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">findLarger</span><span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">ListNode</span><span class="p">)</span> <span class="o">*</span><span class="nx">ListNode</span> <span class="p">{</span>
+
+	<span class="k">for</span> <span class="p">{</span>
+
+		<span class="c1">// 有种情况是p已经是末尾
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">p</span><span class="p">.</span><span class="nx">Next</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">p</span>
+		<span class="p">}</span>
+
+		<span class="k">if</span> <span class="nx">p</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Val</span> <span class="p">&gt;</span> <span class="nx">p</span><span class="p">.</span><span class="nx">Val</span> <span class="p">{</span>
+			<span class="k">break</span>
+		<span class="p">}</span>
+
+		<span class="c1">// p.Next.Val == p.Val
+</span><span class="c1"></span>		<span class="nx">p</span> <span class="p">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">Next</span>
+	<span class="p">}</span>
+	<span class="c1">// 循环结束p就是要求的节点
+</span><span class="c1"></span>	<span class="k">return</span> <span class="nx">p</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="解法三-递归">解法三： 递归</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// -----------------------------------------------------------------------------------
+</span><span class="c1">// 暂时想不到继续优化的方向，开始看题解。
+</span><span class="c1">// 看了最高赞的两个题解，总共两种方法：递归和迭代。迭代的做法就是我的Sol_1_1.
+</span><span class="c1">// 而且有一点注意的是： 其他的题解中所得链表的第一个节点都是无意义的值。好奇怪，那我的思路是怎么通过测试的？
+</span><span class="c1"></span>
+<span class="c1">// 那么接下来实现下递归方案
+</span><span class="c1">// 我继续按我的思路，所得的链表第一个节点存有意义数值。
+</span><span class="c1"></span>
+<span class="c1">// 递归方法
+</span><span class="c1">//208/208 cases passed (4 ms)
+</span><span class="c1">//Your runtime beats 72.85 % of golang submissions
+</span><span class="c1">//Your memory usage beats 68.42 % of golang submissions (2.5 MB)
+</span><span class="c1">// 为什么递归明明和Sol_1_1的比较流程看上去一样，但内存占用变多，消耗时间也更多呢？
+</span><span class="c1">// 原因在于边界条件这里，如果说Sol_1_1耗时O(min(m+n))，那么这个耗时可能可以算是O(1.5*min(m,n))
+</span><span class="c1">// 递归方法每一次递归都要重新判断l1,l2是否为nil
+</span><span class="c1">// 不对不对，迭代一样没次都要比较链表是否遍历到尾部，也就是p1,p2是否为nil!
+</span><span class="c1">// 希望有知道的能留言为我解惑一二。
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_3</span><span class="p">(</span><span class="nx">l1</span><span class="p">,</span> <span class="nx">l2</span> <span class="o">*</span><span class="nx">ListNode</span><span class="p">)</span> <span class="o">*</span><span class="nx">ListNode</span> <span class="p">{</span>
+
+	<span class="c1">// 边界条件（包含了 l1==0 &amp;&amp; l2==0 ）
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">l1</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">l2</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">l2</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">l1</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 递归
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">l1</span><span class="p">.</span><span class="nx">Val</span> <span class="o">&lt;=</span> <span class="nx">l2</span><span class="p">.</span><span class="nx">Val</span> <span class="p">{</span>
+		<span class="nx">l1</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nf">Sol_1_3</span><span class="p">(</span><span class="nx">l1</span><span class="p">.</span><span class="nx">Next</span><span class="p">,</span> <span class="nx">l2</span><span class="p">)</span>
+		<span class="k">return</span> <span class="nx">l1</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="nx">l2</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nf">Sol_1_3</span><span class="p">(</span><span class="nx">l1</span><span class="p">,</span> <span class="nx">l2</span><span class="p">.</span><span class="nx">Next</span><span class="p">)</span>
+		<span class="k">return</span> <span class="nx">l2</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="总结与反思">总结与反思</h2>
+
+<ul>
+<li>合并有序数组或链表都可以基于双指针或者说三指针移动这个思想</li>
+<li>优化思路：考虑处理连续相等数据</li>
+<li>递归代码简洁但性能略差</li>
+</ul>
+
+<h2 id="链接">链接</h2>
+
+<ul>
+<li>Leetcode题解：<a href="https://leetcode-cn.com/problems/merge-two-sorted-lists/solution/he-bing-liang-ge-you-xu-lian-biao-by-eiger/">https://leetcode-cn.com/problems/merge-two-sorted-lists/solution/he-bing-liang-ge-you-xu-lian-biao-by-eiger/</a></li>
+<li>Github: <a href="https://github.com/azd1997/Leetcode-training/blob/master/lt21/1.go">https://github.com/azd1997/Leetcode-training/blob/master/lt21/1.go</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-11-08
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/leetcode/">leetcode</a>
+          <a href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/algo/lt88/">
+            <span class="next-text nav-default">Leetcode88——合并两个有序数组</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+  <span id="/post/algo/lt21/" class="leancloud_visitors" data-flag-title="Leetcode21——合并两个有序链表">
+		<span class="post-meta-item-text">文章阅读量 </span>
+		<span class="leancloud-visitors-count">0</span>
+		<p></p>
+	  </span>
+  <div id="vcomments"></div>
+  <script src="http://pirogue.org/js/av-min.js"></script>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'bpOXpWYjWw1gNOYNe2PrWjKV-gzGzoHsz',
+        appKey: '07yqjMVRu9Nyoqrzj4X7IhL5',
+        notify:  true , 
+        verify:  false , 
+        avatar:'mm', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:374192922@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%8C%AF%E4%B8%9C-%E8%89%BE-b10752175/detail/recent-activity/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/azd1997" class="iconfont icon-github" title="github"></a>
+  <a href="https://azd1997.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
