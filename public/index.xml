@@ -6,10 +6,19 @@
     <description>Recent content on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 09 Nov 2019 07:30:55 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 09 Nov 2019 09:08:07 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Leetcode283——移动零</title>
+      <link>https://azd1997.github.io/post/algo/lt283/</link>
+      <pubDate>Sat, 09 Nov 2019 09:08:07 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/lt283/</guid>
+      <description>题意 移动0 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。 示例: 1 2 输入: [0,1,0,3,12] 输出: [1,3,12,0,0] 说明: 必须在原数</description>
+    </item>
     
     <item>
       <title>Leetcode146——LRU缓存机制</title>

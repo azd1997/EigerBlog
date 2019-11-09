@@ -3,48 +3,55 @@
   
   <url>
     <loc>https://azd1997.github.io/categories/algo/</loc>
-    <lastmod>2019-11-09T07:30:55+08:00</lastmod>
+    <lastmod>2019-11-09T09:08:07+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/categories/</loc>
-    <lastmod>2019-11-09T07:30:55+08:00</lastmod>
+    <lastmod>2019-11-09T09:08:07+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/</loc>
-    <lastmod>2019-11-09T07:30:55+08:00</lastmod>
+    <lastmod>2019-11-09T09:08:07+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/tags/leetcode/</loc>
-    <lastmod>2019-11-09T07:30:55+08:00</lastmod>
+    <lastmod>2019-11-09T09:08:07+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/post/algo/lt146/</loc>
-    <lastmod>2019-11-09T07:30:55+08:00</lastmod>
+    <loc>https://azd1997.github.io/post/algo/lt283/</loc>
+    <lastmod>2019-11-09T09:08:07+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/post/</loc>
-    <lastmod>2019-11-09T07:30:55+08:00</lastmod>
+    <lastmod>2019-11-09T09:08:07+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/tags/</loc>
+    <lastmod>2019-11-09T09:08:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/algo/lt146/</loc>
     <lastmod>2019-11-09T07:30:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -324,14 +331,14 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/tags/java/</loc>
+    <loc>https://azd1997.github.io/categories/java/</loc>
     <lastmod>2019-09-05T02:55:16+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/categories/java/</loc>
+    <loc>https://azd1997.github.io/tags/java/</loc>
     <lastmod>2019-09-05T02:55:16+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
