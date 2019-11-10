@@ -6,10 +6,19 @@
     <description>Recent content in leetcode on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 09 Nov 2019 09:08:07 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 09 Nov 2019 20:54:15 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Leetcode11——盛最多水的容器</title>
+      <link>https://azd1997.github.io/post/algo/lt11/</link>
+      <pubDate>Sat, 09 Nov 2019 20:54:15 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/lt11/</guid>
+      <description>题意 给定 n 个非负整数 a1，a2，&amp;hellip;，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i,</description>
+    </item>
     
     <item>
       <title>Leetcode283——移动零</title>
