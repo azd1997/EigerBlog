@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Leetcode242——有效的字母异位词 - Eiger - A young gopher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Eiger" /><meta name="description" content="题意 有效的字母异位词 给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。 示例 1: 1 2 输入: s = &amp;#34;anagram&amp;#34;, t = &amp;#34;nagaram&amp;#34; 输出: true 示例 2: 1 2 输入: s =" /><meta name="keywords" content="字符串, 哈希表, go" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://azd1997.github.io/post/algo/lt242/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Leetcode242——有效的字母异位词" />
+<meta property="og:description" content="题意 有效的字母异位词 给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。 示例 1: 1 2 输入: s = &#34;anagram&#34;, t = &#34;nagaram&#34; 输出: true 示例 2: 1 2 输入: s =" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://azd1997.github.io/post/algo/lt242/" />
+<meta property="article:published_time" content="2019-11-11T03:19:22+08:00" />
+<meta property="article:modified_time" content="2019-11-11T03:19:22+08:00" />
+<meta itemprop="name" content="Leetcode242——有效的字母异位词">
+<meta itemprop="description" content="题意 有效的字母异位词 给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。 示例 1: 1 2 输入: s = &#34;anagram&#34;, t = &#34;nagaram&#34; 输出: true 示例 2: 1 2 输入: s =">
+
+
+<meta itemprop="datePublished" content="2019-11-11T03:19:22&#43;08:00" />
+<meta itemprop="dateModified" content="2019-11-11T03:19:22&#43;08:00" />
+<meta itemprop="wordCount" content="2316">
+
+
+
+<meta itemprop="keywords" content="leetcode," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Leetcode242——有效的字母异位词"/>
+<meta name="twitter:description" content="题意 有效的字母异位词 给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。 示例 1: 1 2 输入: s = &#34;anagram&#34;, t = &#34;nagaram&#34; 输出: true 示例 2: 1 2 输入: s ="/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Eiger</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/links/">
+        <li class="mobile-menu-item">Links</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Eiger</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/links/">Links</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Leetcode242——有效的字母异位词</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-11-11 </span>
+        <div class="post-category">
+            <a href="/categories/algo/"> algo </a>
+            </div>
+          <span class="more-meta"> 2316 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#题意">题意</a></li>
+<li><a href="#思路与实现">思路与实现</a></li>
+<li><a href="#总结与反思">总结与反思</a></li>
+<li><a href="#链接">链接</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h2 id="题意">题意</h2>
+
+<p>有效的字母异位词</p>
+
+<p>给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。</p>
+
+<p>示例 1:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">输入: s = &#34;anagram&#34;, t = &#34;nagaram&#34;
+输出: true</pre></td></tr></table>
+</div>
+</div>
+<p>示例 2:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">输入: s = &#34;rat&#34;, t = &#34;car&#34;
+输出: false</pre></td></tr></table>
+</div>
+</div>
+<p>说明:
+你可以假设字符串只包含小写字母。</p>
+
+<p>进阶:
+如果输入字符串包含 unicode 字符怎么办？你能否调整你的解法来应对这种情况？</p>
+
+<p>来源：力扣（LeetCode）
+链接：<a href="https://leetcode-cn.com/problems/valid-anagram">https://leetcode-cn.com/problems/valid-anagram</a>
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+
+<h2 id="思路与实现">思路与实现</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">lt242</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;sort&#34;</span>
+<span class="p">)</span>
+
+<span class="c1">//给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
+</span><span class="c1">//
+</span><span class="c1">//示例 1:
+</span><span class="c1">//
+</span><span class="c1">//    输入: s = &#34;anagram&#34;, t = &#34;nagaram&#34;
+</span><span class="c1">//    输出: true
+</span><span class="c1">//示例 2:
+</span><span class="c1">//
+</span><span class="c1">//    输入: s = &#34;rat&#34;, t = &#34;car&#34;
+</span><span class="c1">//    输出: false
+</span><span class="c1">//说明:
+</span><span class="c1">//你可以假设字符串只包含小写字母。
+</span><span class="c1">//
+</span><span class="c1">//进阶:
+</span><span class="c1">//如果输入字符串包含 unicode 字符怎么办？你能否调整你的解法来应对这种情况？
+</span><span class="c1"></span>
+<span class="c1">// 思考：
+</span><span class="c1">// 字母异位词就是说：两个单词所含字母及字母的数量都一样，但顺序不一样
+</span><span class="c1">// 那么显然最直接的想法就是在遍历word1时用一个数据结构记录出现过的字母的个数，再在遍历单次word2时（循环次数要设为word1长度）
+</span><span class="c1">// 去减去这个数据结构存储的相应字母的个数 ， 最后检查这个数据结构里所有字母的次数是否为0或者空。
+</span><span class="c1">// 这样的数据结构就是哈希表了，使用哈希表在遍历中实现O(1)的查找更新。其他可行方案比如链表查找效率低，会使得最终的时间复杂度达到O(N2)
+</span><span class="c1">// 所以方法1就是使用哈希表记录字母出现，遍历第二个单词时再递减删除哈希表记录的字母情况。时间O(n)，空间O(n)
+</span><span class="c1">// 		使用哈希表方法也可以优化一下，因为题目只有小写英文字母，所以可以用对应的asii码来表示各个字母，实现简单而不会碰撞的哈希表；
+</span><span class="c1">// 		如果考虑进阶情况（unicode字符，参考 https://zhihu.com/question/22881537 ），因为unicode规划有17个平面，每个平面分配65536个码点，
+</span><span class="c1">// 		如果这样也用码点映射到数组，占用太大，还是老老实实用内置通用的的哈希表
+</span><span class="c1">//
+</span><span class="c1">// 第二种方法是利用两个单词字母相同且字母出现次数也相同的特点，将其进行排序，排好序的单次必定相等。
+</span><span class="c1"></span>
+<span class="c1">// 1. 使用哈希表记录字母出现情况。暂时只考虑英文小写字母（97~122）
+</span><span class="c1">//34/34 cases passed (0 ms)
+</span><span class="c1">//Your runtime beats 100 % of golang submissions
+</span><span class="c1">//Your memory usage beats 75.19 % of golang submissions (3 MB)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_1</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">t</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="c1">// 这里我是把空字符串作为异常情况去return false; 两个字符串完全一致也return false
+</span><span class="c1"></span>	<span class="c1">//if len(s) == 0 || len(t) == 0 || len(s) != len(t) || s == t {
+</span><span class="c1"></span>	<span class="c1">//	return false
+</span><span class="c1"></span>	<span class="c1">//}
+</span><span class="c1"></span>
+	<span class="c1">// 经过测试，测试用例认为两个空字符串也算字母异位词，两个字符串完全一致也算字母异位词...醉
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">false</span>
+	<span class="p">}</span>
+
+	<span class="c1">// “哈希表”
+</span><span class="c1"></span>	<span class="nx">words</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">26</span><span class="p">)</span>	<span class="c1">// 0-&gt;97,...,25-&gt;122
+</span><span class="c1"></span>
+	<span class="c1">// 填充哈希表元素（字母出现的次数）
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">s</span> <span class="p">{</span>
+		<span class="nx">words</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span><span class="o">-</span><span class="mi">97</span><span class="p">]</span><span class="o">++</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 减去哈希表元素
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">t</span> <span class="p">{</span>
+		<span class="nx">words</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span><span class="o">-</span><span class="mi">97</span><span class="p">]</span><span class="o">--</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 判断哈希表是否全为0
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">words</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">v</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="kc">false</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="c1">// 2. 使用哈希表记录字母出现情况。考虑unicode字符，用数组已经不合适，占内存太大，直接用通用哈希表
+</span><span class="c1">//34/34 cases passed (8 ms)
+</span><span class="c1">//Your runtime beats 68.7 % of golang submissions
+</span><span class="c1">//Your memory usage beats 75.19 % of golang submissions (3 MB)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_2</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">t</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">false</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 由于哈希表起始长度为0，所以需要截住 &#34;&#34; == &#34;&#34; 的特殊情况
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">true</span>
+	<span class="p">}</span>
+
+	<span class="c1">// “哈希表”
+</span><span class="c1"></span>	<span class="nx">words</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">rune</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>	<span class="c1">// rune在go中是int32别名，任何UTF-8编码（变长）的字符都可以直接用它表示（定长）
+</span><span class="c1"></span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;word s...&#34;</span><span class="p">)</span>
+
+	<span class="c1">// 填充哈希表元素（字母出现的次数）
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">s</span> <span class="p">{</span>
+		<span class="nx">words</span><span class="p">[</span><span class="nx">v</span><span class="p">]</span><span class="o">++</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;words[%v]=%d\n&#34;</span><span class="p">,</span> <span class="nx">v</span><span class="p">,</span> <span class="nx">words</span><span class="p">[</span><span class="nx">v</span><span class="p">])</span>
+	<span class="p">}</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;word t...&#34;</span><span class="p">)</span>
+
+	<span class="c1">// 减去哈希表元素，当为0时删除键
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">t</span> <span class="p">{</span>
+		<span class="nx">words</span><span class="p">[</span><span class="nx">v</span><span class="p">]</span><span class="o">--</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;words[%v]=%d\n&#34;</span><span class="p">,</span> <span class="nx">v</span><span class="p">,</span> <span class="nx">words</span><span class="p">[</span><span class="nx">v</span><span class="p">])</span>
+		<span class="k">if</span> <span class="nx">words</span><span class="p">[</span><span class="nx">v</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="nb">delete</span><span class="p">(</span><span class="nx">words</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;words=%v\n&#34;</span><span class="p">,</span> <span class="nx">words</span><span class="p">)</span>
+
+	<span class="c1">// 判断哈希表是否为空	// 注意! map==nil和len(map)==0是两个概念！我们把所有键删除了，最后map就为空
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">words</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">true</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="kc">false</span>
+<span class="p">}</span>
+
+<span class="c1">// 3. 还可以在1或2的基础上换一种写法
+</span><span class="c1">// 34/34 cases passed (8 ms)
+</span><span class="c1">//Your runtime beats 68.7 % of golang submissions
+</span><span class="c1">//Your memory usage beats 72.09 % of golang submissions (3 MB)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_3</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">t</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">false</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 由于哈希表起始长度为0，所以需要截住 &#34;&#34; == &#34;&#34; 的特殊情况
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">true</span>
+	<span class="p">}</span>
+
+	<span class="c1">// “哈希表”
+</span><span class="c1"></span>	<span class="nx">words</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">rune</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>	<span class="c1">// rune在go中是int32别名，任何UTF-8编码（变长）的字符都可以直接用它表示（定长）
+</span><span class="c1"></span>
+	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">words</span><span class="p">[</span><span class="nb">rune</span><span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="nx">i</span><span class="p">])]</span><span class="o">++</span>
+		<span class="nx">words</span><span class="p">[</span><span class="nb">rune</span><span class="p">(</span><span class="nx">t</span><span class="p">[</span><span class="nx">i</span><span class="p">])]</span><span class="o">--</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 检查哈希表的最终状态
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">words</span> <span class="p">{</span>	<span class="c1">// 不用检查key，只要发现有值非0，那么就false
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">v</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="kc">false</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="c1">// 4. 直接字符串重排序再判等
+</span><span class="c1">// 时间O(logn)（快排），空间O(n)
+</span><span class="c1">//34/34 cases passed (16 ms)
+</span><span class="c1">//Your runtime beats 23.32 % of golang submissions
+</span><span class="c1">//Your memory usage beats 15.5 % of golang submissions (3.8 MB)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_4</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">t</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+
+	<span class="c1">// 这里要提到一点，前面漏掉了一个重要的点：
+</span><span class="c1"></span>	<span class="c1">// go中 len(string)得到的是 byte数， 也就是字节数，但！ 不是字符数
+</span><span class="c1"></span>	<span class="c1">// 字母异位词的字符数一定相等，那么字节数也一定相等。但字节数相等不能得出字符数相等的结论！
+</span><span class="c1"></span>	<span class="c1">// 这里给纠正过来
+</span><span class="c1"></span>
+	<span class="nx">sRunes</span><span class="p">,</span> <span class="nx">tRunes</span> <span class="o">:=</span> <span class="nf">mySort</span><span class="p">(</span><span class="nx">s</span><span class="p">),</span> <span class="nf">mySort</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">sRunes</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">tRunes</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">false</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 字符排序，注意是另申请了内存，所以空间消耗O(n)
+</span><span class="c1"></span>	<span class="nx">sort</span><span class="p">.</span><span class="nf">Sort</span><span class="p">(</span><span class="nx">sRunes</span><span class="p">)</span>
+	<span class="nx">sort</span><span class="p">.</span><span class="nf">Sort</span><span class="p">(</span><span class="nx">tRunes</span><span class="p">)</span>
+
+	<span class="c1">// 遍历字符数组，看有无不同
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="nx">sRunes</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">sRunes</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">tRunes</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="kc">false</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="c1">// 自定义sort.Interface的实现结构体
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">mySort</span> <span class="p">[]</span><span class="kt">rune</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="nx">mySort</span><span class="p">)</span> <span class="nf">Len</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="nx">mySort</span><span class="p">)</span> <span class="nf">Less</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">m</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">&lt;</span> <span class="nx">m</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="nx">mySort</span><span class="p">)</span> <span class="nf">Swap</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">m</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">m</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">m</span><span class="p">[</span><span class="nx">j</span><span class="p">],</span> <span class="nx">m</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1">//var less = func(x, y rune) bool {
+</span><span class="c1">//	return x &lt; y
+</span><span class="c1"></span><span class="o">//</span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="总结与反思">总结与反思</h2>
+
+<p>针对asii码字符用数组实现哈希表比较适合，如果是unicode则只能使用通用的哈希表。
+至于排序再比较的方法，在go语言中是不太经济的，内存和时间开销都高。</p>
+
+<p>关于编码相关的知识，参看阮一峰大神博客：
+- <a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html">http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html</a></p>
+
+<h2 id="链接">链接</h2>
+
+<ul>
+<li>Github： <a href="https://github.com/azd1997/Leetcode-training/tree/master/lt242/1.go">https://github.com/azd1997/Leetcode-training/tree/master/lt242/1.go</a></li>
+<li>Leetcode: <a href="https://leetcode-cn.com/problems/valid-anagram/solution/you-xiao-de-zi-mu-yi-wei-ci-si-lu-yu-shi-xian-by-e/">https://leetcode-cn.com/problems/valid-anagram/solution/you-xiao-de-zi-mu-yi-wei-ci-si-lu-yu-shi-xian-by-e/</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-11-11
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/leetcode/">leetcode</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/algo/lt42/">
+            <span class="next-text nav-default">Leetcode42——接雨水</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+  <span id="/post/algo/lt242/" class="leancloud_visitors" data-flag-title="Leetcode242——有效的字母异位词">
+		<span class="post-meta-item-text">文章阅读量 </span>
+		<span class="leancloud-visitors-count">0</span>
+		<p></p>
+	  </span>
+  <div id="vcomments"></div>
+  <script src="http://pirogue.org/js/av-min.js"></script>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'bpOXpWYjWw1gNOYNe2PrWjKV-gzGzoHsz',
+        appKey: '07yqjMVRu9Nyoqrzj4X7IhL5',
+        notify:  true , 
+        verify:  false , 
+        avatar:'mm', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:374192922@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%8C%AF%E4%B8%9C-%E8%89%BE-b10752175/detail/recent-activity/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/azd1997" class="iconfont icon-github" title="github"></a>
+  <a href="https://azd1997.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

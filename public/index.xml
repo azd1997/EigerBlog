@@ -6,10 +6,19 @@
     <description>Recent content on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 10 Nov 2019 22:11:41 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 11 Nov 2019 03:19:22 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Leetcode242——有效的字母异位词</title>
+      <link>https://azd1997.github.io/post/algo/lt242/</link>
+      <pubDate>Mon, 11 Nov 2019 03:19:22 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/lt242/</guid>
+      <description>题意 有效的字母异位词 给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。 示例 1: 1 2 输入: s = &amp;#34;anagram&amp;#34;, t = &amp;#34;nagaram&amp;#34; 输出: true 示例 2: 1 2 输入: s =</description>
+    </item>
     
     <item>
       <title>Leetcode42——接雨水</title>
