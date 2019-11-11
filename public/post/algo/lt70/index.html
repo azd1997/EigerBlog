@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-11-09T22:47:11&#43;08:00" />
 <meta itemprop="dateModified" content="2019-11-09T22:47:11&#43;08:00" />
-<meta itemprop="wordCount" content="1944">
+<meta itemprop="wordCount" content="2136">
 
 
 
@@ -135,8 +135,8 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 1944 words </span>
-          <span class="more-meta"> 4 mins read </span>
+          <span class="more-meta"> 2136 words </span>
+          <span class="more-meta"> 5 mins read </span>
         
       </div>
     </header>
@@ -374,6 +374,20 @@
 </span><span class="lnt">159
 </span><span class="lnt">160
 </span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">lt70</span>
@@ -433,7 +447,8 @@
 </span><span class="c1">//Your runtime beats 100 % of golang submissions
 </span><span class="c1">//Your memory usage beats 7.39 % of golang submissions (2 MB)
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sol_1_3</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-	<span class="nx">memory</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>	<span class="c1">// n+1是为了下标直接和函数入参对应
+    <span class="k">if</span> <span class="nx">n</span><span class="o">&lt;=</span><span class="mi">3</span> <span class="p">{</span><span class="k">return</span> <span class="nx">n</span><span class="p">}</span>	<span class="c1">// 正好前三阶的走法与阶数对应
+</span><span class="c1"></span>	<span class="nx">memory</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>	<span class="c1">// n+1是为了下标直接和函数入参对应
 </span><span class="c1"></span>	<span class="k">return</span> <span class="nf">climb2</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">memory</span><span class="p">)</span>
 <span class="p">}</span>
 
@@ -453,7 +468,7 @@
 	<span class="k">return</span> <span class="nx">memory</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
 <span class="p">}</span>
 
-<span class="c1">// 倒爬楼梯， 一遍循环实现。这个解法可能是最优的
+<span class="c1">// 顺爬楼梯， 一遍循环实现。这个解法可能是最优的
 </span><span class="c1">// 这也是斐波那契数列一般的解法，足够高效
 </span><span class="c1">// 时间Ｏ(N),　空间Ｏ(1)
 </span><span class="c1">//45/45 cases passed (0 ms)
@@ -490,6 +505,19 @@
 	<span class="p">}</span>
 
 	<span class="k">return</span> <span class="nx">f</span><span class="p">[</span><span class="nx">n</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1">// 在后来的刷题提交中，我又将Sol_1_5小改了一下，变成下面这个样子
+</span><span class="c1"></span>
+<span class="c1">// 顺爬楼梯 动态规划 + 辅助数组(缓存)  O(n)/O(n)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">climbStairs</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">n</span> <span class="o">&lt;=</span> <span class="mi">3</span> <span class="p">{</span><span class="k">return</span> <span class="nx">n</span><span class="p">}</span>    <span class="c1">// 恰好的值，看题给示例
+</span><span class="c1"></span>    <span class="nx">memory</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>  <span class="c1">// 缓存数组下标即对应楼梯的阶数，存的值为对应的走法数
+</span><span class="c1"></span>    <span class="nx">memory</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nx">memory</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="p">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span>     <span class="c1">// 因为3也很容易知道，所以我就不用1和2，改用2和3
+</span><span class="c1"></span>    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">4</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;=</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">memory</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">memory</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="nx">memory</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>   <span class="c1">// 计算并更新缓存值
+</span><span class="c1"></span>    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">memory</span><span class="p">[</span><span class="nx">n</span><span class="p">]</span>
 <span class="p">}</span>
 
 <span class="c1">// Binets解法
@@ -582,7 +610,11 @@
           <a href="/tags/leetcode/">leetcode</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/algo/lt42/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Leetcode42——接雨水</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
         <a class="next" href="/post/algo/lt11/">
             <span class="next-text nav-default">Leetcode11——盛最多水的容器</span>
             <span class="next-text nav-mobile">Next</span>
