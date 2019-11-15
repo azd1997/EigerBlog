@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-10-29T09:30:35&#43;08:00" />
 <meta itemprop="dateModified" content="2019-10-29T09:30:35&#43;08:00" />
-<meta itemprop="wordCount" content="11605">
+<meta itemprop="wordCount" content="17186">
 
 
 
@@ -135,8 +135,8 @@
         <div class="post-category">
             <a href="/categories/go/"> go </a>
             </div>
-          <span class="more-meta"> 11605 words </span>
-          <span class="more-meta"> 24 mins read </span>
+          <span class="more-meta"> 17186 words </span>
+          <span class="more-meta"> 35 mins read </span>
         
       </div>
     </header>
@@ -199,9 +199,30 @@
 <li><a href="#46-defer与返回值">46*. defer与返回值</a></li>
 <li><a href="#47-defer">47. defer</a></li>
 <li><a href="#48-defer与返回值">48*. defer与返回值</a></li>
-<li><a href="#49">49.</a></li>
-<li><a href="#50">50.</a></li>
-<li><a href="#51">51</a></li>
+<li><a href="#49-切片声明">49. 切片声明</a></li>
+<li><a href="#50-函数传参">50. 函数传参</a></li>
+<li><a href="#51-函数返回值">51. 函数返回值</a></li>
+<li><a href="#52-字符串零值">52. 字符串零值</a></li>
+<li><a href="#53-defer注册">53. defer注册</a></li>
+<li><a href="#54-自切片生成切片">54. 自切片生成切片</a></li>
+<li><a href="#55-if-else条件语句">55. if -else条件语句</a></li>
+<li><a href="#56-map字面量与遍历">56. map字面量与遍历</a></li>
+<li><a href="#57-defer注册">57. defer注册</a></li>
+<li><a href="#58-内置类型不能增加方法">58. 内置类型不能增加方法</a></li>
+<li><a href="#59-值不能调用指针方法">59. 值不能调用指针方法</a></li>
+<li><a href="#60-iota的用法">60. iota的用法</a></li>
+<li><a href="#61-接口nil值">61. 接口nil值</a></li>
+<li><a href="#62-stringer接口">62. stringer接口</a></li>
+<li><a href="#63-map内value不可寻址">63. map内value不可寻址</a></li>
+<li><a href="#64-不同长度数组不可比较">64. 不同长度数组不可比较</a></li>
+<li><a href="#65-变量作用域">65*. 变量作用域</a></li>
+<li><a href="#66-for-range遍历切片">66*. for-range遍历切片</a></li>
+<li><a href="#67-for-range遍历重用变量">67. for-range遍历重用变量</a></li>
+<li><a href="#68-defer机制">68. defer机制</a></li>
+<li><a href="#69-for-range副本">69. for-range副本</a></li>
+<li><a href="#70">70.</a></li>
+<li><a href="#71">71.</a></li>
+<li><a href="#72">72.</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -2910,7 +2931,7 @@
 <span class="o">//</span> <span class="nx">由于</span> <span class="k">defer</span> <span class="nx">的执行顺序为先进后出</span><span class="err">，</span><span class="nx">即</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">1</span><span class="err">，</span><span class="nx">所以输出</span> <span class="mi">29</span> <span class="mi">28</span> <span class="mi">28</span><span class="err">。</span></code></pre></td></tr></table>
 </div>
 </div>
-<h3 id="49">49.</h3>
+<h3 id="49-切片声明">49. 切片声明</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
@@ -2946,7 +2967,7 @@
 </span><span class="c1"></span><span class="o">//</span><span class="nx">第一种切片声明不会分配内存</span><span class="err">，</span><span class="nx">优先选择</span><span class="err">。</span></code></pre></td></tr></table>
 </div>
 </div>
-<h3 id="50">50.</h3>
+<h3 id="50-函数传参">50. 函数传参</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
@@ -3008,7 +3029,7 @@
 </span><span class="c1"></span><span class="o">//</span><span class="nx">永远不要使用一个指针指向一个接口类型</span><span class="err">，</span><span class="nx">因为它已经是一个指针</span><span class="err">。</span></code></pre></td></tr></table>
 </div>
 </div>
-<h3 id="51">51</h3>
+<h3 id="51-函数返回值">51. 函数返回值</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
@@ -3066,7 +3087,1464 @@
 </span><span class="c1"></span><span class="o">//</span><span class="nx">B</span> <span class="nx">处</span><span class="err">，</span><span class="nx">如果填</span> <span class="o">*</span><span class="nf">f</span><span class="p">()</span><span class="err">，</span><span class="nx">则</span> <span class="nx">p</span> <span class="nx">是</span> <span class="nx">S</span> <span class="nx">类型</span><span class="err">；</span><span class="nx">如果填</span> <span class="nf">f</span><span class="p">()</span><span class="err">，</span><span class="nx">则</span> <span class="nx">p</span> <span class="nx">是</span> <span class="o">*</span><span class="nx">S</span> <span class="nx">类型</span><span class="err">，</span><span class="nx">不过都可以使用</span> <span class="nx">p</span><span class="p">.</span><span class="nx">m</span> <span class="nx">取得结构体的成员</span><span class="err">。</span></code></pre></td></tr></table>
 </div>
 </div>
-<p>// 第22天</p>
+<h3 id="52-字符串零值">52. 字符串零值</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面的代码有几处语法问题</span><span class="err">，</span><span class="nx">各是什么</span><span class="err">？</span>
+
+<span class="kn">package</span> <span class="nx">main</span>
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&#34;fmt&#34;</span>
+<span class="p">)</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">x</span> <span class="kt">string</span> <span class="p">=</span> <span class="kc">nil</span>
+    <span class="k">if</span> <span class="nx">x</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">x</span> <span class="p">=</span> <span class="s">&#34;default&#34;</span>
+    <span class="p">}</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="kt">string</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">;</span> <span class="k">if</span> <span class="nx">x</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">.</span> <span class="nx">string的零值不是nil</span><span class="err">，</span><span class="nx">不符合语法</span><span class="err">。</span><span class="nx">本质来说</span><span class="err">，</span><span class="nx">string是个包含有底层字节数组的结构体</span><span class="err">，</span><span class="nx">不是指针类型</span><span class="err">，</span><span class="nx">不能赋值为nil</span><span class="err">，</span><span class="nx">也不能和nil比较</span>
+
+<span class="c1">// 参考答案及解析：两个地方有语法问题。golang 的字符串类型是不能赋值 nil 的，也不能跟 nil 比较。
+</span><span class="c1">// 只有引用类型（map/channel/interface）可以和nil比较， 指针也可以
+</span><span class="c1"></span><span class="o">//</span> <span class="nx">当然赋值的话</span><span class="err">，</span><span class="nx">nil可以赋给切片</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="53-defer注册">53. defer注册</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">return</span> <span class="nx">之后的</span> <span class="k">defer</span> <span class="nx">语句会执行吗</span><span class="err">，</span><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="kt">bool</span> <span class="p">=</span> <span class="kc">true</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">defer</span> <span class="kd">func</span><span class="p">(){</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;1&#34;</span><span class="p">)</span>
+    <span class="p">}()</span>
+    <span class="k">if</span> <span class="nx">a</span> <span class="o">==</span> <span class="kc">true</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;2&#34;</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+    <span class="k">defer</span> <span class="kd">func</span><span class="p">(){</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;3&#34;</span><span class="p">)</span>
+    <span class="p">}()</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">不会</span><span class="err">。</span><span class="nx">后面那个defer都还没注册</span><span class="err">（</span><span class="nx">压入栈</span><span class="err">）</span>
+<span class="nx">输出为</span><span class="p">:</span>
+<span class="mi">2</span>
+<span class="mi">1</span>
+
+<span class="o">//</span> <span class="nx">参考答案及解析</span><span class="err">：</span><span class="mi">2</span> <span class="mi">1</span><span class="err">。</span><span class="k">defer</span> <span class="nx">关键字后面的函数或者方法想要执行必须先注册</span><span class="err">，</span><span class="k">return</span> <span class="nx">之后的</span> <span class="k">defer</span> <span class="nx">是不能注册的</span><span class="err">，</span> <span class="nx">也就不能执行后面的函数或方法</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="54-自切片生成切片">54. 自切片生成切片</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span><span class="nx">为什么</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="nx">s1</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+    <span class="nx">s2</span> <span class="o">:=</span> <span class="nx">s1</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="nx">s2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">4</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s1</span><span class="p">)</span>
+    <span class="nx">s2</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">s2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s1</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="nx">s2和s1重叠的部分是共用底层内存的</span><span class="err">。</span><span class="nx">程序结束时s2</span> <span class="p">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span>
+
+<span class="c1">// 参考答案及解析：
+</span><span class="c1"></span>
+<span class="c1">// [1 2 4]
+</span><span class="c1">// [1 2 4]
+</span><span class="c1">// 我们知道，golang 中切片底层的数据结构是数组。当使用 s1[1:] 获得切片 s2，和 s1 共享同一个底层数组，这会导致 s2[1] = 4 语句影响 s1。
+</span><span class="c1">// 要清楚的是 s1 len=3,cap=3
+</span><span class="c1">// s2 = s1[1:]  len=3-1=2, cap = 3-1=2
+</span><span class="c1">// s2 append之后由于cap不足，新分配了一块内存，就不和s1共用底层内存了
+</span><span class="c1"></span>
+<span class="c1">// 而 append 操作会导致底层数组扩容，生成新的数组，因此追加数据后的 s2 不会影响 s1。
+</span><span class="c1"></span>
+<span class="o">//</span> <span class="nx">但是为什么对</span> <span class="nx">s2</span> <span class="nx">赋值后影响的却是</span> <span class="nx">s1</span> <span class="nx">的第三个元素呢</span><span class="err">？</span><span class="nx">这是因为切片</span> <span class="nx">s2</span> <span class="nx">是从数组的第二个元素开始</span><span class="err">，</span><span class="nx">s2</span> <span class="nx">索引为</span> <span class="mi">1</span> <span class="nx">的元素对应的是</span> <span class="nx">s1</span> <span class="nx">索引为</span> <span class="mi">2</span> <span class="nx">的元素</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="55-if-else条件语句">55. if -else条件语句</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面选项正确的是</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">a</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="kc">false</span> <span class="p">{</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">b</span> <span class="o">:=</span> <span class="mi">2</span><span class="p">;</span> <span class="kc">false</span> <span class="p">{</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nb">println</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">A</span><span class="p">.</span> <span class="mi">1</span> <span class="mi">2</span>
+<span class="nx">B</span><span class="p">.</span> <span class="nx">compilation</span> <span class="kt">error</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">A</span><span class="err">。</span> <span class="k">if</span> <span class="o">...</span> <span class="k">else</span> <span class="k">if</span> <span class="o">...</span> <span class="nx">else内局部变量共用</span>
+
+<span class="o">//</span> <span class="nx">参考答案及解析</span><span class="err">：</span><span class="nx">A</span><span class="err">。</span><span class="nx">知识点</span><span class="err">：</span><span class="nx">代码块和变量作用域</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="56-map字面量与遍历">56. map字面量与遍历</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">m</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s">&#34;zero&#34;</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="s">&#34;one&#34;</span><span class="p">}</span>
+    <span class="k">for</span> <span class="nx">k</span><span class="p">,</span><span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">m</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">k</span><span class="p">,</span><span class="nx">v</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="mi">0</span> <span class="nx">zero</span>
+<span class="mi">1</span> <span class="nx">one</span>
+<span class="nx">或者顺序反过来</span><span class="err">（</span><span class="nx">因为无序遍历</span><span class="err">）</span>
+
+<span class="c1">//参考答案及解析：
+</span><span class="c1"></span>
+<span class="c1">// 0 zero
+</span><span class="c1">// 1 one
+</span><span class="c1">// // 或者
+</span><span class="c1">// 1 one
+</span><span class="c1">// 0 zero
+</span><span class="c1"></span><span class="o">//</span> <span class="kd">map</span> <span class="nx">的输出是无序的</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="57-defer注册">57. defer注册</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">a</span> <span class="o">:=</span> <span class="mi">1</span>
+    <span class="nx">b</span> <span class="o">:=</span> <span class="mi">2</span>
+    <span class="k">defer</span> <span class="nf">calc</span><span class="p">(</span><span class="s">&#34;1&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nf">calc</span><span class="p">(</span><span class="s">&#34;10&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">))</span>
+    <span class="nx">a</span> <span class="p">=</span> <span class="mi">0</span>
+    <span class="k">defer</span> <span class="nf">calc</span><span class="p">(</span><span class="s">&#34;2&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nf">calc</span><span class="p">(</span><span class="s">&#34;20&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">))</span>
+    <span class="nx">b</span> <span class="p">=</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">calc</span><span class="p">(</span><span class="nx">index</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nx">ret</span> <span class="o">:=</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">ret</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nx">ret</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">a</span><span class="p">,</span><span class="nx">b都是值类型</span><span class="err">，</span><span class="nx">这题没有涉及指针传参</span><span class="err">，</span><span class="nx">所以函数都是值拷贝传入</span><span class="err">。</span><span class="nx">需要注意的是defer有个入参是calc</span><span class="p">(</span><span class="s">&#34;10&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span><span class="nx">和calc</span><span class="p">(</span><span class="s">&#34;20&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span><span class="nx">要提前计算好</span><span class="err">。</span>
+<span class="nx">所以defer1注册时为</span> <span class="nf">calc</span><span class="p">(</span><span class="s">&#34;1&#34;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="nx">defer2注册时为</span> <span class="nf">calc</span><span class="p">(</span><span class="s">&#34;2&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nx">所以输出为</span><span class="err">：</span>
+<span class="mi">10</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">20</span> <span class="mi">0</span> <span class="mi">2</span> <span class="mi">2</span>
+<span class="mi">2</span> <span class="mi">0</span> <span class="mi">2</span> <span class="mi">2</span>
+<span class="mi">1</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">4</span>
+
+<span class="c1">//参考答案及解析：
+</span><span class="c1"></span>
+<span class="c1">// 10 1 2 3
+</span><span class="c1">// 20 0 2 2
+</span><span class="c1">// 2 0 2 2
+</span><span class="c1">// 1 1 3 4
+</span><span class="c1">// 程序执行到 main() 函数三行代码的时候，会先执行 calc() 函数的 b 参数，即：calc(&#34;10&#34;,a,b)，输出：10 1 2 3，得到值 3，因为
+</span><span class="c1">// defer 定义的函数是延迟函数，故 calc(&#34;1&#34;,1,3) 会被延迟执行；
+</span><span class="c1"></span>
+<span class="c1">// 程序执行到第五行的时候，同样先执行 calc(&#34;20&#34;,a,b) 输出：20 0 2 2 得到值 2，同样将 calc(&#34;2&#34;,0,2) 延迟执行；
+</span><span class="c1"></span>
+<span class="o">//</span> <span class="nx">程序执行到末尾的时候</span><span class="err">，</span><span class="nx">按照栈先进后出的方式依次执行</span><span class="err">：</span><span class="nf">calc</span><span class="p">(</span><span class="s">&#34;2&#34;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="err">，</span><span class="nf">calc</span><span class="p">(</span><span class="s">&#34;1&#34;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="err">，</span><span class="nx">则就依次输出</span><span class="err">：</span><span class="mi">2</span> <span class="mi">0</span> <span class="mi">2</span> <span class="mi">2</span><span class="err">，</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">4</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="58-内置类型不能增加方法">58. 内置类型不能增加方法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span><span class="nx">为什么</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="nf">PrintInt</span> <span class="p">()</span>  <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">i</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">1</span>
+    <span class="nx">i</span><span class="p">.</span><span class="nf">PrintInt</span><span class="p">()</span>
+<span class="p">}</span>
+<span class="nx">A</span><span class="p">.</span> <span class="mi">1</span>
+<span class="nx">B</span><span class="p">.</span> <span class="nx">compilation</span> <span class="kt">error</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">B</span><span class="err">。</span> <span class="nx">不能对内置类型添加方法</span><span class="err">，</span><span class="nx">如需添加方法</span><span class="err">，</span><span class="nx">需要先对内置类型声明别名</span>
+
+<span class="c1">//参考答案及解析：B。基于类型创建的方法必须定义在同一个包内，上面的代码基于 int 类型创建了 PrintInt() 方法，由于 int 类型和方法 PrintInt() 定义在不同的包内，所以编译出错。
+</span><span class="c1">//
+</span><span class="c1">//解决的办法可以定义一种新的类型：
+</span><span class="c1">//
+</span><span class="c1">// type Myint int
+</span><span class="c1">//
+</span><span class="c1">// func (i Myint) PrintInt ()  {
+</span><span class="c1">//     fmt.Println(i)
+</span><span class="c1">// }
+</span><span class="c1">//
+</span><span class="c1">// func main() {
+</span><span class="c1">//     var i Myint = 1
+</span><span class="c1">//     i.PrintInt()
+</span><span class="c1"></span><span class="o">//</span> <span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="59-值不能调用指针方法">59. 值不能调用指针方法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span><span class="nx">为什么</span><span class="err">？</span>
+
+<span class="kd">type</span> <span class="nx">People</span> <span class="kd">interface</span> <span class="p">{</span>
+    <span class="nf">Speak</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span> <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Student</span> <span class="kd">struct</span><span class="p">{}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">stu</span> <span class="o">*</span><span class="nx">Student</span><span class="p">)</span> <span class="nf">Speak</span><span class="p">(</span><span class="nx">think</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">talk</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">think</span> <span class="o">==</span> <span class="s">&#34;speak&#34;</span> <span class="p">{</span>
+        <span class="nx">talk</span> <span class="p">=</span> <span class="s">&#34;speak&#34;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">talk</span> <span class="p">=</span> <span class="s">&#34;hi&#34;</span>
+    <span class="p">}</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">peo</span> <span class="nx">People</span> <span class="p">=</span> <span class="nx">Student</span><span class="p">{}</span>
+    <span class="nx">think</span> <span class="o">:=</span> <span class="s">&#34;speak&#34;</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">peo</span><span class="p">.</span><span class="nf">Speak</span><span class="p">(</span><span class="nx">think</span><span class="p">))</span>
+<span class="p">}</span>
+<span class="nx">A</span><span class="p">.</span> <span class="nx">speak</span>
+<span class="nx">B</span><span class="p">.</span> <span class="nx">compilation</span> <span class="kt">error</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">B</span><span class="err">。</span><span class="nx">实现方法的是指针</span><span class="err">，</span><span class="nx">却使用结构体</span><span class="err">（</span><span class="nx">值</span><span class="err">）</span><span class="nx">去调用方法</span><span class="err">。（</span><span class="nx">指针能调值方法</span><span class="err">，</span><span class="nx">能调指针方法</span><span class="err">；</span> <span class="nx">值能调值方法</span><span class="err">，</span><span class="nx">但不能调指针方法</span><span class="err">）</span>
+
+<span class="o">//</span><span class="nx">参考答案及解析</span><span class="err">：</span><span class="nx">B</span><span class="err">。</span><span class="nx">编译错误</span> <span class="nx">Student</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">implement</span> <span class="nf">People</span> <span class="p">(</span><span class="nx">Speak</span> <span class="nx">method</span> <span class="nx">has</span> <span class="nx">pointer</span> <span class="nx">receiver</span><span class="p">)</span><span class="err">，</span><span class="nx">值类型</span> <span class="nx">Student</span> <span class="nx">没有实现接口的</span> <span class="nf">Speak</span><span class="p">()</span> <span class="nx">方法</span><span class="err">，</span><span class="nx">而是指针类型</span> <span class="o">*</span><span class="nx">Student</span> <span class="nx">实现该方法</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="60-iota的用法">60. iota的用法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="kd">const</span> <span class="p">(</span>
+    <span class="nx">a</span> <span class="p">=</span> <span class="kc">iota</span>
+    <span class="nx">b</span> <span class="p">=</span> <span class="kc">iota</span>
+<span class="p">)</span>
+<span class="kd">const</span> <span class="p">(</span>
+    <span class="nx">name</span> <span class="p">=</span> <span class="s">&#34;name&#34;</span>
+    <span class="nx">c</span>    <span class="p">=</span> <span class="kc">iota</span>
+    <span class="nx">d</span>    <span class="p">=</span> <span class="kc">iota</span>
+<span class="p">)</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="mi">0</span>
+<span class="mi">1</span>
+<span class="mi">0</span>
+<span class="mi">1</span>
+
+<span class="c1">//参考答案及解析：0 1 1 2。知识点：iota 的用法。
+</span><span class="c1"></span>
+<span class="c1">// iota 是 golang 语言的常量计数器，只能在常量的表达式中使用。
+</span><span class="c1"></span>
+<span class="c1">// iota 在 const 关键字出现时将被重置为0，const中每新增一行常量声明将使 iota 计数一次。
+</span><span class="c1"></span>
+<span class="c1">// 推荐阅读：
+</span><span class="c1">// https://studygolang.com/articles/2192
+</span><span class="c1"></span>
+<span class="nx">反思</span><span class="err">：</span>
+<span class="nx">一个const组只要出现过1次iota</span><span class="err">，</span><span class="nx">其值就是从第一行开始递增的</span><span class="err">！</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="61-接口nil值">61. 接口nil值</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span><span class="nx">为什么</span><span class="err">？</span>
+
+<span class="kd">type</span> <span class="nx">People</span> <span class="kd">interface</span> <span class="p">{</span>
+    <span class="nf">Show</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Student</span> <span class="kd">struct</span><span class="p">{}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">stu</span> <span class="o">*</span><span class="nx">Student</span><span class="p">)</span> <span class="nf">Show</span><span class="p">()</span> <span class="p">{</span>
+
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">s</span> <span class="o">*</span><span class="nx">Student</span>
+    <span class="k">if</span> <span class="nx">s</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;s is nil&#34;</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;s is not nil&#34;</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">p</span> <span class="nx">People</span> <span class="p">=</span> <span class="nx">s</span>
+    <span class="k">if</span> <span class="nx">p</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;p is nil&#34;</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;p is not nil&#34;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">s</span> <span class="nx">is</span> <span class="kc">nil</span>
+<span class="nx">p</span> <span class="nx">is</span> <span class="nx">not</span> <span class="kc">nil</span>
+<span class="nx">指针类型声明时为nil</span><span class="p">;</span> <span class="nx">接口值只有当其动态类型和动态类型值均为nil时才为nil</span>
+
+<span class="o">//</span><span class="nx">参考答案及解析</span><span class="err">：</span><span class="nx">s</span> <span class="nx">is</span> <span class="kc">nil</span> <span class="nx">和</span> <span class="nx">p</span> <span class="nx">is</span> <span class="nx">not</span> <span class="kc">nil</span><span class="err">。</span><span class="nx">这道题会不会有点诧异</span><span class="err">，</span><span class="nx">我们分配给变量</span> <span class="nx">p</span> <span class="nx">的值明明是</span> <span class="kc">nil</span><span class="err">，</span><span class="nx">然而</span> <span class="nx">p</span> <span class="nx">却不是</span> <span class="kc">nil</span><span class="err">。</span><span class="nx">记住一点</span><span class="err">，</span><span class="nx">当且仅当动态值和动态类型都为</span> <span class="kc">nil</span> <span class="nx">时</span><span class="err">，</span><span class="nx">接口类型值才为</span> <span class="kc">nil</span><span class="err">。</span><span class="nx">上面的代码</span><span class="err">，</span><span class="nx">给变量</span> <span class="nx">p</span> <span class="nx">赋值之后</span><span class="err">，</span><span class="nx">p</span> <span class="nx">的动态值是</span> <span class="kc">nil</span><span class="err">，</span><span class="nx">但是动态类型却是</span> <span class="o">*</span><span class="nx">Student</span><span class="err">，</span><span class="nx">是一个</span> <span class="kc">nil</span> <span class="nx">指针</span><span class="err">，</span><span class="nx">所以相等条件不成立</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="62-stringer接口">62. stringer接口</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="kd">type</span> <span class="nx">Direction</span> <span class="kt">int</span>
+
+<span class="kd">const</span> <span class="p">(</span>
+    <span class="nx">North</span> <span class="nx">Direction</span> <span class="p">=</span> <span class="kc">iota</span>
+    <span class="nx">East</span>
+    <span class="nx">South</span>
+    <span class="nx">West</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">d</span> <span class="nx">Direction</span><span class="p">)</span> <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;North&#34;</span><span class="p">,</span> <span class="s">&#34;East&#34;</span><span class="p">,</span> <span class="s">&#34;South&#34;</span><span class="p">,</span> <span class="s">&#34;West&#34;</span><span class="p">}[</span><span class="nx">d</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">South</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">South</span>
+<span class="nx">fmt的Println等等输出打印方法会对于实现了stringer接口的类型</span><span class="err">，</span><span class="nx">会调用其String方法来打印</span><span class="err">，</span><span class="nx">而不是打印其值</span>
+<span class="nx">所以这里fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">South</span><span class="p">)</span><span class="nx">打印的是</span> <span class="nx">South</span><span class="p">.</span><span class="nf">String</span><span class="p">()</span><span class="nx">的返回值</span><span class="err">，</span><span class="nx">其返回值是内部那个数组的下表为south</span><span class="p">=</span><span class="mi">2</span><span class="nx">的那一项</span><span class="err">，</span><span class="nx">也就是</span><span class="s">&#34;South&#34;</span>
+
+<span class="c1">//参考答案及解析：South。知识点：iota 的用法、类型的 String() 方法。
+</span><span class="c1"></span>
+<span class="o">//</span><span class="nx">根据</span> <span class="kc">iota</span> <span class="nx">的用法推断出</span> <span class="nx">South</span> <span class="nx">的值是</span> <span class="mi">2</span><span class="err">；</span><span class="nx">另外</span><span class="err">，</span><span class="nx">如果类型定义了</span> <span class="nf">String</span><span class="p">()</span> <span class="nx">方法</span><span class="err">，</span><span class="nx">当使用</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">()</span><span class="err">、</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">()</span> <span class="nx">和</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">()</span> <span class="nx">会自动使用</span> <span class="nf">String</span><span class="p">()</span> <span class="nx">方法</span><span class="err">，</span><span class="nx">实现字符串的打印</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="63-map内value不可寻址">63. map内value不可寻址</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面代码输出什么</span><span class="err">？</span>
+
+<span class="kd">type</span> <span class="nx">Math</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">m</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">Math</span><span class="p">{</span>
+    <span class="s">&#34;foo&#34;</span><span class="p">:</span> <span class="nx">Math</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">m</span><span class="p">[</span><span class="s">&#34;foo&#34;</span><span class="p">].</span><span class="nx">x</span> <span class="p">=</span> <span class="mi">4</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">m</span><span class="p">[</span><span class="s">&#34;foo&#34;</span><span class="p">].</span><span class="nx">x</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">A</span><span class="p">.</span> <span class="mi">4</span>
+<span class="nx">B</span><span class="p">.</span> <span class="nx">compilation</span> <span class="kt">error</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">不太确定</span><span class="err">，</span><span class="nx">B</span><span class="err">。</span> <span class="nx">map获取到的v似乎是不可寻址的</span><span class="err">，</span><span class="nx">也就不可以对其进行重赋值</span><span class="err">，</span><span class="nx">也就是m</span><span class="p">[</span><span class="s">&#34;foo&#34;</span><span class="p">].</span><span class="nx">x</span><span class="p">=</span><span class="mi">4</span><span class="nx">报错</span>
+
+<span class="c1">//参考答案及解析：B，编译报错 cannot assign to struct field m[&#34;foo&#34;].x in map。错误原因：对于类似 X = Y的赋值操作，必须知道 X 的地址，才能够将 Y 的值赋给 X，但 go 中的 map 的 value 本身是不可寻址的。
+</span><span class="c1"></span>
+<span class="nx">有两个解决办法</span><span class="err">：</span>
+
+<span class="mf">1.</span><span class="nx">使用临时变量</span>
+
+<span class="kd">type</span> <span class="nx">Math</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">m</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">Math</span><span class="p">{</span>
+    <span class="s">&#34;foo&#34;</span><span class="p">:</span> <span class="nx">Math</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">tmp</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">[</span><span class="s">&#34;foo&#34;</span><span class="p">]</span>
+    <span class="nx">tmp</span><span class="p">.</span><span class="nx">x</span> <span class="p">=</span> <span class="mi">4</span>
+    <span class="nx">m</span><span class="p">[</span><span class="s">&#34;foo&#34;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">tmp</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">m</span><span class="p">[</span><span class="s">&#34;foo&#34;</span><span class="p">].</span><span class="nx">x</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="mf">2.</span><span class="nx">修改数据结构</span>
+
+<span class="kd">type</span> <span class="nx">Math</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">m</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="nx">Math</span><span class="p">{</span>
+    <span class="s">&#34;foo&#34;</span><span class="p">:</span> <span class="o">&amp;</span><span class="nx">Math</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">m</span><span class="p">[</span><span class="s">&#34;foo&#34;</span><span class="p">].</span><span class="nx">x</span> <span class="p">=</span> <span class="mi">4</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">m</span><span class="p">[</span><span class="s">&#34;foo&#34;</span><span class="p">].</span><span class="nx">x</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%#v&#34;</span><span class="p">,</span> <span class="nx">m</span><span class="p">[</span><span class="s">&#34;foo&#34;</span><span class="p">])</span>   <span class="c1">// %#v 格式化输出详细信息
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="64-不同长度数组不可比较">64. 不同长度数组不可比较</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面的代码有什么问题</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">([</span><span class="o">...</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="o">==</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">})</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">([]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="o">==</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">})</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">编译错误</span><span class="err">。</span><span class="nx">两个都不能比较</span><span class="err">，</span><span class="nx">一个是</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">int和</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="nx">int属于不同类型不能比较</span><span class="err">，</span><span class="nx">另一个是</span><span class="p">[]</span><span class="nx">int本身就不可比较</span>
+
+<span class="c1">//参考答案及解析：有两处错误
+</span><span class="c1"></span>
+<span class="c1">// go 中不同类型是不能比较的，而数组长度是数组类型的一部分，所以 […]int{1} 和 [2]int{1} 是两种不同的类型，不能比较；
+</span><span class="c1"></span><span class="o">//</span> <span class="nx">切片是不能比较的</span><span class="err">；</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="65-变量作用域">65*. 变量作用域</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">一道很有代表性的题目</span><span class="err">，</span><span class="nx">很多老司机都因此翻车</span><span class="err">！</span>
+
+<span class="nx">下面这段代码输出什么</span><span class="err">？</span><span class="nx">如果编译错误的话</span><span class="err">，</span><span class="nx">为什么</span><span class="err">？</span>
+
+<span class="kd">var</span> <span class="nx">p</span> <span class="o">*</span><span class="kt">int</span>
+
+<span class="kd">func</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">(</span><span class="o">*</span><span class="kt">int</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">i</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">5</span>
+    <span class="k">return</span> <span class="o">&amp;</span><span class="nx">i</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">//use p
+</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">*</span><span class="nx">p</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">p</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">foo</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+    <span class="nf">bar</span><span class="p">()</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">*</span><span class="nx">p</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">A</span><span class="p">.</span> <span class="mi">5</span> <span class="mi">5</span>
+<span class="nx">B</span><span class="p">.</span> <span class="nx">runtime</span> <span class="kt">error</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">不确定</span><span class="err">，</span><span class="nx">怎么看都像是A选项</span><span class="err">。</span><span class="nx">既然题目都说老司机也翻车</span><span class="err">，</span><span class="nx">那估计是B了</span><span class="err">，</span><span class="nx">不知道为什么</span>
+
+<span class="c1">//参考答案及解析：B。知识点：变量作用域。问题出在操作符:=，对于使用:=定义的变量，如果新变量与同名已定义的变量不在同一个作用域中，那么 Go 会新定义这个变量。对于本例来说，main() 函数里的 p 是新定义的变量，会遮住全局变量 p，导致执行到bar()时程序，全局变量 p 依然还是 nil，程序随即 Crash。
+</span><span class="c1"></span>
+<span class="nx">正确的做法是将</span> <span class="nf">main</span><span class="p">()</span> <span class="nx">函数修改为</span><span class="err">：</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">err</span> <span class="kt">error</span>
+    <span class="nx">p</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nf">foo</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+    <span class="nf">bar</span><span class="p">()</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">*</span><span class="nx">p</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">这道题目引自</span> <span class="nx">Tony</span> <span class="nx">Bai</span> <span class="nx">老师的一篇文章</span><span class="err">，</span><span class="nx">原文讲的很详细</span><span class="err">，</span><span class="nx">推荐</span><span class="err">。</span>
+<span class="nx">https</span><span class="p">:</span><span class="o">//</span><span class="nx">tonybai</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="mi">2015</span><span class="o">/</span><span class="mo">01</span><span class="o">/</span><span class="mi">13</span><span class="o">/</span><span class="nx">a</span><span class="o">-</span><span class="nx">hole</span><span class="o">-</span><span class="nx">about</span><span class="o">-</span><span class="nx">variable</span><span class="o">-</span><span class="nx">scope</span><span class="o">-</span><span class="nx">in</span><span class="o">-</span><span class="nx">golang</span><span class="o">/</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="66-for-range遍历切片">66*. for-range遍历切片</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码能否正常结束</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">v</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">v</span> <span class="p">{</span>
+        <span class="nx">v</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">v</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="nx">无限循环</span><span class="err">，</span><span class="nx">退不出来</span>
+
+<span class="c1">//参考答案及解析：不会出现死循环，能正常结束。
+</span><span class="c1"></span><span class="nx">循环次数在循环开始前就已经确定</span><span class="err">，</span><span class="nx">循环内改变切片的长度</span><span class="err">，</span><span class="nx">不影响循环次数</span><span class="err">。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="67-for-range遍历重用变量">67. for-range遍历重用变量</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span><span class="nx">为什么</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">m</span> <span class="p">=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+
+    <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">m</span> <span class="p">{</span>
+        <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+        <span class="p">}()</span>
+    <span class="p">}</span>
+
+    <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">2</span> <span class="mi">3</span>
+
+<span class="c1">//参考答案及解析：
+</span><span class="c1"></span>
+<span class="c1">// 2 3
+</span><span class="c1">// 2 3
+</span><span class="c1">// 2 3
+</span><span class="c1"></span>
+<span class="c1">// 这道题其实应该说明 runtime.GOMAXPROCS(1) 单核运行。多核的话结果就不确定了
+</span><span class="c1"></span><span class="k">for</span> <span class="k">range</span> <span class="nx">使用短变量声明</span><span class="p">(</span><span class="o">:=</span><span class="p">)</span><span class="nx">的形式迭代变量</span><span class="err">，</span><span class="nx">需要注意的是</span><span class="err">，</span><span class="nx">变量</span> <span class="nx">i</span><span class="err">、</span><span class="nx">v</span> <span class="nx">在每次循环体中都会被重用</span><span class="err">，</span><span class="nx">而不是重新声明</span><span class="err">。</span>
+
+<span class="nx">各个</span> <span class="nx">goroutine</span> <span class="nx">中输出的</span> <span class="nx">i</span><span class="err">、</span><span class="nx">v</span> <span class="nx">值都是</span> <span class="k">for</span> <span class="k">range</span> <span class="nx">循环结束后的</span> <span class="nx">i</span><span class="err">、</span><span class="nx">v</span> <span class="nx">最终值</span><span class="err">，</span><span class="nx">而不是各个goroutine启动时的i</span><span class="p">,</span> <span class="nx">v值</span><span class="err">。</span><span class="nx">可以理解为闭包引用</span><span class="err">，</span><span class="nx">使用的是上下文环境的值</span><span class="err">。</span>
+
+<span class="nx">两种可行的</span> <span class="nx">fix</span> <span class="nx">方法</span><span class="p">:</span>
+
+<span class="mf">1.</span><span class="nx">使用函数传递</span>
+
+<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">m</span> <span class="p">{</span>
+    <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">v</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+    <span class="p">}(</span><span class="nx">i</span><span class="p">,</span><span class="nx">v</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="mf">2.</span><span class="nx">使用临时变量保留当前值</span>
+
+<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">m</span> <span class="p">{</span>
+    <span class="nx">i</span> <span class="o">:=</span> <span class="nx">i</span>           <span class="c1">// 这里的 := 会重新声明变量，而不是重用
+</span><span class="c1"></span>    <span class="nx">v</span> <span class="o">:=</span> <span class="nx">v</span>
+    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+    <span class="p">}()</span>
+<span class="p">}</span>
+<span class="nx">引自</span><span class="err">：</span><span class="nx">https</span><span class="p">:</span><span class="o">//</span><span class="nx">tonybai</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="mi">2015</span><span class="o">/</span><span class="mi">09</span><span class="o">/</span><span class="mi">17</span><span class="o">/</span><span class="mi">7</span><span class="o">-</span><span class="nx">things</span><span class="o">-</span><span class="nx">you</span><span class="o">-</span><span class="nx">may</span><span class="o">-</span><span class="nx">not</span><span class="o">-</span><span class="nx">pay</span><span class="o">-</span><span class="nx">attation</span><span class="o">-</span><span class="nx">to</span><span class="o">-</span><span class="nx">in</span><span class="o">-</span><span class="k">go</span><span class="o">/</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="68-defer机制">68. defer机制</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">f</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">r</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">r</span> <span class="o">+=</span> <span class="nx">n</span>
+        <span class="nb">recover</span><span class="p">()</span>
+    <span class="p">}()</span>
+
+    <span class="kd">var</span> <span class="nx">f</span> <span class="kd">func</span><span class="p">()</span>
+
+    <span class="k">defer</span> <span class="nf">f</span><span class="p">()</span>
+    <span class="nx">f</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">r</span> <span class="o">+=</span> <span class="mi">2</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">n</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">f</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="mf">9.</span> <span class="nx">两个defer</span><span class="err">，</span><span class="nx">第一个defer注册的时候有用</span><span class="err">，</span><span class="nx">再return之前会调用它使r</span> <span class="p">=</span> <span class="nx">r</span> <span class="o">+</span> <span class="nx">n</span><span class="err">；</span>
+<span class="nx">第二个defer由于注册时的f</span><span class="p">()</span><span class="nx">是函数指针调用的f</span><span class="p">()</span><span class="err">，</span><span class="nx">紧接着给f赋值为匿名函数</span><span class="err">，</span><span class="nx">所以这个也有用</span>
+<span class="nx">最后return</span> <span class="nx">n</span><span class="o">+</span><span class="mi">1</span> <span class="nx">应该拆解为两步</span><span class="err">：</span> <span class="nx">r</span> <span class="p">=</span> <span class="nx">n</span><span class="o">+</span><span class="mi">1</span> <span class="p">;</span> <span class="k">return</span> <span class="nx">r</span>
+<span class="nx">所以</span> <span class="nx">r</span> <span class="nx">的变化流程是</span><span class="err">：</span> <span class="nf">r</span><span class="p">(</span><span class="k">default</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-</span><span class="p">&gt;</span> <span class="nx">r</span><span class="p">=</span><span class="nx">n</span><span class="o">+</span><span class="mi">1</span><span class="p">=</span><span class="mi">4</span> <span class="o">-</span><span class="p">&gt;</span> <span class="nx">r</span><span class="o">+=</span><span class="mi">2</span> <span class="p">=</span> <span class="mi">6</span> <span class="o">-</span><span class="p">&gt;</span> <span class="nx">r</span><span class="o">+=</span><span class="nx">n</span> <span class="p">=</span><span class="mi">9</span>
+
+<span class="c1">// 实验结果是 7. 应该是 第二个defer无效的原因
+</span><span class="c1"></span>
+<span class="c1">// 参考答案及解析：7。根据 5 年 Gopher 都不知道的 defer 细节，你别再掉进坑里！ 提到的“三步拆解法”，第一步执行r = n +1，接着执行第二个 defer，由于此时 f() 未定义，引发异常，随即执行第一个 defer，异常被 recover()，程序正常执行，最后 return。
+</span><span class="c1"></span>
+<span class="o">//</span><span class="nx">此题引自知识星球</span><span class="err">《</span><span class="nx">Go项目实战</span><span class="err">》。</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="69-for-range副本">69. for-range副本</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="p">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">r</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span>
+
+    <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">a</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="nx">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">12</span>
+            <span class="nx">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="mi">13</span>
+        <span class="p">}</span>
+        <span class="nx">r</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">v</span>
+    <span class="p">}</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;r = &#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a = &#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+<span class="k">for</span><span class="o">-</span><span class="k">range</span> <span class="nx">切片应该也只是确定了遍历次数或者叫遍历范围</span><span class="err">，</span><span class="nx">底层实现应该还是基于下标索引</span><span class="err">。</span><span class="nx">对于遍历期间切片内部元素的变化应该是管不到的</span><span class="err">。</span>
+<span class="nx">所以第一次</span><span class="err">，</span><span class="nx">i</span><span class="p">=</span><span class="mi">0</span><span class="err">，</span><span class="nx">直接就使得</span> <span class="nx">a</span> <span class="p">=&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="nx">r</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="nx">a</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+
+<span class="c1">//参考答案及解析：
+</span><span class="c1"></span>
+<span class="nx">r</span> <span class="p">=</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">]</span>
+<span class="nx">a</span> <span class="p">=</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">]</span>
+<span class="k">range</span> <span class="nx">表达式是副本参与循环</span><span class="err">，</span><span class="nx">就是说例子中参与循环的是</span> <span class="nx">a</span> <span class="nx">的副本</span><span class="err">，</span><span class="nx">而不是真正的</span> <span class="nx">a</span><span class="err">。</span><span class="nx">就这个例子来说</span><span class="err">，</span><span class="nx">假设</span> <span class="nx">b</span> <span class="nx">是</span> <span class="nx">a</span> <span class="nx">的副本</span><span class="err">，</span><span class="nx">则</span> <span class="k">range</span> <span class="nx">循环代码是这样的</span><span class="err">：</span>
+
+<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">b</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="nx">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">12</span>
+        <span class="nx">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="mi">13</span>
+    <span class="p">}</span>
+    <span class="nx">r</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">v</span>
+<span class="p">}</span>
+<span class="nx">因此无论</span> <span class="nx">a</span> <span class="nx">被如何修改</span><span class="err">，</span><span class="nx">其副本</span> <span class="nx">b</span> <span class="nx">依旧保持原值</span><span class="err">，</span><span class="nx">并且参与循环的是</span> <span class="nx">b</span><span class="err">，</span><span class="nx">因此</span> <span class="nx">v</span> <span class="nx">从</span> <span class="nx">b</span> <span class="nx">中取出的仍旧是</span> <span class="nx">a</span> <span class="nx">的原值</span><span class="err">，</span><span class="nx">而非修改后的值</span><span class="err">。</span>
+
+<span class="nx">如果想要</span> <span class="nx">r</span> <span class="nx">和</span> <span class="nx">a</span> <span class="nx">一样输出</span><span class="err">，</span><span class="nx">修复办法</span><span class="err">：</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="p">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">r</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span>
+
+    <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="o">&amp;</span><span class="nx">a</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="nx">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">12</span>
+            <span class="nx">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="mi">13</span>
+        <span class="p">}</span>
+        <span class="nx">r</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">v</span>
+    <span class="p">}</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;r = &#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a = &#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">输出</span><span class="err">：</span>
+
+<span class="nx">r</span> <span class="p">=</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">]</span>
+<span class="nx">a</span> <span class="p">=</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">]</span>
+<span class="nx">修复代码中</span><span class="err">，</span><span class="nx">使用</span> <span class="o">*</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span> <span class="nx">作为</span> <span class="k">range</span> <span class="nx">表达式</span><span class="err">，</span><span class="nx">其副本依旧是一个指向原数组</span> <span class="nx">a</span> <span class="nx">的指针</span><span class="err">，</span><span class="nx">因此后续所有循环中均是</span> <span class="o">&amp;</span><span class="nx">a</span> <span class="nx">指向的原数组亲自参与的</span><span class="err">，</span><span class="nx">因此</span> <span class="nx">v</span> <span class="nx">能从</span> <span class="o">&amp;</span><span class="nx">a</span> <span class="nx">指向的原数组中取出</span> <span class="nx">a</span> <span class="nx">修改后的值</span><span class="err">。</span>
+
+<span class="nx">引自</span><span class="err">：</span><span class="nx">https</span><span class="p">:</span><span class="o">//</span><span class="nx">tonybai</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="mi">2015</span><span class="o">/</span><span class="mi">09</span><span class="o">/</span><span class="mi">17</span><span class="o">/</span><span class="mi">7</span><span class="o">-</span><span class="nx">things</span><span class="o">-</span><span class="nx">you</span><span class="o">-</span><span class="nx">may</span><span class="o">-</span><span class="nx">not</span><span class="o">-</span><span class="nx">pay</span><span class="o">-</span><span class="nx">attation</span><span class="o">-</span><span class="nx">to</span><span class="o">-</span><span class="nx">in</span><span class="o">-</span><span class="k">go</span><span class="o">/</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="70">70.</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">change</span><span class="p">(</span><span class="nx">s</span> <span class="o">...</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">s</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">slice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+    <span class="nx">slice</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span>
+    <span class="nx">slice</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">2</span>
+    <span class="nf">change</span><span class="p">(</span><span class="nx">slice</span><span class="o">...</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">slice</span><span class="p">)</span>
+    <span class="nf">change</span><span class="p">(</span><span class="nx">slice</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span><span class="o">...</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">slice</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+
+
+<span class="o">//</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="71">71.</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">下面这段代码输出什么</span><span class="err">？</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">r</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span>
+
+    <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">a</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="nx">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">12</span>
+            <span class="nx">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="mi">13</span>
+        <span class="p">}</span>
+        <span class="nx">r</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">v</span>
+    <span class="p">}</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;r = &#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a = &#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+
+
+<span class="o">//</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="72">72.</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">答案</span><span class="err">：</span>
+
+
+<span class="o">//</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>// 32</p>
 
     </div>
 
