@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-08-17T04:44:28&#43;08:00" />
 <meta itemprop="dateModified" content="2019-08-20T03:14:14-04:00" />
-<meta itemprop="wordCount" content="368">
+<meta itemprop="wordCount" content="503">
 
 
 
@@ -135,8 +135,8 @@
         <div class="post-category">
             <a href="/categories/linux/"> linux </a>
             </div>
-          <span class="more-meta"> 368 words </span>
-          <span class="more-meta"> 1 min read </span>
+          <span class="more-meta"> 503 words </span>
+          <span class="more-meta"> 2 mins read </span>
         
       </div>
     </header>
@@ -158,6 +158,7 @@
 <li><a href="#5-2-解除关联">5.2 解除关联</a></li>
 <li><a href="#5-3-拒绝合并不相关历史处理">5.3 拒绝合并不相关历史处理</a></li>
 </ul></li>
+<li><a href="#6-本地创建分支并关联远程分支">6. 本地创建分支并关联远程分支</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -241,6 +242,33 @@ $ git push -u origin master</code></pre></td></tr></table>
 </div>
 <p><img src="/images/TIM截图20190723214818.png" alt="20190723214818" /></p>
 
+<h2 id="6-本地创建分支并关联远程分支">6. 本地创建分支并关联远程分支</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 创建本地分支</span>
+git branch 分支名
+<span class="c1"># 切换到本地分支</span>
+git checkout 分支名
+<span class="c1"># 创建本地分支并切换</span>
+git checkout -b 分支名
+<span class="c1"># 提交本地分支到远程仓库</span>
+git push origin 本地分支名  <span class="c1"># 自动就创建了远程同名分支</span>
+<span class="c1"># 新建本地分支与远程分支相关联</span>
+git branch -set-upstream 本地新建分支名 origin/远程分支名</code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     <div class="post-copyright">
