@@ -6,10 +6,19 @@
     <description>Recent content in go on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 06 Nov 2019 09:33:59 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 19 Nov 2019 02:58:24 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/categories/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Go项目实战——基于ETCD的分布式任务调度</title>
+      <link>https://azd1997.github.io/post/go/project-scheduler/</link>
+      <pubDate>Tue, 19 Nov 2019 02:58:24 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/go/project-scheduler/</guid>
+      <description>系统架构 基础铺垫 os/exec包 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 // 1. 创建Command cmd := exec.Command(name string, args ...string) // 例如： cmd := exec.Command(&amp;#34;bash&amp;#34;, &amp;#34;-c&amp;#34;, &amp;#34;sleep 5s;ls -l&amp;#34;) // 2.（底层通过pi</description>
+    </item>
     
     <item>
       <title>Go语言猎奇</title>

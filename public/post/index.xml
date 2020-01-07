@@ -6,10 +6,37 @@
     <description>Recent content in Posts on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 12 Nov 2019 21:56:56 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 07 Jan 2020 08:36:32 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>计算机科学速成课全40集概要</title>
+      <link>https://azd1997.github.io/post/cs/ccss/</link>
+      <pubDate>Tue, 07 Jan 2020 08:36:32 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/cs/ccss/</guid>
+      <description>1. 计算机早期历史 2. 电子计算机 3. 布尔逻辑和逻辑门 4. 二进制 5. 算术逻辑单元</description>
+    </item>
+    
+    <item>
+      <title>MySQL安装使用全教程</title>
+      <link>https://azd1997.github.io/post/linux/mysql/</link>
+      <pubDate>Sun, 24 Nov 2019 21:00:38 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/linux/mysql/</guid>
+      <description>1. 安装 ubuntu下安装参考： https://www.jianshu.com/p/35e7af7db96a 1.1 安装过程无设置用户密码提示 如果安装过程没有设置密码，之后怎么登录mysql并设置自己的密码呢？ 参考：htt</description>
+    </item>
+    
+    <item>
+      <title>Go项目实战——基于ETCD的分布式任务调度</title>
+      <link>https://azd1997.github.io/post/go/project-scheduler/</link>
+      <pubDate>Tue, 19 Nov 2019 02:58:24 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/go/project-scheduler/</guid>
+      <description>系统架构 基础铺垫 os/exec包 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 // 1. 创建Command cmd := exec.Command(name string, args ...string) // 例如： cmd := exec.Command(&amp;#34;bash&amp;#34;, &amp;#34;-c&amp;#34;, &amp;#34;sleep 5s;ls -l&amp;#34;) // 2.（底层通过pi</description>
+    </item>
     
     <item>
       <title>Leetcode155——最小栈</title>
