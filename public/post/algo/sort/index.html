@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2020-02-23T19:01:46&#43;08:00" />
 <meta itemprop="dateModified" content="2020-02-23T19:01:46&#43;08:00" />
-<meta itemprop="wordCount" content="9247">
+<meta itemprop="wordCount" content="9295">
 
 
 
@@ -135,7 +135,7 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 9247 words </span>
+          <span class="more-meta"> 9295 words </span>
           <span class="more-meta"> 19 mins read </span>
         
       </div>
@@ -178,6 +178,7 @@
 </ul></li>
 <li><a href="#7-堆排序">7. 堆排序</a>
 <ul>
+<li><a href="#7-1-堆与优先队列">7.1 堆与优先队列</a></li>
 <li><a href="#7-1-练习">7.1 练习</a></li>
 </ul></li>
 <li><a href="#其他参考材料">其他参考材料</a></li>
@@ -1516,6 +1517,7 @@
 </span><span class="lnt">54
 </span><span class="lnt">55
 </span><span class="lnt">56
+</span><span class="lnt">57
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// NOTICE: 其余代码一致，只修改 _quick() 和 _partition()
@@ -1526,6 +1528,7 @@
 <span class="c1">// 区间较小时使用插入排序
 </span><span class="c1"></span><span class="k">if</span> <span class="nx">r</span> <span class="o">-</span> <span class="nx">l</span> <span class="o">&lt;=</span> <span class="mi">15</span> <span class="p">{</span>
     <span class="nf">_insertSort</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+    <span class="k">return</span>
 <span class="p">}</span>
 
 <span class="c1">//////////////////////////////////
@@ -1765,6 +1768,17 @@
 </ul>
 
 <h2 id="7-堆排序">7. 堆排序</h2>
+
+<h3 id="7-1-堆与优先队列">7.1 堆与优先队列</h3>
+
+<ul>
+<li>优先队列： 出队顺序与优先级相关，与入队顺序无关。
+
+<ul>
+<li>医院看病：急诊/普通</li>
+<li>CPU调度</li>
+</ul></li>
+</ul>
 
 <h3 id="7-1-练习">7.1 练习</h3>
 
