@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2020-02-23T19:01:46&#43;08:00" />
 <meta itemprop="dateModified" content="2020-02-23T19:01:46&#43;08:00" />
-<meta itemprop="wordCount" content="8547">
+<meta itemprop="wordCount" content="9247">
 
 
 
@@ -135,8 +135,8 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 8547 words </span>
-          <span class="more-meta"> 18 mins read </span>
+          <span class="more-meta"> 9247 words </span>
+          <span class="more-meta"> 19 mins read </span>
         
       </div>
     </header>
@@ -171,10 +171,14 @@
 <li><a href="#6-1-普通快排">6.1 普通快排</a></li>
 <li><a href="#6-2-随机化快排-插入排序优化">6.2 随机化快排 + 插入排序优化</a></li>
 <li><a href="#6-3-双路快排-重复元素测例下的分区平衡优化">6.3 双路快排 (重复元素测例下的分区平衡优化)</a></li>
-<li><a href="#6-4-三路快排-重复元素测例下缩减小排序空间的优化">6.4 三路快排 (重复元素测例下缩减小排序空间的优化)</a></li>
+<li><a href="#6-4-三路快排-重复元素测例下缩减待排序空间的优化">6.4 三路快排 (重复元素测例下缩减待排序空间的优化)</a></li>
 <li><a href="#6-5-性能指标">6.5 性能指标</a></li>
 <li><a href="#6-6-分治思想">6.6 分治思想</a></li>
-<li><a href="#2-3-堆排序">2.3 堆排序</a></li>
+<li><a href="#6-7-练习">6.7 练习</a></li>
+</ul></li>
+<li><a href="#7-堆排序">7. 堆排序</a>
+<ul>
+<li><a href="#7-1-练习">7.1 练习</a></li>
 </ul></li>
 <li><a href="#其他参考材料">其他参考材料</a></li>
 </ul></li>
@@ -1423,7 +1427,7 @@
 </ul></li>
 </ul>
 
-<h3 id="6-4-三路快排-重复元素测例下缩减小排序空间的优化">6.4 三路快排 (重复元素测例下缩减小排序空间的优化)</h3>
+<h3 id="6-4-三路快排-重复元素测例下缩减待排序空间的优化">6.4 三路快排 (重复元素测例下缩减待排序空间的优化)</h3>
 
 <ul>
 <li>思路
@@ -1450,7 +1454,7 @@
 <li>若$nums[i] = base$， 则 $i$ 右移</li>
 <li>最终 $i = gt$ 停止</li>
 </ol></li>
-<li>交换 $nums[i]$ 与 $nums[lt]$。当前轮 $partition$ 结束。 $p1 = lt, p2 = gt-1$</li>
+<li>交换 $nums[l]$ 与 $nums[lt]$。当前轮 $partition$ 结束。 $p1 = lt, p2 = gt-1$</li>
 </ol></li>
 
 <li><p>实现</p>
@@ -1594,7 +1598,7 @@
 <tbody>
 <tr>
 <td align="center">$O(nlogn)$</td>
-<td align="center">$O(nlogn)$</td>
+<td align="center">$O(n^2)$</td>
 <td align="center">$O(n^2)$</td>
 <td align="center">$O(1)$</td>
 <td align="center">不稳定</td>
@@ -1616,7 +1620,157 @@
 </ul></li>
 </ul>
 
-<h3 id="2-3-堆排序">2.3 堆排序</h3>
+<h3 id="6-7-练习">6.7 练习</h3>
+
+<ul>
+<li><p><a href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array/">数组中的第k大元素</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">在未排序的数组中找到第 k 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
+
+示例 1:
+
+输入: [3,2,1,5,6,4] 和 k = 2
+输出: 5
+示例 2:
+
+输入: [3,2,3,1,2,4,5,5,6] 和 k = 4
+输出: 4
+说明:
+
+你可以假设 k 总是有效的，且 1 ≤ k ≤ 数组的长度。</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>解答</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 常规解法：
+</span><span class="c1">// 1. 排序后倒序遍历k   O(nlogn)/O(1) 快排  O(nlogn)/O(n) 归并 O(nlogk)/O(k) 堆排序
+</span><span class="c1">// 2. 二分查找: 先求数组最大值max和最小值min，取数值mid，看数组中比mid大的数有多少，若大于k则说明mid过小，将值区间缩小为[mid,max]继续二分 O(nlogn)/O(1)
+</span><span class="c1">// 3. 最优解：利用快速排序，快速排序的核心是每一次partition都将选取的基数放置到了最终位置上。利用这个选出的基数最终放置的位置与k的关系，可以缩减排序区间，实现 O(n)/O(1)的解法
+</span><span class="c1">// 解题时直接使用普通随机化快排，就不使用三路快排了。
+</span><span class="c1"></span>
+<span class="c1">// 普通快排 + 缩减排序空间
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">findKthLargest</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">k</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">n</span> <span class="p">&lt;</span> <span class="nx">k</span> <span class="p">{</span><span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span>
+
+<span class="k">return</span> <span class="nf">_quick</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+<span class="k">if</span> <span class="nx">l</span> <span class="o">==</span> <span class="nx">r</span> <span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]}</span>   <span class="c1">// 区间只剩一个元素，只可能是这个了
+</span><span class="c1"></span>
+<span class="nx">p</span> <span class="o">:=</span> <span class="nf">_partition</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+
+<span class="c1">// 必然会遇到第k大元素，遇到了就没必要继续递归下去了
+</span><span class="c1"></span><span class="k">if</span> <span class="nx">p</span> <span class="o">==</span> <span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="nx">k</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="p">]}</span>
+
+<span class="c1">// 否则向靠近n-k侧递归
+</span><span class="c1"></span><span class="k">if</span> <span class="nx">p</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="o">-</span><span class="nx">k</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>    <span class="c1">// &gt; n-k
+</span><span class="c1"></span>    <span class="k">return</span> <span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kd">func</span> <span class="nf">_partition</span><span class="p">(</span><span class="nx">nums</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+<span class="c1">// 随机选取基数
+</span><span class="c1"></span><span class="nx">randIdx</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="nx">r</span><span class="o">-</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nx">l</span>
+<span class="c1">// 交换到最左边
+</span><span class="c1"></span><span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">randIdx</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">randIdx</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span>
+
+<span class="nx">p</span> <span class="o">:=</span> <span class="nx">l</span>    <span class="c1">// p记录Less与Right交界，p为Less右端点，包含在内
+</span><span class="c1">// 向右遍历
+</span><span class="c1"></span><span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;=</span><span class="nx">r</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span> <span class="p">&lt;</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">{</span>
+        <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span>
+        <span class="nx">p</span><span class="o">++</span> <span class="c1">// p后移
+</span><span class="c1"></span>    <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// 交换基数与Less末位，交换后p为基数所在
+</span><span class="c1"></span><span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span>
+<span class="k">return</span> <span class="nx">p</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="7-堆排序">7. 堆排序</h2>
+
+<h3 id="7-1-练习">7.1 练习</h3>
+
+<ul>
+<li>练习一： <a href="https://leetcode-cn.com/problems/kth-largest-element-in-a-stream/">数据流中的第k大元素</a></li>
+</ul>
 
 <h2 id="其他参考材料">其他参考材料</h2>
 
