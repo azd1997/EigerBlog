@@ -6,10 +6,19 @@
     <description>Recent content in 链表 on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 08 Nov 2019 08:33:08 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 28 Feb 2020 09:00:07 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/tags/%E9%93%BE%E8%A1%A8/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>链表常见操作整理</title>
+      <link>https://azd1997.github.io/post/algo/linkedlist/</link>
+      <pubDate>Fri, 28 Feb 2020 09:00:07 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/linkedlist/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Leetcode21——合并两个有序链表</title>
