@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>链表 on Eiger - A young gopher</title>
@@ -26,7 +26,7 @@
       <pubDate>Fri, 08 Nov 2019 08:33:08 +0800</pubDate>
       
       <guid>https://azd1997.github.io/post/algo/lt21/</guid>
-      <description>解法二超越100%golang提交 题意 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例： 1 2</description>
+      <description>解法二超越100%golang提交 题意 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例： 输入</description>
     </item>
     
   </channel>

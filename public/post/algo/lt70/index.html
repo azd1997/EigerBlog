@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/algo/lt70/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2019-11-09T22:47:11+08:00" />
 <meta itemprop="name" content="Leetcode70——爬楼梯">
 <meta itemprop="description" content="题意 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？ 注意：给定 n 是一个正整数。 示例 1">
-
-
 <meta itemprop="datePublished" content="2019-11-09T22:47:11&#43;08:00" />
 <meta itemprop="dateModified" content="2019-11-09T22:47:11&#43;08:00" />
-<meta itemprop="wordCount" content="2136">
+<meta itemprop="wordCount" content="2125">
 
 
 
-<meta itemprop="keywords" content="leetcode," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="leetcode," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Leetcode70——爬楼梯"/>
 <meta name="twitter:description" content="题意 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？ 注意：给定 n 是一个正整数。 示例 1"/>
 
@@ -135,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 2136 words </span>
+          <span class="more-meta"> 2125 words </span>
           <span class="more-meta"> 5 mins read </span>
         
       </div>
@@ -145,75 +142,44 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#题意">题意</a></li>
-<li><a href="#实现">实现</a></li>
-<li><a href="#参考题解">参考题解</a></li>
-<li><a href="#总结与反思">总结与反思</a></li>
-<li><a href="#链接">链接</a></li>
-<li><a href="#链接-1">链接</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#题意">题意</a></li>
+    <li><a href="#实现">实现</a></li>
+    <li><a href="#参考题解">参考题解</a></li>
+    <li><a href="#总结与反思">总结与反思</a></li>
+    <li><a href="#链接">链接</a></li>
+    <li><a href="#链接-1">链接</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h2 id="题意">题意</h2>
-
+      <h2 id="题意">题意</h2>
 <p>假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
-
 <p>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p>
-
 <p>注意：给定 n 是一个正整数。</p>
-
 <p>示例 1：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入： 2
+<pre><code>输入： 2
 输出： 2
 解释： 有两种方法可以爬到楼顶。
 1.  1 阶 + 1 阶
-2.  2 阶</pre></td></tr></table>
-</div>
-</div>
+2.  2 阶
+</code></pre>
 <p>示例 2：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入： 3
+<pre><code>输入： 3
 输出： 3
 解释： 有三种方法可以爬到楼顶。
 1.  1 阶 + 1 阶 + 1 阶
 2.  1 阶 + 2 阶
-3.  2 阶 + 1 阶</pre></td></tr></table>
-</div>
-</div>
+3.  2 阶 + 1 阶
+</code></pre>
 <p>来源：力扣（LeetCode）
-链接：<a href="https://leetcode-cn.com/problems/climbing-stairs">https://leetcode-cn.com/problems/climbing-stairs</a>
+链接：https://leetcode-cn.com/problems/climbing-stairs
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-
 <h2 id="实现">实现</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">  1
+<pre class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -564,25 +530,18 @@
 	<span class="nx">sqrt5</span> <span class="o">:=</span> <span class="nx">math</span><span class="p">.</span><span class="nf">Sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 	<span class="nx">fibn</span> <span class="o">:=</span> <span class="nx">math</span><span class="p">.</span><span class="nf">Pow</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="nx">sqrt5</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="nb">float64</span><span class="p">(</span><span class="nx">n</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="o">-</span> <span class="nx">math</span><span class="p">.</span><span class="nf">Pow</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="nx">sqrt5</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="nb">float64</span><span class="p">(</span><span class="nx">n</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
 	<span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="nx">fibn</span><span class="o">/</span><span class="nx">sqrt5</span><span class="p">)</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="参考题解">参考题解</h2>
-
+</div><h2 id="参考题解">参考题解</h2>
 <ul>
 <li><a href="https://leetcode-cn.com/problems/climbing-stairs/solution/pa-lou-ti-by-leetcode/">https://leetcode-cn.com/problems/climbing-stairs/solution/pa-lou-ti-by-leetcode/</a></li>
 </ul>
-
 <h2 id="总结与反思">总结与反思</h2>
-
 <p>对于工程师来说，最有意义的方法就是借助缓存优化递归（Sol_1_3）和借助动态规划思想的方法（Sol_1_4， Sol_1_5）。</p>
-
 <p>Binets解法太数学了，斐波那契数列递推公式在阶数n较大时误差变大。</p>
-
 <h2 id="链接">链接</h2>
-
 <h2 id="链接-1">链接</h2>
-
 <ul>
 <li>Leetcode： <a href="https://leetcode-cn.com/problems/climbing-stairs/solution/pa-lou-ti-shi-xian-yu-zheng-li-by-eiger/">https://leetcode-cn.com/problems/climbing-stairs/solution/pa-lou-ti-shi-xian-yu-zheng-li-by-eiger/</a></li>
 <li>Github: <a href="https://github.com/azd1997/Leetcode-training/blob/master/lt70/1.go">https://github.com/azd1997/Leetcode-training/blob/master/lt70/1.go</a></li>

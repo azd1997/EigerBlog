@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/linux/mysql/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2019-11-24T21:00:38+08:00" />
 <meta itemprop="name" content="MySQL安装使用全教程">
 <meta itemprop="description" content="1. 安装 ubuntu下安装参考： https://www.jianshu.com/p/35e7af7db96a 1.1 安装过程无设置用户密码提示 如果安装过程没有设置密码，之后怎么登录mysql并设置自己的密码呢？ 参考：htt">
-
-
 <meta itemprop="datePublished" content="2019-11-24T21:00:38&#43;08:00" />
 <meta itemprop="dateModified" content="2019-11-24T21:00:38&#43;08:00" />
 <meta itemprop="wordCount" content="891">
 
 
 
-<meta itemprop="keywords" content="mysql," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="mysql," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="MySQL安装使用全教程"/>
 <meta name="twitter:description" content="1. 安装 ubuntu下安装参考： https://www.jianshu.com/p/35e7af7db96a 1.1 安装过程无设置用户密码提示 如果安装过程没有设置密码，之后怎么登录mysql并设置自己的密码呢？ 参考：htt"/>
 
@@ -145,38 +142,28 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#1-安装">1. 安装</a>
-<ul>
-<li><a href="#1-1-安装过程无设置用户密码提示">1.1 安装过程无设置用户密码提示</a></li>
-</ul></li>
-<li><a href="#2-使用">2. 使用</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#1-安装">1. 安装</a>
+      <ul>
+        <li><a href="#11-安装过程无设置用户密码提示">1.1 安装过程无设置用户密码提示</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-使用">2. 使用</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h2 id="1-安装">1. 安装</h2>
-
+      <h2 id="1-安装">1. 安装</h2>
 <p>ubuntu下安装参考： <a href="https://www.jianshu.com/p/35e7af7db96a">https://www.jianshu.com/p/35e7af7db96a</a></p>
-
-<h3 id="1-1-安装过程无设置用户密码提示">1.1 安装过程无设置用户密码提示</h3>
-
+<h3 id="11-安装过程无设置用户密码提示">1.1 安装过程无设置用户密码提示</h3>
 <p>如果安装过程没有设置密码，之后怎么登录mysql并设置自己的密码呢？</p>
-
 <p>参考：<a href="https://www.cnblogs.com/super-zhangkun/p/9435974.html">https://www.cnblogs.com/super-zhangkun/p/9435974.html</a></p>
-
 <h2 id="2-使用">2. 使用</h2>
-
 <p>列举所有数据库：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -197,13 +184,13 @@
 <span class="p">|</span> performance_schema <span class="p">|</span>
 <span class="p">|</span> sys                <span class="p">|</span>
 +--------------------+
-<span class="m">4</span> rows in <span class="nb">set</span> <span class="o">(</span><span class="m">0</span>.02 sec<span class="o">)</span></code></pre></td></tr></table>
+<span class="m">4</span> rows in <span class="nb">set</span> <span class="o">(</span>0.02 sec<span class="o">)</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>创建新数据库：</p>
+</div><p>创建新数据库：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -220,7 +207,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell">mysql&gt; create database go_video<span class="p">;</span>
-Query OK, <span class="m">1</span> row affected <span class="o">(</span><span class="m">0</span>.00 sec<span class="o">)</span>
+Query OK, <span class="m">1</span> row affected <span class="o">(</span>0.00 sec<span class="o">)</span>
 
 mysql&gt; show databases<span class="p">;</span>
 +--------------------+
@@ -232,24 +219,24 @@ mysql&gt; show databases<span class="p">;</span>
 <span class="p">|</span> performance_schema <span class="p">|</span>
 <span class="p">|</span> sys                <span class="p">|</span>
 +--------------------+
-<span class="m">5</span> rows in <span class="nb">set</span> <span class="o">(</span><span class="m">0</span>.00 sec<span class="o">)</span></code></pre></td></tr></table>
+<span class="m">5</span> rows in <span class="nb">set</span> <span class="o">(</span>0.00 sec<span class="o">)</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>创建新数据表之前需要先使用某一个数据库：</p>
+</div><p>创建新数据表之前需要先使用某一个数据库：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell">mysql&gt; USE go_video<span class="p">;</span>
-Database changed</code></pre></td></tr></table>
+Database changed
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>创建新数据表：</p>
+</div><p>创建新数据表：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -312,76 +299,74 @@ Database changed</code></pre></td></tr></table>
 </span><span class="lnt">61
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">mysql&gt; CREATE TABLE users <span class="o">(</span> id INTEGER<span class="o">(</span><span class="m">10</span><span class="o">)</span> UNSIGNED NOT NULL AUTO_INCREMENT, login_name VARCHAR<span class="o">(</span><span class="m">64</span><span class="o">)</span> NULL UNIQUE, <span class="nb">pwd</span> TEXT NOT NULL, PRIMARY KEY <span class="o">(</span>id<span class="o">))</span><span class="p">;</span>
-Query OK, <span class="m">0</span> rows affected <span class="o">(</span><span class="m">0</span>.08 sec<span class="o">)</span>
+<pre class="chroma"><code class="language-shell" data-lang="shell">mysql&gt; CREATE TABLE users <span class="o">(</span> id INTEGER<span class="o">(</span>10<span class="o">)</span> UNSIGNED NOT NULL AUTO_INCREMENT, login_name VARCHAR<span class="o">(</span>64<span class="o">)</span> NULL UNIQUE, <span class="nb">pwd</span> TEXT NOT NULL, PRIMARY KEY <span class="o">(</span>id<span class="o">))</span><span class="p">;</span>
+Query OK, <span class="m">0</span> rows affected <span class="o">(</span>0.08 sec<span class="o">)</span>
 
 mysql&gt; DESCRIBE users<span class="p">;</span>
 +------------+------------------+------+-----+---------+----------------+
 <span class="p">|</span> Field      <span class="p">|</span> Type             <span class="p">|</span> Null <span class="p">|</span> Key <span class="p">|</span> Default <span class="p">|</span> Extra          <span class="p">|</span>
 +------------+------------------+------+-----+---------+----------------+
-<span class="p">|</span> id         <span class="p">|</span> int<span class="o">(</span><span class="m">10</span><span class="o">)</span> unsigned <span class="p">|</span> NO   <span class="p">|</span> PRI <span class="p">|</span> NULL    <span class="p">|</span> auto_increment <span class="p">|</span>
-<span class="p">|</span> login_name <span class="p">|</span> varchar<span class="o">(</span><span class="m">64</span><span class="o">)</span>      <span class="p">|</span> YES  <span class="p">|</span> UNI <span class="p">|</span> NULL    <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span> id         <span class="p">|</span> int<span class="o">(</span>10<span class="o">)</span> unsigned <span class="p">|</span> NO   <span class="p">|</span> PRI <span class="p">|</span> NULL    <span class="p">|</span> auto_increment <span class="p">|</span>
+<span class="p">|</span> login_name <span class="p">|</span> varchar<span class="o">(</span>64<span class="o">)</span>      <span class="p">|</span> YES  <span class="p">|</span> UNI <span class="p">|</span> NULL    <span class="p">|</span>                <span class="p">|</span>
 <span class="p">|</span> <span class="nb">pwd</span>        <span class="p">|</span> text             <span class="p">|</span> NO   <span class="p">|</span>     <span class="p">|</span> NULL    <span class="p">|</span>                <span class="p">|</span>
 +------------+------------------+------+-----+---------+----------------+
-<span class="m">3</span> rows in <span class="nb">set</span> <span class="o">(</span><span class="m">0</span>.01 sec<span class="o">)</span>
+<span class="m">3</span> rows in <span class="nb">set</span> <span class="o">(</span>0.01 sec<span class="o">)</span>
 
 
-mysql&gt; CREATE TABLE video_info <span class="o">(</span> id VARCHAR<span class="o">(</span><span class="m">64</span><span class="o">)</span> NOT NULL, author_id INTEGER<span class="o">(</span><span class="m">10</span><span class="o">)</span>, name TEXT, display_ctime TEXT, create_time DATETIME DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY <span class="o">(</span>id<span class="o">)</span> <span class="o">)</span><span class="p">;</span>
-Query OK, <span class="m">0</span> rows affected <span class="o">(</span><span class="m">0</span>.05 sec<span class="o">)</span>
+mysql&gt; CREATE TABLE video_info <span class="o">(</span> id VARCHAR<span class="o">(</span>64<span class="o">)</span> NOT NULL, author_id INTEGER<span class="o">(</span>10<span class="o">)</span>, name TEXT, display_ctime TEXT, create_time DATETIME DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY <span class="o">(</span>id<span class="o">)</span> <span class="o">)</span><span class="p">;</span>
+Query OK, <span class="m">0</span> rows affected <span class="o">(</span>0.05 sec<span class="o">)</span>
 
 mysql&gt; DESCRIBE video_info<span class="p">;</span>                                                     +---------------+-------------+------+-----+-------------------+-------+
 <span class="p">|</span> Field         <span class="p">|</span> Type        <span class="p">|</span> Null <span class="p">|</span> Key <span class="p">|</span> Default           <span class="p">|</span> Extra <span class="p">|</span>
 +---------------+-------------+------+-----+-------------------+-------+
-<span class="p">|</span> id            <span class="p">|</span> varchar<span class="o">(</span><span class="m">64</span><span class="o">)</span> <span class="p">|</span> NO   <span class="p">|</span> PRI <span class="p">|</span> NULL              <span class="p">|</span>       <span class="p">|</span>
-<span class="p">|</span> author_id     <span class="p">|</span> int<span class="o">(</span><span class="m">10</span><span class="o">)</span>     <span class="p">|</span> YES  <span class="p">|</span>     <span class="p">|</span> NULL              <span class="p">|</span>       <span class="p">|</span>
+<span class="p">|</span> id            <span class="p">|</span> varchar<span class="o">(</span>64<span class="o">)</span> <span class="p">|</span> NO   <span class="p">|</span> PRI <span class="p">|</span> NULL              <span class="p">|</span>       <span class="p">|</span>
+<span class="p">|</span> author_id     <span class="p">|</span> int<span class="o">(</span>10<span class="o">)</span>     <span class="p">|</span> YES  <span class="p">|</span>     <span class="p">|</span> NULL              <span class="p">|</span>       <span class="p">|</span>
 <span class="p">|</span> name          <span class="p">|</span> text        <span class="p">|</span> YES  <span class="p">|</span>     <span class="p">|</span> NULL              <span class="p">|</span>       <span class="p">|</span>
 <span class="p">|</span> display_ctime <span class="p">|</span> text        <span class="p">|</span> YES  <span class="p">|</span>     <span class="p">|</span> NULL              <span class="p">|</span>       <span class="p">|</span>
 <span class="p">|</span> create_time   <span class="p">|</span> datetime    <span class="p">|</span> YES  <span class="p">|</span>     <span class="p">|</span> CURRENT_TIMESTAMP <span class="p">|</span>       <span class="p">|</span>
 +---------------+-------------+------+-----+-------------------+-------+
-<span class="m">5</span> rows in <span class="nb">set</span> <span class="o">(</span><span class="m">0</span>.00 sec<span class="o">)</span>
+<span class="m">5</span> rows in <span class="nb">set</span> <span class="o">(</span>0.00 sec<span class="o">)</span>
 
 
-mysql&gt; CREATE TABLE comments <span class="o">(</span> id VARCHAR<span class="o">(</span><span class="m">64</span><span class="o">)</span> NOT NULL, video_id VARCHAR<span class="o">(</span><span class="m">64</span><span class="o">)</span>, author_id INTEGER<span class="o">(</span><span class="m">10</span><span class="o">)</span>, content TEXT, <span class="nb">time</span> DATETIME DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY <span class="o">(</span>id<span class="o">)</span> <span class="o">)</span><span class="p">;</span>
-Query OK, <span class="m">0</span> rows affected <span class="o">(</span><span class="m">0</span>.05 sec<span class="o">)</span>
+mysql&gt; CREATE TABLE comments <span class="o">(</span> id VARCHAR<span class="o">(</span>64<span class="o">)</span> NOT NULL, video_id VARCHAR<span class="o">(</span>64<span class="o">)</span>, author_id INTEGER<span class="o">(</span>10<span class="o">)</span>, content TEXT, <span class="nb">time</span> DATETIME DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY <span class="o">(</span>id<span class="o">)</span> <span class="o">)</span><span class="p">;</span>
+Query OK, <span class="m">0</span> rows affected <span class="o">(</span>0.05 sec<span class="o">)</span>
 
 mysql&gt; DESCRIBE comments<span class="p">;</span>
 +-----------+-------------+------+-----+-------------------+-------+
 <span class="p">|</span> Field     <span class="p">|</span> Type        <span class="p">|</span> Null <span class="p">|</span> Key <span class="p">|</span> Default           <span class="p">|</span> Extra <span class="p">|</span>
 +-----------+-------------+------+-----+-------------------+-------+
-<span class="p">|</span> id        <span class="p">|</span> varchar<span class="o">(</span><span class="m">64</span><span class="o">)</span> <span class="p">|</span> NO   <span class="p">|</span> PRI <span class="p">|</span> NULL              <span class="p">|</span>       <span class="p">|</span>
-<span class="p">|</span> video_id  <span class="p">|</span> varchar<span class="o">(</span><span class="m">64</span><span class="o">)</span> <span class="p">|</span> YES  <span class="p">|</span>     <span class="p">|</span> NULL              <span class="p">|</span>       <span class="p">|</span>
-<span class="p">|</span> author_id <span class="p">|</span> int<span class="o">(</span><span class="m">10</span><span class="o">)</span>     <span class="p">|</span> YES  <span class="p">|</span>     <span class="p">|</span> NULL              <span class="p">|</span>       <span class="p">|</span>
+<span class="p">|</span> id        <span class="p">|</span> varchar<span class="o">(</span>64<span class="o">)</span> <span class="p">|</span> NO   <span class="p">|</span> PRI <span class="p">|</span> NULL              <span class="p">|</span>       <span class="p">|</span>
+<span class="p">|</span> video_id  <span class="p">|</span> varchar<span class="o">(</span>64<span class="o">)</span> <span class="p">|</span> YES  <span class="p">|</span>     <span class="p">|</span> NULL              <span class="p">|</span>       <span class="p">|</span>
+<span class="p">|</span> author_id <span class="p">|</span> int<span class="o">(</span>10<span class="o">)</span>     <span class="p">|</span> YES  <span class="p">|</span>     <span class="p">|</span> NULL              <span class="p">|</span>       <span class="p">|</span>
 <span class="p">|</span> content   <span class="p">|</span> text        <span class="p">|</span> YES  <span class="p">|</span>     <span class="p">|</span> NULL              <span class="p">|</span>       <span class="p">|</span>
 <span class="p">|</span> <span class="nb">time</span>      <span class="p">|</span> datetime    <span class="p">|</span> YES  <span class="p">|</span>     <span class="p">|</span> CURRENT_TIMESTAMP <span class="p">|</span>       <span class="p">|</span>
 +-----------+-------------+------+-----+-------------------+-------+
-<span class="m">5</span> rows in <span class="nb">set</span> <span class="o">(</span><span class="m">0</span>.00 sec<span class="o">)</span>
+<span class="m">5</span> rows in <span class="nb">set</span> <span class="o">(</span>0.00 sec<span class="o">)</span>
 
 
 mysql&gt; CREATE TABLE sessions <span class="o">(</span> session_id TINYTEXT, TTL TINYTEXT, login_name TEXT, PRIMARY KEY <span class="o">(</span>session_id<span class="o">)</span> <span class="o">)</span><span class="p">;</span>
-ERROR <span class="m">1170</span> <span class="o">(</span><span class="m">42000</span><span class="o">)</span>: BLOB/TEXT column <span class="s1">&#39;session_id&#39;</span> used in key specification without a key length
+ERROR <span class="m">1170</span> <span class="o">(</span>42000<span class="o">)</span>: BLOB/TEXT column <span class="s1">&#39;session_id&#39;</span> used in key specification without a key length
 mysql&gt; CREATE TABLE sessions <span class="o">(</span> session_id TINYTEXT NOT NULL, TTL TINYTEXT, login_name TEXT, PRIMARY KEY <span class="o">(</span>session_id<span class="o">)</span> <span class="o">)</span><span class="p">;</span>
-ERROR <span class="m">1170</span> <span class="o">(</span><span class="m">42000</span><span class="o">)</span>: BLOB/TEXT column <span class="s1">&#39;session_id&#39;</span> used in key specification without a key length
-mysql&gt; CREATE TABLE sessions <span class="o">(</span> session_id VARCHAR<span class="o">(</span><span class="m">255</span><span class="o">)</span> NOT NULL, TTL TINYTEXT, login_name TEXT, PRIMARY KEY <span class="o">(</span>session_id<span class="o">)</span> <span class="o">)</span><span class="p">;</span>
-Query OK, <span class="m">0</span> rows affected <span class="o">(</span><span class="m">0</span>.06 sec<span class="o">)</span>
+ERROR <span class="m">1170</span> <span class="o">(</span>42000<span class="o">)</span>: BLOB/TEXT column <span class="s1">&#39;session_id&#39;</span> used in key specification without a key length
+mysql&gt; CREATE TABLE sessions <span class="o">(</span> session_id VARCHAR<span class="o">(</span>255<span class="o">)</span> NOT NULL, TTL TINYTEXT, login_name TEXT, PRIMARY KEY <span class="o">(</span>session_id<span class="o">)</span> <span class="o">)</span><span class="p">;</span>
+Query OK, <span class="m">0</span> rows affected <span class="o">(</span>0.06 sec<span class="o">)</span>
 
 mysql&gt; DESCRIBE sessions<span class="p">;</span>
 +------------+--------------+------+-----+---------+-------+
 <span class="p">|</span> Field      <span class="p">|</span> Type         <span class="p">|</span> Null <span class="p">|</span> Key <span class="p">|</span> Default <span class="p">|</span> Extra <span class="p">|</span>
 +------------+--------------+------+-----+---------+-------+
-<span class="p">|</span> session_id <span class="p">|</span> varchar<span class="o">(</span><span class="m">255</span><span class="o">)</span> <span class="p">|</span> NO   <span class="p">|</span> PRI <span class="p">|</span> NULL    <span class="p">|</span>       <span class="p">|</span>
+<span class="p">|</span> session_id <span class="p">|</span> varchar<span class="o">(</span>255<span class="o">)</span> <span class="p">|</span> NO   <span class="p">|</span> PRI <span class="p">|</span> NULL    <span class="p">|</span>       <span class="p">|</span>
 <span class="p">|</span> TTL        <span class="p">|</span> tinytext     <span class="p">|</span> YES  <span class="p">|</span>     <span class="p">|</span> NULL    <span class="p">|</span>       <span class="p">|</span>
 <span class="p">|</span> login_name <span class="p">|</span> text         <span class="p">|</span> YES  <span class="p">|</span>     <span class="p">|</span> NULL    <span class="p">|</span>       <span class="p">|</span>
 +------------+--------------+------+-----+---------+-------+
-<span class="m">3</span> rows in <span class="nb">set</span> <span class="o">(</span><span class="m">0</span>.01 sec<span class="o">)</span></code></pre></td></tr></table>
+<span class="m">3</span> rows in <span class="nb">set</span> <span class="o">(</span>0.01 sec<span class="o">)</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>关于错误<code>ERROR 1170 (42000): BLOB/TEXT column 'session_id' used in key specification without a key length</code>的解释：</p>
-
+</div><p>关于错误<code>ERROR 1170 (42000): BLOB/TEXT column 'session_id' used in key specification without a key length</code>的解释：</p>
 <ul>
 <li><a href="https://blog.csdn.net/helloxiaozhe/article/details/83018347">https://blog.csdn.net/helloxiaozhe/article/details/83018347</a></li>
 <li><a href="https://bbs.csdn.net/topics/390242637">https://bbs.csdn.net/topics/390242637</a></li>
 </ul>
-
 <p>就是说mysql的主键必须提供键长，而TEXT/BLOB类型是变长且不能指定长度的，所以不能作为主键，使用VARCHAR并指定长度，作为这种情况下的替代。</p>
 
     </div>

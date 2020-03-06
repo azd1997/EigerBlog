@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>search on Eiger - A young gopher</title>
@@ -12,12 +12,12 @@
     
     
     <item>
-      <title>查找算法整理与实现</title>
+      <title>二分查找与二叉搜索树</title>
       <link>https://azd1997.github.io/post/algo/search/</link>
       <pubDate>Fri, 28 Feb 2020 08:56:41 +0800</pubDate>
       
       <guid>https://azd1997.github.io/post/algo/search/</guid>
-      <description></description>
+      <description>0. 说明 结点： 在数据结构中的结点的正确表示是结点而非节点。以下懒得修正 1. 二分查找 1.1 普通二分查找 一般来讲，二分查找要求序列有序。下面是一个示例：</description>
     </item>
     
   </channel>

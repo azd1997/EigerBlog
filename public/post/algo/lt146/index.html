@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/algo/lt146/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2019-11-09T07:30:55+08:00" />
 <meta itemprop="name" content="Leetcode146——LRU缓存机制">
 <meta itemprop="description" content="题意 运用你所掌握的数据结构，设计和实现一个 LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和 写入数据 put 。 获取数据 get(key) - 如果密钥 (key) 存在">
-
-
 <meta itemprop="datePublished" content="2019-11-09T07:30:55&#43;08:00" />
 <meta itemprop="dateModified" content="2019-11-09T07:30:55&#43;08:00" />
-<meta itemprop="wordCount" content="2391">
+<meta itemprop="wordCount" content="2381">
 
 
 
-<meta itemprop="keywords" content="leetcode," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="leetcode," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Leetcode146——LRU缓存机制"/>
 <meta name="twitter:description" content="题意 运用你所掌握的数据结构，设计和实现一个 LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和 写入数据 put 。 获取数据 get(key) - 如果密钥 (key) 存在"/>
 
@@ -135,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 2391 words </span>
+          <span class="more-meta"> 2381 words </span>
           <span class="more-meta"> 5 mins read </span>
         
       </div>
@@ -145,50 +142,25 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#题意">题意</a></li>
-<li><a href="#思路与实现">思路与实现</a></li>
-<li><a href="#总结与反思">总结与反思</a></li>
-<li><a href="#推荐阅读">推荐阅读</a></li>
-<li><a href="#链接">链接</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#题意">题意</a></li>
+    <li><a href="#思路与实现">思路与实现</a></li>
+    <li><a href="#总结与反思">总结与反思</a></li>
+    <li><a href="#推荐阅读">推荐阅读</a></li>
+    <li><a href="#链接">链接</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h2 id="题意">题意</h2>
-
+      <h2 id="题意">题意</h2>
 <p>运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和 写入数据 put 。</p>
-
 <p>获取数据 get(key) - 如果密钥 (key) 存在于缓存中，则获取密钥的值（总是正数），否则返回 -1。
 写入数据 put(key, value) - 如果密钥不存在，则写入其数据值。当缓存容量达到上限时，它应该在写入新数据之前删除最近最少使用的数据值，从而为新的数据值留出空间。</p>
-
 <p>进阶:</p>
-
 <p>你是否可以在 O(1) 时间复杂度内完成这两种操作？</p>
-
 <p>示例:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">LRUCache cache = new LRUCache( 2 /* 缓存容量 */ );
+<pre><code>LRUCache cache = new LRUCache( 2 /* 缓存容量 */ );
 
 cache.put(1, 1);
 cache.put(2, 2);
@@ -198,19 +170,16 @@ cache.get(2);       // 返回 -1 (未找到)
 cache.put(4, 4);    // 该操作会使得密钥 1 作废
 cache.get(1);       // 返回 -1 (未找到)
 cache.get(3);       // 返回  3
-cache.get(4);       // 返回  4</pre></td></tr></table>
-</div>
-</div>
+cache.get(4);       // 返回  4
+</code></pre>
 <p>来源：力扣（LeetCode）
-链接：<a href="https://leetcode-cn.com/problems/lru-cache">https://leetcode-cn.com/problems/lru-cache</a>
+链接：https://leetcode-cn.com/problems/lru-cache
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-
 <h2 id="思路与实现">思路与实现</h2>
-
-<p><img src="https://pic.leetcode-cn.com/df69694fbbedc546142b179992842d173535fbbe6386393ec7f427655902f1e2-image.png" alt="image.png" /></p>
+<p><img src="https://pic.leetcode-cn.com/df69694fbbedc546142b179992842d173535fbbe6386393ec7f427655902f1e2-image.png" alt="image.png"></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">  1
+<pre class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -392,6 +361,7 @@ cache.get(4);       // 返回  4</pre></td></tr></table>
 </span><span class="lnt">180
 </span><span class="lnt">181
 </span><span class="lnt">182
+</span><span class="lnt">183
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">lt146</span>
@@ -575,37 +545,29 @@ cache.get(4);       // 返回  4</pre></td></tr></table>
 		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\tk=%d, v=%v\t&#34;</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
 	<span class="p">}</span>
 	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="s">&#34;\n&#34;</span><span class="p">)</span>
-<span class="p">}</span></code></pre></td></tr></table>
-</div>
-</div>
-<h2 id="总结与反思">总结与反思</h2>
+<span class="p">}</span>
 
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="总结与反思">总结与反思</h2>
 <p>反复比对了题解区的一些高赞题解，认为从代码逻辑上是一致的，但代码在golang提交中的成绩却并不理想。可能的优化：</p>
-
 <ul>
 <li>取消子函数调用</li>
 <li>map的实现使用了通用的哈希函数（没有去查阅），运算较慢，可以针对题目都是整型数据设计专用的哈希表。这点等到做到哈希表相关的题再回来优化。</li>
 </ul>
-
 <p>做题规律方面：</p>
-
 <ul>
 <li>双向链表插入需四次操作，删除两次，要注意</li>
 <li>哈希表插入、删除增加都非常高效，但无序，此外还需要注意哈希碰撞的解决</li>
 </ul>
-
 <h2 id="推荐阅读">推荐阅读</h2>
-
 <p>没有那么多精力去进行详细阐述，在此贴上几篇优秀题解：</p>
-
 <ul>
 <li><a href="https://leetcode-cn.com/problems/lru-cache/solution/lru-ce-lue-xiang-jie-he-shi-xian-by-labuladong/">https://leetcode-cn.com/problems/lru-cache/solution/lru-ce-lue-xiang-jie-he-shi-xian-by-labuladong/</a></li>
 <li><a href="https://leetcode-cn.com/problems/lru-cache/solution/tu-wen-bing-mao-xiang-jie-lruji-zhi-by-user7439t/">https://leetcode-cn.com/problems/lru-cache/solution/tu-wen-bing-mao-xiang-jie-lruji-zhi-by-user7439t/</a></li>
 <li><a href="https://leetcode-cn.com/problems/lru-cache/solution/shu-ju-jie-gou-fen-xi-python-ha-xi-shuang-xiang-li/">https://leetcode-cn.com/problems/lru-cache/solution/shu-ju-jie-gou-fen-xi-python-ha-xi-shuang-xiang-li/</a></li>
 </ul>
-
 <h2 id="链接">链接</h2>
-
 <ul>
 <li>Leetcode： <a href="https://leetcode-cn.com/problems/lru-cache/solution/lruhuan-cun-ji-zhi-si-lu-yu-shi-xian-by-eiger/">https://leetcode-cn.com/problems/lru-cache/solution/lruhuan-cun-ji-zhi-si-lu-yu-shi-xian-by-eiger/</a></li>
 <li>Github: <a href="https://github.com/azd1997/Leetcode-training/blob/master/lt146/1.go">https://github.com/azd1997/Leetcode-training/blob/master/lt146/1.go</a></li>

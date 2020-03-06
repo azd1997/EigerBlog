@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/go/02_unifiederrorhandling/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2019-08-20T03:14:14-04:00" />
 <meta itemprop="name" content="资源管理与出错处理">
 <meta itemprop="description" content="Catch All The Errors! 1. 资源管理与defer调用 defer调用特点： 确保函数结束时发生 多个defer倒序执行 例子： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 package main import &#34;fmt&#34; func">
-
-
 <meta itemprop="datePublished" content="2019-07-23T10:37:14&#43;08:00" />
 <meta itemprop="dateModified" content="2019-08-20T03:14:14-04:00" />
-<meta itemprop="wordCount" content="4998">
+<meta itemprop="wordCount" content="4997">
 
 
 
-<meta itemprop="keywords" content="go,error," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="go,error," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="资源管理与出错处理"/>
 <meta name="twitter:description" content="Catch All The Errors! 1. 资源管理与defer调用 defer调用特点： 确保函数结束时发生 多个defer倒序执行 例子： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 package main import &#34;fmt&#34; func"/>
 
@@ -135,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/go/"> go </a>
             </div>
-          <span class="more-meta"> 4998 words </span>
+          <span class="more-meta"> 4997 words </span>
           <span class="more-meta"> 10 mins read </span>
         
       </div>
@@ -145,47 +142,37 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#1-资源管理与defer调用">1. 资源管理与defer调用</a></li>
-<li><a href="#2-初尝错误处理">2. 初尝错误处理</a></li>
-<li><a href="#3-统一错误处理逻辑">3. 统一错误处理逻辑</a></li>
-<li><a href="#4-panic和recover">4. panic和recover</a>
-<ul>
-<li><a href="#4-1-panic">4.1 panic</a></li>
-<li><a href="#4-2-recover">4.2 recover</a></li>
-<li><a href="#4-3-实例">4.3 实例</a></li>
-</ul></li>
-<li><a href="#5-错误处理综合处理">5. 错误处理综合处理</a></li>
-<li><a href="#6-总结-error-vs-panic">6. 总结（error vs panic）</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-资源管理与defer调用">1. 资源管理与defer调用</a></li>
+        <li><a href="#2-初尝错误处理">2. 初尝错误处理</a></li>
+        <li><a href="#3-统一错误处理逻辑">3. 统一错误处理逻辑</a></li>
+        <li><a href="#4-panic和recover">4. panic和recover</a></li>
+        <li><a href="#5-错误处理综合处理">5. 错误处理综合处理</a></li>
+        <li><a href="#6-总结error-vs-panic">6. 总结（error vs panic）</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<p><strong>Catch All The Errors!</strong></p>
-
+      <p><strong>Catch All The Errors!</strong></p>
 <h3 id="1-资源管理与defer调用">1. 资源管理与defer调用</h3>
-
 <p>defer调用特点：</p>
-
 <ul>
-<li><p>确保函数结束时发生</p></li>
-
-<li><p>多个defer倒序执行</p></li>
+<li>
+<p>确保函数结束时发生</p>
+</li>
+<li>
+<p>多个defer倒序执行</p>
+</li>
 </ul>
-
 <p>例子：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -216,42 +203,43 @@
    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
    <span class="k">return</span>
    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>执行结果：</p>
+</div><p>执行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">3
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">3
 2
 1
 
-Process finished with exit code 0</pre></td></tr></table>
+Process finished with exit code 0
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>defer相比于顺序执行的好处在于，不用担心中间出现return、panic等程序退出。</p>
-
+</div><p>defer相比于顺序执行的好处在于，不用担心中间出现return、panic等程序退出。</p>
 <p>defer常用语成对的资源操作：</p>
-
 <ul>
-<li><p>Open/Close</p></li>
-
-<li><p>Lock/Unlock</p></li>
-
-<li><p>PrintHeader/PrintFooter</p></li>
+<li>
+<p>Open/Close</p>
+</li>
+<li>
+<p>Lock/Unlock</p>
+</li>
+<li>
+<p>PrintHeader/PrintFooter</p>
+</li>
 </ul>
-
 <p>另一个例子：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -272,11 +260,12 @@ Process finished with exit code 0</pre></td></tr></table>
 		<span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="p">=</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
 		<span class="k">return</span> <span class="nx">a</span>
 	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -369,19 +358,16 @@ Process finished with exit code 0</pre></td></tr></table>
    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">20</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
       <span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintln</span><span class="p">(</span><span class="nx">writer</span><span class="p">,</span> <span class="nf">f</span><span class="p">())</span>
    <span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>main函数中执行tryDefer2将会倒序打出30,29，&hellip;，0</p>
-
+</div><p>main函数中执行tryDefer2将会倒序打出30,29，&hellip;，0</p>
 <p>执行writeFile将会新建文档，写入斐波那契序列。</p>
-
 <h3 id="2-初尝错误处理">2. 初尝错误处理</h3>
-
 <p>对前面writeFile()进行修改：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -412,13 +398,13 @@ Process finished with exit code 0</pre></td></tr></table>
    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">20</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
       <span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintln</span><span class="p">(</span><span class="nx">writer</span><span class="p">,</span> <span class="nf">f</span><span class="p">())</span>
    <span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>执行结果：</p>
+</div><p>执行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -427,9 +413,9 @@ Process finished with exit code 0</pre></td></tr></table>
 </span><span class="lnt">7
 </span><span class="lnt">8
 </span><span class="lnt">9
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">panic: open 07-errors/fib.txt: The file exists.
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">panic: open 07-errors/fib.txt: The file exists.
 
 goroutine 1 [running]:
 main.writeFileV2(0x4c9000, 0x11)
@@ -437,41 +423,40 @@ main.writeFileV2(0x4c9000, 0x11)
 main.main()
 	E:/GO/src/go-mastering-lecture/07-errors/defer-01/defer.go:13 +0x3d
 
-Process finished with exit code 2</pre></td></tr></table>
+Process finished with exit code 2
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>显然，panic会使得输出结果变得非常不利于阅读。那么怎么改进呢？</p>
-
+</div><p>显然，panic会使得输出结果变得非常不利于阅读。那么怎么改进呢？</p>
 <p>可以使用fmt.Println这类输出函数，再return</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;The file exists.&#34;</span><span class="p">)</span>
 <span class="c1">//fmt.Println(&#34;Error:&#34;, err)
-</span><span class="c1"></span><span class="k">return</span></code></pre></td></tr></table>
+</span><span class="c1"></span><span class="k">return</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>这样结果变成了：</p>
+</div><p>这样结果变成了：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">The file exists.
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">The file exists.
 
-Process finished with exit code 0</pre></td></tr></table>
+Process finished with exit code 0
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>再来看看OpenFile返回的error：</p>
+</div><p>再来看看OpenFile返回的error：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -482,11 +467,12 @@ Process finished with exit code 0</pre></td></tr></table>
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">OpenFile</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">flag</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">perm</span> <span class="nx">FileMode</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">File</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
    <span class="nx">testlog</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
    <span class="k">return</span> <span class="nf">openFileNolog</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">flag</span><span class="p">,</span> <span class="nx">perm</span><span class="p">)</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -497,13 +483,13 @@ Process finished with exit code 0</pre></td></tr></table>
 </span><span class="c1">// representing an error condition, with the nil value representing no error.
 </span><span class="c1"></span><span class="kd">type</span> <span class="kt">error</span> <span class="kd">interface</span> <span class="p">{</span>
    <span class="nf">Error</span><span class="p">()</span> <span class="kt">string</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>根据OpenFile()注释，返回的是*PathError。</p>
+</div><p>根据OpenFile()注释，返回的是*PathError。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -526,26 +512,26 @@ Process finished with exit code 0</pre></td></tr></table>
       <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">pathError</span><span class="p">.</span><span class="nx">Op</span><span class="p">,</span> <span class="nx">pathError</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="nx">pathError</span><span class="p">.</span><span class="nx">Err</span><span class="p">)</span>
    <span class="p">}</span>
    <span class="k">return</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>执行结果：</p>
+</div><p>执行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">open 07-errors/fib.txt The file exists.
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">open 07-errors/fib.txt The file exists.
 
-Process finished with exit code 0</pre></td></tr></table>
+Process finished with exit code 0
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>也可以自定义error：</p>
+</div><p>也可以自定义error：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -588,13 +574,13 @@ Process finished with exit code 0</pre></td></tr></table>
    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">20</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
       <span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintln</span><span class="p">(</span><span class="nx">writer</span><span class="p">,</span> <span class="nf">f</span><span class="p">())</span>
    <span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>执行结果：</p>
+</div><p>执行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -603,9 +589,9 @@ Process finished with exit code 0</pre></td></tr></table>
 </span><span class="lnt">7
 </span><span class="lnt">8
 </span><span class="lnt">9
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">panic: this is a custom error.
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">panic: this is a custom error.
 
 goroutine 1 [running]:
 main.writeFileV3(0x4b0a9f, 0x11)
@@ -613,13 +599,13 @@ main.writeFileV3(0x4b0a9f, 0x11)
 main.main()
 	E:/GO/src/go-mastering-lecture/07-errors/defer-01/defer.go:15 +0x3d
 
-Process finished with exit code 2</pre></td></tr></table>
+Process finished with exit code 2
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>也可以通过实现内建的error接口来自定义错误类型：</p>
+</div><p>也可以通过实现内建的error接口来自定义错误类型：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -627,24 +613,23 @@ Process finished with exit code 2</pre></td></tr></table>
 </span><span class="lnt">6
 </span><span class="lnt">7
 </span><span class="lnt">8
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">type ErrFileAlreadyExists struct {
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">type ErrFileAlreadyExists struct {
    ErrMsg string  //错误信息
    File string  //文件路径及名称
 }
 
 func (err *ErrFileAlreadyExists) Error() string {
    return fmt.Sprintf(&#34;出错：%s, %s&#34;, err.File, err.ErrMsg)
-}</pre></td></tr></table>
+}
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="3-统一错误处理逻辑">3. 统一错误处理逻辑</h3>
-
+</div><h3 id="3-统一错误处理逻辑">3. 统一错误处理逻辑</h3>
 <p>现在实现一个将前边创建的fib文件内容展示在网页上的http服务器：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -713,21 +698,17 @@ func (err *ErrFileAlreadyExists) Error() string {
    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
       <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
    <span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>运行后浏览器访问结果：</p>
-
-<p><img src="/images/1562761154997.png" alt="1562761154997" /></p>
-
-<p>但是这里没有做错误请求的处理，这使得当浏览器访问错误的url（例如：<a href="http://localhost:8080/list/07-errors/fib.txta）时没有任何响应，终端输出了一长串panic。">http://localhost:8080/list/07-errors/fib.txta）时没有任何响应，终端输出了一长串panic。</a></p>
-
-<p><img src="/images/1562763262725.png" alt="1562763262725" /></p>
-
+</div><p>运行后浏览器访问结果：</p>
+<p><img src="/images/1562761154997.png" alt="1562761154997"></p>
+<p>但是这里没有做错误请求的处理，这使得当浏览器访问错误的url（例如：http://localhost:8080/list/07-errors/fib.txta）时没有任何响应，终端输出了一长串panic。</p>
+<p><img src="/images/1562763262725.png" alt="1562763262725"></p>
 <p>现在将handleListFile()中Open(path)错误处理进行修改：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -740,21 +721,17 @@ func (err *ErrFileAlreadyExists) Error() string {
    <span class="c1">//panic(err)
 </span><span class="c1"></span>   <span class="nx">http</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(),</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusInternalServerError</span><span class="p">)</span>
    <span class="k">return</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>重新运行，并访问<a href="http://localhost:8080/list/07-errors/fib.txta">http://localhost:8080/list/07-errors/fib.txta</a></p>
-
-<p><img src="/images/1562764035481.png" alt="1562764035481" /></p>
-
+</div><p>重新运行，并访问http://localhost:8080/list/07-errors/fib.txta</p>
+<p><img src="/images/1562764035481.png" alt="1562764035481"></p>
 <p>但是这样做也有问题：将程序内部的错误信息暴露给普通用户了。</p>
-
 <p>那么现在需要对错误进行一个包装，包装成用来给普通用户看的error。</p>
-
 <p>代码改为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -811,9 +788,11 @@ func (err *ErrFileAlreadyExists) Error() string {
 </span><span class="lnt">55
 </span><span class="lnt">56
 </span><span class="lnt">57
+</span><span class="lnt">58
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">import</span> <span class="p">(</span>
+<pre class="chroma"><code class="language-go" data-lang="go">
+<span class="kn">import</span> <span class="p">(</span>
 	<span class="s">&#34;context&#34;</span>
 	<span class="s">&#34;github.com/golang/gddo/log&#34;</span>
 	<span class="s">&#34;io/ioutil&#34;</span>
@@ -869,28 +848,25 @@ func (err *ErrFileAlreadyExists) Error() string {
 		<span class="k">return</span> <span class="nx">err</span>
 	<span class="p">}</span>
 	<span class="k">return</span> <span class="kc">nil</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>现在结果变成了：</p>
-
-<p><img src="/images/1562766248918.png" alt="1562766248918" /></p>
-
+</div><p>现在结果变成了：</p>
+<p><img src="/images/1562766248918.png" alt="1562766248918"></p>
 <p>终端输出日志：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">t=2019-07-10T21:43:51+0800 lvl=warn msg=&#34;Error handling request: %s&#34; open 07-errors/fib.txta: The system cannot find the file specified.=nil LOG15_ERROR=&#34;Normalized odd number of arguments by adding nil&#34;</pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">t=2019-07-10T21:43:51+0800 lvl=warn msg=&#34;Error handling request: %s&#34; open 07-errors/fib.txta: The system cannot find the file specified.=nil LOG15_ERROR=&#34;Normalized odd number of arguments by adding nil&#34;
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>这正是我们想要的效果：避免将内部信息暴露给普通用户。</p>
-
+</div><p>这正是我们想要的效果：避免将内部信息暴露给普通用户。</p>
 <p>进一步完善前边的错误处理代码，增加其他的错误类型：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -905,46 +881,38 @@ func (err *ErrFileAlreadyExists) Error() string {
    <span class="nx">code</span> <span class="p">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusForbidden</span>
 <span class="k">default</span><span class="p">:</span>
    <span class="nx">code</span> <span class="p">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusInternalServerError</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>为了测试没有权限情况下的响应，先给文件设置权限，将fib.txt复制一份为fib2.txt并设置权限为500（<code>r-x------</code>）</p>
+</div><p>为了测试没有权限情况下的响应，先给文件设置权限，将fib.txt复制一份为fib2.txt并设置权限为500（<code>r-x------</code>）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sudo chmod <span class="m">500</span> fib2.txt</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ sudo chmod <span class="m">500</span> fib2.txt
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>（linux下root用户可读可运行，其他用户无任何权限）。</p>
-
+</div><p>（linux下root用户可读可运行，其他用户无任何权限）。</p>
 <p>//Windows TODO</p>
-
 <p>这里的包装器errWrapper()是函数式的编程，输入是一个函数，输出又是一个函数。</p>
-
 <h3 id="4-panic和recover">4. panic和recover</h3>
-
-<h4 id="4-1-panic">4.1 panic</h4>
-
+<h4 id="41-panic">4.1 panic</h4>
 <ul>
 <li>停止当前函数执行</li>
 <li>一直向上返回，执行每一层的defer</li>
 <li>如果没有遇见recover，程序退出。</li>
 </ul>
-
-<h4 id="4-2-recover">4.2 recover</h4>
-
+<h4 id="42-recover">4.2 recover</h4>
 <ul>
 <li>仅在defer调用中执行</li>
 <li>可以获取panic的值（panic函数传入的参数）</li>
 <li>如果无法处理，可以重新panic</li>
 </ul>
-
-<h4 id="4-3-实例">4.3 实例</h4>
+<h4 id="43-实例">4.3 实例</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -993,28 +961,27 @@ func (err *ErrFileAlreadyExists) Error() string {
    <span class="p">}()</span>
 
    <span class="nb">panic</span><span class="p">(</span><span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;出错panic&#34;</span><span class="p">))</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>输出：</p>
+</div><p>输出：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">出错了： 出错panic
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">出错了： 出错panic
 
-Process finished with exit code 0</pre></td></tr></table>
+Process finished with exit code 0
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>将<code>panic(errors.New(&quot;出错panic&quot;))</code>注释掉，换成<code>panic(&quot;随便一句话&quot;)</code></p>
-
+</div><p>将<code>panic(errors.New(&quot;出错panic&quot;))</code>注释掉，换成<code>panic(&quot;随便一句话&quot;)</code></p>
 <p>输出：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1029,9 +996,9 @@ Process finished with exit code 0</pre></td></tr></table>
 </span><span class="lnt">13
 </span><span class="lnt">14
 </span><span class="lnt">15
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">panic: 随便一句话 [recovered]
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">panic: 随便一句话 [recovered]
 	panic: 我不知道该干嘛： 随便一句话
 
 
@@ -1045,15 +1012,14 @@ main.tryRecover()
 main.main()
 	E:/GO/src/go-mastering-lecture/07-errors/panicAndRecover/recover.go:8 +0x27
 
-Process finished with exit code 2</pre></td></tr></table>
+Process finished with exit code 2
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="5-错误处理综合处理">5. 错误处理综合处理</h3>
-
-<p>如果前边的服务器在编写时由两个人开发，一个人写main，一个人写handleFunc，假如出现了这种情况：(main中路由为&rdquo;/&ldquo;，而handleFunc中为&rdquo;/list/&ldquo;)</p>
+</div><h3 id="5-错误处理综合处理">5. 错误处理综合处理</h3>
+<p>如果前边的服务器在编写时由两个人开发，一个人写main，一个人写handleFunc，假如出现了这种情况：(main中路由为&rdquo;/&quot;，而handleFunc中为&rdquo;/list/&quot;)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1072,23 +1038,18 @@ Process finished with exit code 2</pre></td></tr></table>
    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
       <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
    <span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>那么当我请求<a href="http://localhost:8080/list/07-errors/fib.txt时一样是正常运行的，请求http://localhost:8080/07-errors/fib.txt返回NotFound也是正常的，因为路径不对。但是如果请求http://localhost:8080/azd（/azd长度小于/list/）呢？">http://localhost:8080/list/07-errors/fib.txt时一样是正常运行的，请求http://localhost:8080/07-errors/fib.txt返回NotFound也是正常的，因为路径不对。但是如果请求http://localhost:8080/azd（/azd长度小于/list/）呢？</a></p>
-
+</div><p>那么当我请求http://localhost:8080/list/07-errors/fib.txt时一样是正常运行的，请求http://localhost:8080/07-errors/fib.txt返回NotFound也是正常的，因为路径不对。但是如果请求http://localhost:8080/azd（/azd长度小于/list/）呢？</p>
 <p>结果是出现了数组越界的panic了。（问题出在handleFunc中解析请求的文本路径时采用了<code>path := r.URL.Path[len(&quot;/list/&quot;):]</code>的做法）</p>
-
-<p><img src="/images/1562772065570.png" alt="1562772065570" /></p>
-
+<p><img src="/images/1562772065570.png" alt="1562772065570"></p>
 <p>在输出中可以看到，httpServer虽然panic了，但是程序并没有退出，显然http包对此作了保护，在某个地方进行了recover（server.go/serve()）。</p>
-
 <p>那么现在怎么来作错误处理，使得当发生这种情况时不panic呢？</p>
-
 <p>使用recover()。在errWrapper中添加对handleFunc（这里指handleListFileV2）的panic的recover。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1145,21 +1106,17 @@ Process finished with exit code 2</pre></td></tr></table>
 </span><span class="c1"></span>         <span class="nx">http</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nf">StatusText</span><span class="p">(</span><span class="nx">code</span><span class="p">),</span> <span class="nx">code</span><span class="p">)</span>
       <span class="p">}</span>
    <span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>执行结果：</p>
-
-<p><img src="/images/1562774945426.png" alt="1562774945426" /></p>
-
-<p><img src="/images/1562775060842.png" alt="1562775060842" /></p>
-
+</div><p>执行结果：</p>
+<p><img src="/images/1562774945426.png" alt="1562774945426"></p>
+<p><img src="/images/1562775060842.png" alt="1562775060842"></p>
 <p>这满足了我们的需求。</p>
-
 <p>现在进一步优化：写handleFunc的时候就可以对路由进行检查：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1202,19 +1159,16 @@ Process finished with exit code 2</pre></td></tr></table>
    <span class="p">}</span>
    <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">w</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="nx">all</span><span class="p">)</span>
    <span class="k">return</span> <span class="nx">err</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>先访问下<a href="http://localhost:8080/list/07-errors/fib.txt">http://localhost:8080/list/07-errors/fib.txt</a></p>
-
-<p><img src="/images/1562775825093.png" alt="1562775825093" /></p>
-
-<p><img src="/images/1562775882563.png" alt="1562775882563" /></p>
-
+</div><p>先访问下http://localhost:8080/list/07-errors/fib.txt</p>
+<p><img src="/images/1562775825093.png" alt="1562775825093"></p>
+<p><img src="/images/1562775882563.png" alt="1562775882563"></p>
 <p>发现正常情况下，也出现问题，原因是panic为空时也执行了recover，现在将之纠正：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1275,28 +1229,25 @@ Process finished with exit code 2</pre></td></tr></table>
 </span><span class="c1"></span>         <span class="nx">http</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nf">StatusText</span><span class="p">(</span><span class="nx">code</span><span class="p">),</span> <span class="nx">code</span><span class="p">)</span>
       <span class="p">}</span>
    <span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>重新访问<a href="http://localhost:8080/list/07-errors/fib.txt，结果归于正常。">http://localhost:8080/list/07-errors/fib.txt，结果归于正常。</a></p>
-
-<p>访问<a href="http://localhost:8080/azd，网页显示Internal">http://localhost:8080/azd，网页显示Internal</a> Server Error，终端输出：</p>
+</div><p>重新访问http://localhost:8080/list/07-errors/fib.txt，结果归于正常。</p>
+<p>访问http://localhost:8080/azd，网页显示Internal Server Error，终端输出：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">t=2019-07-11T00:29:51+0800 lvl=warn msg=&#34;Error handling request: %s&#34; path必须以 /list/ 开头=nil LOG15_ERROR=&#34;Normalized odd number of arguments by adding nil&#34;</pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">t=2019-07-11T00:29:51+0800 lvl=warn msg=&#34;Error handling request: %s&#34; path必须以 /list/ 开头=nil LOG15_ERROR=&#34;Normalized odd number of arguments by adding nil&#34;
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>但是呢，这个自定义的<code>errors.New(&quot;path必须以 &quot;+ PREFIX + &quot; 开头&quot;)</code>其实是应该给普通用户看的，告诉他们请求的url错了。</p>
-
+</div><p>但是呢，这个自定义的<code>errors.New(&quot;path必须以 &quot;+ PREFIX + &quot; 开头&quot;)</code>其实是应该给普通用户看的，告诉他们请求的url错了。</p>
 <p>现在来进一步改进：增加自定义错误类型，并对自定义错误直接返回给网页客户端。</p>
-
 <p>完整代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1477,28 +1428,20 @@ Process finished with exit code 2</pre></td></tr></table>
 	<span class="p">}</span>
 	<span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">w</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="nx">all</span><span class="p">)</span>
 	<span class="k">return</span> <span class="nx">err</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>网页运行结果：</p>
-
-<p><img src="/images/1562777302224.png" alt="1562777302224" /></p>
-
+</div><p>网页运行结果：</p>
+<p><img src="/images/1562777302224.png" alt="1562777302224"></p>
 <p>终端日志输出：</p>
-
-<p><img src="/images/1562777343460.png" alt="1562777343460" /></p>
-
-<h3 id="6-总结-error-vs-panic">6. 总结（error vs panic）</h3>
-
+<p><img src="/images/1562777343460.png" alt="1562777343460"></p>
+<h3 id="6-总结error-vs-panic">6. 总结（error vs panic）</h3>
 <p>尽量不要用panic。具体的判断方法：</p>
-
 <ul>
 <li>意料之中的：使用error，比如文件打不开。这种时候需要自己去做出错后的处理。</li>
 <li>意料之外的：才用panic，比如数组越界。（能保护的话还是要尽量去保护）</li>
 </ul>
-
 <p>part 5中实现了错误处理的综合示例，使用了：</p>
-
 <ul>
 <li>defer + panic + recover</li>
 <li>Type Assertion</li>

@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/iot/iothub/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2019-08-20T03:14:14-04:00" />
 <meta itemprop="name" content="IotHub物联网平台搭建：从0到1">
 <meta itemprop="description" content="Iothub物联网平台搭建：从0到1 1. 项目介绍 2. 准备工作台 本节安装开发物联网平台用到的组件，并将开发环境搭建起来。 2.1 安装组件 在安装组件前建议">
-
-
 <meta itemprop="datePublished" content="2019-08-17T02:55:10&#43;08:00" />
 <meta itemprop="dateModified" content="2019-08-20T03:14:14-04:00" />
-<meta itemprop="wordCount" content="2719">
+<meta itemprop="wordCount" content="2720">
 
 
 
-<meta itemprop="keywords" content="IotHub," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="IotHub," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="IotHub物联网平台搭建：从0到1"/>
 <meta name="twitter:description" content="Iothub物联网平台搭建：从0到1 1. 项目介绍 2. 准备工作台 本节安装开发物联网平台用到的组件，并将开发环境搭建起来。 2.1 安装组件 在安装组件前建议"/>
 
@@ -135,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/iot/"> iot </a>
             </div>
-          <span class="more-meta"> 2719 words </span>
+          <span class="more-meta"> 2720 words </span>
           <span class="more-meta"> 6 mins read </span>
         
       </div>
@@ -145,107 +142,82 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li><a href="#iothub物联网平台搭建-从0到1">Iothub物联网平台搭建：从0到1</a>
-<ul>
-<li><a href="#1-项目介绍">1. 项目介绍</a></li>
-<li><a href="#2-准备工作台">2. 准备工作台</a>
-<ul>
-<li><a href="#2-1-安装组件">2.1 安装组件</a>
-<ul>
-<li><a href="#2-1-1-mongodb">2.1.1 MongoDB</a></li>
-<li><a href="#2-1-2-redis">2.1.2 Redis</a></li>
-<li><a href="#2-1-3-node-js">2.1.3 Node.js</a></li>
-<li><a href="#2-1-4-rabbitmq">2.1.4 RabbitMQ</a></li>
-<li><a href="#2-1-5-emq-x">2.1.5 EMQ X</a></li>
-</ul></li>
-<li><a href="#2-2-项目实体定义">2.2 项目实体定义</a></li>
-<li><a href="#2-3-项目结构">2.3 项目结构</a>
-<ul>
-<li><a href="#2-3-1-maque-iothub-server">2.3.1 Maque IotHub Server</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#3-设备生命周期管理">3. 设备生命周期管理</a></li>
-<li><a href="#4-上行数据处理">4. 上行数据处理</a></li>
-<li><a href="#5-下行数据处理">5. 下行数据处理</a></li>
-<li><a href="#6-进一步抽象">6. 进一步抽象</a></li>
-<li><a href="#7-扩展emq-x">7. 扩展EMQ X</a></li>
-<li><a href="#8-coap">8. CoAP</a></li>
-<li><a href="#9-总结">9. 总结</a></li>
-<li><a href="#10-软件与编程语言教程">10. 软件与编程语言教程</a>
-<ul>
-<li><a href="#10-1-mongodb教程">10.1 MongoDB教程</a></li>
-<li><a href="#10-2-redis教程">10.2 Redis教程</a></li>
-<li><a href="#10-3-node-js教程">10.3 Node.js教程</a>
-<ul>
-<li><a href="#10-3-1-express项目创建">10.3.1 Express项目创建</a>
-<ul>
-<li><a href="#10-3-1-1-手动安装express并创建项目">10.3.1.1 手动安装Express并创建项目</a></li>
-<li><a href="#10-3-1-2-安装express生成器并使用其生成express项目">10.3.1.2 安装Express生成器并使用其生成Express项目</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#10-4-rabbitmq教程">10.4 RabbitMQ教程</a></li>
-<li><a href="#10-5-emq-x教程">10.5 EMQ X教程</a></li>
-<li><a href="#10-6-javascript教程">10.6 Javascript教程</a></li>
-</ul></li>
-<li><a href="#11-平台的进一步改进">11. 平台的进一步改进</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#1-项目介绍">1. 项目介绍</a></li>
+    <li><a href="#2-准备工作台">2. 准备工作台</a>
+      <ul>
+        <li><a href="#21-安装组件">2.1 安装组件</a></li>
+        <li><a href="#22-项目实体定义">2.2 项目实体定义</a></li>
+        <li><a href="#23-项目结构">2.3 项目结构</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-设备生命周期管理">3. 设备生命周期管理</a></li>
+    <li><a href="#4-上行数据处理">4. 上行数据处理</a></li>
+    <li><a href="#5-下行数据处理">5. 下行数据处理</a></li>
+    <li><a href="#6-进一步抽象">6. 进一步抽象</a></li>
+    <li><a href="#7-扩展emq-x">7. 扩展EMQ X</a></li>
+    <li><a href="#8-coap">8. CoAP</a></li>
+    <li><a href="#9-总结">9. 总结</a></li>
+    <li><a href="#10-软件与编程语言教程">10. 软件与编程语言教程</a>
+      <ul>
+        <li><a href="#101-mongodb教程">10.1 MongoDB教程</a></li>
+        <li><a href="#102-redis教程">10.2 Redis教程</a></li>
+        <li><a href="#103-nodejs教程">10.3 Node.js教程</a></li>
+        <li><a href="#104-rabbitmq教程">10.4 RabbitMQ教程</a></li>
+        <li><a href="#105-emq-x教程">10.5 EMQ X教程</a></li>
+        <li><a href="#106-javascript教程">10.6 Javascript教程</a></li>
+      </ul>
+    </li>
+    <li><a href="#11-平台的进一步改进">11. 平台的进一步改进</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h1 id="iothub物联网平台搭建-从0到1">Iothub物联网平台搭建：从0到1</h1>
-
+      <h1 id="iothub物联网平台搭建从0到1">Iothub物联网平台搭建：从0到1</h1>
 <h2 id="1-项目介绍">1. 项目介绍</h2>
-
 <h2 id="2-准备工作台">2. 准备工作台</h2>
-
 <p>本节安装开发物联网平台用到的组件，并将开发环境搭建起来。</p>
-
-<h3 id="2-1-安装组件">2.1 安装组件</h3>
-
+<h3 id="21-安装组件">2.1 安装组件</h3>
 <p>在安装组件前建议先更新一下软件列表及软件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt update
-sudo apt upgrade</code></pre></td></tr></table>
+sudo apt upgrade
+</code></pre></td></tr></table>
 </div>
-</div>
-<h4 id="2-1-1-mongodb">2.1.1 MongoDB</h4>
-
+</div><h4 id="211-mongodb">2.1.1 MongoDB</h4>
 <p>MongoDB是一个基于分布式文件存储的数据库，在该项目中作为物联网平台的主要数据存储工具。</p>
-
 <ul>
-<li><p>安装：</p>
+<li>
+<p>安装：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install mongodb</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install mongodb
+</code></pre></td></tr></table>
 </div>
 </div></li>
-
-<li><p>进入mongodb：</p>
+<li>
+<p>进入mongodb：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">mongo</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">mongo
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>输出：</p>
+</div><p>输出：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -266,12 +238,13 @@ sudo apt upgrade</code></pre></td></tr></table>
 </span><span class="lnt">19
 </span><span class="lnt">20
 </span><span class="lnt">21
+</span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell">eiger@eiger-ThinkPad-X1-Carbon-3rd:~$ mongo
 MongoDB shell version v3.6.3
 connecting to: mongodb://127.0.0.1:27017
-MongoDB server version: <span class="m">3</span>.6.3
+MongoDB server version: 3.6.3
 Welcome to the MongoDB shell.
 For interactive help, <span class="nb">type</span> <span class="s2">&#34;help&#34;</span>.
 For more comprehensive documentation, see
@@ -279,117 +252,120 @@ For more comprehensive documentation, see
 Questions? Try the support group
     http://groups.google.com/group/mongodb-user
 Server has startup warnings:
-<span class="m">2019</span>-08-14T09:51:31.023-0400 I STORAGE  <span class="o">[</span>initandlisten<span class="o">]</span>
-<span class="m">2019</span>-08-14T09:51:31.023-0400 I STORAGE  <span class="o">[</span>initandlisten<span class="o">]</span> ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
-<span class="m">2019</span>-08-14T09:51:31.023-0400 I STORAGE  <span class="o">[</span>initandlisten<span class="o">]</span> **          See http://dochub.mongodb.org/core/prodnotes-filesystem
-<span class="m">2019</span>-08-14T09:51:32.038-0400 I CONTROL  <span class="o">[</span>initandlisten<span class="o">]</span>
-<span class="m">2019</span>-08-14T09:51:32.038-0400 I CONTROL  <span class="o">[</span>initandlisten<span class="o">]</span> ** WARNING: Access control is not enabled <span class="k">for</span> the database.
-<span class="m">2019</span>-08-14T09:51:32.038-0400 I CONTROL  <span class="o">[</span>initandlisten<span class="o">]</span> **          Read and write access to data and configuration is unrestricted.
-<span class="m">2019</span>-08-14T09:51:32.038-0400 I CONTROL  <span class="o">[</span>initandlisten<span class="o">]</span>
+2019-08-14T09:51:31.023-0400 I STORAGE  <span class="o">[</span>initandlisten<span class="o">]</span>
+2019-08-14T09:51:31.023-0400 I STORAGE  <span class="o">[</span>initandlisten<span class="o">]</span> ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-08-14T09:51:31.023-0400 I STORAGE  <span class="o">[</span>initandlisten<span class="o">]</span> **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-08-14T09:51:32.038-0400 I CONTROL  <span class="o">[</span>initandlisten<span class="o">]</span>
+2019-08-14T09:51:32.038-0400 I CONTROL  <span class="o">[</span>initandlisten<span class="o">]</span> ** WARNING: Access control is not enabled <span class="k">for</span> the database.
+2019-08-14T09:51:32.038-0400 I CONTROL  <span class="o">[</span>initandlisten<span class="o">]</span> **          Read and write access to data and configuration is unrestricted.
+2019-08-14T09:51:32.038-0400 I CONTROL  <span class="o">[</span>initandlisten<span class="o">]</span>
 &gt;
 &gt; ^C
-bye</code></pre></td></tr></table>
-</div>
-</div>
-<p>(ps: CTRL+C退出工作台)</p></li>
+bye
 
-<li><p>启动与停止：</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>(ps: CTRL+C退出工作台)</p>
+</li>
+<li>
+<p>启动与停止：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell">sudo service mongodb start
-sudo service mongodb stop</code></pre></td></tr></table>
+sudo service mongodb stop
+</code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
-
-<h4 id="2-1-2-redis">2.1.2 Redis</h4>
-
+<h4 id="212-redis">2.1.2 Redis</h4>
 <p>Redis是一个高效的内存数据库，本项目使用其实现缓存和简单的队列功能。</p>
-
 <ul>
-<li><p>安装：</p>
+<li>
+<p>安装：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install redis-server</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install redis-server
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>版本信息：</p>
+</div><p>版本信息：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell">eiger@eiger-ThinkPad-X1-Carbon-3rd:~$ redis-server --version
-Redis server <span class="nv">v</span><span class="o">=</span><span class="m">4</span>.0.9 <span class="nv">sha</span><span class="o">=</span><span class="m">00000000</span>:0 <span class="nv">malloc</span><span class="o">=</span>jemalloc-3.6.0 <span class="nv">bits</span><span class="o">=</span><span class="m">64</span> <span class="nv">build</span><span class="o">=</span>9435c3c2879311f3</code></pre></td></tr></table>
+Redis server <span class="nv">v</span><span class="o">=</span>4.0.9 <span class="nv">sha</span><span class="o">=</span>00000000:0 <span class="nv">malloc</span><span class="o">=</span>jemalloc-3.6.0 <span class="nv">bits</span><span class="o">=</span><span class="m">64</span> <span class="nv">build</span><span class="o">=</span>9435c3c2879311f3
+</code></pre></td></tr></table>
 </div>
 </div></li>
-
-<li><p>运行：</p>
+<li>
+<p>运行：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell">redis-server  <span class="c1"># 运行服务端</span>
-redis-cli  <span class="c1"># 运行客户端</span></code></pre></td></tr></table>
+redis-cli  <span class="c1"># 运行客户端</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>测试服务器是否启动成功：</p>
+</div><p>测试服务器是否启动成功：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell">eiger@eiger-ThinkPad-X1-Carbon-3rd:~$ redis-cli
-<span class="m">127</span>.0.0.1:6379&gt; ping
+127.0.0.1:6379&gt; ping
 PONG
-<span class="m">127</span>.0.0.1:6379&gt;</code></pre></td></tr></table>
+127.0.0.1:6379&gt;
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>(ps: CTRL+C退出客户端交互)</p></li>
+</div><p>(ps: CTRL+C退出客户端交互)</p>
+</li>
 </ul>
-
-<h4 id="2-1-3-node-js">2.1.3 Node.js</h4>
-
+<h4 id="213-nodejs">2.1.3 Node.js</h4>
 <p>Node.js是一个基于Chrome V8的Javascript运行环境，本项目用它开发物联网平台的主要功能。</p>
-
 <ul>
-<li><p>安装Node.js稳定版本</p>
+<li>
+<p>安装Node.js稳定版本</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install nodejs</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install nodejs
+</code></pre></td></tr></table>
 </div>
 </div></li>
-
-<li><p>安装npm</p>
+<li>
+<p>安装npm</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install npm</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install npm
+</code></pre></td></tr></table>
 </div>
 </div></li>
-
-<li><p>查看版本信息</p>
+<li>
+<p>查看版本信息</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -398,83 +374,70 @@ PONG
 <pre class="chroma"><code class="language-shell" data-lang="shell">eiger@eiger-ThinkPad-X1-Carbon-3rd:~$ nodejs --version
 v8.10.0
 eiger@eiger-ThinkPad-X1-Carbon-3rd:~$ npm --version
-<span class="m">6</span>.10.3</code></pre></td></tr></table>
+6.10.3
+</code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
-
-<h4 id="2-1-4-rabbitmq">2.1.4 RabbitMQ</h4>
-
+<h4 id="214-rabbitmq">2.1.4 RabbitMQ</h4>
 <p>RabbitMQ是Erlang编写的AMQP Broker，物联网平台用其作为队列系统，实现平台内部以及平台到业务系统的异步通信。</p>
-
 <p>安装及使用参考： <a href="https://codeleading.com/article/3099906725/">https://codeleading.com/article/3099906725/</a></p>
-
 <ul>
-<li><p>安装</p>
+<li>
+<p>安装</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install rabbitmq-server</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install rabbitmq-server
+</code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
-
-<h4 id="2-1-5-emq-x">2.1.5 EMQ X</h4>
-
+<h4 id="215-emq-x">2.1.5 EMQ X</h4>
 <p>EMQ X 是Erlang编写的MQTT Broker，物联网平台使用它实现MQTT/CoAP协议接入，并使用其一些高级功能来简化开发。</p>
-
 <p>建议仔细阅读其官方文档，有利于了解物联网平台的构架。</p>
-
 <ul>
 <li><a href="https://docs.emqx.io/docs/tutorial/zh/">https://docs.emqx.io/docs/tutorial/zh/</a></li>
 </ul>
-
 <p>安装参考(官方文档)：</p>
-
 <ul>
 <li><a href="https://docs.emqx.io/docs/tutorial/zh/quick_start/install_first.html">https://docs.emqx.io/docs/tutorial/zh/quick_start/install_first.html</a></li>
 </ul>
-
 <p>EMQ X Broker下载页面： <a href="https://www.emqx.io/products/broker">https://www.emqx.io/products/broker</a>。选择v3.2.2 linux/ubuntu18.04/zip包下载（对于这类不是很熟悉的软件，尤其是没有apt源的软件，尽量建议下载压缩包，自行安装。）</p>
-
 <p>解压后将文件夹复制到/usr/local下，<del>设置环境变量<code>export PATH=$PATH:/usr/local/emqx/bin</code></del>，不设置环境变量（因为后边还装了emqx-edge，他俩执行文件名是完全一样的，而我又不想修改程序名），每次启动时自项目根目录启动，也就是<code>emqx/</code>目录下启动。</p>
-
 <p>检查安装成功与否：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /usr/local/emqx
-./bin/emqx console</code></pre></td></tr></table>
+./bin/emqx console
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>这里顺便安装了一下EMQ X Edge，与本文章物联网平台实现暂时无关，考虑到后面学习可能会使用到，所以也安装了。安装文档在官网</p>
-
+</div><p>这里顺便安装了一下EMQ X Edge，与本文章物联网平台实现暂时无关，考虑到后面学习可能会使用到，所以也安装了。安装文档在官网</p>
 <ul>
 <li><a href="https://docs.emqx.io/docs/edge/v3/cn/">https://docs.emqx.io/docs/edge/v3/cn/</a></li>
 </ul>
-
 <p>由于前面将软件包复制到/usr/local下需要用sudo，所以现在<code>emqx</code>和<code>emqx-edge</code>（emqx-edge安装目录）只有root用户才有权限，为了让其他用户也能运行，这里修改下文件夹全部内容的权限：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell">sudo chmod -R <span class="m">777</span> /usr/local/emqx
-sudo chmod -R <span class="m">777</span> /usr/local/emqx-edge</code></pre></td></tr></table>
+sudo chmod -R <span class="m">777</span> /usr/local/emqx-edge
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>(ps: 实际生产环境千万别无脑提升权限，这里为了省事)</p>
-
+</div><p>(ps: 实际生产环境千万别无脑提升权限，这里为了省事)</p>
 <p>现在附上emqx的执行测试：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -497,25 +460,23 @@ sudo chmod -R <span class="m">777</span> /usr/local/emqx-edge</code></pre></td><
 Exec: /usr/local/emqx/erts-10.3/bin/erlexec -boot /usr/local/emqx/releases/v3.2.1/emqx -mode embedded -boot_var ERTS_LIB_DIR /usr/local/emqx/erts-10.3/../lib -mnesia dir <span class="s2">&#34;/usr/local/emqx/data/mnesia/emqx@127.0.0.1&#34;</span> -config /usr/local/emqx/data/configs/app.2019.08.14.23.01.21.config -args_file /usr/local/emqx/data/configs/vm.2019.08.14.23.01.21.args -vm_args /usr/local/emqx/data/configs/vm.2019.08.14.23.01.21.args -- console
 Root: /usr/local/emqx
 /usr/local/emqx
-Erlang/OTP <span class="m">21</span> <span class="o">[</span>erts-10.3<span class="o">]</span> <span class="o">[</span>source<span class="o">]</span> <span class="o">[</span><span class="m">64</span>-bit<span class="o">]</span> <span class="o">[</span>smp:4:4<span class="o">]</span> <span class="o">[</span>ds:4:4:10<span class="o">]</span> <span class="o">[</span>async-threads:32<span class="o">]</span> <span class="o">[</span>hipe<span class="o">]</span>
+Erlang/OTP <span class="m">21</span> <span class="o">[</span>erts-10.3<span class="o">]</span> <span class="o">[</span>source<span class="o">]</span> <span class="o">[</span>64-bit<span class="o">]</span> <span class="o">[</span>smp:4:4<span class="o">]</span> <span class="o">[</span>ds:4:4:10<span class="o">]</span> <span class="o">[</span>async-threads:32<span class="o">]</span> <span class="o">[</span>hipe<span class="o">]</span>
 
 Starting emqx on node emqx@127.0.0.1
 Start http:management listener on <span class="m">8080</span> successfully.
 Start http:dashboard listener on <span class="m">18083</span> successfully.
-Start mqtt:tcp listener on <span class="m">127</span>.0.0.1:11883 successfully.
-Start mqtt:tcp listener on <span class="m">0</span>.0.0.0:1883 successfully.
-Start mqtt:ws listener on <span class="m">0</span>.0.0.0:8083 successfully.
-Start mqtt:ssl listener on <span class="m">0</span>.0.0.0:8883 successfully.
-Start mqtt:wss listener on <span class="m">0</span>.0.0.0:8084 successfully.
-EMQ X Broker <span class="m">3</span>.2.2 is running now!
+Start mqtt:tcp listener on 127.0.0.1:11883 successfully.
+Start mqtt:tcp listener on 0.0.0.0:1883 successfully.
+Start mqtt:ws listener on 0.0.0.0:8083 successfully.
+Start mqtt:ssl listener on 0.0.0.0:8883 successfully.
+Start mqtt:wss listener on 0.0.0.0:8084 successfully.
+EMQ X Broker 3.2.2 is running now!
 Eshell V10.3  <span class="o">(</span>abort with ^G<span class="o">)</span>
-<span class="o">(</span>emqx@127.0.0.1<span class="o">)</span><span class="m">1</span>&gt;</code></pre></td></tr></table>
+<span class="o">(</span>emqx@127.0.0.1<span class="o">)</span>1&gt;
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>说明没有问题。</p>
-
-<h3 id="2-2-项目实体定义">2.2 项目实体定义</h3>
-
+</div><p>说明没有问题。</p>
+<h3 id="22-项目实体定义">2.2 项目实体定义</h3>
 <ul>
 <li><strong>Maque IotHub:</strong> 即将开发的物联网平台，简称IotHub</li>
 <li><strong>Maque IotHub Server API:</strong> 服务端API，以Restful API形式将功能提供给外部业务系统调用，简称Server API</li>
@@ -524,49 +485,29 @@ Eshell V10.3  <span class="o">(</span>abort with ^G<span class="o">)</span>
 <li><strong>Maque IotHub DeviceSDK:</strong> IotHub提供的设备端SDK，设备通过调用SDK提供的API接入IotHub，并和业务系统发生交互，简称Device SDK</li>
 <li><strong>设备应用代码:</strong> 实现设备具体功能的代码，比如打开灯、显示温度等，调用DeviceSDK来使用IotHub提供的功能</li>
 </ul>
-
-<h3 id="2-3-项目结构">2.3 项目结构</h3>
-
+<h3 id="23-项目结构">2.3 项目结构</h3>
 <p>该项目包括两个Node.js的项目，一个是Server项目，一个是DeviceSDK项目。</p>
-
-<h4 id="2-3-1-maque-iothub-server">2.3.1 Maque IotHub Server</h4>
-
+<h4 id="231-maque-iothub-server">2.3.1 Maque IotHub Server</h4>
 <p>基于Express项目开发，Express是一个轻量级的、易于开发Restful API的Node.js的Web框架。安装、使用参考： <a href="http://expressjs.com.cn">http://expressjs.com.cn</a></p>
-
 <p>关于Express的项目创建参见<a href="#1031-express%e9%a1%b9%e7%9b%ae%e5%88%9b%e5%bb%ba">10.3.1 Express项目创建</a></p>
-
 <h2 id="3-设备生命周期管理">3. 设备生命周期管理</h2>
-
 <h2 id="4-上行数据处理">4. 上行数据处理</h2>
-
 <h2 id="5-下行数据处理">5. 下行数据处理</h2>
-
 <h2 id="6-进一步抽象">6. 进一步抽象</h2>
-
 <h2 id="7-扩展emq-x">7. 扩展EMQ X</h2>
-
 <h2 id="8-coap">8. CoAP</h2>
-
 <h2 id="9-总结">9. 总结</h2>
-
 <h2 id="10-软件与编程语言教程">10. 软件与编程语言教程</h2>
-
-<h3 id="10-1-mongodb教程">10.1 MongoDB教程</h3>
-
-<h3 id="10-2-redis教程">10.2 Redis教程</h3>
-
-<h3 id="10-3-node-js教程">10.3 Node.js教程</h3>
-
-<h4 id="10-3-1-express项目创建">10.3.1 Express项目创建</h4>
-
-<h5 id="10-3-1-1-手动安装express并创建项目">10.3.1.1 手动安装Express并创建项目</h5>
-
+<h3 id="101-mongodb教程">10.1 MongoDB教程</h3>
+<h3 id="102-redis教程">10.2 Redis教程</h3>
+<h3 id="103-nodejs教程">10.3 Node.js教程</h3>
+<h4 id="1031-express项目创建">10.3.1 Express项目创建</h4>
+<h5 id="10311-手动安装express并创建项目">10.3.1.1 手动安装Express并创建项目</h5>
 <p>安装express项目教程参考： <a href="http://www.expressjs.com.cn/starter/installing.html">http://www.expressjs.com.cn/starter/installing.html</a></p>
-
 <p>我的安装流程：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -681,7 +622,7 @@ save it as a dependency in the package.json file.
 
 Press ^C at any <span class="nb">time</span> to quit.
 package name: <span class="o">(</span>iothub-server<span class="o">)</span>
-version: <span class="o">(</span><span class="m">1</span>.0.0<span class="o">)</span>
+version: <span class="o">(</span>1.0.0<span class="o">)</span>
 description:
 entry point: <span class="o">(</span>index.js<span class="o">)</span> server.js
 <span class="nb">test</span> command:
@@ -716,11 +657,11 @@ npm ERR! Your cache folder contains root-owned files, due to a bug in
 npm ERR! previous versions of npm which has since been addressed.
 npm ERR!
 npm ERR! To permanently fix this problem, please run:
-npm ERR!   sudo chown -R <span class="m">1000</span>:1000 <span class="s2">&#34;/home/eiger/.npm&#34;</span>
+npm ERR!   sudo chown -R 1000:1000 <span class="s2">&#34;/home/eiger/.npm&#34;</span>
 
 npm ERR! A <span class="nb">complete</span> log of this run can be found in:
 npm ERR!     /home/eiger/.npm/_logs/2019-08-15T04_12_52_463Z-debug.log
-eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/IotHub/IotHub-Server$ sudo chown -R <span class="m">1000</span>:1000 <span class="s2">&#34;/home/eiger/.npm&#34;</span>
+eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/IotHub/IotHub-Server$ sudo chown -R 1000:1000 <span class="s2">&#34;/home/eiger/.npm&#34;</span>
 <span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> eiger:
 eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/IotHub/IotHub-Server$ npm install expressjs --save
 npm notice created a lockfile as package-lock.json. You should commit this file.
@@ -728,7 +669,7 @@ npm WARN iothub-server@1.0.0 No description
 npm WARN iothub-server@1.0.0 No repository field.
 
 + expressjs@1.0.1
-added <span class="m">1</span> package and audited <span class="m">1</span> package in <span class="m">2</span>.474s
+added <span class="m">1</span> package and audited <span class="m">1</span> package in 2.474s
 found <span class="m">0</span> vulnerabilities
 
 eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/IotHub/IotHub-Server$ ls
@@ -745,19 +686,16 @@ eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/IotHub/IotHub-Server$ tree
 ├── package.json
 └── package-lock.json
 
-<span class="m">2</span> directories, <span class="m">4</span> files</code></pre></td></tr></table>
+<span class="m">2</span> directories, <span class="m">4</span> files
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>接下来可以参考 <a href="http://www.expressjs.com.cn/starter/hello-world.html">http://www.expressjs.com.cn/starter/hello-world.html</a>开发第一个Helloword代码</p>
-
-<h5 id="10-3-1-2-安装express生成器并使用其生成express项目">10.3.1.2 安装Express生成器并使用其生成Express项目</h5>
-
+</div><p>接下来可以参考 <a href="http://www.expressjs.com.cn/starter/hello-world.html">http://www.expressjs.com.cn/starter/hello-world.html</a>开发第一个Helloword代码</p>
+<h5 id="10312-安装express生成器并使用其生成express项目">10.3.1.2 安装Express生成器并使用其生成Express项目</h5>
 <p>安装及使用方法参考： <a href="http://www.expressjs.com.cn/starter/generator.html">http://www.expressjs.com.cn/starter/generator.html</a></p>
-
 <p>在本文章中实际采用express生成器来生成其框架代码，并基于此进行开发。因此，先将上一小节中产生的文件全部删除</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -772,17 +710,13 @@ eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/IotHub/IotHub-Server$ ls
 node_modules
 eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/IotHub/IotHub-Server$ rm -r node_modules/
 eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/IotHub/IotHub-Server$ ls
-eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/IotHub/IotHub-Server$</code></pre></td></tr></table>
+eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Desktop/IotHub/IotHub-Server$
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>我的安装及express项目生成流程：</p>
-
-<h3 id="10-4-rabbitmq教程">10.4 RabbitMQ教程</h3>
-
-<h3 id="10-5-emq-x教程">10.5 EMQ X教程</h3>
-
-<h3 id="10-6-javascript教程">10.6 Javascript教程</h3>
-
+</div><p>我的安装及express项目生成流程：</p>
+<h3 id="104-rabbitmq教程">10.4 RabbitMQ教程</h3>
+<h3 id="105-emq-x教程">10.5 EMQ X教程</h3>
+<h3 id="106-javascript教程">10.6 Javascript教程</h3>
 <h2 id="11-平台的进一步改进">11. 平台的进一步改进</h2>
 
     </div>

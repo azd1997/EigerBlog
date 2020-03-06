@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/algo/lt-calculator/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2020-02-24T08:40:11+08:00" />
 <meta itemprop="name" content="LeetCode——计算器系列">
 <meta itemprop="description" content="0. 导语 计算器作为栈的经典应用，本文就力扣平台上与计算器有关的以下题目进行总结: 150.逆波兰表达式求值 227.基本计算器II（与面试题16.">
-
-
 <meta itemprop="datePublished" content="2020-02-24T08:40:11&#43;08:00" />
 <meta itemprop="dateModified" content="2020-02-24T08:40:11&#43;08:00" />
-<meta itemprop="wordCount" content="5920">
+<meta itemprop="wordCount" content="5928">
 
 
 
-<meta itemprop="keywords" content="LeetCode," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="LeetCode," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="LeetCode——计算器系列"/>
 <meta name="twitter:description" content="0. 导语 计算器作为栈的经典应用，本文就力扣平台上与计算器有关的以下题目进行总结: 150.逆波兰表达式求值 227.基本计算器II（与面试题16."/>
 
@@ -135,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 5920 words </span>
+          <span class="more-meta"> 5928 words </span>
           <span class="more-meta"> 12 mins read </span>
         
       </div>
@@ -145,106 +142,66 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#0-导语">0. 导语</a></li>
-<li><a href="#1-逆波兰表达式求值">1. 逆波兰表达式求值</a>
-<ul>
-<li><a href="#1-1-题意">1.1 题意</a></li>
-<li><a href="#1-2-解答">1.2 解答</a></li>
-</ul></li>
-<li><a href="#2-基本计算器ii">2. 基本计算器II</a>
-<ul>
-<li><a href="#2-1-题意">2.1 题意</a></li>
-<li><a href="#2-2-解答">2.2 解答</a></li>
-</ul></li>
-<li><a href="#3-基本计算器">3. 基本计算器</a>
-<ul>
-<li><a href="#3-1-题意">3.1 题意</a></li>
-</ul></li>
-<li><a href="#3-2-解答">3.2 解答</a></li>
-<li><a href="#4-基本计算器iv">4. 基本计算器IV</a>
-<ul>
-<li><a href="#4-1-题意">4.1 题意</a></li>
-<li><a href="#4-2-解答">4.2 解答</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#0-导语">0. 导语</a></li>
+    <li><a href="#1-逆波兰表达式求值">1. 逆波兰表达式求值</a>
+      <ul>
+        <li><a href="#11-题意">1.1 题意</a></li>
+        <li><a href="#12-解答">1.2 解答</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-基本计算器ii">2. 基本计算器II</a>
+      <ul>
+        <li><a href="#21-题意">2.1 题意</a></li>
+        <li><a href="#22-解答">2.2 解答</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-基本计算器">3. 基本计算器</a>
+      <ul>
+        <li><a href="#31-题意">3.1 题意</a></li>
+      </ul>
+    </li>
+    <li><a href="#32-解答">3.2 解答</a></li>
+    <li><a href="#4-基本计算器iv">4. 基本计算器IV</a>
+      <ul>
+        <li><a href="#41-题意">4.1 题意</a></li>
+        <li><a href="#42-解答">4.2 解答</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h2 id="0-导语">0. 导语</h2>
-
+      <h2 id="0-导语">0. 导语</h2>
 <p>计算器作为栈的经典应用，本文就<a href="https://leetcode-cn.com">力扣</a>平台上与计算器有关的以下题目进行总结:</p>
-
 <ul>
 <li><a href="https://leetcode-cn.com/problems/evaluate-reverse-polish-notation/">150.逆波兰表达式求值</a></li>
 <li><a href="https://leetcode-cn.com/problems/basic-calculator-ii/">227.基本计算器II</a>（与<a href="https://leetcode-cn.com/problems/calculator-lcci/">面试题16.26计算器</a>相同）</li>
 <li><a href="https://leetcode-cn.com/problems/basic-calculator/">224.基本计算器</a></li>
 <li><a href="https://leetcode-cn.com/problems/basic-calculator-iv/">770.基本计算器IV</a></li>
 </ul>
-
 <h2 id="1-逆波兰表达式求值">1. 逆波兰表达式求值</h2>
-
-<h3 id="1-1-题意">1.1 题意</h3>
-
+<h3 id="11-题意">1.1 题意</h3>
 <p>根据<a href="https://baike.baidu.com/item/%E9%80%86%E6%B3%A2%E5%85%B0%E5%BC%8F/128437">逆波兰表示法</a>，求表达式的值。</p>
-
 <p>有效的运算符包括 $+, -, *, /$ 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。</p>
-
 <p><strong>说明：</strong></p>
-
 <ul>
 <li>整数除法只保留整数部分。</li>
 <li>给定逆波兰表达式总是有效的。换句话说，表达式总会得出有效数值且不存在除数为 0 的情况。</li>
 </ul>
-
 <p>示例 1：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入: [&#34;2&#34;, &#34;1&#34;, &#34;+&#34;, &#34;3&#34;, &#34;*&#34;]
+<pre><code>输入: [&quot;2&quot;, &quot;1&quot;, &quot;+&quot;, &quot;3&quot;, &quot;*&quot;]
 输出: 9
-解释: ((2 + 1) * 3) = 9</pre></td></tr></table>
-</div>
-</div>
+解释: ((2 + 1) * 3) = 9
+</code></pre>
 <p>示例 2：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入: [&#34;4&#34;, &#34;13&#34;, &#34;5&#34;, &#34;/&#34;, &#34;+&#34;]
+<pre><code>输入: [&quot;4&quot;, &quot;13&quot;, &quot;5&quot;, &quot;/&quot;, &quot;+&quot;]
 输出: 6
-解释: (4 + (13 / 5)) = 6</pre></td></tr></table>
-</div>
-</div>
+解释: (4 + (13 / 5)) = 6
+</code></pre>
 <p>示例 3：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入: [&#34;10&#34;, &#34;6&#34;, &#34;9&#34;, &#34;3&#34;, &#34;+&#34;, &#34;-11&#34;, &#34;*&#34;, &#34;/&#34;, &#34;*&#34;, &#34;17&#34;, &#34;+&#34;, &#34;5&#34;, &#34;+&#34;]
+<pre><code>输入: [&quot;10&quot;, &quot;6&quot;, &quot;9&quot;, &quot;3&quot;, &quot;+&quot;, &quot;-11&quot;, &quot;*&quot;, &quot;/&quot;, &quot;*&quot;, &quot;17&quot;, &quot;+&quot;, &quot;5&quot;, &quot;+&quot;]
 输出: 22
 解释:
 ((10 * (6 / ((9 + 3) * -11))) + 17) + 5
@@ -253,32 +210,30 @@
 = ((10 * 0) + 17) + 5
 = (0 + 17) + 5
 = 17 + 5
-= 22</pre></td></tr></table>
-</div>
-</div>
-<h3 id="1-2-解答">1.2 解答</h3>
-
+= 22
+</code></pre>
+<h3 id="12-解答">1.2 解答</h3>
 <ul>
-<li><p>思路</p>
-
+<li>
+<p>思路</p>
 <ul>
 <li>线性遍历后缀表达式
-
 <ol>
 <li>遇数字压入操作数栈<code>stack</code>;</li>
 <li>遇操作符则弹出栈顶两个操作数进行计算，计算结果压回栈中</li>
 <li>最后栈中只剩最终计算结果一项</li>
-</ol></li>
-</ul></li>
+</ol>
+</li>
 </ul>
-
-<p>*ps: 题目全是二元操作符，所以才是出栈顶两个数计算；而且要注意<strong>先出栈的为右操作数，后出栈的为左操作数</strong>，事实上获取逆波兰表达式(后缀表达式)时是相反的*</p>
-
+</li>
+</ul>
+<p><em>ps: 题目全是二元操作符，所以才是出栈顶两个数计算；而且要注意<strong>先出栈的为右操作数，后出栈的为左操作数</strong>，事实上获取逆波兰表达式(后缀表达式)时是相反的</em></p>
 <ul>
-<li><p>实现</p>
+<li>实现</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -316,13 +271,13 @@
 	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="nx">tokens</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
 		<span class="nx">l</span> <span class="p">=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span>
 		<span class="k">switch</span> <span class="nx">tokens</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="s">&#34;+&#34;</span><span class="p">:</span>
-        <span class="c1">// 这一步等价于
-</span><span class="c1"></span>        <span class="c1">// a = stack.pop()
-</span><span class="c1"></span>        <span class="c1">// b = stack.pop()
-</span><span class="c1"></span>        <span class="c1">// res = b + a  (注意左右顺序)
-</span><span class="c1"></span>        <span class="c1">// stack.push(res)
-</span><span class="c1"></span>        <span class="c1">// 这里这么写只是利用了go slice append方法
+        <span class="k">case</span> <span class="s">&#34;+&#34;</span><span class="p">:</span>
+            <span class="c1">// 这一步等价于
+</span><span class="c1"></span>            <span class="c1">// a = stack.pop()
+</span><span class="c1"></span>            <span class="c1">// b = stack.pop()
+</span><span class="c1"></span>            <span class="c1">// res = b + a  (注意左右顺序)
+</span><span class="c1"></span>            <span class="c1">// stack.push(res)
+</span><span class="c1"></span>            <span class="c1">// 这里这么写只是利用了go slice append方法
 </span><span class="c1"></span>			<span class="nx">stack</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">stack</span><span class="p">[:</span><span class="nx">l</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="nx">stack</span><span class="p">[</span><span class="nx">l</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="nx">stack</span><span class="p">[</span><span class="nx">l</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 		<span class="k">case</span> <span class="s">&#34;-&#34;</span><span class="p">:</span>
 			<span class="nx">stack</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">stack</span><span class="p">[:</span><span class="nx">l</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="nx">stack</span><span class="p">[</span><span class="nx">l</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="nx">stack</span><span class="p">[</span><span class="nx">l</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
@@ -337,86 +292,56 @@
 	<span class="p">}</span>
 	<span class="c1">// 对于完整有效的逆波兰表达式，运算结束后栈中只剩一个数字，直接返回即可
 </span><span class="c1"></span>	<span class="k">return</span> <span class="nx">stack</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
-<h2 id="2-基本计算器ii">2. 基本计算器II</h2>
-
-<h3 id="2-1-题意">2.1 题意</h3>
-
+</div><h2 id="2-基本计算器ii">2. 基本计算器II</h2>
+<h3 id="21-题意">2.1 题意</h3>
 <p>实现一个基本的计算器来计算一个简单的字符串表达式的值。</p>
-
 <p>字符串表达式仅包含非负整数，+， - ，*，/ 四种运算符和空格  。 整数除法仅保留整数部分。</p>
-
 <p>示例 1:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入: &#34;3+2*2&#34;
-输出: 7</pre></td></tr></table>
-</div>
-</div>
+<pre><code>输入: &quot;3+2*2&quot;
+输出: 7
+</code></pre>
 <p>示例 2:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入: &#34; 3/2 &#34;
-输出: 1</pre></td></tr></table>
-</div>
-</div>
+<pre><code>输入: &quot; 3/2 &quot;
+输出: 1
+</code></pre>
 <p>示例 3:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入: &#34; 3+5 / 2 &#34;
-输出: 5</pre></td></tr></table>
-</div>
-</div>
-<p>说明：
-  - 你可以假设所给定的表达式都是有效的。
-  - 请不要使用内置的库函数 eval。</p>
-
-<h3 id="2-2-解答">2.2 解答</h3>
-
+<pre><code>输入: &quot; 3+5 / 2 &quot;
+输出: 5
+</code></pre>
+<p>说明：</p>
+<ul>
+<li>你可以假设所给定的表达式都是有效的。</li>
+<li>请不要使用内置的库函数 eval。</li>
+</ul>
+<h3 id="22-解答">2.2 解答</h3>
 <ul>
 <li>解法一</li>
 </ul>
-
 <p>由于没有括号，中缀表达式中运算符优先级非常清晰简单: $*,/$高于$+,-$，因此完全可以模拟人计算时的思考来求解。</p>
-
 <p>例如 <code>3 + 2 * 4</code>，解法一的做法是，先计算好所有乘除的结果，得到<code>3 + 8</code>，最后再将所有数直接相加得到 <code>11</code></p>
-
 <ol>
 <li>初始化操作数栈<code>stack</code>，<code>op = '+'</code>(op记载的是当前访问到的操作符的前一个操作符), <code>num = 0</code>(用于累加计算连续数字字符组成的若干位数)。</li>
 <li>线性向右遍历
-
 <ul>
 <li>遇空格则跳过</li>
 <li>遇数字，则数字更新 <code>num = num * 10 + s[i]</code></li>
 <li>遇符号：
-
 <ul>
 <li><code>+</code>: 直接将<code>num</code>压入<code>stack</code>并重置<code>num</code>， <code>op</code>更新为<code>s[i]</code></li>
 <li><code>-</code>: 直接将<code>-num</code>压入<code>stack</code>并重置<code>num</code>， <code>op</code>更新为<code>s[i]</code></li>
 <li><code>*/</code>: 取出操作数栈顶作为左操作数，<code>num</code>作为右操作数，计算结果后压回栈中</li>
-</ul></li>
-</ul></li>
-
-<li><p>最后将栈中所有数相加得到结果</p>
+</ul>
+</li>
+</ul>
+</li>
+<li>最后将栈中所有数相加得到结果</li>
+</ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -528,10 +453,10 @@
 			<span class="k">default</span><span class="p">:</span>
 				<span class="c1">// Nothing
 </span><span class="c1"></span>			<span class="p">}</span>
-        <span class="c1">//fmt.Println(stack)
+            <span class="c1">//fmt.Println(stack)
 </span><span class="c1"></span>		<span class="p">}</span>
 
-<span class="p">}</span>
+    <span class="p">}</span>
 
 	<span class="c1">// 经过上面处理，所有中间数字都计算出来，在栈中，最后只需要将栈中所有元素相加即可
 </span><span class="c1"></span>	<span class="nx">res</span> <span class="o">:=</span> <span class="mi">0</span>
@@ -541,45 +466,37 @@
 	<span class="p">}</span>
 
 	<span class="k">return</span> <span class="nx">res</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div></li>
-</ol>
-
-<ul>
+</div><ul>
 <li>解法二</li>
 </ul>
-
 <p>基于第1节逆波兰表达式的方法，可以通过将中缀表达式转换为后缀表达式，而后再计算逆波兰表达式，来实现计算器。这样的逆波兰实现方法是比较通用的计算器实现方法，以下将介绍它。</p>
-
 <p>实现分两步走：实现<code>getRPN()</code>和<code>calcRPN()</code>分别用于中缀转后缀和计算后缀表达式(与第1节做法一模一样，这里不再介绍)</p>
-
 <p><code>getRPN</code>的做法：</p>
-
 <ol>
 <li>定义好符号栈<code>stack</code>和返回后缀表达式<code>tokens</code></li>
 <li>线性遍历中缀表达式<code>s</code></li>
 <li>若<code>s[i]</code>为：
-
 <ol>
 <li>空格则跳过</li>
 <li>数字则处理连续数字，获得完整连续的数字</li>
 <li>符号：
-
 <ol>
 <li><code>*,/</code>将符号栈中优先级<strong>等于或高于本身</strong>的运算符(<code>*,/</code>)出栈并追加到<code>tokens</code>，并将<code>s[i]</code>压入栈中。</li>
 <li><code>+,-</code>将符号栈中优先级<strong>等于或高于本身</strong>的运算符(<code>*,/,+,-</code>)出栈并追加到<code>tokens</code>，并将<code>s[i]</code>压入栈中。</li>
-</ol></li>
-</ol></li>
+</ol>
+</li>
+</ol>
+</li>
 <li>最后将栈中剩余的操作符依次追加到<code>tokens</code></li>
 </ol>
-
 <p>这里有个小问题：连续数字的处理。解法1实现和第3节的实现中使用了一种方法: 用一个标志标记是否存在连续数字字符并用于记录数字的和<code>temp = temp * 10 + cur</code>，这样的话，每次遇到操作符，需要将这个标志进行重置。</p>
-
 <p>而这里则使用了另外一种比较推荐的做法(利用指针移动):</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -596,13 +513,13 @@
     <span class="nx">tokens</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">tokens</span><span class="p">,</span> <span class="nx">s</span><span class="p">[</span><span class="nx">i</span><span class="p">:</span><span class="nx">k</span><span class="p">])</span>		<span class="c1">// 将数字加入tokens
 </span><span class="c1"></span>    <span class="nx">i</span> <span class="p">=</span> <span class="nx">k</span> <span class="o">-</span> <span class="mi">1</span>	<span class="c1">// 更新i (为什么是k-1，这是因为continue之后会i++)
 </span><span class="c1"></span>    <span class="k">continue</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>具体实现如下：</p>
+</div><p>具体实现如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">  1
+<pre class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -863,73 +780,41 @@
 	<span class="k">default</span><span class="p">:</span>
 		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
 	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="3-基本计算器">3. 基本计算器</h2>
-
-<h3 id="3-1-题意">3.1 题意</h3>
-
+</div><h2 id="3-基本计算器">3. 基本计算器</h2>
+<h3 id="31-题意">3.1 题意</h3>
 <p>实现一个基本的计算器来计算一个简单的字符串表达式的值。</p>
-
 <p>字符串表达式可以包含左括号 ( ，右括号 )，加号 + ，减号 -，非负整数和空格  。</p>
-
 <p>示例 1:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入: &#34;1 + 1&#34;
-输出: 2</pre></td></tr></table>
-</div>
-</div>
+<pre><code>输入: &quot;1 + 1&quot;
+输出: 2
+</code></pre>
 <p>示例 2:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入: &#34; 2-1 + 2 &#34;
-输出: 3</pre></td></tr></table>
-</div>
-</div>
+<pre><code>输入: &quot; 2-1 + 2 &quot;
+输出: 3
+</code></pre>
 <p>示例 3:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入: &#34;(1+(4+5+2)-3)+(6+8)&#34;
-输出: 23</pre></td></tr></table>
-</div>
-</div>
+<pre><code>输入: &quot;(1+(4+5+2)-3)+(6+8)&quot;
+输出: 23
+</code></pre>
 <p>说明：</p>
-
 <ul>
 <li>你可以假设所给定的表达式都是有效的。</li>
 <li>请不要使用内置的库函数 eval。</li>
 </ul>
-
-<h2 id="3-2-解答">3.2 解答</h2>
-
+<h2 id="32-解答">3.2 解答</h2>
 <ul>
 <li>解法一</li>
 </ul>
-
 <p>本题和上一题的区别在于本题没有<code>*,/</code>但却增加了<code>()</code>括号，这意味着，这里需要处理括号的存在，其实可以把第2节解法2中有关<code>*/</code>的部分删掉，而后再额外增加<code>()</code>的处理。</p>
-
 <p><code>()</code>如何处理？按人的思维，括号内需要优先计算，而放到中缀转后缀的过程中，则是将括号内的运算符优先添加到后缀表达式中，这样，在计算后缀表达式结果时，自然就先计算了括号内表达式。</p>
-
 <p>基于栈，<code>()</code>括号匹配是很容易的事：遇<code>(</code>压栈，遇<code>)</code>则不断出栈并添加到<code>tokens</code>直至遇到配对的<code>(</code>。</p>
-
 <p>而对于普通的运算符<code>+-</code>，每次遇到就将栈中<code>(</code>以后的符号都出栈加入到<code>tokens</code>，然后再把自身压入栈中(这样通过栈把运算符的顺序颠倒后再加入到<code>tokens</code>)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">  1
+<pre class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -1178,26 +1063,20 @@
 	<span class="k">default</span><span class="p">:</span>
 		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
 	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="4-基本计算器iv">4. 基本计算器IV</h2>
-
-<h3 id="4-1-题意">4.1 题意</h3>
-
+</div><h2 id="4-基本计算器iv">4. 基本计算器IV</h2>
+<h3 id="41-题意">4.1 题意</h3>
 <p>给定一个表达式 expression 如 expression = <code>&quot;e + 8 - a + 5&quot;</code> 和一个求值映射，如 <code>{&quot;e&quot;: 1}</code>（给定的形式为 evalvars = <code>[&quot;e&quot;]</code> 和 evalints = <code>[1]</code>），返回表示简化表达式的标记列表，例如 <code>[&quot;-1*a&quot;,&quot;14&quot;]</code></p>
-
 <ul>
 <li>表达式交替使用块和符号，每个块和符号之间有一个空格。</li>
 <li>块要么是括号中的表达式，要么是变量，要么是非负整数。</li>
 <li>块是括号中的表达式，变量或非负整数。</li>
 <li>变量是一个由小写字母组成的字符串（不包括数字）。请注意，变量可以是多个字母，并注意变量从不具有像 <code>&quot;2x&quot;</code> 或 <code>&quot;-x&quot;</code> 这样的前导系数或一元运算符 。</li>
 </ul>
-
 <p>表达式按通常顺序进行求值：先是括号，然后求乘法，再计算加法和减法。例如，expression = <code>&quot;1 + 2 * 3&quot;</code> 的答案是 <code>[&quot;7&quot;]</code>。</p>
-
 <p>输出格式如下：</p>
-
 <ul>
 <li>对于系数非零的每个自变量项，我们按字典排序的顺序将自变量写在一个项中。例如，我们永远不会写像 <code>“b*a*c”</code> 这样的项，只写 <code>“a*b*c”</code>。</li>
 <li>项的次数等于被乘的自变量的数目，并计算重复项。(例如，<code>&quot;a*a*b*c&quot;</code> 的次数为 <code>4</code>。)。我们先写出答案的最大次数项，用字典顺序打破关系，此时忽略词的前导系数。</li>
@@ -1205,60 +1084,33 @@
 <li>格式良好的一个示例答案是 <code>[&quot;-2*a*a*a&quot;, &quot;3*a*a*b&quot;, &quot;3*b*b&quot;, &quot;4*a&quot;, &quot;5*c&quot;, &quot;-6&quot;]</code> 。</li>
 <li>系数为 <code>0</code> 的项（包括常数项）不包括在内。例如，“0” 的表达式输出为 <code>[]</code>。</li>
 </ul>
-
 <p>示例：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入：expression = &#34;e + 8 - a + 5&#34;, evalvars = [&#34;e&#34;], evalints = [1]
-输出：[&#34;-1*a&#34;,&#34;14&#34;]
+<pre><code>输入：expression = &quot;e + 8 - a + 5&quot;, evalvars = [&quot;e&quot;], evalints = [1]
+输出：[&quot;-1*a&quot;,&quot;14&quot;]
 
-输入：expression = &#34;e - 8 + temperature - pressure&#34;,
-evalvars = [&#34;e&#34;, &#34;temperature&#34;], evalints = [1, 12]
-输出：[&#34;-1*pressure&#34;,&#34;5&#34;]
+输入：expression = &quot;e - 8 + temperature - pressure&quot;,
+evalvars = [&quot;e&quot;, &quot;temperature&quot;], evalints = [1, 12]
+输出：[&quot;-1*pressure&quot;,&quot;5&quot;]
 
-输入：expression = &#34;(e + 8) * (e - 8)&#34;, evalvars = [], evalints = []
-输出：[&#34;1*e*e&#34;,&#34;-64&#34;]
+输入：expression = &quot;(e + 8) * (e - 8)&quot;, evalvars = [], evalints = []
+输出：[&quot;1*e*e&quot;,&quot;-64&quot;]
 
-输入：expression = &#34;7 - 7&#34;, evalvars = [], evalints = []
+输入：expression = &quot;7 - 7&quot;, evalvars = [], evalints = []
 输出：[]
 
-输入：expression = &#34;a * b * c + b * a * c * 4&#34;, evalvars = [], evalints = []
-输出：[&#34;5*a*b*c&#34;]
+输入：expression = &quot;a * b * c + b * a * c * 4&quot;, evalvars = [], evalints = []
+输出：[&quot;5*a*b*c&quot;]
 
-输入：expression = &#34;((a - b) * (b - c) + (c - a)) * ((a - b) + (b - c) * (c - a))&#34;,
+输入：expression = &quot;((a - b) * (b - c) + (c - a)) * ((a - b) + (b - c) * (c - a))&quot;,
 evalvars = [], evalints = []
-输出：[&#34;-1*a*a*b*b&#34;,&#34;2*a*a*b*c&#34;,&#34;-1*a*a*c*c&#34;,&#34;1*a*b*b*b&#34;,&#34;-1*a*b*b*c&#34;,&#34;-1*a*b*c*c&#34;,&#34;1*a*c*c*c&#34;,&#34;-1*b*b*b*c&#34;,&#34;2*b*b*c*c&#34;,&#34;-1*b*c*c*c&#34;,&#34;2*a*a*b&#34;,&#34;-2*a*a*c&#34;,&#34;-2*a*b*b&#34;,&#34;2*a*c*c&#34;,&#34;1*b*b*b&#34;,&#34;-1*b*b*c&#34;,&#34;1*b*c*c&#34;,&#34;-1*c*c*c&#34;,&#34;-1*a*a&#34;,&#34;1*a*b&#34;,&#34;1*a*c&#34;,&#34;-1*b*c&#34;]</pre></td></tr></table>
-</div>
-</div>
+输出：[&quot;-1*a*a*b*b&quot;,&quot;2*a*a*b*c&quot;,&quot;-1*a*a*c*c&quot;,&quot;1*a*b*b*b&quot;,&quot;-1*a*b*b*c&quot;,&quot;-1*a*b*c*c&quot;,&quot;1*a*c*c*c&quot;,&quot;-1*b*b*b*c&quot;,&quot;2*b*b*c*c&quot;,&quot;-1*b*c*c*c&quot;,&quot;2*a*a*b&quot;,&quot;-2*a*a*c&quot;,&quot;-2*a*b*b&quot;,&quot;2*a*c*c&quot;,&quot;1*b*b*b&quot;,&quot;-1*b*b*c&quot;,&quot;1*b*c*c&quot;,&quot;-1*c*c*c&quot;,&quot;-1*a*a&quot;,&quot;1*a*b&quot;,&quot;1*a*c&quot;,&quot;-1*b*c&quot;]
+</code></pre>
 <p>提示：</p>
-
 <ul>
 <li>expression 的长度在 [1, 250] 范围内。</li>
 <li>evalvars, evalints 在范围 [0, 100] 内，且长度相同。</li>
 </ul>
-
-<h3 id="4-2-解答">4.2 解答</h3>
+<h3 id="42-解答">4.2 解答</h3>
 
     </div>
 

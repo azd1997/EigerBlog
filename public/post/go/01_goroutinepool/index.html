@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/go/01_goroutinepool/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2019-08-20T03:14:14-04:00" />
 <meta itemprop="name" content="Go语言协程池">
 <meta itemprop="description" content="1. Golang并发三件套 ​ 这里不作过多介绍：goroutine、channel、select。goroutine是go语言的协程机制，cha">
-
-
 <meta itemprop="datePublished" content="2019-07-23T10:37:14&#43;08:00" />
 <meta itemprop="dateModified" content="2019-08-20T03:14:14-04:00" />
 <meta itemprop="wordCount" content="1160">
 
 
 
-<meta itemprop="keywords" content="go,concurrency," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="go,concurrency," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Go语言协程池"/>
 <meta name="twitter:description" content="1. Golang并发三件套 ​ 这里不作过多介绍：goroutine、channel、select。goroutine是go语言的协程机制，cha"/>
 
@@ -145,31 +142,25 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#1-golang并发三件套">1. Golang并发三件套</a></li>
-<li><a href="#2-为什么需要协程池">2. 为什么需要协程池</a></li>
-<li><a href="#3-简单的协程池">3. 简单的协程池</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-golang并发三件套">1. Golang并发三件套</a></li>
+        <li><a href="#2-为什么需要协程池">2. 为什么需要协程池</a></li>
+        <li><a href="#3-简单的协程池">3. 简单的协程池</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h3 id="1-golang并发三件套">1. Golang并发三件套</h3>
-
-<p>​       这里不作过多介绍：goroutine、channel、select。goroutine是go语言的协程机制，channel负责协程间的通信，select语法用来对channel传输的数据做选择处理。</p>
-
-<p>​       简单的用例如下：</p>
+      <h3 id="1-golang并发三件套">1. Golang并发三件套</h3>
+<p>​		这里不作过多介绍：goroutine、channel、select。goroutine是go语言的协程机制，channel负责协程间的通信，select语法用来对channel传输的数据做选择处理。</p>
+<p>​		简单的用例如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -216,25 +207,19 @@
 <span class="kd">func</span> <span class="nf">worker</span><span class="p">(</span><span class="nx">c</span> <span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;我是worker协程&#34;</span><span class="p">)</span>
     <span class="nx">c</span> <span class="o">&lt;-</span> <span class="kc">true</span> <span class="c1">//工作结束，向主协程返回一个信号量
-</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="2-为什么需要协程池">2. 为什么需要协程池</h3>
-
+</div><h3 id="2-为什么需要协程池">2. 为什么需要协程池</h3>
 <p>尽管Go语言可以轻松的支持百万级并发，我们可以不停地 go func()来创建协程，但是要注意的是：CPU执行协程任务的时间是随机且大致相同的（“雨露均沾”），而CPU在协程间切换需要一定的开销，如果无节制的开启协程，当协程数量非常多时，协程间切换的开销可能会使得高并发节约成本的初衷得不偿失。</p>
-
-<p><img src="/images/1562585061449.png" alt="1562585061449" /></p>
-
+<p><img src="/images/1562585061449.png" alt="1562585061449"></p>
 <p>通常，进程与线程的数量都设置为CPU核心数量，而协程数取决于CPU频率和内存等，对于具体的每一台计算机，都有一个最优的协程数。因此，需要将协程数量限制在最优协程数上，使得CPU计算机性能得到最大利用。而协程池就是设置一个经验上的最优协程数，开启所有的协程，去执行一个接一个的任务。</p>
-
-<p><img src="/images/1562585087280.png" alt="1562585087280" /></p>
-
+<p><img src="/images/1562585087280.png" alt="1562585087280"></p>
 <p>什么时候需要协程池？从前边描述知协程池是无论任务有多少，都要开启这许多的协程。因此一般适用于淘宝这种要求高并发的场景。</p>
-
 <h3 id="3-简单的协程池">3. 简单的协程池</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -383,7 +368,8 @@
 
     <span class="c1">//启动协程池
 </span><span class="c1"></span>    <span class="nx">p</span><span class="p">.</span><span class="nf">run</span><span class="p">()</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div>
     </div>

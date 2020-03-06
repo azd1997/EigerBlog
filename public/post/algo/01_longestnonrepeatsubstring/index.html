@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/algo/01_longestnonrepeatsubstring/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2019-08-20T03:14:14-04:00" />
 <meta itemprop="name" content="寻找最长不重复子字符串">
 <meta itemprop="description" content="求取字符串中最长的含有不重复字符的子字符串的长度。 1 开始之前 先了解下Go语言字符串的处理机制 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 func compareBytesStringRune(s string)">
-
-
 <meta itemprop="datePublished" content="2019-07-23T10:37:14&#43;08:00" />
 <meta itemprop="dateModified" content="2019-08-20T03:14:14-04:00" />
-<meta itemprop="wordCount" content="1621">
+<meta itemprop="wordCount" content="1620">
 
 
 
-<meta itemprop="keywords" content="go,algorithm,Leetcode," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="go,algorithm,Leetcode," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="寻找最长不重复子字符串"/>
 <meta name="twitter:description" content="求取字符串中最长的含有不重复字符的子字符串的长度。 1 开始之前 先了解下Go语言字符串的处理机制 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 func compareBytesStringRune(s string)"/>
 
@@ -135,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 1621 words </span>
+          <span class="more-meta"> 1620 words </span>
           <span class="more-meta"> 4 mins read </span>
         
       </div>
@@ -145,30 +142,25 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#1-开始之前">1 开始之前</a></li>
-<li><a href="#2-寻找最长不重复子串算法实现">2 寻找最长不重复子串算法实现</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-开始之前">1 开始之前</a></li>
+        <li><a href="#2-寻找最长不重复子串算法实现">2 寻找最长不重复子串算法实现</a></li>
+        <li><a href="#heading"></a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<p>求取字符串中最长的含有不重复字符的子字符串的长度。</p>
-
+      <p>求取字符串中最长的含有不重复字符的子字符串的长度。</p>
 <h3 id="1-开始之前">1 开始之前</h3>
-
 <p>先了解下Go语言字符串的处理机制</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -211,13 +203,13 @@
 <span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
    <span class="nf">compareBytesStringRune</span><span class="p">(</span><span class="s">&#34;azdisgood&#34;</span><span class="p">)</span>
    <span class="nf">compareBytesStringRune</span><span class="p">(</span><span class="s">&#34;艾振东棒棒的&#34;</span><span class="p">)</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>输出结果如下：</p>
+</div><p>输出结果如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -242,9 +234,9 @@
 </span><span class="lnt">23
 </span><span class="lnt">24
 </span><span class="lnt">25
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">sBytes：  [3/32]0xc000031eb8
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sBytes：  [3/32]0xc000031eb8
 sString：  azd
 按Byte遍历，第 0 个元素为： 97
 按Byte遍历，第 1 个元素为： 122
@@ -268,17 +260,15 @@ sString：  你好
 按Rune遍历，第 0 个元素为： 20320
 按Rune遍历，第 1 个元素为： 22909
 
-Process finished with exit code 0</pre></td></tr></table>
+Process finished with exit code 0
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>得出结论：直接遍历string，其实是按rune进行遍历。当字符串只包含ASCII字符时，三种遍历方法是一样的。rune是Go的可变长度字符表示，表示中文时一个rune代表了三个byte。</p>
-
+</div><p>得出结论：直接遍历string，其实是按rune进行遍历。当字符串只包含ASCII字符时，三种遍历方法是一样的。rune是Go的可变长度字符表示，表示中文时一个rune代表了三个byte。</p>
 <h3 id="2-寻找最长不重复子串算法实现">2 寻找最长不重复子串算法实现</h3>
-
 <p>V1版本只考虑英文字符串，V2版本则增加了对中文字符串的支持。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -427,23 +417,23 @@ Process finished with exit code 0</pre></td></tr></table>
    <span class="nb">print</span><span class="p">(</span><span class="nf">maxLengthOfNonRepeatSubStrV2</span><span class="p">(</span><span class="s">&#34;happynewyear&#34;</span><span class="p">),</span> <span class="s">&#34; &#34;</span><span class="p">)</span>
    <span class="nb">print</span><span class="p">(</span><span class="nf">maxLengthOfNonRepeatSubStrV2</span><span class="p">(</span><span class="s">&#34;azdlovezritistrue&#34;</span><span class="p">),</span> <span class="s">&#34; &#34;</span><span class="p">)</span>
    <span class="nb">print</span><span class="p">(</span><span class="nf">maxLengthOfNonRepeatSubStrV2</span><span class="p">(</span><span class="s">&#34;哈哈今天天气真好啊&#34;</span><span class="p">),</span> <span class="s">&#34; &#34;</span><span class="p">)</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>输出结果为：</p>
+</div><p>输出结果为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">7 5 5 9 11
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">7 5 5 9 11
 7 5 5 9 5
-Process finished with exit code 0</pre></td></tr></table>
+Process finished with exit code 0
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>###</p>
+</div><h3 id="heading"></h3>
 
     </div>
 

@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Eiger" /><meta name="description" content="解法二超越100%golang提交 题意 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例： 1 2" /><meta name="keywords" content="链表" />
+<meta name="author" content="Eiger" /><meta name="description" content="解法二超越100%golang提交 题意 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例： 输入" /><meta name="keywords" content="链表" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/algo/lt21/" />
@@ -39,25 +39,22 @@
 
 
 <meta property="og:title" content="Leetcode21——合并两个有序链表" />
-<meta property="og:description" content="解法二超越100%golang提交 题意 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例： 1 2" />
+<meta property="og:description" content="解法二超越100%golang提交 题意 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例： 输入" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://azd1997.github.io/post/algo/lt21/" />
 <meta property="article:published_time" content="2019-11-08T08:33:08+08:00" />
 <meta property="article:modified_time" content="2019-11-08T08:33:08+08:00" />
 <meta itemprop="name" content="Leetcode21——合并两个有序链表">
-<meta itemprop="description" content="解法二超越100%golang提交 题意 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例： 1 2">
-
-
+<meta itemprop="description" content="解法二超越100%golang提交 题意 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例： 输入">
 <meta itemprop="datePublished" content="2019-11-08T08:33:08&#43;08:00" />
 <meta itemprop="dateModified" content="2019-11-08T08:33:08&#43;08:00" />
-<meta itemprop="wordCount" content="2309">
+<meta itemprop="wordCount" content="2304">
 
 
 
-<meta itemprop="keywords" content="leetcode,链表," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="leetcode,链表," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Leetcode21——合并两个有序链表"/>
-<meta name="twitter:description" content="解法二超越100%golang提交 题意 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例： 1 2"/>
+<meta name="twitter:description" content="解法二超越100%golang提交 题意 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例： 输入"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -135,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 2309 words </span>
+          <span class="more-meta"> 2304 words </span>
           <span class="more-meta"> 5 mins read </span>
         
       </div>
@@ -145,65 +142,42 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#题意">题意</a></li>
-<li><a href="#我的审题思路">我的审题思路</a></li>
-<li><a href="#解法一-三指针法">解法一：三指针法</a></li>
-<li><a href="#解法二-三指针法-优化连续等值结点">解法二： 三指针法/优化连续等值结点</a></li>
-<li><a href="#解法三-递归">解法三： 递归</a></li>
-<li><a href="#总结与反思">总结与反思</a></li>
-<li><a href="#链接">链接</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#题意">题意</a></li>
+    <li><a href="#我的审题思路">我的审题思路</a></li>
+    <li><a href="#解法一三指针法">解法一：三指针法</a></li>
+    <li><a href="#解法二-三指针法优化连续等值结点">解法二： 三指针法/优化连续等值结点</a></li>
+    <li><a href="#解法三-递归">解法三： 递归</a></li>
+    <li><a href="#总结与反思">总结与反思</a></li>
+    <li><a href="#链接">链接</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<p><em>解法二超越100%golang提交</em></p>
-
+      <p><em>解法二超越100%golang提交</em></p>
 <h2 id="题意">题意</h2>
-
 <p>将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 </p>
-
 <p>示例：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4
-输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4</pre></td></tr></table>
-</div>
-</div>
+<pre><code>输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4
+输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4
+</code></pre>
 <p>来源：力扣（LeetCode）
-链接：<a href="https://leetcode-cn.com/problems/merge-two-sorted-lists">https://leetcode-cn.com/problems/merge-two-sorted-lists</a>
+链接：https://leetcode-cn.com/problems/merge-two-sorted-lists
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-
 <h2 id="我的审题思路">我的审题思路</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4
-输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4</pre></td></tr></table>
-</div>
-</div>
+<pre><code>输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4
+输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4
+</code></pre>
 <p>解法：</p>
-
-<p>首先题目没有说明头节点存不存数据，这是有问题的，下边我的解题以头节点存数据为准。
- 1. 显然很容易想到双指针法（三指针法），从前向后遍历取两链表“头部”比较，小者先入新链表</p>
-
+<p>首先题目没有说明头节点存不存数据，这是有问题的，下边我的解题以头节点存数据为准。</p>
+<ol>
+<li>显然很容易想到双指针法（三指针法），从前向后遍历取两链表“头部”比较，小者先入新链表</li>
+</ol>
 <p>假设第一个节点是存了数据的</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -212,13 +186,13 @@
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">ListNode</span> <span class="kd">struct</span> <span class="p">{</span>
 	<span class="nx">Val</span> <span class="kt">int</span>
 	<span class="nx">Next</span> <span class="o">*</span><span class="nx">ListNode</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="解法一-三指针法">解法一：三指针法</h2>
+</div><h2 id="解法一三指针法">解法一：三指针法</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -331,15 +305,14 @@
 	<span class="p">}</span>
 
 	<span class="k">return</span> <span class="nx">l3</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="解法二-三指针法-优化连续等值结点">解法二： 三指针法/优化连续等值结点</h2>
-
+</div><h2 id="解法二-三指针法优化连续等值结点">解法二： 三指针法/优化连续等值结点</h2>
 <p>后来经试验题解区高赞答案，没有比该解法更高效的。当然该解法还有些小细节可以优化，就不过多处理。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">  1
+<pre class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -548,13 +521,13 @@
 	<span class="p">}</span>
 	<span class="c1">// 循环结束p就是要求的节点
 </span><span class="c1"></span>	<span class="k">return</span> <span class="nx">p</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="解法三-递归">解法三： 递归</h2>
+</div><h2 id="解法三-递归">解法三： 递归</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -627,19 +600,16 @@
 		<span class="nx">l2</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nf">Sol_1_3</span><span class="p">(</span><span class="nx">l1</span><span class="p">,</span> <span class="nx">l2</span><span class="p">.</span><span class="nx">Next</span><span class="p">)</span>
 		<span class="k">return</span> <span class="nx">l2</span>
 	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="总结与反思">总结与反思</h2>
-
+</div><h2 id="总结与反思">总结与反思</h2>
 <ul>
 <li>合并有序数组或链表都可以基于双指针或者说三指针移动这个思想</li>
 <li>优化思路：考虑处理连续相等数据</li>
 <li>递归代码简洁但性能略差</li>
 </ul>
-
 <h2 id="链接">链接</h2>
-
 <ul>
 <li>Leetcode题解：<a href="https://leetcode-cn.com/problems/merge-two-sorted-lists/solution/he-bing-liang-ge-you-xu-lian-biao-by-eiger/">https://leetcode-cn.com/problems/merge-two-sorted-lists/solution/he-bing-liang-ge-you-xu-lian-biao-by-eiger/</a></li>
 <li>Github: <a href="https://github.com/azd1997/Leetcode-training/blob/master/lt21/1.go">https://github.com/azd1997/Leetcode-training/blob/master/lt21/1.go</a></li>

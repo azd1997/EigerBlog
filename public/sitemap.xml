@@ -16,13 +16,6 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/</loc>
-    <lastmod>2020-02-28T09:00:07+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://azd1997.github.io/post/</loc>
     <lastmod>2020-02-28T09:00:07+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -107,14 +100,14 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/categories/cs/</loc>
+    <loc>https://azd1997.github.io/tags/cs/</loc>
     <lastmod>2020-01-07T08:36:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/tags/cs/</loc>
+    <loc>https://azd1997.github.io/categories/cs/</loc>
     <lastmod>2020-01-07T08:36:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -422,14 +415,7 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/tags/iso/osi%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B/</loc>
-    <lastmod>2019-09-30T04:52:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://azd1997.github.io/tags/tcp/ip%E5%9B%9B%E5%B1%82%E6%A8%A1%E5%9E%8B/</loc>
+    <loc>https://azd1997.github.io/tags/tcp/</loc>
     <lastmod>2019-09-30T04:52:16+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -457,13 +443,6 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/tags/tcp/</loc>
-    <lastmod>2019-09-28T03:16:29+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://azd1997.github.io/post/cs/simplehttpserver/</loc>
     <lastmod>2019-09-28T03:16:29+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -485,14 +464,14 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/categories/java/</loc>
+    <loc>https://azd1997.github.io/tags/java/</loc>
     <lastmod>2019-09-05T02:55:16+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/tags/java/</loc>
+    <loc>https://azd1997.github.io/categories/java/</loc>
     <lastmod>2019-09-05T02:55:16+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -751,6 +730,13 @@
   </url>
   
   <url>
+    <loc>https://azd1997.github.io/</loc>
+    <lastmod>2019-08-15T13:56:37+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://azd1997.github.io/links/</loc>
     <lastmod>2019-08-15T13:56:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -760,6 +746,18 @@
   <url>
     <loc>https://azd1997.github.io/about/</loc>
     <lastmod>2019-08-15T13:56:37+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/iso/osi%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/tcp/ip%E5%9B%9B%E5%B1%82%E6%A8%A1%E5%9E%8B/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

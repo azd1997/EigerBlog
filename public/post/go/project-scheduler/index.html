@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/go/project-scheduler/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2019-11-19T02:58:24+08:00" />
 <meta itemprop="name" content="Go项目实战——基于ETCD的分布式任务调度">
 <meta itemprop="description" content="系统架构 基础铺垫 os/exec包 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 // 1. 创建Command cmd := exec.Command(name string, args ...string) // 例如： cmd := exec.Command(&#34;bash&#34;, &#34;-c&#34;, &#34;sleep 5s;ls -l&#34;) // 2.（底层通过pi">
-
-
 <meta itemprop="datePublished" content="2019-11-19T02:58:24&#43;08:00" />
 <meta itemprop="dateModified" content="2019-11-19T02:58:24&#43;08:00" />
 <meta itemprop="wordCount" content="338">
 
 
 
-<meta itemprop="keywords" content="project," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="project," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Go项目实战——基于ETCD的分布式任务调度"/>
 <meta name="twitter:description" content="系统架构 基础铺垫 os/exec包 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 // 1. 创建Command cmd := exec.Command(name string, args ...string) // 例如： cmd := exec.Command(&#34;bash&#34;, &#34;-c&#34;, &#34;sleep 5s;ls -l&#34;) // 2.（底层通过pi"/>
 
@@ -145,31 +142,25 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#系统架构">系统架构</a></li>
-<li><a href="#基础铺垫">基础铺垫</a>
-<ul>
-<li><a href="#os-exec包">os/exec包</a></li>
-<li><a href="#cronexpr包">cronexpr包</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#系统架构">系统架构</a></li>
+    <li><a href="#基础铺垫">基础铺垫</a>
+      <ul>
+        <li><a href="#osexec包">os/exec包</a></li>
+        <li><a href="#cronexpr包">cronexpr包</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h2 id="系统架构">系统架构</h2>
-
+      <h2 id="系统架构">系统架构</h2>
 <h2 id="基础铺垫">基础铺垫</h2>
-
-<h3 id="os-exec包">os/exec包</h3>
+<h3 id="osexec包">os/exec包</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -202,13 +193,13 @@
     <span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">CommandContext</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span>
     <span class="nx">output</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cmd</span><span class="p">.</span><span class="nf">CombinedOutput</span><span class="p">()</span>     <span class="c1">// 正常应该用通道把结果传出去，这里省略
 </span><span class="c1"></span><span class="p">}</span>
-<span class="nf">cancelFunc</span><span class="p">()</span>    <span class="o">//</span> <span class="nx">main协程主动调用cancelFunc会关闭ctx的这个chan</span><span class="err">，</span><span class="nx">然后cmd内部会select</span><span class="p">{</span><span class="k">case</span> <span class="o">&lt;-</span> <span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">()}</span>   <span class="nx">然后获取执行的shell命令子进程的pid</span><span class="err">，</span><span class="nx">并调用kill</span> <span class="nx">pid杀死进程</span></code></pre></td></tr></table>
+<span class="nf">cancelFunc</span><span class="p">()</span>    <span class="c1">// main协程主动调用cancelFunc会关闭ctx的这个chan，然后cmd内部会select{case &lt;- ctx.Done()}   然后获取执行的shell命令子进程的pid，并调用kill pid杀死进程
+</span></code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="cronexpr包">cronexpr包</h3>
+</div><h3 id="cronexpr包">cronexpr包</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -223,7 +214,8 @@
 <span class="c1">// 1. 解析cron表达式
 </span><span class="c1"></span><span class="nx">expr</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cronexpr</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="s">&#34;*/6 * * * * * *&#34;</span><span class="p">)</span>  <span class="c1">// 每6秒调度一次.
 </span><span class="c1">// 2. 计算下一次调度时间
-</span><span class="c1"></span><span class="nx">nextTime</span> <span class="o">:=</span> <span class="nx">expr</span><span class="p">.</span><span class="nf">Next</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">())</span></code></pre></td></tr></table>
+</span><span class="c1"></span><span class="nx">nextTime</span> <span class="o">:=</span> <span class="nx">expr</span><span class="p">.</span><span class="nf">Next</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">())</span>
+</code></pre></td></tr></table>
 </div>
 </div>
     </div>

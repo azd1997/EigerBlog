@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/cs/simplehttpserver/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2019-09-28T03:16:29+08:00" />
 <meta itemprop="name" content="实现一个简单的HTTP服务器">
 <meta itemprop="description" content="1. 构建TCP服务器 1.1. 包装TCPServer类 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 # simpleHttpServer/server/socket_server.py import">
-
-
 <meta itemprop="datePublished" content="2019-09-28T03:16:29&#43;08:00" />
 <meta itemprop="dateModified" content="2019-09-28T03:16:29&#43;08:00" />
-<meta itemprop="wordCount" content="3661">
+<meta itemprop="wordCount" content="3666">
 
 
 
-<meta itemprop="keywords" content="HTTP,TCP,Python," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="HTTP,TCP,Python," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="实现一个简单的HTTP服务器"/>
 <meta name="twitter:description" content="1. 构建TCP服务器 1.1. 包装TCPServer类 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 # simpleHttpServer/server/socket_server.py import"/>
 
@@ -135,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/cs/"> cs </a>
             </div>
-          <span class="more-meta"> 3661 words </span>
+          <span class="more-meta"> 3666 words </span>
           <span class="more-meta"> 8 mins read </span>
         
       </div>
@@ -145,40 +142,36 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#1-构建tcp服务器">1. 构建TCP服务器</a>
-<ul>
-<li><a href="#1-1-包装tcpserver类">1.1. 包装TCPServer类</a></li>
-<li><a href="#1-2-构造handler">1.2.构造Handler</a></li>
-<li><a href="#1-3-完善tcpserver">1.3. 完善TCPServer</a></li>
-<li><a href="#1-4-测试tcpserver">1.4. 测试TCPServer</a></li>
-<li><a href="#1-5-多线程处理请求">1.5. 多线程处理请求</a></li>
-</ul></li>
-<li><a href="#2-构造一个http服务器">2. 构造一个HTTP服务器</a>
-<ul>
-<li><a href="#2-1-包装basehttpserver">2.1. 包装BaseHTTPServer</a></li>
-<li><a href="#2-2-编写basehttprequesthandler">2.2. 编写BaseHTTPRequestHandler</a></li>
-<li><a href="#2-3-测试basehttpserver">2.3. 测试BaseHTTPServer</a></li>
-<li><a href="#2-4-构造一个简单的http服务器">2.4. 构造一个简单的HTTP服务器</a></li>
-<li><a href="#2-5-测试simplehttpserver">2.5. 测试SimpleHTTPServer</a></li>
-</ul></li>
-<li><a href="#最后">最后</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#1-构建tcp服务器">1. 构建TCP服务器</a>
+      <ul>
+        <li><a href="#11-包装tcpserver类">1.1. 包装TCPServer类</a></li>
+        <li><a href="#12构造handler">1.2.构造Handler</a></li>
+        <li><a href="#13-完善tcpserver">1.3. 完善TCPServer</a></li>
+        <li><a href="#14-测试tcpserver">1.4. 测试TCPServer</a></li>
+        <li><a href="#15-多线程处理请求">1.5. 多线程处理请求</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-构造一个http服务器">2. 构造一个HTTP服务器</a>
+      <ul>
+        <li><a href="#21-包装basehttpserver">2.1. 包装BaseHTTPServer</a></li>
+        <li><a href="#22-编写basehttprequesthandler">2.2. 编写BaseHTTPRequestHandler</a></li>
+        <li><a href="#23-测试basehttpserver">2.3. 测试BaseHTTPServer</a></li>
+        <li><a href="#24-构造一个简单的http服务器">2.4. 构造一个简单的HTTP服务器</a></li>
+        <li><a href="#25-测试simplehttpserver">2.5. 测试SimpleHTTPServer</a></li>
+      </ul>
+    </li>
+    <li><a href="#最后">最后</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h2 id="1-构建tcp服务器">1. 构建TCP服务器</h2>
-
-<h3 id="1-1-包装tcpserver类">1.1. 包装TCPServer类</h3>
+      <h2 id="1-构建tcp服务器">1. 构建TCP服务器</h2>
+<h3 id="11-包装tcpserver类">1.1. 包装TCPServer类</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -269,17 +262,15 @@
     <span class="c1"># 关闭服务器</span>
     <span class="k">def</span> <span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_shutdown</span> <span class="o">=</span> <span class="bp">True</span>     <span class="c1"># 跳出循环标志</span>
-        <span class="k">pass</span></code></pre></td></tr></table>
+        <span class="k">pass</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>TCP服务器在进行网络通信时需要接收请求、处理请求、关闭请求，接收和关闭都是基于socket api。而处理请求正是需要自定义的部分，这里将请求处理这块功能构建一个handler类。</p>
-
-<h3 id="1-2-构造handler">1.2.构造Handler</h3>
-
+</div><p>TCP服务器在进行网络通信时需要接收请求、处理请求、关闭请求，接收和关闭都是基于socket api。而处理请求正是需要自定义的部分，这里将请求处理这块功能构建一个handler类。</p>
+<h3 id="12构造handler">1.2.构造Handler</h3>
 <p>由于TCP是面向字节流的协议，所以它处理请求时，需要解码，而发送消息时需要编码，与之相关的一系列功能都实现在<code>StreamRequestHandler</code>中构造handler如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -338,6 +329,7 @@
 </span><span class="lnt">57
 </span><span class="lnt">58
 </span><span class="lnt">59
+</span><span class="lnt">60
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># simpleHttpServer/handler/base_handler.py</span>
@@ -398,15 +390,15 @@
     <span class="c1"># 关闭</span>
     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></code></pre></td></tr></table>
-</div>
-</div>
-<h3 id="1-3-完善tcpserver">1.3. 完善TCPServer</h3>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="13-完善tcpserver">1.3. 完善TCPServer</h3>
 <p>实现handler之后可以将之前的TODO项给完成：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -416,9 +408,11 @@
 </span><span class="lnt"> 8
 </span><span class="lnt"> 9
 </span><span class="lnt">10
+</span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">TCPServer</span><span class="p">:</span>
+<pre class="chroma"><code class="language-python" data-lang="python">
+<span class="k">class</span> <span class="nc">TCPServer</span><span class="p">:</span>
 
     <span class="o">...</span>
 
@@ -427,15 +421,14 @@
         <span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandlerClass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">)</span>
         <span class="n">handler</span><span class="o">.</span><span class="n">handle</span><span class="p">()</span>
         <span class="c1"># 3.关闭请求</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">close_request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></code></pre></td></tr></table>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="1-4-测试tcpserver">1.4. 测试TCPServer</h3>
-
+</div><h3 id="14-测试tcpserver">1.4. 测试TCPServer</h3>
 <p>构建测试类和测试函数：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -550,17 +543,15 @@
             <span class="n">client</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">SocketServerTest</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></code></pre></td></tr></table>
+    <span class="n">SocketServerTest</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>运行起来后能看到5台客户端节点（运行在5个线程上）先后发送数据给TCPServer并接受TCPServer的回应。但这个过程中由于TCPServer处理请求的过程中是先接受请求再处理请求。也就是说当多个客户端连接时，服务器想要接收客户端2的请求必须等客户端1的请求处理完成之后，这样的话并发效率太低。</p>
-
-<h3 id="1-5-多线程处理请求">1.5. 多线程处理请求</h3>
-
+</div><p>运行起来后能看到5台客户端节点（运行在5个线程上）先后发送数据给TCPServer并接受TCPServer的回应。但这个过程中由于TCPServer处理请求的过程中是先接受请求再处理请求。也就是说当多个客户端连接时，服务器想要接收客户端2的请求必须等客户端1的请求处理完成之后，这样的话并发效率太低。</p>
+<h3 id="15-多线程处理请求">1.5. 多线程处理请求</h3>
 <p>修改的地方为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -621,19 +612,16 @@
     <span class="c1"># 多线程处理请求</span>
     <span class="k">def</span> <span class="nf">process_request_multithread</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">):</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">process_request</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">))</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></code></pre></td></tr></table>
+        <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>至此，TCPServer就基本完善了。</p>
-
+</div><p>至此，TCPServer就基本完善了。</p>
 <h2 id="2-构造一个http服务器">2. 构造一个HTTP服务器</h2>
-
-<h3 id="2-1-包装basehttpserver">2.1. 包装BaseHTTPServer</h3>
-
+<h3 id="21-包装basehttpserver">2.1. 包装BaseHTTPServer</h3>
 <p>直接基于（继承自）TCPServer类构造BaseHTTPServer：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -654,15 +642,14 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_address</span><span class="p">,</span> <span class="n">handler_class</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">server_name</span> <span class="o">=</span> <span class="s1">&#39;BaseHTTPServer&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;v0.1&#39;</span>
-        <span class="n">TCPServer</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_address</span><span class="p">,</span> <span class="n">handler_class</span><span class="p">)</span></code></pre></td></tr></table>
+        <span class="n">TCPServer</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_address</span><span class="p">,</span> <span class="n">handler_class</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="2-2-编写basehttprequesthandler">2.2. 编写BaseHTTPRequestHandler</h3>
-
+</div><h3 id="22-编写basehttprequesthandler">2.2. 编写BaseHTTPRequestHandler</h3>
 <p>同样的，HTTPServer也需要传入handler，且自然是HTTP数据报文的编解码相关方法集合。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">  1
+<pre class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -865,9 +852,11 @@
 </span><span class="lnt">201
 </span><span class="lnt">202
 </span><span class="lnt">203
+</span><span class="lnt">204
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">logging</span>
+<pre class="chroma"><code class="language-python" data-lang="python">
+<span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">handler.base_handler</span> <span class="kn">import</span> <span class="n">StreamRequestHandler</span>
 <span class="kn">from</span> <span class="nn">util</span> <span class="kn">import</span> <span class="n">date_time_string</span>
@@ -1069,15 +1058,14 @@
 
     <span class="c1"># 结束应答头</span>
     <span class="k">def</span> <span class="nf">end_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">write_content</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span><span class="p">)</span></code></pre></td></tr></table>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_content</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="2-3-测试basehttpserver">2.3. 测试BaseHTTPServer</h3>
-
+</div><h3 id="23-测试basehttpserver">2.3. 测试BaseHTTPServer</h3>
 <p>添加测试文件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1108,17 +1096,15 @@
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="c1"># SocketServerTest().run()</span>
-    <span class="n">BaseHTTPRequestHandlerTest</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></code></pre></td></tr></table>
+    <span class="n">BaseHTTPRequestHandlerTest</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>如果正常的话，启动程序后在浏览器访问该url会看到HelloWorld网页。</p>
-
-<h3 id="2-4-构造一个简单的http服务器">2.4. 构造一个简单的HTTP服务器</h3>
-
+</div><p>如果正常的话，启动程序后在浏览器访问该url会看到HelloWorld网页。</p>
+<h3 id="24-构造一个简单的http服务器">2.4. 构造一个简单的HTTP服务器</h3>
 <p>上一节的HTTP服务器只有一个默认的GET方法（直接返回Hello网页），在这一小节将实现GET方法和POST方法，实现访问WEB资源和表单登录的功能。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1133,6 +1119,7 @@
 </span><span class="lnt">13
 </span><span class="lnt">14
 </span><span class="lnt">15
+</span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># simpleHttpServer/server/simple_http_server.py</span>
@@ -1149,13 +1136,14 @@
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">handler.simple_http_handler</span> <span class="kn">import</span> <span class="n">SimpleHTTPRequestHandler</span>
-    <span class="n">SimpleHTTPServer</span><span class="p">((</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">8888</span><span class="p">),</span> <span class="n">SimpleHTTPRequestHandler</span><span class="p">)</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span></code></pre></td></tr></table>
+    <span class="n">SimpleHTTPServer</span><span class="p">((</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">8888</span><span class="p">),</span> <span class="n">SimpleHTTPRequestHandler</span><span class="p">)</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>对应的handler:</p>
+</div><p>对应的handler:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1284,17 +1272,15 @@
         <span class="c1"># 避免跨域问题</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">write_header</span><span class="p">(</span><span class="s1">&#39;Access-Control-Allow-Origin&#39;</span><span class="p">,</span> <span class="s1">&#39;http://</span><span class="si">%s</span><span class="s1">:</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">server_address</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">server_address</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">end_headers</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">write_content</span><span class="p">(</span><span class="n">response</span><span class="p">)</span></code></pre></td></tr></table>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_content</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>现在就实现了一个带有GET和POST方法的简单http服务器</p>
-
-<h3 id="2-5-测试simplehttpserver">2.5. 测试SimpleHTTPServer</h3>
-
+</div><p>现在就实现了一个带有GET和POST方法的简单http服务器</p>
+<h3 id="25-测试simplehttpserver">2.5. 测试SimpleHTTPServer</h3>
 <p>在simpleHttpServer/resources/目录下有index.html，其中有一段登陆用的脚本：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1321,6 +1307,7 @@
 </span><span class="lnt">25
 </span><span class="lnt">26
 </span><span class="lnt">27
+</span><span class="lnt">28
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js">    <span class="kd">function</span> <span class="nx">submitData</span><span class="p">()</span> <span class="p">{</span>
@@ -1350,13 +1337,11 @@
             <span class="p">})</span>
         <span class="p">}</span>
     <span class="p">};</span>
+
 </code></pre></td></tr></table>
 </div>
-</div>
-<p>也就是说，当启动SimpleHTTPServer后浏览器访问<code>localhost:8888/index.html</code>会进入index.html并可以以账号eiger、密码123456进行登录，成功登陆后会跳转至我的个人博客网站。这表示测试成功。</p>
-
+</div><p>也就是说，当启动SimpleHTTPServer后浏览器访问<code>localhost:8888/index.html</code>会进入index.html并可以以账号eiger、密码123456进行登录，成功登陆后会跳转至我的个人博客网站。这表示测试成功。</p>
 <h2 id="最后">最后</h2>
-
 <p>完整代码：<a href="https://github.com/azd1997/python-simpleHttpServer">https://github.com/azd1997/python-simpleHttpServer</a></p>
 
     </div>

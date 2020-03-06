@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ISO/OSI参考模型 on Eiger - A young gopher</title>
@@ -6,7 +6,6 @@
     <description>Recent content in ISO/OSI参考模型 on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 30 Sep 2019 04:52:16 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/tags/iso/osi%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B/index.xml" rel="self" type="application/rss+xml" />
     

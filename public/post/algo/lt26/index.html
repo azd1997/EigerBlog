@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/algo/lt26/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2019-11-06T05:20:19+08:00" />
 <meta itemprop="name" content="Leetcode26——删除排序数组的重复项">
 <meta itemprop="description" content="1. 题意 难度： easy 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。 不要使用额外的数组空间，你必">
-
-
 <meta itemprop="datePublished" content="2019-11-06T05:20:19&#43;08:00" />
 <meta itemprop="dateModified" content="2019-11-06T05:20:19&#43;08:00" />
-<meta itemprop="wordCount" content="1802">
+<meta itemprop="wordCount" content="1788">
 
 
 
-<meta itemprop="keywords" content="leetcode," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="leetcode," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Leetcode26——删除排序数组的重复项"/>
 <meta name="twitter:description" content="1. 题意 难度： easy 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。 不要使用额外的数组空间，你必"/>
 
@@ -135,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 1802 words </span>
+          <span class="more-meta"> 1788 words </span>
           <span class="more-meta"> 4 mins read </span>
         
       </div>
@@ -145,98 +142,58 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#1-题意">1. 题意</a></li>
-<li><a href="#2-我的答案">2. 我的答案</a></li>
-<li><a href="#3-优秀解答">3. 优秀解答</a>
-<ul>
-<li><a href="#3-1-双指针法">3.1 双指针法</a></li>
-<li><a href="#3-2-一个有意思的解答">3.2 一个有意思的解答</a></li>
-<li><a href="#3-3-最简最优解答">3.3 最简最优解答</a></li>
-</ul></li>
-<li><a href="#4-总结">4. 总结</a></li>
-<li><a href="#5-我的leetcode题解">5. 我的Leetcode题解</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#1-题意">1. 题意</a></li>
+    <li><a href="#2-我的答案">2. 我的答案</a></li>
+    <li><a href="#3-优秀解答">3. 优秀解答</a>
+      <ul>
+        <li><a href="#31-双指针法">3.1 双指针法</a></li>
+        <li><a href="#32-一个有意思的解答">3.2 一个有意思的解答</a></li>
+        <li><a href="#33-最简最优解答">3.3 最简最优解答</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-总结">4. 总结</a></li>
+    <li><a href="#5-我的leetcode题解">5. 我的Leetcode题解</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h2 id="1-题意">1. 题意</h2>
-
+      <h2 id="1-题意">1. 题意</h2>
 <ul>
 <li>难度： easy</li>
 </ul>
-
 <p>给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。</p>
-
 <p>不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。</p>
-
 <p>示例 1:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">给定数组 nums = [1,1,2],
+<pre><code>给定数组 nums = [1,1,2],
 
-函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。</pre></td></tr></table>
-</div>
-</div>
+函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。
+</code></pre>
 <p>你不需要考虑数组中超出新长度后面的元素。
 示例 2:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">给定 nums = [0,0,1,1,1,2,2,3,3,4],
+<pre><code>给定 nums = [0,0,1,1,1,2,2,3,3,4],
 
-函数应该返回新的长度 5, 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4。</pre></td></tr></table>
-</div>
-</div>
+函数应该返回新的长度 5, 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4。
+</code></pre>
 <p>你不需要考虑数组中超出新长度后面的元素。
 说明:</p>
-
 <p>为什么返回数值是整数，但输出的答案是数组呢?</p>
-
 <p>请注意，输入数组是以“引用”方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。</p>
-
 <p>你可以想象内部操作如下:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">// nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝
+<pre><code>// nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝
 int len = removeDuplicates(nums);
 
 // 在函数里修改输入数组对于调用者是可见的。
 // 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。
 for (int i = 0; i &lt; len; i++) {
     print(nums[i]);
-}</pre></td></tr></table>
-</div>
-</div>
+}
+</code></pre>
 <h2 id="2-我的答案">2. 我的答案</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -355,32 +312,24 @@ for (int i = 0; i &lt; len; i++) {
 </span><span class="c1"></span>	<span class="p">}</span>
 
 	<span class="k">return</span> <span class="nx">index</span><span class="o">+</span><span class="mi">1</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<ul>
+</div><ul>
 <li>时间复杂度：O(n)</li>
 <li>空间复杂度：O(1)</li>
 </ul>
-
 <p>通过161个测试用例，用时6ms，击败91%的golang提交。</p>
-
 <h2 id="3-优秀解答">3. 优秀解答</h2>
-
-<h3 id="3-1-双指针法">3.1 双指针法</h3>
-
+<h3 id="31-双指针法">3.1 双指针法</h3>
 <p><a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/solution/shuang-zhi-zhen-shan-chu-zhong-fu-xiang-dai-you-hu/">https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/solution/shuang-zhi-zhen-shan-chu-zhong-fu-xiang-dai-you-hu/</a></p>
-
 <p>看了下，其实我的思路就是这个双指针法，而且该题解中的小细节在我第一次解答中已经考虑到，就不贴代码了。</p>
-
-<h3 id="3-2-一个有意思的解答">3.2 一个有意思的解答</h3>
-
+<h3 id="32-一个有意思的解答">3.2 一个有意思的解答</h3>
 <p><a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/solution/shan-chu-pai-xu-shu-zu-zhong-de-zhong-fu-xiang-fen/">https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/solution/shan-chu-pai-xu-shu-zu-zhong-de-zhong-fu-xiang-fen/</a></p>
-
 <p>贴出其代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -397,17 +346,15 @@ for (int i = 0; i &lt; len; i++) {
 		<span class="p">}</span>
 	<span class="p">}</span>
 	<span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>这个思路是：倒序遍历，遇到还没有遍历到的前面部分和已经遍历过的（除了当前这次比较）进行拼接成新数组。等于说，如果双指针法是进行了O(n)的指针移动和数组改值，那么这种思路则就是进行了O(n)的数组重新生成。</p>
-
+</div><p>这个思路是：倒序遍历，遇到还没有遍历到的前面部分和已经遍历过的（除了当前这次比较）进行拼接成新数组。等于说，如果双指针法是进行了O(n)的指针移动和数组改值，那么这种思路则就是进行了O(n)的数组重新生成。</p>
 <p>在go语言中这种切片的append只要容量够，就不会重分配数组空间，这题中数组长度没有增大，所以是可以的。</p>
-
 <p>而且这里涉及了go语言的一个奇特的地方：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -416,19 +363,16 @@ for (int i = 0; i &lt; len; i++) {
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">nums</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span>
 <span class="nx">a</span> <span class="o">:=</span> <span class="nx">nums</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>    <span class="c1">// panic: index out of range
 </span><span class="c1"></span><span class="nx">nums</span> <span class="p">=</span> <span class="nb">append</span><span class="p">([]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">},</span> <span class="nx">nums</span><span class="p">[</span><span class="mi">4</span><span class="p">:])</span>  <span class="c1">// 编译通过
-</span><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>   <span class="o">//</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">]</span></code></pre></td></tr></table>
+</span><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>   <span class="c1">// [1 2 3]
+</span></code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="3-3-最简最优解答">3.3 最简最优解答</h3>
-
+</div><h3 id="33-最简最优解答">3.3 最简最优解答</h3>
 <p>目前看到的个人认为最好的解答，我写成了go版本。</p>
-
 <p>解法一、二都是双指针的思路。其实完全不需要双指针也可以做到.</p>
-
 <p>只要当前元素大于前一个元素，那么就直接把它加到前缀不重复子数组的末尾就可以了，因为数组已经是排好序的啊！</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -459,15 +403,12 @@ for (int i = 0; i &lt; len; i++) {
 </span><span class="c1"></span>	<span class="p">}</span>
 
 	<span class="k">return</span> <span class="nx">index</span><span class="o">+</span><span class="mi">1</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="4-总结">4. 总结</h2>
-
+</div><h2 id="4-总结">4. 总结</h2>
 <p>这是一道利用<strong>双指针移动</strong>思路的题目，但双指针移动在本题不是必须也不是最优。</p>
-
 <h2 id="5-我的leetcode题解">5. 我的Leetcode题解</h2>
-
 <p><a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/solution/shan-chu-pai-xu-shu-zu-zhong-zhong-fu-xiang-you-hu/">https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/solution/shan-chu-pai-xu-shu-zu-zhong-zhong-fu-xiang-you-hu/</a></p>
 
     </div>

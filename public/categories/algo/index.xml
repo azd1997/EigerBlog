@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>algo on Eiger - A young gopher</title>
@@ -21,12 +21,12 @@
     </item>
     
     <item>
-      <title>查找算法整理与实现</title>
+      <title>二分查找与二叉搜索树</title>
       <link>https://azd1997.github.io/post/algo/search/</link>
       <pubDate>Fri, 28 Feb 2020 08:56:41 +0800</pubDate>
       
       <guid>https://azd1997.github.io/post/algo/search/</guid>
-      <description></description>
+      <description>0. 说明 结点： 在数据结构中的结点的正确表示是结点而非节点。以下懒得修正 1. 二分查找 1.1 普通二分查找 一般来讲，二分查找要求序列有序。下面是一个示例：</description>
     </item>
     
     <item>
@@ -35,7 +35,7 @@
       <pubDate>Wed, 26 Feb 2020 05:18:39 +0800</pubDate>
       
       <guid>https://azd1997.github.io/post/algo/jzof01/</guid>
-      <description>0. 前言 本篇总结《剑指OFFER》面试相关注意事项 1. 面试的三种形式 简历筛选 -&amp;gt; 电话面试 -&amp;gt; (远程桌面面试) -&amp;gt; 现场面试 1.1 电话面试 面试官可能&amp;rdqu</description>
+      <description>0. 前言 本篇总结《剑指OFFER》面试相关注意事项 1. 面试的三种形式 简历筛选 -&amp;gt; 电话面试 -&amp;gt; (远程桌面面试) -&amp;gt; 现场面试 1.1 电话面试 面试官可能&amp;quot</description>
     </item>
     
     <item>
@@ -80,7 +80,7 @@
       <pubDate>Tue, 12 Nov 2019 02:40:52 +0800</pubDate>
       
       <guid>https://azd1997.github.io/post/algo/lt200/</guid>
-      <description>题意 岛的数量 给定一个由 &amp;rsquo;1&amp;rsquo;（陆地）和 &amp;lsquo;0&amp;rsquo;（水）组成的的二维网格，计算岛屿的数量。一个岛被</description>
+      <description>题意 岛的数量 给定一个由 &amp;lsquo;1&amp;rsquo;（陆地）和 &amp;lsquo;0&amp;rsquo;（水）组成的的二维网格，计算岛屿的数量。一个岛被</description>
     </item>
     
     <item>
@@ -89,7 +89,7 @@
       <pubDate>Mon, 11 Nov 2019 03:19:22 +0800</pubDate>
       
       <guid>https://azd1997.github.io/post/algo/lt242/</guid>
-      <description>题意 有效的字母异位词 给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。 示例 1: 1 2 输入: s = &amp;#34;anagram&amp;#34;, t = &amp;#34;nagaram&amp;#34; 输出: true 示例 2: 1 2 输入: s =</description>
+      <description>题意 有效的字母异位词 给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。 示例 1: 输入: s = &amp;quot;anagram&amp;quot;, t = &amp;quot;nagaram&amp;quot; 输出: true 示例 2: 输入: s = &amp;quot;rat&amp;quot;, t = &amp;quot;car&amp;quot;</description>
     </item>
     
     <item>
@@ -125,7 +125,7 @@
       <pubDate>Sat, 09 Nov 2019 09:08:07 +0800</pubDate>
       
       <guid>https://azd1997.github.io/post/algo/lt283/</guid>
-      <description>题意 移动0 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。 示例: 1 2 输入: [0,1,0,3,12] 输出: [1,3,12,0,0] 说明: 必须在原数</description>
+      <description>题意 移动0 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。 示例: 输入: [0,1,0,3,12] 输出: [1,3,12,0,0] 说明: 必须在原数组上</description>
     </item>
     
     <item>
@@ -143,7 +143,7 @@
       <pubDate>Sat, 09 Nov 2019 01:43:22 +0800</pubDate>
       
       <guid>https://azd1997.github.io/post/algo/lt641/</guid>
-      <description>题意 设计实现双端队列。 你的实现需要支持以下操作： 1 2 3 4 5 6 7 8 9 MyCircularDeque(k)：构造函数,双端队列的大小为k。 ins</description>
+      <description>题意 设计实现双端队列。 你的实现需要支持以下操作： MyCircularDeque(k)：构造函数,双端队列的大小为k。 insertFront(</description>
     </item>
     
     <item>
@@ -152,7 +152,7 @@
       <pubDate>Fri, 08 Nov 2019 08:33:08 +0800</pubDate>
       
       <guid>https://azd1997.github.io/post/algo/lt21/</guid>
-      <description>解法二超越100%golang提交 题意 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例： 1 2</description>
+      <description>解法二超越100%golang提交 题意 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例： 输入</description>
     </item>
     
     <item>
@@ -170,7 +170,7 @@
       <pubDate>Wed, 06 Nov 2019 22:36:36 +0800</pubDate>
       
       <guid>https://azd1997.github.io/post/algo/lt189/</guid>
-      <description>1. 题意 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 1 2 3 4 5 6 输入: [1,2,3,4,5,6,7] 和 k = 3 输出: [5,6,7,1,2,3,4] 解释: 向右旋转 1 步: [7,1,2,3,4,5,6] 向右旋转</description>
+      <description>1. 题意 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 输入: [1,2,3,4,5,6,7] 和 k = 3 输出: [5,6,7,1,2,3,4] 解释: 向右旋转 1 步: [7,1,2,3,4,5,6] 向右旋转 2 步: [6,7,1,2,3,4,5] 向右</description>
     </item>
     
     <item>

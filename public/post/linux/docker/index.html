@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/linux/docker/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2019-08-20T03:14:14-04:00" />
 <meta itemprop="name" content="docker学习全系列">
 <meta itemprop="description" content="docker学习全系列 参考： 阮一峰博客: http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html http://www.ruanyifeng.com/blog/2018/02/docker-wordpress-tutorial.html docker-compose安装 从https://github.com/docker/compo">
-
-
 <meta itemprop="datePublished" content="2019-08-17T04:42:16&#43;08:00" />
 <meta itemprop="dateModified" content="2019-08-20T03:14:14-04:00" />
 <meta itemprop="wordCount" content="219">
 
 
 
-<meta itemprop="keywords" content="docker," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="docker," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="docker学习全系列"/>
 <meta name="twitter:description" content="docker学习全系列 参考： 阮一峰博客: http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html http://www.ruanyifeng.com/blog/2018/02/docker-wordpress-tutorial.html docker-compose安装 从https://github.com/docker/compo"/>
 
@@ -145,37 +142,27 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li><a href="#docker学习全系列">docker学习全系列</a>
-<ul>
-<li><a href="#docker-compose安装">docker-compose安装</a></li>
-<li><a href="#docker换源">docker换源</a></li>
-<li><a href="#docker停止容器">docker停止容器</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#docker-compose安装">docker-compose安装</a></li>
+    <li><a href="#docker换源">docker换源</a></li>
+    <li><a href="#docker停止容器">docker停止容器</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h1 id="docker学习全系列">docker学习全系列</h1>
-
+      <h1 id="docker学习全系列">docker学习全系列</h1>
 <p>参考：</p>
-
 <p>阮一峰博客:</p>
-
 <ul>
 <li><a href="http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html">http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html</a></li>
 <li><a href="http://www.ruanyifeng.com/blog/2018/02/docker-wordpress-tutorial.html">http://www.ruanyifeng.com/blog/2018/02/docker-wordpress-tutorial.html</a></li>
 </ul>
-
 <h2 id="docker-compose安装">docker-compose安装</h2>
-
 <p>从<a href="https://github.com/docker/compose/releases">https://github.com/docker/compose/releases</a>下载对应版本二进制文件，复制粘贴到本机<code>$PATH</code>下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -188,38 +175,38 @@ eiger@eiger-ThinkPad-X1-Carbon-3rd:~/Downloads$ <span class="nb">cd</span> /usr/
 eiger@eiger-ThinkPad-X1-Carbon-3rd:/usr/bin$ sudo chmod a+x docker-compose
 eiger@eiger-ThinkPad-X1-Carbon-3rd:/usr/bin$ <span class="nb">cd</span> ~
 eiger@eiger-ThinkPad-X1-Carbon-3rd:~$ docker-compose --version
-docker-compose version <span class="m">1</span>.24.1, build 4667896b</code></pre></td></tr></table>
+docker-compose version 1.24.1, build 4667896b
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="docker换源">docker换源</h2>
-
+</div><h2 id="docker换源">docker换源</h2>
 <p>编辑<code>/etc/default/docker</code>并在末尾追加：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nv">DOCKER_OPTS</span><span class="o">=</span><span class="s2">&#34;--registry-mirror=https://registry.docker-cn.com&#34;</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nv">DOCKER_OPTS</span><span class="o">=</span><span class="s2">&#34;--registry-mirror=https://registry.docker-cn.com&#34;</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>保存后重启docker即可：</p>
+</div><p>保存后重启docker即可：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">sudo service docker restart</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo service docker restart
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="docker停止容器">docker停止容器</h2>
+</div><h2 id="docker停止容器">docker停止容器</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 终止所有容器</span>
-docker stop <span class="k">$(</span>docker ps -a -q<span class="k">)</span></code></pre></td></tr></table>
+docker stop <span class="k">$(</span>docker ps -a -q<span class="k">)</span>
+</code></pre></td></tr></table>
 </div>
 </div>
     </div>

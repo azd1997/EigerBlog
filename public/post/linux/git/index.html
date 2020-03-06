@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/linux/git/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2019-08-20T03:14:14-04:00" />
 <meta itemprop="name" content="git学习全系列">
 <meta itemprop="description" content="git学习全系列 1. 修改commit消息 https://www.cnblogs.com/revel171226/p/9208589.html 2. Pull&amp;Request https://blog.csdn.net/qq_33429968/article/details/62219783 3. 合并多条commit消息 https://blog.csdn.net/u013276277/article/details/82470177 4. 删除仓库下所有文件但不删除仓库 https://www.cnblogs.com/Ghost4C-QH/p/8777744.html 5. 与远程仓库建立连接 5.1 建立关联 1">
-
-
 <meta itemprop="datePublished" content="2019-08-17T04:44:28&#43;08:00" />
 <meta itemprop="dateModified" content="2019-08-20T03:14:14-04:00" />
 <meta itemprop="wordCount" content="503">
 
 
 
-<meta itemprop="keywords" content="git," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="git," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="git学习全系列"/>
 <meta name="twitter:description" content="git学习全系列 1. 修改commit消息 https://www.cnblogs.com/revel171226/p/9208589.html 2. Pull&amp;Request https://blog.csdn.net/qq_33429968/article/details/62219783 3. 合并多条commit消息 https://blog.csdn.net/u013276277/article/details/82470177 4. 删除仓库下所有文件但不删除仓库 https://www.cnblogs.com/Ghost4C-QH/p/8777744.html 5. 与远程仓库建立连接 5.1 建立关联 1"/>
 
@@ -145,52 +142,38 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li><a href="#git学习全系列">git学习全系列</a>
-<ul>
-<li><a href="#1-修改commit消息">1. 修改commit消息</a></li>
-<li><a href="#2-pull-request">2. Pull&amp;Request</a></li>
-<li><a href="#3-合并多条commit消息">3. 合并多条commit消息</a></li>
-<li><a href="#4-删除仓库下所有文件但不删除仓库">4. 删除仓库下所有文件但不删除仓库</a></li>
-<li><a href="#5-与远程仓库建立连接">5. 与远程仓库建立连接</a>
-<ul>
-<li><a href="#5-1-建立关联">5.1 建立关联</a></li>
-<li><a href="#5-2-解除关联">5.2 解除关联</a></li>
-<li><a href="#5-3-拒绝合并不相关历史处理">5.3 拒绝合并不相关历史处理</a></li>
-</ul></li>
-<li><a href="#6-本地创建分支并关联远程分支">6. 本地创建分支并关联远程分支</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#1-修改commit消息">1. 修改commit消息</a></li>
+    <li><a href="#2-pullrequest">2. Pull&amp;Request</a></li>
+    <li><a href="#3-合并多条commit消息">3. 合并多条commit消息</a></li>
+    <li><a href="#4-删除仓库下所有文件但不删除仓库">4. 删除仓库下所有文件但不删除仓库</a></li>
+    <li><a href="#5-与远程仓库建立连接">5. 与远程仓库建立连接</a>
+      <ul>
+        <li><a href="#51-建立关联">5.1 建立关联</a></li>
+        <li><a href="#52-解除关联">5.2 解除关联</a></li>
+        <li><a href="#53-拒绝合并不相关历史处理">5.3 拒绝合并不相关历史处理</a></li>
+      </ul>
+    </li>
+    <li><a href="#6-本地创建分支并关联远程分支">6. 本地创建分支并关联远程分支</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h1 id="git学习全系列">git学习全系列</h1>
-
+      <h1 id="git学习全系列">git学习全系列</h1>
 <h2 id="1-修改commit消息">1. 修改commit消息</h2>
-
 <p><a href="https://www.cnblogs.com/revel171226/p/9208589.html">https://www.cnblogs.com/revel171226/p/9208589.html</a></p>
-
-<h2 id="2-pull-request">2. Pull&amp;Request</h2>
-
+<h2 id="2-pullrequest">2. Pull&amp;Request</h2>
 <p><a href="https://blog.csdn.net/qq_33429968/article/details/62219783">https://blog.csdn.net/qq_33429968/article/details/62219783</a></p>
-
 <h2 id="3-合并多条commit消息">3. 合并多条commit消息</h2>
-
 <p><a href="https://blog.csdn.net/u013276277/article/details/82470177">https://blog.csdn.net/u013276277/article/details/82470177</a></p>
-
 <h2 id="4-删除仓库下所有文件但不删除仓库">4. 删除仓库下所有文件但不删除仓库</h2>
-
 <p><a href="https://www.cnblogs.com/Ghost4C-QH/p/8777744.html">https://www.cnblogs.com/Ghost4C-QH/p/8777744.html</a></p>
-
 <h2 id="5-与远程仓库建立连接">5. 与远程仓库建立连接</h2>
-
-<h3 id="5-1-建立关联">5.1 建立关联</h3>
+<h3 id="51-建立关联">5.1 建立关联</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -211,41 +194,36 @@ $ git pull
 <span class="c1"># 本地仓库作出文件修改后，将版本提交到远程仓库</span>
 $ git add .
 $ git commit -m <span class="s1">&#39;提交信息&#39;</span>
-$ git push -u origin master</code></pre></td></tr></table>
+$ git push -u origin master
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="5-2-解除关联">5.2 解除关联</h3>
+</div><h3 id="52-解除关联">5.2 解除关联</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">git remote rm origin</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">git remote rm origin
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="5-3-拒绝合并不相关历史处理">5.3 拒绝合并不相关历史处理</h3>
-
+</div><h3 id="53-拒绝合并不相关历史处理">5.3 拒绝合并不相关历史处理</h3>
 <p>在我的实际操作中，远程仓库创建时设置了LICENSE而没有设置.gitignore，在本地仓库我设置了.gitignore。这导致我在进行上面步骤中<code>git pull</code>这一步时提示<strong>拒绝合并不相关历史</strong></p>
-
-<p><img src="/images/TIM截图20190723214615.png" alt="20190723214615" /></p>
-
+<p><img src="/images/TIM%E6%88%AA%E5%9B%BE20190723214615.png" alt="20190723214615"></p>
 <p>这是因为本地仓库和远程仓库没有相同的commit记录造成的（不确定，待完善）。</p>
-
 <p>使用下面命令可继续合并：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">git pull --allow-unrelated-histories</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">git pull --allow-unrelated-histories
+</code></pre></td></tr></table>
 </div>
-</div>
-<p><img src="/images/TIM截图20190723214818.png" alt="20190723214818" /></p>
-
+</div><p><img src="/images/TIM%E6%88%AA%E5%9B%BE20190723214818.png" alt="20190723214818"></p>
 <h2 id="6-本地创建分支并关联远程分支">6. 本地创建分支并关联远程分支</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -266,7 +244,8 @@ git checkout -b 分支名
 <span class="c1"># 提交本地分支到远程仓库</span>
 git push origin 本地分支名  <span class="c1"># 自动就创建了远程同名分支</span>
 <span class="c1"># 新建本地分支与远程分支相关联</span>
-git branch -set-upstream 本地新建分支名 origin/远程分支名</code></pre></td></tr></table>
+git branch -set-upstream 本地新建分支名 origin/远程分支名
+</code></pre></td></tr></table>
 </div>
 </div>
     </div>

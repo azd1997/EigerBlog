@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>查找算法整理与实现 - Eiger - A young gopher</title>
+  <title>二分查找与二叉搜索树 - Eiger - A young gopher</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Eiger" /><meta name="description" content="" /><meta name="keywords" content="binary search, " />
+<meta name="author" content="Eiger" /><meta name="description" content="0. 说明 结点： 在数据结构中的结点的正确表示是结点而非节点。以下懒得修正 1. 二分查找 1.1 普通二分查找 一般来讲，二分查找要求序列有序。下面是一个示例：" /><meta name="keywords" content="二分查找, " />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/algo/search/" />
@@ -38,26 +38,23 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="查找算法整理与实现" />
-<meta property="og:description" content="" />
+<meta property="og:title" content="二分查找与二叉搜索树" />
+<meta property="og:description" content="0. 说明 结点： 在数据结构中的结点的正确表示是结点而非节点。以下懒得修正 1. 二分查找 1.1 普通二分查找 一般来讲，二分查找要求序列有序。下面是一个示例：" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://azd1997.github.io/post/algo/search/" />
 <meta property="article:published_time" content="2020-02-28T08:56:41+08:00" />
 <meta property="article:modified_time" content="2020-02-28T08:56:41+08:00" />
-<meta itemprop="name" content="查找算法整理与实现">
-<meta itemprop="description" content="">
-
-
+<meta itemprop="name" content="二分查找与二叉搜索树">
+<meta itemprop="description" content="0. 说明 结点： 在数据结构中的结点的正确表示是结点而非节点。以下懒得修正 1. 二分查找 1.1 普通二分查找 一般来讲，二分查找要求序列有序。下面是一个示例：">
 <meta itemprop="datePublished" content="2020-02-28T08:56:41&#43;08:00" />
 <meta itemprop="dateModified" content="2020-02-28T08:56:41&#43;08:00" />
-<meta itemprop="wordCount" content="0">
+<meta itemprop="wordCount" content="12739">
 
 
 
-<meta itemprop="keywords" content="search," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="查找算法整理与实现"/>
-<meta name="twitter:description" content=""/>
+<meta itemprop="keywords" content="search," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="二分查找与二叉搜索树"/>
+<meta name="twitter:description" content="0. 说明 结点： 在数据结构中的结点的正确表示是结点而非节点。以下懒得修正 1. 二分查找 1.1 普通二分查找 一般来讲，二分查找要求序列有序。下面是一个示例："/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -128,15 +125,15 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">查找算法整理与实现</h1>
+      <h1 class="post-title">二分查找与二叉搜索树</h1>
 
       <div class="post-meta">
         <span class="post-time"> 2020-02-28 </span>
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 0 words </span>
-          <span class="more-meta"> 0 mins read </span>
+          <span class="more-meta"> 12739 words </span>
+          <span class="more-meta"> 26 mins read </span>
         
       </div>
     </header>
@@ -144,11 +141,2492 @@
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
-    
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-说明">0. 说明</a></li>
+    <li><a href="#1-二分查找">1. 二分查找</a>
+      <ul>
+        <li><a href="#11-普通二分查找">1.1 普通二分查找</a></li>
+        <li><a href="#12-floor与ceil">1.2 floor与ceil</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-二分搜索树">2. 二分搜索树</a>
+      <ul>
+        <li><a href="#21-二分搜索树基本实现">2.1 二分搜索树基本实现</a></li>
+        <li><a href="#22-其他操作">2.2 其他操作</a></li>
+        <li><a href="#24-二分搜索树的局限性">2.4 二分搜索树的局限性</a></li>
+        <li><a href="#25-与其他数据结构的结合与拓展">2.5 与其他数据结构的结合与拓展</a></li>
+        <li><a href="#26-树形问题">2.6 树形问题</a></li>
+        <li><a href="#27-各种各样的树">2.7 各种各样的树</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-红黑树">3. 红黑树</a>
+      <ul>
+        <li><a href="#31-2-3树">3.1 2-3树</a></li>
+        <li><a href="#32-从2-3树到红黑树">3.2 从2-3树到红黑树</a></li>
+        <li><a href="#33-红黑树的定义">3.3 红黑树的定义</a></li>
+        <li><a href="#34-红黑树与2-3树的一一对应">3.4 红黑树与2-3树的一一对应</a></li>
+        <li><a href="#35-红黑链接的代码表示">3.5 红黑链接的代码表示</a></li>
+        <li><a href="#36-旋转">3.6 旋转</a></li>
+        <li><a href="#37-插入操作">3.7 插入操作</a></li>
+        <li><a href="#38-删除操作">3.8 删除操作</a></li>
+        <li><a href="#39-查找类操作">3.9 查找类操作</a></li>
+        <li><a href="#310-红黑树性质">3.10 红黑树性质</a></li>
+        <li><a href="#311-各种符号表实现的性能比较">3.11 各种符号表实现的性能比较</a></li>
+        <li><a href="#312-搜索树的思考">3.12 搜索树的思考</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-哈希表">4. 哈希表</a>
+      <ul>
+        <li><a href="#41-散列函数">4.1 散列函数</a></li>
+        <li><a href="#42-基于拉链法的哈希表">4.2 基于拉链法的哈希表</a></li>
+        <li><a href="#43-基于线性探测法的哈希表">4.3 基于线性探测法的哈希表</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考材料">参考材料</a></li>
+  </ul>
+</nav>
   </div>
 </div>
     <div class="post-content">
-      
+      <h2 id="0-说明">0. 说明</h2>
+<ul>
+<li>结点： 在数据结构中的结点的正确表示是<code>结点</code>而非<code>节点</code>。以下懒得修正</li>
+</ul>
+<h2 id="1-二分查找">1. 二分查找</h2>
+<h3 id="11-普通二分查找">1.1 普通二分查找</h3>
+<p>一般来讲，二分查找要求序列有序。下面是一个示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 1. 迭代版本
+</span><span class="c1"></span>
+<span class="c1">// 返回数组中是否存在目标值，假设元素均不重复/数组升序
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">binarySearch</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">target</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+    <span class="c1">// 边界检查
+</span><span class="c1"></span>    <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span><span class="k">return</span> <span class="kc">false</span><span class="p">}</span>
+    <span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span><span class="k">return</span> <span class="nx">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nx">target</span><span class="p">}</span>
+    <span class="k">if</span> <span class="nx">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">target</span> <span class="o">||</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">&lt;</span> <span class="nx">target</span> <span class="p">{</span><span class="k">return</span> <span class="kc">false</span><span class="p">}</span>
+
+    <span class="c1">// 二分
+</span><span class="c1"></span>    <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span>      <span class="c1">// 闭区间 [0,...,n-1]
+</span><span class="c1"></span>    <span class="k">for</span> <span class="nx">l</span> <span class="o">&lt;=</span> <span class="nx">r</span> <span class="p">{</span>    <span class="c1">// l==r时就是只有一个元素
+</span><span class="c1"></span>        <span class="nx">mid</span> <span class="o">:=</span> <span class="p">(</span><span class="nx">r</span><span class="o">-</span><span class="nx">l</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="nx">l</span>  <span class="c1">// 虽然我觉得正常情况下不可能溢出
+</span><span class="c1"></span>
+        <span class="c1">// 找到目标值
+</span><span class="c1"></span>        <span class="k">if</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">mid</span><span class="p">]</span> <span class="o">==</span> <span class="nx">target</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">true</span>
+        <span class="p">}</span>
+
+        <span class="c1">// 没找到
+</span><span class="c1"></span>        <span class="k">if</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">mid</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">target</span> <span class="p">{</span>
+            <span class="nx">r</span> <span class="p">=</span> <span class="nx">mid</span> <span class="o">-</span> <span class="mi">1</span>     <span class="c1">// [0,...,mid-1]    mid已比较过
+</span><span class="c1"></span>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">l</span> <span class="p">=</span> <span class="nx">mid</span> <span class="o">+</span> <span class="mi">1</span>     <span class="c1">// [mid+1,...,n-1]
+</span><span class="c1"></span>        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="kc">false</span>
+<span class="p">}</span>
+
+
+<span class="c1">// 2. 递归版本
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">binarySearch2</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">target</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+    <span class="c1">// 边界检查
+</span><span class="c1"></span>    <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span><span class="k">return</span> <span class="kc">false</span><span class="p">}</span>
+    <span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span><span class="k">return</span> <span class="nx">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nx">target</span><span class="p">}</span>
+    <span class="k">if</span> <span class="nx">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">target</span> <span class="o">||</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">&lt;</span> <span class="nx">target</span> <span class="p">{</span><span class="k">return</span> <span class="kc">false</span><span class="p">}</span>
+
+    <span class="c1">// 递归
+</span><span class="c1"></span>    <span class="k">return</span> <span class="nf">bs</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">target</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">bs</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span><span class="nx">r</span><span class="p">,</span> <span class="nx">target</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">l</span> <span class="o">==</span> <span class="nx">r</span> <span class="p">{</span><span class="k">return</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span> <span class="o">==</span> <span class="nx">target</span><span class="p">}</span>
+
+    <span class="nx">mid</span> <span class="o">:=</span> <span class="p">(</span><span class="nx">r</span><span class="o">-</span><span class="nx">l</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="nx">l</span>
+    <span class="k">if</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">mid</span><span class="p">]</span> <span class="o">==</span> <span class="nx">target</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">mid</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">target</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">bs</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">mid</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">target</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">bs</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">target</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>一些特殊的情况下非有序序列也可以使用二分查找</strong>
+<ul>
+<li>按数组下标进行二分查找</li>
+<li>按数值大小二分查找</li>
+</ul>
+</li>
+</ul>
+<h3 id="12-floor与ceil">1.2 floor与ceil</h3>
+<ul>
+<li>floor 与 ceil 函数能够在含有重复元素的有序序列中查找出等于target的那一端数据的左端点和右端点</li>
+<li>如果没有target，则会返回target最接近的左右两个数</li>
+</ul>
+<h2 id="2-二分搜索树">2. 二分搜索树</h2>
+<h3 id="21-二分搜索树基本实现">2.1 二分搜索树基本实现</h3>
+<p>以下是一个不含重复元素的二叉搜索树实现</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span><span class="lnt">214
+</span><span class="lnt">215
+</span><span class="lnt">216
+</span><span class="lnt">217
+</span><span class="lnt">218
+</span><span class="lnt">219
+</span><span class="lnt">220
+</span><span class="lnt">221
+</span><span class="lnt">222
+</span><span class="lnt">223
+</span><span class="lnt">224
+</span><span class="lnt">225
+</span><span class="lnt">226
+</span><span class="lnt">227
+</span><span class="lnt">228
+</span><span class="lnt">229
+</span><span class="lnt">230
+</span><span class="lnt">231
+</span><span class="lnt">232
+</span><span class="lnt">233
+</span><span class="lnt">234
+</span><span class="lnt">235
+</span><span class="lnt">236
+</span><span class="lnt">237
+</span><span class="lnt">238
+</span><span class="lnt">239
+</span><span class="lnt">240
+</span><span class="lnt">241
+</span><span class="lnt">242
+</span><span class="lnt">243
+</span><span class="lnt">244
+</span><span class="lnt">245
+</span><span class="lnt">246
+</span><span class="lnt">247
+</span><span class="lnt">248
+</span><span class="lnt">249
+</span><span class="lnt">250
+</span><span class="lnt">251
+</span><span class="lnt">252
+</span><span class="lnt">253
+</span><span class="lnt">254
+</span><span class="lnt">255
+</span><span class="lnt">256
+</span><span class="lnt">257
+</span><span class="lnt">258
+</span><span class="lnt">259
+</span><span class="lnt">260
+</span><span class="lnt">261
+</span><span class="lnt">262
+</span><span class="lnt">263
+</span><span class="lnt">264
+</span><span class="lnt">265
+</span><span class="lnt">266
+</span><span class="lnt">267
+</span><span class="lnt">268
+</span><span class="lnt">269
+</span><span class="lnt">270
+</span><span class="lnt">271
+</span><span class="lnt">272
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">tree</span>
+
+<span class="kn">import</span> <span class="s">&#34;reflect&#34;</span>
+
+<span class="c1">// Value 必须是可比较的，这里不做检查和约束
+</span><span class="c1">// 值。 空接口，类似泛型的方案
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Value</span> <span class="kd">interface</span><span class="p">{}</span>
+
+<span class="c1">// compare 辅助函数，用来比较两个Value
+</span><span class="c1">// 0 相等
+</span><span class="c1">// 1 左大于右
+</span><span class="c1">// -1 右大于左
+</span><span class="c1">// -2 类型不一致
+</span><span class="c1">// -3 类型不可比较
+</span><span class="c1">// -4 未知Kind
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">compare</span><span class="p">(</span><span class="nx">v1</span><span class="p">,</span> <span class="nx">v2</span> <span class="nx">Value</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="nx">v1Value</span> <span class="o">:=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">ValueOf</span><span class="p">(</span><span class="nx">v1</span><span class="p">)</span>
+	<span class="nx">v2Value</span> <span class="o">:=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">ValueOf</span><span class="p">(</span><span class="nx">v2</span><span class="p">)</span>
+
+	<span class="c1">// 必须检查两个Value类型一致
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">v1Value</span><span class="p">.</span><span class="nf">Type</span><span class="p">()</span> <span class="o">!=</span> <span class="nx">v2Value</span><span class="p">.</span><span class="nf">Type</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="o">-</span><span class="mi">2</span>
+	<span class="p">}</span>
+
+	<span class="c1">//  可比较性
+</span><span class="c1"></span>	<span class="k">if</span> <span class="p">!</span><span class="nx">v1Value</span><span class="p">.</span><span class="nf">Type</span><span class="p">().</span><span class="nf">Comparable</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="o">-</span><span class="mi">3</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 比较
+</span><span class="c1"></span>	<span class="k">switch</span> <span class="nx">v1Value</span><span class="p">.</span><span class="nf">Kind</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Int</span><span class="p">:</span>
+		<span class="k">if</span> <span class="nx">v1Value</span><span class="p">.</span><span class="nf">Int</span><span class="p">()</span> <span class="p">&gt;</span> <span class="nx">v2Value</span><span class="p">.</span><span class="nf">Int</span><span class="p">()</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="mi">1</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">v1Value</span><span class="p">.</span><span class="nf">Int</span><span class="p">()</span> <span class="p">&lt;</span> <span class="nx">v2Value</span><span class="p">.</span><span class="nf">Int</span><span class="p">()</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span><span class="k">return</span> <span class="mi">0</span><span class="p">}</span>
+	<span class="k">default</span><span class="p">:</span>
+		<span class="c1">// 不知名的Kind报错
+</span><span class="c1"></span>		<span class="k">return</span> <span class="o">-</span><span class="mi">4</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Node 二叉搜索树节点
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Node</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Val</span> <span class="nx">Value</span>
+	<span class="nx">Left</span><span class="p">,</span> <span class="nx">Right</span> <span class="o">*</span><span class="nx">Node</span>
+<span class="p">}</span>
+
+<span class="c1">// 二叉树节点该有的一些方法
+</span><span class="c1"></span>
+<span class="c1">// 1. 非空
+</span><span class="c1">// 2. 大小
+</span><span class="c1">// 3. 插入/更新
+</span><span class="c1">// 4. 按值删除
+</span><span class="c1">// 5. 包含
+</span><span class="c1"></span>
+<span class="c1">// BST 二叉搜索树
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">BST</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span>
+	<span class="nx">size</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="c1">// NewBST 新建空树
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">NewBST</span><span class="p">()</span> <span class="o">*</span><span class="nx">BST</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">BST</span><span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="c1">// NewBSTFromSlice 根据切片新建二叉搜索树
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">NewBSTFromSlice</span><span class="p">(</span><span class="nx">data</span> <span class="p">[]</span><span class="nx">Value</span><span class="p">)</span> <span class="o">*</span><span class="nx">BST</span> <span class="p">{</span><span class="k">return</span> <span class="kc">nil</span><span class="p">}</span>
+
+<span class="c1">// IsEmpty 判空
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">bst</span> <span class="o">*</span><span class="nx">BST</span><span class="p">)</span> <span class="nf">IsEmpty</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">bst</span><span class="p">.</span><span class="nx">size</span> <span class="o">==</span> <span class="mi">0</span>	<span class="c1">// bst.root == nil 也可以
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// Size 元素数量
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">bst</span> <span class="o">*</span><span class="nx">BST</span><span class="p">)</span> <span class="nf">Size</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">bst</span><span class="p">.</span><span class="nx">size</span>
+<span class="p">}</span>
+
+<span class="c1">// Add 插入
+</span><span class="c1">// 不断将v与树原有节点进行比较，判断是否应该去其左右子树继续寻找（联系二分查找的思想）
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">bst</span> <span class="o">*</span><span class="nx">BST</span><span class="p">)</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">v</span> <span class="nx">Value</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// 树空
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">bst</span><span class="p">.</span><span class="nf">IsEmpty</span><span class="p">()</span> <span class="p">{</span><span class="nx">bst</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">Val</span> <span class="p">=</span> <span class="nx">v</span><span class="p">}</span>
+
+	<span class="c1">// 递归寻找插入位置
+</span><span class="c1"></span>	<span class="nx">newRoot</span> <span class="o">:=</span> <span class="nf">add</span><span class="p">(</span><span class="nx">bst</span><span class="p">.</span><span class="nx">root</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">newRoot</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>	<span class="c1">// 插入失败
+</span><span class="c1"></span>	<span class="nx">bst</span><span class="p">.</span><span class="nx">root</span> <span class="p">=</span> <span class="nx">newRoot</span>
+<span class="p">}</span>
+
+<span class="c1">// 返回插入后树的新根（因为根可能会改变）
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">add</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">v</span> <span class="nx">Value</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="c1">// 空节点，也就是找到可插入位置
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="o">&amp;</span><span class="nx">Node</span><span class="p">{</span><span class="nx">Val</span><span class="p">:</span><span class="nx">v</span><span class="p">}}</span>
+	<span class="c1">// 发现重复元素
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Val</span> <span class="o">==</span> <span class="nx">v</span> <span class="p">{</span><span class="k">return</span> <span class="nx">root</span><span class="p">}</span>
+
+	<span class="c1">// 根据比较结果向左右子树试探
+</span><span class="c1"></span>	<span class="nx">cmp</span> <span class="o">:=</span> <span class="nf">compare</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Val</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+	<span class="k">switch</span> <span class="nx">cmp</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+		<span class="nx">root</span><span class="p">.</span><span class="nx">Left</span> <span class="p">=</span> <span class="nf">add</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+	<span class="k">case</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+		<span class="nx">root</span><span class="p">.</span><span class="nx">Right</span> <span class="p">=</span> <span class="nf">add</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+	<span class="k">default</span><span class="p">:</span>
+		<span class="c1">// 其他结果都是不应当的
+</span><span class="c1"></span>		<span class="k">return</span> <span class="kc">nil</span>	<span class="c1">// 应当报错
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">root</span>		<span class="c1">// 返回当前根节点
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// Del 按值删除
+</span><span class="c1">// 有三种情况
+</span><span class="c1">// 待删除节点为叶节点； 为不完全节点； 为具备两个孩子的完全节点
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">bst</span> <span class="o">*</span><span class="nx">BST</span><span class="p">)</span> <span class="nf">Del</span><span class="p">(</span><span class="nx">v</span> <span class="nx">Value</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// 记得接收返回值，root可能更改
+</span><span class="c1"></span>	<span class="nx">bst</span><span class="p">.</span><span class="nx">root</span> <span class="p">=</span> <span class="nf">findAndDel</span><span class="p">(</span><span class="nx">bst</span><span class="p">.</span><span class="nx">root</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// 删除root子树中等于该v的节点。 返回新root
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">findAndDel</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">v</span> <span class="nx">Value</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="c1">// 外层先是遍历框架。 找到待删除节点之后再根据待删除节点的情况去处理
+</span><span class="c1"></span>
+	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Val</span> <span class="o">==</span> <span class="nx">v</span> <span class="p">{</span>
+		<span class="c1">// 找到待删除节点.进行删除操作
+</span><span class="c1"></span>		<span class="k">return</span> <span class="nf">del</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">cmp</span> <span class="o">:=</span> <span class="nf">compare</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Val</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+	<span class="k">switch</span> <span class="nx">cmp</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+		<span class="k">return</span> <span class="nf">findAndDel</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+	<span class="k">case</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+		<span class="k">return</span> <span class="nf">findAndDel</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+	<span class="k">default</span><span class="p">:</span>
+		<span class="k">return</span> <span class="nx">root</span>		<span class="c1">// 返回root，删除失败
+</span><span class="c1"></span>	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 删除当前节点， 返回顶替的节点（后继节点）
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">del</span><span class="p">(</span><span class="nx">cur</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="c1">// 情况1 cur为叶子节点，直接用nil节点顶替（注意：事实上情况1会被情况2处理掉）
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">Left</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">Right</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="kc">nil</span><span class="p">}</span>
+	<span class="c1">// 情况2 cur为不完全节点，用不为空的孩子顶替
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">Left</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">Right</span><span class="p">}</span>
+	<span class="k">if</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">Right</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">Left</span><span class="p">}</span>
+	<span class="c1">// 情况3 cur为完全节点
+</span><span class="c1"></span>	<span class="c1">//  这种情况下需要找到左子树最大节点或者右子树最小节点来顶替自己
+</span><span class="c1"></span>	<span class="c1">//  也就是找自己数值相邻的两个之一顶替
+</span><span class="c1"></span>	<span class="c1">// 	找到后继者之后，返回后继者并且将原后继者位置删除
+</span><span class="c1"></span>	<span class="c1">// 方便的做法是直接将后继者值赋给cur，然后删除后继者
+</span><span class="c1"></span>	<span class="c1">// 这里采用右子树最小节点顶替（沿右子树左侧链路到底）
+</span><span class="c1"></span>	<span class="nx">rightMin</span> <span class="o">:=</span> <span class="nf">getMinNode</span><span class="p">(</span><span class="nx">cur</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>
+	<span class="nx">cur</span><span class="p">.</span><span class="nx">Val</span> <span class="p">=</span> <span class="nx">rightMin</span><span class="p">.</span><span class="nx">Val</span>
+	<span class="c1">// 看似是递归调用，其实由于rightMin是叶子或者不完全节点，一遍就删掉了
+</span><span class="c1"></span>	<span class="nx">cur</span><span class="p">.</span><span class="nx">Right</span> <span class="p">=</span> <span class="nf">findAndDel</span><span class="p">(</span><span class="nx">cur</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">rightMin</span><span class="p">.</span><span class="nx">Val</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">cur</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">getMinNode</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span><span class="nx">root</span> <span class="p">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">}</span>
+	<span class="k">return</span> <span class="nx">root</span>
+<span class="p">}</span>
+
+<span class="c1">// Contains 包含
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">bst</span> <span class="o">*</span><span class="nx">BST</span><span class="p">)</span> <span class="nf">Contains</span><span class="p">(</span><span class="nx">v</span> <span class="nx">Value</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nf">contains</span><span class="p">(</span><span class="nx">bst</span><span class="p">.</span><span class="nx">root</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">v</span> <span class="nx">Value</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="c1">// 递归终止
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="kc">false</span><span class="p">}</span>
+	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Val</span> <span class="o">==</span> <span class="nx">v</span> <span class="p">{</span><span class="k">return</span> <span class="kc">true</span><span class="p">}</span>
+	<span class="c1">// 否则类似二分，进入相应子树搜寻
+</span><span class="c1"></span>	<span class="nx">cmp</span> <span class="o">:=</span> <span class="nf">compare</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Val</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+	<span class="k">switch</span> <span class="nx">cmp</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+		<span class="k">return</span> <span class="nf">contains</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+	<span class="k">case</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+		<span class="k">return</span> <span class="nf">contains</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+	<span class="k">default</span><span class="p">:</span>	<span class="c1">// 报错,这里简单的返回false
+</span><span class="c1"></span>		<span class="k">return</span> <span class="kc">false</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// AddOne 所有节点加1（假设Value存int，这里只作演示）
+</span><span class="c1">//  选择某一种遍历方式，注意使用标记避免重复加1
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">bst</span> <span class="o">*</span><span class="nx">BST</span><span class="p">)</span> <span class="nf">AddOne</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nf">addOne</span><span class="p">(</span><span class="nx">bst</span><span class="p">.</span><span class="nx">root</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// 前序遍历,不要额外标记
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">addOne</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// 边界
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
+	<span class="c1">// 当前+1
+</span><span class="c1"></span>	<span class="nx">root</span><span class="p">.</span><span class="nx">Val</span> <span class="p">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Val</span><span class="p">.(</span><span class="kt">int</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+	<span class="c1">// 左子树
+</span><span class="c1"></span>	<span class="nf">addOne</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">)</span>
+	<span class="c1">// 右子树
+</span><span class="c1"></span>	<span class="nf">addOne</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Equals 判断两棵树相同
+</span><span class="c1">// 同样也是选择一种遍历方式
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">bst</span> <span class="o">*</span><span class="nx">BST</span><span class="p">)</span> <span class="nf">Equals</span><span class="p">(</span><span class="nx">bst2</span> <span class="o">*</span><span class="nx">BST</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nf">equals</span><span class="p">(</span><span class="nx">bst</span><span class="p">.</span><span class="nx">root</span><span class="p">,</span> <span class="nx">bst2</span><span class="p">.</span><span class="nx">root</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">equals</span><span class="p">(</span><span class="nx">root1</span><span class="p">,</span> <span class="nx">root2</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="c1">// 都空
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root1</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">root2</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="kc">true</span><span class="p">}</span>
+	<span class="c1">// 有一个空
+</span><span class="c1"></span>	<span class="k">if</span> <span class="p">(</span><span class="nx">root1</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">root2</span> <span class="o">!=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">root1</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">root2</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="kc">false</span><span class="p">}</span>
+	<span class="c1">// 都不空时值不等
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root1</span><span class="p">.</span><span class="nx">Val</span> <span class="o">!=</span> <span class="nx">root2</span><span class="p">.</span><span class="nx">Val</span> <span class="p">{</span><span class="k">return</span> <span class="kc">false</span><span class="p">}</span>
+	<span class="c1">// 当前值相等，还需要比较子树
+</span><span class="c1"></span>	<span class="k">return</span> <span class="nf">equals</span><span class="p">(</span><span class="nx">root1</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">root2</span><span class="p">.</span><span class="nx">Left</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nf">equals</span><span class="p">(</span><span class="nx">root1</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">root2</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// IsValid 有效性
+</span><span class="c1">// 注意这里不能简单的将node/left/right三者的值进行比较
+</span><span class="c1">// 因为二叉搜索树的定义是 左子树的值均 &lt; node &lt; 右子树的值
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">bst</span> <span class="o">*</span><span class="nx">BST</span><span class="p">)</span> <span class="nf">IsValid</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nf">isValid</span><span class="p">(</span><span class="nx">bst</span><span class="p">.</span><span class="nx">root</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// 根据传入的最大最小值节点限制，判断root子树是否有效
+</span><span class="c1">// min，max为空时说明没有限制
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">isValid</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">min</span><span class="p">,</span> <span class="nx">max</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="c1">// 边界
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="kc">true</span><span class="p">}</span>
+	<span class="c1">// min限制且root不&gt;left则不对（这里对异常情况统一作无效处理，
+</span><span class="c1"></span>	<span class="c1">// 是因为若元素都不可比较，自然树是无效的）
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">min</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nf">compare</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Val</span><span class="p">,</span> <span class="nx">min</span><span class="p">.</span><span class="nx">Val</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">false</span>
+	<span class="p">}</span>
+	<span class="c1">// max有限制且root不&lt;right则不对
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">max</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nf">compare</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Val</span><span class="p">,</span> <span class="nx">max</span><span class="p">.</span><span class="nx">Val</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">false</span>
+	<span class="p">}</span>
+	<span class="c1">// 如果 left &lt; root &lt; right，还要递归检查左右子树
+</span><span class="c1"></span>	<span class="k">return</span> <span class="nf">isValid</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">min</span><span class="p">,</span> <span class="nx">root</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nf">isValid</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">root</span><span class="p">,</span> <span class="nx">max</span><span class="p">)</span>
+<span class="p">}</span>
+
+
+<span class="c1">//////////////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// BST的遍历框架
+</span><span class="c1">// 基本上所有操作都是按这个模板，先找后操作
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">traverse</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">target</span> <span class="nx">Value</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// 1. 找到目标
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Val</span> <span class="o">==</span> <span class="nx">target</span> <span class="p">{</span>
+		<span class="c1">// do something
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="c1">// 2. 向左右子树之一递归
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nf">compare</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Val</span><span class="p">,</span> <span class="nx">target</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+		<span class="nf">traverse</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">target</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nf">compare</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Val</span><span class="p">,</span> <span class="nx">target</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+		<span class="nf">traverse</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">target</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Tips: 如果当前节点的操作会对其下边的子树产生影响，
+</span><span class="c1">// 需要构造辅助函数增长参数列表，借助参数传递信息
+</span><span class="c1"></span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="22-其他操作">2.2 其他操作</h3>
+<p>此外，对于一颗二叉搜索树来讲，还应有的API有：</p>
+<ul>
+<li>
+<p>Minimum() 返回最小值</p>
+</li>
+<li>
+<p>Maximum() 返回最大值</p>
+</li>
+<li>
+<p>Successor() 返回后继节点</p>
+</li>
+<li>
+<p>Predecessor() 返回前驱节点</p>
+</li>
+<li>
+<p>Floor()  返回比target小的最接近者或者target自身（自身存在）</p>
+</li>
+<li>
+<p>Ceil() 返回比target大的最接近者或者target自身（自身存在）</p>
+</li>
+<li>
+<p>Rank() 返回target节点排名第几</p>
+<ul>
+<li>每个节点额外记录一个子树节点数的变量</li>
+</ul>
+</li>
+<li>
+<p>Select() 排名第几的值是什么</p>
+</li>
+<li>
+<p>支持重复元素的二分搜索树</p>
+<ul>
+<li>插入时$\leq$的放左子节点（或者$\geq$的放右子节点）</li>
+<li>当重复元素很多时，这样会占用大量空间，可以改造一下，让节点多记录一个变量：该元素的重复个数</li>
+</ul>
+</li>
+</ul>
+<h3 id="24-二分搜索树的局限性">2.4 二分搜索树的局限性</h3>
+<ul>
+<li>同样的一个数列可以用不同的二分搜索树表示。二分搜索树可能退化成链表。
+<ul>
+<li>例如$[1,2,3,4,&hellip;]$，这样直接构建二叉搜索树会退化成链表</li>
+<li>解决方案：
+<ul>
+<li>构造二叉树时随机打乱数组
+<ul>
+<li>局限性：要求一开始获得全部数据</li>
+</ul>
+</li>
+<li>平衡二叉树
+<ul>
+<li>红黑树、2-3树、AVL树、Splay树（伸展树）</li>
+<li>左右两颗子树的高度差不超1</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="25-与其他数据结构的结合与拓展">2.5 与其他数据结构的结合与拓展</h3>
+<ul>
+<li>Treap 二分搜索树与堆</li>
+<li>Trie 字典树（前缀树）
+<ul>
+<li>主要作用：统计词频、路由（两大类，另一类是基于哈希表的）</li>
+<li>进阶： 压缩前缀树</li>
+</ul>
+</li>
+</ul>
+<h3 id="26-树形问题">2.6 树形问题</h3>
+<p>有些题目虽然没有创建树，但是是以树的形状进行求解的，这类称树形问题。 且一般能通过递归解决。</p>
+<ul>
+<li>归并排序和快速排序 （树的前序遍历或后序遍历）</li>
+<li>搜索问题（搜索树）
+<ul>
+<li>一条龙游戏、8数码</li>
+<li>每一步找出所有可能，下一步根据这些可能又列举新的所有可能，构成<strong>决策树</strong>，每走一步都是在决策树中往下层走一步。</li>
+<li>8皇后
+<ul>
+<li>在棋盘上放置8枚皇后，使其满足一些条件不会相互攻击</li>
+</ul>
+</li>
+<li>数独</li>
+<li>搬运工</li>
+</ul>
+</li>
+</ul>
+<h3 id="27-各种各样的树">2.7 各种各样的树</h3>
+<ul>
+<li>KD树</li>
+<li>区间树（线段树）</li>
+<li>哈夫曼树</li>
+<li>树状数组</li>
+</ul>
+<h2 id="3-红黑树">3. 红黑树</h2>
+<p>红黑树是工程上最常用的平衡搜索树</p>
+<h3 id="31-2-3树">3.1 2-3树</h3>
+<p>对于第2节所介绍的二叉搜索树，其局限性主要在于，树的平衡性难以保证，操作复杂度有可能退化到$O(n^2)$。</p>
+<p>为了保证平衡性，<code>2-3树</code>引入了<code>3结点</code>的概念，</p>
+<ul>
+<li><code>3结点</code>包含两个键（这里说的键指的就是上面的<code>v</code>）和三个结点指针（中间结点指针指向键处于<code>3节点</code>两个键中间的那些键的结点）</li>
+<li><code>2结点</code>则指二叉搜索树中的结点概念。</li>
+</ul>
+<p>一颗完美的<code>2-3树</code>指其所有空指针（或者说链接、引用）到根节点距离完全一致。要注意这样完美的2-3树维护非常困难（需要大量额外代码实现）。</p>
+<ol>
+<li>结点定义（只作思路展示）</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Node2</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Key</span> <span class="kt">int</span>
+    <span class="nx">Left</span><span class="p">,</span><span class="nx">Right</span> <span class="o">*</span><span class="nx">Node2</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Node3</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">KeyL</span><span class="p">,</span> <span class="nx">KeyR</span> <span class="kt">int</span>
+    <span class="nx">Left</span><span class="p">,</span><span class="nx">Mid</span><span class="p">,</span><span class="nx">Right</span> <span class="o">*</span><span class="nx">Node3</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>查找键</li>
+</ol>
+<p>在树中查找键并不复杂，思路与二叉搜索树查找键别无二致，只是<code>3结点</code>将键划为三段区间而非两端。</p>
+<ol start="3">
+<li>向<code>2结点</code>插入键</li>
+</ol>
+<p>当插入一个键，发现最终其停在一个<code>2结点</code>叶子上时，按二叉查找树的思路，需要<code>cur.Left/Right = new Node(k)</code>这般插入，但是为了保持完美平衡，这里需要将<code>2结点</code>转换为<code>3结点</code>，这样可保证此时完美平衡</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 插入5
+</span><span class="c1">//
+</span><span class="c1">// 1. 插入前
+</span><span class="c1">//     1
+</span><span class="c1">//    / \
+</span><span class="c1">// 
+</span><span class="c1">// 2. 变为3结点
+</span><span class="c1">//     1   5 
+</span><span class="c1">//    /  |  \ 
+</span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>向一个仅含有1个<code>3结点</code>的<code>2-3树</code>插入新键</li>
+</ol>
+<p>将<code>3结点</code>临时变为<code>4结点</code>，再将其扩展为3个<code>2结点</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 插入5
+</span><span class="c1">//
+</span><span class="c1">// 1. 插入前
+</span><span class="c1">//     1   7
+</span><span class="c1">//    /  |  \
+</span><span class="c1">// 
+</span><span class="c1">// 2. 临时4结点
+</span><span class="c1">//     1  5  7
+</span><span class="c1">//    /  / \  \
+</span><span class="c1">// 
+</span><span class="c1">// 3. 生长为3个2结点
+</span><span class="c1">//        5
+</span><span class="c1">//      /   \
+</span><span class="c1">//     1     7
+</span><span class="c1">//    / \   / \
+</span></code></pre></td></tr></table>
+</div>
+</div><ol start="5">
+<li>向父节点为<code>2结点</code>的<code>3结点</code>插入新键</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 插入5
+</span><span class="c1">//
+</span><span class="c1">// 1. 插入前
+</span><span class="c1">//          12
+</span><span class="c1">//       /     \
+</span><span class="c1">//     1   7    15
+</span><span class="c1">//    /  |  \   /\
+</span><span class="c1">// 
+</span><span class="c1">// 2. 临时4结点
+</span><span class="c1">//           12
+</span><span class="c1">//         /    \ 
+</span><span class="c1">//     1  5  7   15
+</span><span class="c1">//    /  / \  \  /\
+</span><span class="c1">// 
+</span><span class="c1">// 3. 不必生长新结点，而是挪一个到父节点去
+</span><span class="c1">// 分裂4结点时选中间键
+</span><span class="c1">//         5   12
+</span><span class="c1">//        /  |  \ 
+</span><span class="c1">//     1     7   15
+</span><span class="c1">//    / \   / \   /\
+</span></code></pre></td></tr></table>
+</div>
+</div><ol start="6">
+<li>向父节点为<code>3结点</code>的<code>3结点</code>插入新键</li>
+</ol>
+<p>按第5条的思路，不断将<code>3结点</code>临时转换为的<code>4结点</code>向祖宗路径移动，直到找到某个祖宗节点的父节点为<code>2结点</code>，按第5条处理。</p>
+<p>另外一种情况是，在祖宗路径上没有<code>2结点</code>，追溯到根节点（这种情况下根节点也是<code>3结点</code>）
+那么就需要对根节点进行分解</p>
+<ol start="7">
+<li>分解根节点（此时的根节点为临时的<code>4结点</code>）</li>
+</ol>
+<p>直接按照第4条将根节点分裂为3个<code>2结点</code>的根树</p>
+<ol start="8">
+<li><code>2-3树</code>的插入过程中其实都可以划为上面的操作来实现（但具体考虑的情况较多）。这些分裂或者说变换都是<strong>局部</strong>的，并不对其他结点产生影响，这也是<code>2-3树</code>插入的根本</li>
+</ol>
+<p><strong>这些局部变换不会影响全局的平衡性与有序性</strong></p>
+<p><strong>和二叉搜索树的自顶向下生长不同，2-3树是自底向上生长的</strong></p>
+<p>完美的2-3树尽管保证了绝对平衡，但却相对二叉搜索树引入了太多的代码，这些操作使得其性能虽然很稳定，但却可能比普通的二叉搜索树更慢。</p>
+<p>平衡一颗树的目的是<strong>引入少量的代码操作消除最坏情形的发生</strong>，也就是说不必保证完全平衡，毕竟算法的目的是为了提升效率而不是树的绝对平衡好看&hellip;</p>
+<h3 id="32-从2-3树到红黑树">3.2 从2-3树到红黑树</h3>
+<p><code>2-3树</code>并不难理解，实现也不是很难，主要是引入的操作过多。相比之下，<code>红黑树</code>仅靠引入少量代码就实现了二叉搜索树的近乎完全平衡，称<code>红黑二叉搜索树</code>，简称<code>红黑树</code>。</p>
+<p>红黑树引入额外信息来表示<code>2-3树</code>中的<code>3结点</code>，而不是引入两种结点类型（结点类型变多这意味着代码量急剧上升）</p>
+<p>新引入的名词：</p>
+<ul>
+<li>红链接： 红链接将两个<code>2结点</code>组合为一个<code>3结点</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 红链接用%表示
+</span><span class="c1">// 
+</span><span class="c1">// 3结点
+</span><span class="c1">// 
+</span><span class="c1">//        k1    k2
+</span><span class="c1">//     /     |    \
+</span><span class="c1">//  less    mid  greater
+</span><span class="c1">// 
+</span><span class="c1">// 红链接与两个2结点
+</span><span class="c1">// 
+</span><span class="c1">//            k2
+</span><span class="c1">//          %   \
+</span><span class="c1">//        k1     greater
+</span><span class="c1">//     /    \    
+</span><span class="c1">//  less    mid  
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>黑链接: <code>2-3树</code>中的普通链接</li>
+</ul>
+<p>这样做的好处是：无需修改，直接使用二叉查找树的<code>get()</code>方法</p>
+<h3 id="33-红黑树的定义">3.3 红黑树的定义</h3>
+<p>红黑树指<strong>含有红黑链接</strong>且满足以下条件的二叉搜索树</p>
+<ul>
+<li>红链接均为左链接</li>
+<li>没有一个节点同时和两个红链接相连</li>
+<li>红黑树是<strong>完美黑色平衡</strong>的（任意空链接到根节点路径上的<strong>黑链接数</strong>相同）</li>
+</ul>
+<h3 id="34-红黑树与2-3树的一一对应">3.4 红黑树与2-3树的一一对应</h3>
+<ul>
+<li>将红链接画平并将红链接两端的两个键合并，则得到<code>3结点</code>，整体来讲就是红黑树变为了<code>2-3树</code>。</li>
+<li>而不将红链接画平，红黑树就是一颗标准的二叉搜索树</li>
+</ul>
+<p>红黑树既是二叉搜索树，也是<code>2-3树</code>。 他结合了两种结构的优点：BST的简洁高效和2-3树的平衡插入。</p>
+<h3 id="35-红黑链接的代码表示">3.5 红黑链接的代码表示</h3>
+<ul>
+<li>每个节点都只会有一条链接指向自己</li>
+<li>在节点的<code>struct</code>中增加成员变量<code>isRed bool</code>，表示指向自己的链接是红链接还是黑链接</li>
+<li>默认空链接为<code>false</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 这里实现的是一个键值均为int的红黑树，从功能上来讲，他是一个基于红黑树的映射
+</span><span class="c1"></span>
+<span class="kd">type</span> <span class="nx">Node</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Key</span> <span class="kt">int</span>
+    <span class="nx">Val</span> <span class="kt">int</span>
+    <span class="nx">Left</span><span class="p">,</span> <span class="nx">Right</span> <span class="o">*</span><span class="nx">Node</span>
+    <span class="nx">N</span> <span class="kt">int</span>   <span class="c1">// 子树中结点数，包含自身
+</span><span class="c1"></span>    <span class="nx">isRed</span> <span class="kt">bool</span>  <span class="c1">// 私有
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="36-旋转">3.6 旋转</h3>
+<p>在实现一些操作时，可能会出现红链接变成右链接的情况，因此需要在操作结束之前将其旋转回来</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 红右链接
+</span><span class="c1">// 
+</span><span class="c1">//             %| （红黑都有可能） 
+</span><span class="c1">//            k1
+</span><span class="c1">//          /   %
+</span><span class="c1">//        less   k2     
+</span><span class="c1">//              /  \    
+</span><span class="c1">//            mid  greater
+</span><span class="c1">// 
+</span><span class="c1">// 旋转为 红左链接
+</span><span class="c1">// 
+</span><span class="c1">//            k2
+</span><span class="c1">//          %   \
+</span><span class="c1">//        k1     greater
+</span><span class="c1">//     /    \    
+</span><span class="c1">//  less    mid 
+</span><span class="c1">//
+</span><span class="c1">//
+</span><span class="c1">// 代码实现
+</span><span class="c1">// 
+</span><span class="c1">// 将右红链接转为左红链接，返回新的子树的根
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">rotateR2L</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+    <span class="nx">rightChild</span> <span class="o">:=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span>
+    <span class="c1">// 改变链接指向
+</span><span class="c1"></span>    <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span> <span class="p">=</span> <span class="nx">rightChild</span><span class="p">.</span><span class="nx">Left</span>    
+    <span class="nx">rightChild</span><span class="p">.</span><span class="nx">Left</span> <span class="p">=</span> <span class="nx">root</span>
+    <span class="c1">// 修改红黑属性
+</span><span class="c1"></span>    <span class="nx">rightChild</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">isRed</span>   
+    <span class="nx">root</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="c1">// 修改子树结点数
+</span><span class="c1"></span>    <span class="nx">rightChild</span><span class="p">.</span><span class="nx">N</span> <span class="p">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">N</span>
+    <span class="nx">root</span><span class="p">.</span><span class="nx">N</span> <span class="p">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">N</span> <span class="o">+</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">N</span>
+    <span class="c1">// 返回新根
+</span><span class="c1"></span>    <span class="k">return</span> <span class="nx">rightChild</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>与左旋相应，右旋操作如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 将左红链接转为右红链接，返回新的子树的根
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">rotateL2R</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+    <span class="nx">leftChild</span> <span class="o">:=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span>
+    <span class="c1">// 改变链接指向
+</span><span class="c1"></span>    <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span> <span class="p">=</span> <span class="nx">leftChild</span><span class="p">.</span><span class="nx">Right</span>    
+    <span class="nx">leftChild</span><span class="p">.</span><span class="nx">Right</span> <span class="p">=</span> <span class="nx">root</span>
+    <span class="c1">// 修改红黑属性
+</span><span class="c1"></span>    <span class="nx">leftChild</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">isRed</span>   
+    <span class="nx">root</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="c1">// 修改子树结点数
+</span><span class="c1"></span>    <span class="nx">leftChild</span><span class="p">.</span><span class="nx">N</span> <span class="p">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">N</span>
+    <span class="nx">root</span><span class="p">.</span><span class="nx">N</span> <span class="p">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">N</span> <span class="o">+</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">N</span>
+    <span class="c1">// 返回新根
+</span><span class="c1"></span>    <span class="k">return</span> <span class="nx">leftChild</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>旋转操作保障了插入新键时红黑树与2-3树之间的一一对应关系，也就保障了红黑树的<strong>有序性和完美黑色平衡</strong></p>
+<h3 id="37-插入操作">3.7 插入操作</h3>
+<ul>
+<li>为了保证 <strong>完美黑色平衡</strong>， 新插入节点总是先标记为红色，也就是与其父节点形成红链接。</li>
+<li>如果这个红链接是右链接，则需要进行左旋修正</li>
+</ul>
+<ol>
+<li>向单个2-结点插入新键</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 一颗只包含一个2-结点的树
+</span><span class="c1">//      3
+</span><span class="c1">//     / \
+</span><span class="c1">// 
+</span><span class="c1">// 若插入新键5（&gt;3）
+</span><span class="c1">// 直接插入的话变成：
+</span><span class="c1">//      3
+</span><span class="c1">//     / \
+</span><span class="c1">//        5
+</span><span class="c1">//       / \
+</span><span class="c1">// 为了保证 完美黑色平衡 的性质， 3-&gt;5的链接为红色
+</span><span class="c1">//      3
+</span><span class="c1">//     / %
+</span><span class="c1">//        5
+</span><span class="c1">//       / \ 
+</span><span class="c1">// 显然需要再进行一次左旋操作
+</span><span class="c1">// 
+</span><span class="c1">// 如果插入新键 1 （1&lt;3），直接左红链接就好
+</span><span class="c1">//      3
+</span><span class="c1">//     % \
+</span><span class="c1">//    1
+</span><span class="c1">//   / \
+</span><span class="c1">// 
+</span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>向树底部的2-结点插入新键</li>
+</ol>
+<p>与上类似，用红链接将新节点与父节点相连，如果是右红链接则进行一次左旋，进行修正</p>
+<ol start="3">
+<li>向一个 3-结点 插入新键</li>
+</ol>
+<p>3-结点 也就是 一条左红链接 + 两个2-结点 构成的子树（含两个键）</p>
+<p>插入新键时有三种情况：</p>
+<ul>
+<li>新键比子树的两个键都大</li>
+<li>在中间</li>
+<li>比子树的两个键都小</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 原3-结点
+</span><span class="c1">//      5
+</span><span class="c1">//     % \
+</span><span class="c1">//    3
+</span><span class="c1">//   / \
+</span><span class="c1">// 
+</span><span class="c1">// 情况1 新键最大（新键为7）
+</span><span class="c1">// 直接插入，得到：
+</span><span class="c1">//      5
+</span><span class="c1">//     % %
+</span><span class="c1">//    3   7   
+</span><span class="c1">//   / \ / \
+</span><span class="c1">// 违背了一个结点最多只能链接一条红链接的性质。 由于新子树已绝对平衡，自然黑色是平衡的，直接将两条红链接变黑，该性质仍不变
+</span><span class="c1">//      5
+</span><span class="c1">//     / \
+</span><span class="c1">//    3   7   
+</span><span class="c1">//   / \ / \
+</span><span class="c1">//
+</span><span class="c1">// 情况2 新键最小（新键为1）
+</span><span class="c1">// 直接插入，得到：
+</span><span class="c1">//      5
+</span><span class="c1">//     % 
+</span><span class="c1">//    3      
+</span><span class="c1">//   % \ 
+</span><span class="c1">//  1
+</span><span class="c1">// / \
+</span><span class="c1">// 虽然看似没有违背前面定义中提到的三条性质，但显然该子树已经不平衡了，变成链表。
+</span><span class="c1">// 考虑到整树近乎平衡这点限制的话，其实红黑树的红链接是不能连续的，最多红黑交替或者连续黑
+</span><span class="c1">// 因此这种情况下，将子树最大值(5)进行右旋操作，转为(3)的右结点， 得到
+</span><span class="c1">//      3
+</span><span class="c1">//     % %
+</span><span class="c1">//    1   5   
+</span><span class="c1">//   / \ / \
+</span><span class="c1">// 同样的，对称两红链接同时转为黑链接
+</span><span class="c1">//      3
+</span><span class="c1">//     / \
+</span><span class="c1">//    1   5   
+</span><span class="c1">//   / \ / \
+</span><span class="c1">// 
+</span><span class="c1">// 情况3 新键中间大（新键为4）
+</span><span class="c1">// 直接插入，得到：
+</span><span class="c1">//      5
+</span><span class="c1">//     % \
+</span><span class="c1">//    3      
+</span><span class="c1">//   / % 
+</span><span class="c1">//      4
+</span><span class="c1">//     / \
+</span><span class="c1">// 同样的，也产生了连续红链接的情况，
+</span><span class="c1">// 这种时候对于三个键就是通过旋转操作得到一个上层一个键，下层两个键的平衡状态。
+</span><span class="c1">// 这里显然需要想办法让 (4) 成为新的子树根
+</span><span class="c1">// 考虑 (4) 先左旋， 再(5)右旋。 步骤如下
+</span><span class="c1">// 先(4)左旋，到(3)和(5)链接中间
+</span><span class="c1">//      5
+</span><span class="c1">//     % 
+</span><span class="c1">//    4      
+</span><span class="c1">//   % \ 
+</span><span class="c1">//  3
+</span><span class="c1">// / \
+</span><span class="c1">// 再 (5) 右旋
+</span><span class="c1">//      4
+</span><span class="c1">//     % %
+</span><span class="c1">//    3   5   
+</span><span class="c1">//   / \ / \
+</span><span class="c1">// 同样的，对称两红链接同时转为黑链接
+</span><span class="c1">//      4
+</span><span class="c1">//     / \
+</span><span class="c1">//    3   5   
+</span><span class="c1">//   / \ / \ 
+</span></code></pre></td></tr></table>
+</div>
+</div><p>顺带提一句， 像上面对称双红链接所连接的部分其实对应2-3树的4-结点。</p>
+<ol start="4">
+<li>转换颜色</li>
+</ol>
+<p>在前面的操作中，对于4-结点（也就是对称红链接）经常需要进行颜色的转换，这里给出辅助函数。
+该辅助函数将两根红链接转红，并将根向上的链接置红（这样置红与新加节点的红链接无异，这是为了不断向上进行处理，红链接的向上传递）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 4-结点
+</span><span class="c1">//      |% (红或黑)
+</span><span class="c1">//      5
+</span><span class="c1">//     % %
+</span><span class="c1">//    3   7   
+</span><span class="c1">//   / \ / \
+</span><span class="c1">// 
+</span><span class="c1">// 转换颜色之后(或者说红色向上传递后)，变成
+</span><span class="c1">//      %
+</span><span class="c1">//      5
+</span><span class="c1">//     / \
+</span><span class="c1">//    3   7   
+</span><span class="c1">//   / \ / \
+</span><span class="c1">// 
+</span><span class="c1">// flip为蹦的意思，相当于两个子节点的红色蹦到了父节点上去
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">flipColor</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">root</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">=</span> <span class="kc">false</span>
+<span class="p">}</span> 
+</code></pre></td></tr></table>
+</div>
+</div><ol start="5">
+<li>根节点始终为黑色链接</li>
+</ol>
+<p>在第3点向3-结点插入新键的过程中需要颜色转换，但颜色转换之后使子树的根其向上的链接变成红色。
+要记住一点： <strong>红黑树整树的根其向上链接（或者说根节点颜色）必须是黑的</strong></p>
+<p>因此：</p>
+<ul>
+<li>每次插入操作之后，都需要对树的根节点置黑</li>
+<li>根节点每次由红变黑，都意味着树中黑链接的高度+1</li>
+</ul>
+<ol start="6">
+<li>向树底部的3-结点插入新键</li>
+</ol>
+<p>操作其实就是第3点所说的，但是引入颜色转换操作之后，要意识到子树的根结点颜色变红了，所以要继续向上处理（旋转及转换颜色），直到满足红黑树定义</p>
+<p>举例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 考虑红黑树如下：
+</span><span class="c1">//             5
+</span><span class="c1">//          /    \
+</span><span class="c1">//        3       9   
+</span><span class="c1">//       % \     % \
+</span><span class="c1">//      2       7
+</span><span class="c1">//     / \     / \
+</span><span class="c1">//
+</span><span class="c1">// 插入新键6，按二叉搜索树的插入规则，6将插入到7的左侧
+</span><span class="c1">//             5
+</span><span class="c1">//          /    \
+</span><span class="c1">//        3       9   
+</span><span class="c1">//       % \     % \
+</span><span class="c1">//      2       7
+</span><span class="c1">//     / \     % \
+</span><span class="c1">//            6NIXIANG
+</span><span class="c1">//           / \
+</span><span class="c1">//
+</span><span class="c1">// 出现两条左红链接
+</span><span class="c1">// （其实两条连续左链接必然是两条连续左红链接，因为结点是一个一个插入的，
+</span><span class="c1">// 每次新插都是红链接，而原先左子节点本身就是红链接）
+</span><span class="c1">// 因此需要对 (9) 进行右旋
+</span><span class="c1">//             5
+</span><span class="c1">//          /    \
+</span><span class="c1">//        3       7   
+</span><span class="c1">//       % \     % %
+</span><span class="c1">//      2       6   9
+</span><span class="c1">//     / \     / \ / \
+</span><span class="c1">//  
+</span><span class="c1">// 出现两条对称的红链接（4-结点），转换颜色
+</span><span class="c1">//             5
+</span><span class="c1">//          /    %
+</span><span class="c1">//        3       7   
+</span><span class="c1">//       % \     / \
+</span><span class="c1">//      2       6   9
+</span><span class="c1">//     / \     / \ / \
+</span><span class="c1">// (7)变红了，相当于新插入的结点，因此需要继续考虑（4）（3）（7）组成的子树，
+</span><span class="c1">// 要将其重新调整为3-结点。 因此要对结点(5)锁在子树执行左旋修正，使(7)成为新根
+</span><span class="c1">//				  7
+</span><span class="c1">//			    %   \
+</span><span class="c1">//            5      9
+</span><span class="c1">//          /  \    / \  
+</span><span class="c1">//        3     6     
+</span><span class="c1">//       % \   / \            
+</span><span class="c1">//      2       
+</span><span class="c1">//     / \     
+</span></code></pre></td></tr></table>
+</div>
+</div><ol start="7">
+<li>红链接的向上传递</li>
+</ol>
+<p>上面已经描述过，向一个<code>3-结点</code>插入新键后其子树根节点最后变红，相当于红链接向上传递。直至遇到一个<code>2-结点</code>或者<code>根节点</code>则停止向上传递。</p>
+<p>基本上可以说，插入操作由 左旋、右旋、转换颜色 三中操作保证。</p>
+<p>下面是总结：</p>
+<ul>
+<li>若 右子结点为红 而 左子节点为黑， 则进行左旋修正</li>
+<li>若 左子节点为红 且 左子节点的左子节点也为红（即连续左红），则右旋修正</li>
+<li>若左右子结点均为红，则转换颜色，将红色向上传递</li>
+</ul>
+<ol start="8">
+<li>插入实现</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 先定义一颗树
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">RBT</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span>		<span class="c1">// 前面定义好的红黑树根结点
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// 插入操作
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">rbt</span> <span class="o">*</span><span class="nx">RBT</span><span class="p">)</span> <span class="nf">Put</span><span class="p">(</span><span class="nx">k</span><span class="p">,</span> <span class="nx">v</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span> <span class="p">=</span> <span class="nf">put</span><span class="p">(</span><span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>		<span class="c1">// 插入
+</span><span class="c1"></span>	<span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">=</span> <span class="kc">false</span>				<span class="c1">// 置黑
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// 向root节点为根的子树插入新键，返回新根
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">put</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span><span class="nx">v</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="c1">// 前面是标准的二分查找树递归插入操作
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="o">&amp;</span><span class="nx">Node</span><span class="p">{</span><span class="nx">k</span><span class="p">,</span><span class="nx">v</span><span class="p">,</span><span class="kc">nil</span><span class="p">,</span><span class="kc">nil</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="kc">true</span><span class="p">}</span>	<span class="c1">// 新插入结点先置红
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Key</span> <span class="p">&lt;</span> <span class="nx">k</span> <span class="p">{</span>
+		<span class="nx">root</span><span class="p">.</span><span class="nx">Right</span> <span class="p">=</span> <span class="nf">put</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Key</span> <span class="p">&gt;</span> <span class="nx">k</span> <span class="p">{</span>
+		<span class="nx">root</span><span class="p">.</span><span class="nx">Left</span> <span class="p">=</span> <span class="nf">put</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>	<span class="c1">// root.key = k 更新值
+</span><span class="c1"></span>		<span class="nx">root</span><span class="p">.</span><span class="nx">Val</span> <span class="p">=</span> <span class="nx">v</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 接下来是检查当前子树红链接情况（分别对应第7条总结点的三个情况）
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">isRed</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">{</span>
+		<span class="nx">root</span> <span class="p">=</span> <span class="nf">rotateR2L</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>	<span class="c1">// 左旋
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="o">&amp;&amp;</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">{</span>
+		<span class="nx">root</span> <span class="p">=</span> <span class="nf">rotateL2R</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>  <span class="c1">// 右旋
+</span><span class="c1"></span>	<span class="p">}</span> 
+	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="o">&amp;&amp;</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">{</span>
+		<span class="nf">flipColors</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>		<span class="c1">// 转换颜色
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="c1">// 在返回当前节点之前，注意子树可能发生了变化，当前结点的N自然要更新
+</span><span class="c1"></span>	<span class="c1">// 要警惕的是，不能使用 root.N += 1
+</span><span class="c1"></span>	<span class="nx">root</span><span class="p">.</span><span class="nx">N</span> <span class="p">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">N</span> <span class="o">+</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">N</span> <span class="o">+</span> <span class="mi">1</span>
+	<span class="k">return</span> <span class="nx">root</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>ps: 虽然看上去没有警惕空指针引用的情况，但其实边界条件已经限制了不会空指针引用。</p>
+<h3 id="38-删除操作">3.8 删除操作</h3>
+<p>删除操作比插入操作更为复杂。</p>
+<p>因为插入操作只需要先以二叉搜索树的方式找到新键的位置，再<strong>自底向上</strong>进行左旋、右旋、转换颜色，来保持红黑树。</p>
+<p>而删除操作需要先找到待删结点，再构造临时<code>4-结点</code>沿着查找路径向下进行变换，还要在删完之后分解<code>4-结点</code>时沿查找路径向上进行变换。</p>
+<ol>
+<li>自顶向下的2-3-4树的插入算法</li>
+</ol>
+<p>2-3-4树指的是在2-3树中存在<code>4-结点</code>的树（<code>2-3树</code>只是某些操作的中间可能会产生<code>4-结点</code>）。</p>
+<p>对<code>2-3-4树</code>进行插入操作需要沿查找路径向下进行变换，使得路径上没有<code>4-结点</code>（有的话要分解掉），以便有足够空间插入新键； 而在插入之后则要沿查找路径向上将出现的<code>4-结点</code>进行配平（原先拆开的）</p>
+<p>向下的变换与<code>2-3树</code>中<code>4-结点</code>的分解一样，有几种情况需处理：</p>
+<ul>
+<li>根节点为<code>4-结点</code>，则将之分解为三个<code>2-结点</code>，树高+1</li>
+<li>遇到父节点为<code>2-结点</code>的<code>4-结点</code>，则将<code>4-结点</code>分解为两个<code>2-结点</code>并将中间的键移至父节点，使父节点构成一个<code>3-结点</code></li>
+<li>遇到父节点为<code>3-结点</code>的<code>4-结点</code>，则将<code>4-结点</code>分解为两个<code>2-结点</code>并将中间的键移至父节点，使父节点构成一个<code>4-结点</code></li>
+</ul>
+<p>这样的插入过程可以保证不会出现连续的<code>4-结点</code>，并且向下查找的过程中，只会在树底遇到<code>2-结点</code>或<code>3-结点</code>（这样就有位置插入新键，而不破坏平衡性）</p>
+<p><strong>在红黑树中实现这个算法</strong></p>
+<ul>
+<li>将<code>4-结点</code>表示为3个<code>2-结点</code>构成的平衡的子树，并且根节点与两个孩子节点都红链接</li>
+<li>向下查找的过程中，不断分解所有<code>4-结点</code>病进行颜色转换</li>
+<li>和插入操作一样，在<strong>向上</strong>的过程中用旋转将<code>4-结点</code>配平</li>
+</ul>
+<p>这个过程和上面红黑树插入算法实现中几乎一样，唯一的区别在于，将<code>flipColors()</code>移至null测试和比较操作之间。</p>
+<p>这个算法比2-3树插入算法要好一些，尤其是在多进程操作这颗红黑树时。因为<code>2-3-4树</code>插入算法只需要操作一条或两条链接。而2-3树则可能需要不断向上修改。（操作少可以更快结束当前，从而释放锁让其他进程可以使用树）</p>
+<ol start="2">
+<li>2-3树中<strong>删除最小键</strong></li>
+</ol>
+<p>从<code>2-3树</code>中删除最小键，则必然是从树底删除，可能是<code>3-结点</code>也可能是<code>2-结点</code>。</p>
+<ul>
+<li>如果是<code>3-结点</code>，直接删除最小键，让该结点蜕变成<code>2-结点</code></li>
+<li>若是<code>2-结点</code>则不能直接删（回不平衡）。</li>
+</ul>
+<p>也就是说，删除最小键，需要保证最小键在的结点不是<code>2-结点</code>。（可能是<code>3-结点</code>或者临时<code>4-结点</code>）。因此向下查找的过程中需要对结点或者子树进行变换。假如访问到cur结点</p>
+<ul>
+<li>若cur是<code>2结点</code>且左右孩子也都是，则将之合并为<code>4-结点</code></li>
+<li>不是上面这种情况的话需要保证cur的左孩子不能是个<code>2-结点</code>，必要时cur的左孩子可以向其兄弟借一个键过来</li>
+</ul>
+<p>因此，在沿着左链接向下的过程中，必须保证以下几点之一：</p>
+<ul>
+<li>cur的左孩子不是<code>2-结点</code>的话，完成</li>
+<li>cur的左孩子是<code>2-结点</code>而左孩子的亲兄弟有不是<code>2-结点</code>的，则借一个键过来</li>
+<li>如果cur的左孩子和左孩子的亲兄弟都是<code>2-结点</code>，那么，左右孩子 + cur中的最小的键构成<code>4-结点</code>，使父节点由<code>4-结点</code>变成<code>3-结点</code>或者由<code>3-结点</code>变成<code>2-结点</code>。</li>
+</ul>
+<p>在查找最小键的路径上执行上面描述的变换，则可以保证：最小键一定在一个<code>3-结点</code>或<code>4-结点</code>上，这样就可以直接删除最小键。</p>
+<p>然后，再回头向上分解所有的临时的<code>4-结点</code></p>
+<ol start="3">
+<li>红黑树的删除操作</li>
+</ol>
+<p><strong>在查找待删键的路径上执行前面删除最小键一样的变换操作，可以保证路径上任意当前结点均不是<code>2-结点</code></strong></p>
+<ul>
+<li>如果待删键是树底部位置，则可以直接删除</li>
+<li>不是的话，需要像二叉查找树删除操作一般，找到待删节点的后继结点并交换，再删后继节点。
+<ul>
+<li>待删为cur，cur为根的子树中，用cur.Right为根的子树中的最小值作为后继结点（将之赋给cur），现在问题转化为删除cur.Right子树的最小键（交换之后其实仍是最小键，即便不是也不影响）</li>
+</ul>
+</li>
+<li>删除之后再向上进行回溯，不断分解所有临时<code>4-结点</code></li>
+</ul>
+<p>代码实现</p>
+<p><strong>删除最小键</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 将根节点颜色置黑，左右孩子置红。删除时调用这个函数
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">flipDownColors</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">root</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">=</span> <span class="kc">false</span>
+	<span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isColor</span> <span class="p">=</span> <span class="kc">true</span>
+	<span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">isColor</span> <span class="p">=</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="c1">// 将红链接移到左边
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">moveRedLeft</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="c1">// 假设结点root为红，左右孩子均为黑色，则将左孩子或左孩子的孩子之一变红
+</span><span class="c1"></span>
+	<span class="c1">// 1. 颜色转换
+</span><span class="c1"></span>	<span class="nf">flipDownColors</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>
+
+	<span class="c1">// 2. 若右孩子的左孩子也是红色（是说明出现连续红链接）
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">{</span>
+		<span class="nx">root</span><span class="p">.</span><span class="nx">Right</span> <span class="p">=</span> <span class="nf">rotateL2R</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>	<span class="c1">// 右旋修正
+</span><span class="c1"></span>		<span class="c1">// 这中间似乎缺少了插入操作过程中的flipColors()
+</span><span class="c1"></span>		<span class="nx">root</span> <span class="p">=</span> <span class="nf">rotateR2L</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>				<span class="c1">// 左旋修正
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">root</span>
+<span class="p">}</span>
+
+<span class="c1">// 平衡子树，返回新根
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">balance</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="c1">// 右旋修正
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">{</span>
+		<span class="nx">root</span> <span class="p">=</span> <span class="nf">rotateR2L</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 检查三种情况，实现平衡 （这几句和put方法后面几句一样）
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">isRed</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">{</span>
+		<span class="nx">root</span> <span class="p">=</span> <span class="nf">rotateR2L</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>	<span class="c1">// 左旋
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="o">&amp;&amp;</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">{</span>
+		<span class="nx">root</span> <span class="p">=</span> <span class="nf">rotateL2R</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>  <span class="c1">// 右旋
+</span><span class="c1"></span>	<span class="p">}</span> 
+	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="o">&amp;&amp;</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">{</span>
+		<span class="nf">flipColors</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>		<span class="c1">// 转换颜色
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="c1">// 在返回当前节点之前，注意子树可能发生了变化，当前结点的N自然要更新
+</span><span class="c1"></span>	<span class="c1">// 要警惕的是，不能使用 root.N += 1
+</span><span class="c1"></span>	<span class="nx">root</span><span class="p">.</span><span class="nx">N</span> <span class="p">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">N</span> <span class="o">+</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">N</span> <span class="o">+</span> <span class="mi">1</span>
+	<span class="k">return</span> <span class="nx">root</span>
+<span class="p">}</span>
+
+<span class="c1">// 删除最小键
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">rbt</span> <span class="o">*</span><span class="nx">RBT</span><span class="p">)</span> <span class="nf">DelMin</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// 1. 如果左右孩子都是黑，先将红黑树根置为红
+</span><span class="c1"></span>	<span class="k">if</span> <span class="p">!</span><span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">{</span>
+		<span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">=</span> <span class="kc">true</span>
+	<span class="p">}</span>
+	<span class="c1">// 2. 删除最小键，返回新根
+</span><span class="c1"></span>	<span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span> <span class="p">=</span> <span class="nf">delMin</span><span class="p">(</span><span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span><span class="p">)</span>
+	<span class="c1">// 3. 如果红黑树不为空的话，始终记得将根节点置黑
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">=</span> <span class="kc">false</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 删除最小键
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">delMin</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="c1">// 1. 左孩子为空，则返回空
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="kc">nil</span><span class="p">}</span>
+	<span class="c1">// 2. 左孩子以及左孩子的左孩子都为黑，则从右边挪一个红链接过来
+</span><span class="c1"></span>	<span class="k">if</span> <span class="p">!</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">{</span>
+		<span class="nx">root</span> <span class="p">=</span> <span class="nf">moveRedLeft</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>
+	<span class="p">}</span>	
+	<span class="c1">// 3. 递归
+</span><span class="c1"></span>	<span class="nx">root</span><span class="p">.</span><span class="nx">Left</span> <span class="p">=</span> <span class="nf">delMin</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">)</span>
+	<span class="nx">newRoot</span> <span class="o">:=</span> <span class="nf">balance</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">newRoot</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>删除最大键</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">
+<span class="c1">// 将红链接移到右边
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">moveRedLeft</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="c1">// 假设结点root为红，左右孩子均为黑色，则将右孩子或右孩子的孩子之一变红
+</span><span class="c1"></span>
+	<span class="c1">// 1. 颜色转换
+</span><span class="c1"></span>	<span class="nf">flipDownColors</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>
+
+	<span class="c1">// 2. 若左孩子的左孩子也是黑色
+</span><span class="c1"></span>	<span class="k">if</span> <span class="err">！</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">{</span>
+		<span class="nx">root</span> <span class="p">=</span> <span class="nf">rotateL2R</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>	<span class="c1">// 右旋修正
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">root</span>
+<span class="p">}</span>
+
+<span class="c1">// 删除最大键
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">rbt</span> <span class="o">*</span><span class="nx">RBT</span><span class="p">)</span> <span class="nf">DelMax</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// 1. 如果左右孩子都是黑，先将红黑树根置为红
+</span><span class="c1"></span>	<span class="k">if</span> <span class="p">!</span><span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">{</span>
+		<span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">=</span> <span class="kc">true</span>
+	<span class="p">}</span>
+	<span class="c1">// 2. 删除最小键，返回新根
+</span><span class="c1"></span>	<span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span> <span class="p">=</span> <span class="nf">delMax</span><span class="p">(</span><span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span><span class="p">)</span>
+	<span class="c1">// 3. 如果红黑树不为空的话，始终记得将根节点置黑
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">=</span> <span class="kc">false</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 删除最大键
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">delMax</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="c1">// 1. 左孩子为红色，则右旋
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">root</span> <span class="p">=</span> <span class="nf">rotateL2R</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="c1">// 2. 右孩子为空则返回空
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="kc">nil</span><span class="p">}</span>
+	<span class="c1">// 3. 右孩子以及右孩子的左孩子都为黑，则从左边挪一个红链接过来
+</span><span class="c1"></span>	<span class="k">if</span> <span class="p">!</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">isRed</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">{</span>
+		<span class="nx">root</span> <span class="p">=</span> <span class="nf">moveRedRight</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>
+	<span class="p">}</span>	
+	<span class="c1">// 4. 递归
+</span><span class="c1"></span>	<span class="nx">root</span><span class="p">.</span><span class="nx">Right</span> <span class="p">=</span> <span class="nf">delMax</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>
+	<span class="nx">newRoot</span> <span class="o">:=</span> <span class="nf">balance</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">newRoot</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>删除任意键</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">rbt</span> <span class="o">*</span><span class="nx">RBT</span><span class="p">)</span> <span class="nf">Del</span><span class="p">(</span><span class="nx">k</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// 1. 如果左右孩子都是黑，先将红黑树根置为红
+</span><span class="c1"></span>	<span class="k">if</span> <span class="p">!</span><span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">{</span>
+		<span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">=</span> <span class="kc">true</span>
+	<span class="p">}</span>
+	<span class="c1">// 2. 删除k，返回新根
+</span><span class="c1"></span>	<span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span> <span class="p">=</span> <span class="nf">del</span><span class="p">(</span><span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span><span class="p">,</span> <span class="nx">k</span><span class="p">)</span>
+	<span class="c1">// 3. 如果红黑树不为空的话，始终记得将根节点置黑
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">rbt</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">=</span> <span class="kc">false</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kd">func</span> <span class="nf">del</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">k</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="c1">// 如果当前节点键 &gt; k
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Key</span> <span class="p">&gt;</span> <span class="nx">k</span> <span class="p">{</span>
+		<span class="c1">// 如果左孩子和左孩子的左孩子都是黑色，借一个红过来
+</span><span class="c1"></span>		<span class="k">if</span> <span class="p">!</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">{</span>
+			<span class="nx">root</span> <span class="p">=</span> <span class="nf">moveRedLeft</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>
+		<span class="p">}</span>	
+		<span class="c1">// 递归删除
+</span><span class="c1"></span>		<span class="nx">root</span><span class="p">.</span><span class="nx">Left</span> <span class="p">=</span> <span class="nf">del</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">k</span><span class="p">)</span> 
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="c1">// 当前节点的键 &lt;= k
+</span><span class="c1"></span>
+		<span class="c1">// 左孩子若为红 
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">isRed</span> <span class="p">{</span>
+			<span class="nx">root</span> <span class="p">=</span> <span class="nf">rotateL2R</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>	<span class="c1">// 右旋	
+</span><span class="c1"></span>		<span class="p">}</span>
+		<span class="c1">// 如果键相等且右结点为空
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Key</span> <span class="o">==</span> <span class="nx">k</span> <span class="o">&amp;&amp;</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">root</span> <span class="p">=</span> <span class="nf">moveRedRight</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="c1">// 如果键相等
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Key</span> <span class="o">==</span> <span class="nx">k</span> <span class="p">{</span>
+			<span class="c1">// 这句其实就是选择右子树的最小键作为接替者，现将两者键值交换
+</span><span class="c1"></span>			<span class="c1">// （这里没有实现，但查询类方法与二叉搜索树一模一样）
+</span><span class="c1"></span>			<span class="nx">minRight</span> <span class="o">:=</span> <span class="nf">getMin</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>
+			<span class="nx">root</span><span class="p">.</span><span class="nx">Key</span> <span class="p">=</span> <span class="nx">minRight</span><span class="p">.</span><span class="nx">Key</span>
+			<span class="nx">root</span><span class="p">.</span><span class="nx">Val</span> <span class="p">=</span> <span class="nf">get</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">minRight</span><span class="p">.</span><span class="nx">Key</span><span class="p">)</span>
+			<span class="c1">// 然后再删除右子树的最小键
+</span><span class="c1"></span>			<span class="nx">root</span><span class="p">.</span><span class="nx">Right</span> <span class="p">=</span> <span class="nf">deleteMin</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="c1">// 否则的话 当前节点键 &lt; k
+</span><span class="c1"></span>		<span class="nx">root</span><span class="p">.</span><span class="nx">Right</span> <span class="p">=</span> <span class="nb">delete</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">k</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 平衡
+</span><span class="c1"></span>	<span class="nx">newRoot</span> <span class="o">:=</span> <span class="nf">balance</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">newRoot</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="39-查找类操作">3.9 查找类操作</h3>
+<ul>
+<li>查找类操作（getMin/getMax/floor/ceil/rank/select）与二叉搜索树完全一致，因为不涉及颜色问题。</li>
+</ul>
+<h3 id="310-红黑树性质">3.10 红黑树性质</h3>
+<ul>
+<li>红黑树近乎完美平衡
+<ul>
+<li>树高不超过 $2lgN$（而且这个数字都是比较保守的）</li>
+</ul>
+</li>
+</ul>
+<h3 id="311-各种符号表实现的性能比较">3.11 各种符号表实现的性能比较</h3>
+<table>
+<thead>
+<tr>
+<th>算法</th>
+<th>(最坏)查找</th>
+<th>(最坏)插入</th>
+<th>(平均)查找</th>
+<th>(平均)插入</th>
+<th>是否支持有序相关操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无序链表</td>
+<td>$N$</td>
+<td>$N$</td>
+<td>$n/2$</td>
+<td>$N$</td>
+<td>否</td>
+</tr>
+<tr>
+<td>有序数组</td>
+<td>$lgN$</td>
+<td>$N$</td>
+<td>$lgN$</td>
+<td>$N/2$</td>
+<td>是</td>
+</tr>
+<tr>
+<td>二叉搜索树</td>
+<td>$N$</td>
+<td>$N$</td>
+<td>$1.39lgN$</td>
+<td>$1.39lgN$</td>
+<td>是</td>
+</tr>
+<tr>
+<td>红黑树</td>
+<td>$2lgN$</td>
+<td>$2lgN$</td>
+<td>$1.00lgN$</td>
+<td>$1.00lgN$</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<h3 id="312-搜索树的思考">3.12 搜索树的思考</h3>
+<p>在快速排序中，为了保证递归树的平衡，使用了随机基准的优化，此外，为了处理重复元素导致的失衡，引入了双路快排和三路快排的优化。</p>
+<p>而在二叉搜索树（这里指不存重复元素的搜索树）中，也存在着因为入树顺序带来的失衡问题，在入树序列升序或降序时，二叉搜索树退化为链表。</p>
+<p>为了解决这个问题，各种平衡二叉树被设计出来。</p>
+<p><code>2-3树</code>保证了树的绝对平衡，但代价较高；
+红黑树延续了<code>2-3树</code>的思想，在树的平衡与引入的额外操作复杂度之间做了平衡，借助颜色转换、旋转操作实现了树的近似完全平衡，并且所有查找类方法在二叉搜索树的基础上完全不需要修改。</p>
+<h2 id="4-哈希表">4. 哈希表</h2>
+<p>基于哈希表的查找主要分两步进行：</p>
+<ol>
+<li>用哈希函数将键转化为数组索引</li>
+<li>处理索引的碰撞冲突
+<ul>
+<li>拉链法</li>
+<li>线性探测法</li>
+</ul>
+</li>
+</ol>
+<h3 id="41-散列函数">4.1 散列函数</h3>
+<p><strong>散列函数和键的类型有关</strong>，对于每种类型的键，都需要有一种与之对应的散列函数。</p>
+<p>下面是一些简单散列函数的例子：</p>
+<ul>
+<li>正整数为键： <strong>除留余数法</strong>   $i = k % M$
+<ul>
+<li>$M$最好是素数（非素数可能无法利用键的全部信息）</li>
+</ul>
+</li>
+<li>浮点数为键：
+<ul>
+<li>若键为0/1之间的实数，可乘以$M$并四舍五入得到一个$[0,M-1]$的索引值
+<ul>
+<li>四舍五入后低位信息对散列结果没有影响</li>
+</ul>
+</li>
+<li>更好的做法是：表示为二进制数再使用除留余数法。 （Java就是这么做）</li>
+</ul>
+</li>
+<li>字符串为键：
+<ul>
+<li>除留余数法（将字符串看作大数）</li>
+<li>Horner方法，也是将字符串映射到$[0,M-1]$</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// R是一个比所有字符都大的数，M是除留余数法里的那个除数，选择一个较小的素数
+</span><span class="c1">// Java String的默认实现使用了该方法
+</span><span class="c1"></span><span class="nx">hash</span> <span class="o">:=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+	<span class="nx">hash</span> <span class="p">=</span> <span class="p">(</span><span class="nx">R</span> <span class="o">*</span> <span class="nx">hash</span> <span class="o">+</span> <span class="nx">s</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="o">%</span> <span class="nx">M</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>组合键： 例如键是一个结构体，里面有多个整型变量</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 例如 Date额类型包含day,month,year三个整型
+</span><span class="c1"></span><span class="nx">hash</span> <span class="o">:=</span> <span class="p">(((</span><span class="nx">day</span> <span class="o">*</span> <span class="nx">R</span> <span class="o">+</span> <span class="nx">month</span><span class="p">)</span> <span class="o">%</span> <span class="nx">M</span><span class="p">)</span> <span class="o">*</span><span class="nx">R</span> <span class="o">+</span> <span class="nx">year</span><span class="p">)</span> <span class="o">%</span> <span class="nx">M</span>
+<span class="c1">// 也是映射到[0,M-1]
+</span><span class="c1">// 注意：R的选取需足够小保证乘式不会溢出；
+</span><span class="c1">// M选取合适的素数值例如32，可以省去括号内的 %M 操作
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>自定义散列函数</p>
+<ul>
+<li>Java中为类自定义散列函数需要重写hashCode()和equals()方法</li>
+<li>对于计算比较耗时的散列函数，可以在第一次计算之后，将计算结果(hash)存到键中（要求将键改造为结构体），起到<strong>软缓存</strong>效果</li>
+</ul>
+</li>
+<li>
+<p>优秀的散列函数需满足：</p>
+<ul>
+<li><strong>一致性</strong>：等价的键产生相同的散列值</li>
+<li><strong>高效性</strong></li>
+<li><strong>均匀性</strong>：分布空间均匀</li>
+</ul>
+</li>
+</ul>
+<p><strong>在有性能要求时谨慎使用散列函数</strong></p>
+<h3 id="42-基于拉链法的哈希表">4.2 基于拉链法的哈希表</h3>
+<p>常见的解决冲突碰撞的方法有拉链法和线性探测法。拉链法思路简单也比较常用。</p>
+<p>其思路是维护一个数组，每个数组元素都是一个链表的头。</p>
+<p>查找键值对时，根据键映射到其中一条链表，再顺序去查找这条链表。</p>
+<p>因此，也经常会看到<code>bucket</code>这个词，数组每个位置就像一个桶，查询需要先定位到某个桶，再去桶里寻找</p>
+<p>一个简单实现如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 链表结点定义
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Node</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Key</span><span class="p">,</span> <span class="nx">Val</span> <span class="kt">int</span>
+	<span class="nx">Next</span> <span class="o">*</span><span class="nx">Node</span>
+<span class="p">}</span>
+
+<span class="c1">// 拉链哈希表定义
+</span><span class="c1">// SCHST SeperateChainingHashSearchTable
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">SCHST</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">buckets</span> <span class="p">[]</span><span class="o">*</span><span class="nx">Node</span>
+	<span class="nx">m</span> <span class="kt">int</span>	<span class="c1">// m个桶，设为素数
+</span><span class="c1"></span>	<span class="nx">size</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">NewSCHST</span><span class="p">(</span><span class="nx">numBuckets</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">SCHST</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">SCHST</span><span class="p">{</span>
+		<span class="nx">buckets</span><span class="p">:</span> <span class="nb">make</span><span class="p">([]</span><span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">numBuckets</span><span class="p">),</span>
+		<span class="nx">m</span><span class="p">:</span> <span class="nx">numBuckets</span><span class="p">,</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 哈希映射得到桶序号
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">SCHST</span><span class="p">)</span> <span class="nf">bucket</span><span class="p">(</span><span class="nx">key</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">key</span> <span class="o">%</span> <span class="nx">t</span><span class="p">.</span><span class="nx">m</span>
+<span class="p">}</span>
+
+<span class="c1">// 增. 如存在则更新
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">SCHST</span><span class="p">)</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">val</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="nx">bid</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">bucket</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+	<span class="c1">// 若桶空，新建桶
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">buckets</span><span class="p">[</span><span class="nx">bid</span><span class="p">]</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nx">buckets</span><span class="p">[</span><span class="nx">bid</span><span class="p">]</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Node</span><span class="p">{</span><span class="nx">Key</span><span class="p">:</span><span class="nx">key</span><span class="p">,</span> <span class="nx">Val</span><span class="p">:</span><span class="nx">val</span><span class="p">}</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="nx">pre</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Node</span><span class="p">{</span><span class="nx">Next</span><span class="p">:</span><span class="nx">t</span><span class="p">.</span><span class="nx">buckets</span><span class="p">[</span><span class="nx">bid</span><span class="p">]}</span>
+		<span class="k">for</span> <span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Key</span> <span class="o">==</span> <span class="nx">key</span> <span class="p">{</span>
+				<span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Val</span> <span class="p">=</span> <span class="nx">val</span>	<span class="c1">// 更新
+</span><span class="c1"></span>				<span class="k">return</span>
+			<span class="p">}</span>	
+			<span class="nx">pre</span> <span class="p">=</span> <span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span>
+		<span class="p">}</span>	<span class="c1">// 最后pre为最后一个节点
+</span><span class="c1"></span>		<span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Node</span><span class="p">{</span><span class="nx">Key</span><span class="p">:</span><span class="nx">key</span><span class="p">,</span> <span class="nx">Val</span><span class="p">:</span><span class="nx">val</span><span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="nx">t</span><span class="p">.</span><span class="nx">size</span><span class="o">++</span>
+<span class="p">}</span>
+
+<span class="c1">// 删 (异常则返回math.MinInt32报错)并返回删除的值
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">SCHST</span><span class="p">)</span> <span class="nf">Del</span><span class="p">(</span><span class="nx">key</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="nx">bid</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">bucket</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+	<span class="c1">// 若桶空，新建桶
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">buckets</span><span class="p">[</span><span class="nx">bid</span><span class="p">]</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">math</span><span class="p">.</span><span class="nx">MinInt32</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="nx">pre</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Node</span><span class="p">{</span><span class="nx">Next</span><span class="p">:</span><span class="nx">t</span><span class="p">.</span><span class="nx">buckets</span><span class="p">[</span><span class="nx">bid</span><span class="p">]}</span>
+		<span class="k">for</span> <span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Key</span> <span class="o">==</span> <span class="nx">key</span> <span class="p">{</span>
+				<span class="nx">ret</span> <span class="o">:=</span> <span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Val</span>
+				<span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Next</span>	<span class="c1">// 删除
+</span><span class="c1"></span>				<span class="nx">t</span><span class="p">.</span><span class="nx">size</span><span class="o">--</span>
+				<span class="k">return</span> <span class="nx">ret</span>
+			<span class="p">}</span>	
+			<span class="nx">pre</span> <span class="p">=</span> <span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span>
+		<span class="p">}</span>	<span class="c1">// 最后pre为最后一个节点
+</span><span class="c1"></span>		<span class="k">return</span> <span class="nx">math</span><span class="p">.</span><span class="nx">MinInt32</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 查
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">SCHST</span><span class="p">)</span> <span class="nf">Get</span><span class="p">(</span><span class="nx">key</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="nx">bid</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">bucket</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+	<span class="c1">// 若桶空，新建桶
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">buckets</span><span class="p">[</span><span class="nx">bid</span><span class="p">]</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">math</span><span class="p">.</span><span class="nx">MinInt32</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="nx">pre</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Node</span><span class="p">{</span><span class="nx">Next</span><span class="p">:</span><span class="nx">t</span><span class="p">.</span><span class="nx">buckets</span><span class="p">[</span><span class="nx">bid</span><span class="p">]}</span>
+		<span class="k">for</span> <span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Key</span> <span class="o">==</span> <span class="nx">key</span> <span class="p">{</span>
+				<span class="k">return</span> <span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Val</span>
+			<span class="p">}</span>	
+			<span class="nx">pre</span> <span class="p">=</span> <span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span>
+		<span class="p">}</span>	<span class="c1">// 最后pre为最后一个节点
+</span><span class="c1"></span>		<span class="k">return</span> <span class="nx">math</span><span class="p">.</span><span class="nx">MinInt32</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>ps :</p>
+<ul>
+<li>其实拉链可以考虑使用类似LRU的思路，认为访问/修改的多的元素有更大几率被访问，应当移到链表头部位置</li>
+<li>Java中，当拉链长度大于8后会将链转为红黑树</li>
+<li>初始$M$值是一个调优参数，但不是那么重要，拉链法总是能够在空间与时间当中得到一个折中。</li>
+<li>一个优化方案是使用动态扩展的数组，来保证链表较短</li>
+</ul>
+<h3 id="43-基于线性探测法的哈希表">4.3 基于线性探测法的哈希表</h3>
+<p>相比于数组+链式结构，另外一种哈希表实现是使用纯数组结构。使用大小为$M$的数组来存储$N$个键值对（$M&gt;N$），利用数组中的空位来解决冲突碰撞问题。基于这种策略的哈希表称为<strong>开放地址散列表</strong></p>
+<h2 id="参考材料">参考材料</h2>
+<ul>
+<li><a href="https://github.com/labuladong/fucking-algorithm/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%B3%BB%E5%88%97/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E6%93%8D%E4%BD%9C%E9%9B%86%E9%94%A6.md">二叉搜索树操作集锦</a></li>
+<li>《算法》第四版</li>
+</ul>
+
     </div>
 
     <div class="post-copyright">
@@ -187,7 +2665,7 @@
         </div>
         
   
-  <span id="/post/algo/search/" class="leancloud_visitors" data-flag-title="查找算法整理与实现">
+  <span id="/post/algo/search/" class="leancloud_visitors" data-flag-title="二分查找与二叉搜索树">
 		<span class="post-meta-item-text">文章阅读量 </span>
 		<span class="leancloud-visitors-count">0</span>
 		<p></p>

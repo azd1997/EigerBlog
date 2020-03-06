@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/go/go-tips/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2019-11-06T09:33:59+08:00" />
 <meta itemprop="name" content="Go语言猎奇">
 <meta itemprop="description" content="本篇博客收集遇到的各种各样奇怪的平时难注意到的Go语言使用细节，或者说”坑“。 1. 切片打散 1 2 3 4 5 6 7 8 9 10 11 12 nums := []int{0,1,2,3} // 1. 这个挺容易理解的 nums">
-
-
 <meta itemprop="datePublished" content="2019-11-06T09:33:59&#43;08:00" />
 <meta itemprop="dateModified" content="2019-11-06T09:33:59&#43;08:00" />
 <meta itemprop="wordCount" content="152">
 
 
 
-<meta itemprop="keywords" content="Go,坑," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Go,坑," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Go语言猎奇"/>
 <meta name="twitter:description" content="本篇博客收集遇到的各种各样奇怪的平时难注意到的Go语言使用细节，或者说”坑“。 1. 切片打散 1 2 3 4 5 6 7 8 9 10 11 12 nums := []int{0,1,2,3} // 1. 这个挺容易理解的 nums"/>
 
@@ -145,24 +142,18 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#1-切片打散">1. 切片打散</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#1-切片打散">1. 切片打散</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<p>本篇博客收集遇到的各种各样奇怪的平时难注意到的Go语言使用细节，或者说”坑“。</p>
-
+      <p>本篇博客收集遇到的各种各样奇怪的平时难注意到的Go语言使用细节，或者说”坑“。</p>
 <h2 id="1-切片打散">1. 切片打散</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -187,10 +178,10 @@
 </span><span class="c1"></span><span class="nx">nums</span> <span class="p">=</span> <span class="nb">append</span><span class="p">([]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">},</span> <span class="nx">nums</span><span class="p">[</span><span class="mi">4</span><span class="p">:])</span>  <span class="c1">// 编译通过
 </span><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>   <span class="c1">// [1 2 3]
 </span><span class="c1"></span><span class="nx">nums</span> <span class="p">=</span> <span class="nb">append</span><span class="p">([]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">},</span> <span class="nx">nums</span><span class="p">[</span><span class="mi">5</span><span class="p">:])</span>  <span class="c1">// panic: index out of range
-</span><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>   <span class="o">//</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">]</span></code></pre></td></tr></table>
+</span><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>   <span class="c1">// [1 2 3]
+</span></code></pre></td></tr></table>
 </div>
-</div>
-<p>在使用 <code>...</code> 打散切片时，切片索引可以是切片长度！！但不能更大！</p>
+</div><p>在使用 <code>...</code> 打散切片时，切片索引可以是切片长度！！但不能更大！</p>
 
     </div>
 

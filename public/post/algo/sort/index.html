@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/algo/sort/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2020-02-23T19:01:46+08:00" />
 <meta itemprop="name" content="排序算法整理与实现">
 <meta itemprop="description" content="0. 排序 0.1 度量指标 评价一种排序算法，主要看以下几种因素： 时间复杂度：分最好、最坏、平均时间复杂度(当然还有个摊还时间复杂度) 空间复杂度: O(1">
-
-
 <meta itemprop="datePublished" content="2020-02-23T19:01:46&#43;08:00" />
 <meta itemprop="dateModified" content="2020-02-23T19:01:46&#43;08:00" />
-<meta itemprop="wordCount" content="15212">
+<meta itemprop="wordCount" content="15041">
 
 
 
-<meta itemprop="keywords" content="sort," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="sort," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="排序算法整理与实现"/>
 <meta name="twitter:description" content="0. 排序 0.1 度量指标 评价一种排序算法，主要看以下几种因素： 时间复杂度：分最好、最坏、平均时间复杂度(当然还有个摊还时间复杂度) 空间复杂度: O(1"/>
 
@@ -135,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 15212 words </span>
+          <span class="more-meta"> 15041 words </span>
           <span class="more-meta"> 31 mins read </span>
         
       </div>
@@ -145,100 +142,90 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#0-排序">0. 排序</a>
-<ul>
-<li><a href="#0-1-度量指标">0.1 度量指标</a></li>
-<li><a href="#0-2-特别说明">0.2 特别说明</a></li>
-<li><a href="#0-3-介绍">0.3 介绍</a></li>
-</ul></li>
-<li><a href="#1-冒泡排序">1. 冒泡排序</a></li>
-<li><a href="#2-选择排序">2. 选择排序</a></li>
-<li><a href="#3-插入排序">3. 插入排序</a></li>
-<li><a href="#4-希尔排序">4. 希尔排序</a></li>
-<li><a href="#4-归并排序">4. 归并排序</a>
-<ul>
-<li><a href="#4-1-递归实现-自顶向下">4.1 递归实现(自顶向下)</a></li>
-<li><a href="#5-2-归并排序优化点">5.2 归并排序优化点</a></li>
-<li><a href="#5-3-自底向上实现">5.3 自底向上实现</a></li>
-<li><a href="#5-4-性能指标">5.4  性能指标</a></li>
-<li><a href="#5-5-练习">5.5 练习</a></li>
-</ul></li>
-<li><a href="#6-快速排序">6. 快速排序</a>
-<ul>
-<li><a href="#6-1-普通快排">6.1 普通快排</a></li>
-<li><a href="#6-2-随机化快排-插入排序优化">6.2 随机化快排 + 插入排序优化</a></li>
-<li><a href="#6-3-双路快排-重复元素测例下的分区平衡优化">6.3 双路快排 (重复元素测例下的分区平衡优化)</a></li>
-<li><a href="#6-4-三路快排-重复元素测例下缩减待排序空间的优化">6.4 三路快排 (重复元素测例下缩减待排序空间的优化)</a></li>
-<li><a href="#6-5-性能指标">6.5 性能指标</a></li>
-<li><a href="#6-6-分治思想">6.6 分治思想</a></li>
-<li><a href="#6-7-练习">6.7 练习</a></li>
-</ul></li>
-<li><a href="#7-堆排序">7. 堆排序</a>
-<ul>
-<li><a href="#7-1-堆与优先队列">7.1 堆与优先队列</a></li>
-<li><a href="#7-2-堆的存储结构">7.2 堆的存储结构</a></li>
-<li><a href="#7-3-基础堆排序与heapify">7.3 基础堆排序与heapify</a></li>
-<li><a href="#7-4-原地堆排序">7.4 原地堆排序</a></li>
-<li><a href="#7-5-索引堆-index-heap">7.5 索引堆（Index Heap）</a></li>
-<li><a href="#7-6-索引堆优化">7.6 索引堆优化</a></li>
-<li><a href="#7-7-堆的应用">7.7 堆的应用</a></li>
-<li><a href="#7-8-堆的实现细节优化">7.8 堆的实现细节优化</a></li>
-<li><a href="#7-9-练习">7.9 练习</a></li>
-</ul></li>
-<li><a href="#8-基数排序">8. 基数排序</a></li>
-<li><a href="#9-拓扑排序">9. 拓扑排序</a></li>
-<li><a href="#10-排序总结">10. 排序总结</a></li>
-<li><a href="#其他参考材料">其他参考材料</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#0-排序">0. 排序</a>
+      <ul>
+        <li><a href="#01-度量指标">0.1 度量指标</a></li>
+        <li><a href="#02-特别说明">0.2 特别说明</a></li>
+        <li><a href="#03-介绍">0.3 介绍</a></li>
+      </ul>
+    </li>
+    <li><a href="#1-冒泡排序">1. 冒泡排序</a></li>
+    <li><a href="#2-选择排序">2. 选择排序</a></li>
+    <li><a href="#3-插入排序">3. 插入排序</a></li>
+    <li><a href="#4-希尔排序">4. 希尔排序</a></li>
+    <li><a href="#4-归并排序">4. 归并排序</a>
+      <ul>
+        <li><a href="#41-递归实现自顶向下">4.1 递归实现(自顶向下)</a></li>
+        <li><a href="#52-归并排序优化点">5.2 归并排序优化点</a></li>
+        <li><a href="#53-自底向上实现">5.3 自底向上实现</a></li>
+        <li><a href="#54--性能指标">5.4  性能指标</a></li>
+        <li><a href="#55-练习">5.5 练习</a></li>
+      </ul>
+    </li>
+    <li><a href="#6-快速排序">6. 快速排序</a>
+      <ul>
+        <li><a href="#61-普通快排">6.1 普通快排</a></li>
+        <li><a href="#62-随机化快排--插入排序优化">6.2 随机化快排 + 插入排序优化</a></li>
+        <li><a href="#63-双路快排-重复元素测例下的分区平衡优化">6.3 双路快排 (重复元素测例下的分区平衡优化)</a></li>
+        <li><a href="#64-三路快排-重复元素测例下缩减待排序空间的优化">6.4 三路快排 (重复元素测例下缩减待排序空间的优化)</a></li>
+        <li><a href="#65-性能指标">6.5 性能指标</a></li>
+        <li><a href="#66-分治思想">6.6 分治思想</a></li>
+        <li><a href="#67-练习">6.7 练习</a></li>
+      </ul>
+    </li>
+    <li><a href="#7-堆排序">7. 堆排序</a>
+      <ul>
+        <li><a href="#71-堆与优先队列">7.1 堆与优先队列</a></li>
+        <li><a href="#72-堆的存储结构">7.2 堆的存储结构</a></li>
+        <li><a href="#73-基础堆排序与heapify">7.3 基础堆排序与heapify</a></li>
+        <li><a href="#74-原地堆排序">7.4 原地堆排序</a></li>
+        <li><a href="#75-索引堆index-heap">7.5 索引堆（Index Heap）</a></li>
+        <li><a href="#76-索引堆优化">7.6 索引堆优化</a></li>
+        <li><a href="#77-堆的应用">7.7 堆的应用</a></li>
+        <li><a href="#78-堆的实现细节优化">7.8 堆的实现细节优化</a></li>
+        <li><a href="#79-练习">7.9 练习</a></li>
+      </ul>
+    </li>
+    <li><a href="#8-基数排序">8. 基数排序</a></li>
+    <li><a href="#9-拓扑排序">9. 拓扑排序</a></li>
+    <li><a href="#10-排序总结">10. 排序总结</a></li>
+    <li><a href="#其他参考材料">其他参考材料</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h2 id="0-排序">0. 排序</h2>
-
-<h3 id="0-1-度量指标">0.1 度量指标</h3>
-
+      <h2 id="0-排序">0. 排序</h2>
+<h3 id="01-度量指标">0.1 度量指标</h3>
 <p>评价一种排序算法，主要看以下几种因素：</p>
-
 <ul>
 <li>时间复杂度：分最好、最坏、平均时间复杂度(当然还有个摊还时间复杂度)</li>
 <li>空间复杂度: O(1)空间的排序称作原地排序</li>
-<li>稳定性: 对于&rdquo;相等&rdquo;的元素之间相对位置不改变</li>
+<li>稳定性: 对于&quot;相等&quot;的元素之间相对位置不改变</li>
 </ul>
-
-<h3 id="0-2-特别说明">0.2 特别说明</h3>
-
+<h3 id="02-特别说明">0.2 特别说明</h3>
 <ul>
 <li>以下描述中出现的区间$[a:b]$遵循<strong>左闭右开</strong>原则</li>
 <li>以下排序按升序排序介绍，降序和升序原理一致</li>
 <li>依赖线性遍历的排序算法可以从左边开始也可以从右边开始，没有定式</li>
 <li>$nums$表示待排序数组，$n$为其长度</li>
 </ul>
-
-<h3 id="0-3-介绍">0.3 介绍</h3>
-
+<h3 id="03-介绍">0.3 介绍</h3>
 <ul>
 <li>前三种为基础排序算法，包括冒泡排序。选择排序和插入排序，这三种算法时间复杂度都是$O(n^2)$，并且都是原地排序算法。</li>
 <li>第四种希尔排序，是插入排序的优化版。</li>
 <li>归并排序、快速排序、堆排序则是最常用的三类排序算法，它们的时间复杂度都能做到$O(nlogn)$</li>
 <li>特殊场景下，还可以使用计数排序、基数排序、桶排序以获得更高的性能($O(n^2)$)</li>
 </ul>
-
 <h2 id="1-冒泡排序">1. 冒泡排序</h2>
-
 <ul>
 <li>核心思路：多次遍历，相邻者两两比较，若逆序则交换。每一轮遍历都把最大值冒泡到后部的正确位置。</li>
-
-<li><p>实现：</p>
+<li>实现：</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -252,23 +239,24 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">bubbleSort1</span><span class="p">(</span><span class="nx">arr</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
-<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>
-<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="p">&lt;</span><span class="nx">i</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">{</span>
-            <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">],</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span>
+    <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="p">&lt;</span><span class="nx">i</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">{</span>
+                <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">],</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span>
+            <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">arr</span>
 <span class="p">}</span>
-<span class="k">return</span> <span class="nx">arr</span>
-<span class="p">}</span></code></pre></td></tr></table>
+</code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>优化：如果整个排序过程中没有交换，提前结束。(也就是某一轮遍历发现没有逆序)</p>
+</div><ul>
+<li>优化：如果整个排序过程中没有交换，提前结束。(也就是某一轮遍历发现没有逆序)</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -285,25 +273,24 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">bubbleSort2</span><span class="p">(</span><span class="nx">arr</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
-<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>
-<span class="nx">existExchange</span> <span class="o">:=</span> <span class="kc">false</span>
-<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="p">&lt;</span><span class="nx">i</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">{</span>
-            <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">],</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span>
-            <span class="nx">existExchange</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>
+    <span class="nx">existExchange</span> <span class="o">:=</span> <span class="kc">false</span>
+    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="p">&lt;</span><span class="nx">i</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">{</span>
+                <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">],</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span>
+                <span class="nx">existExchange</span> <span class="p">=</span> <span class="kc">true</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">!</span><span class="nx">existExchange</span> <span class="p">{</span><span class="k">break</span><span class="p">}</span>   <span class="c1">// 如果该轮遍历不存在交换，那么提前结束
-</span><span class="c1"></span><span class="p">}</span>
-<span class="k">return</span> <span class="nx">arr</span>
-<span class="p">}</span></code></pre></td></tr></table>
+        <span class="k">if</span> <span class="p">!</span><span class="nx">existExchange</span> <span class="p">{</span><span class="k">break</span><span class="p">}</span>   <span class="c1">// 如果该轮遍历不存在交换，那么提前结束
+</span><span class="c1"></span>    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">arr</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>冒泡算法的参数指标</p></li>
+</div><ul>
+<li>冒泡算法的参数指标</li>
 </ul>
-
 <table>
 <thead>
 <tr>
@@ -314,7 +301,6 @@
 <th align="center">稳定性</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center">$O(n)$</td>
@@ -325,22 +311,19 @@
 </tr>
 </tbody>
 </table>
-
 <ul>
 <li><em>可以稳定： 当遇到相等元素，不进行交换，这样可以稳定</em></li>
 <li><em>在$O(n^2)$时间复杂度的排序算法中，冒泡几乎是最慢的，原因在于其每次比较都进行两两交换(相当于三次赋值操作);</em></li>
 <li><em>冒泡排序的优点在于: 对于逆序度较低的序列，能够提前通过检测交换发现来决定是否提前结束</em></li>
 </ul>
-
 <h2 id="2-选择排序">2. 选择排序</h2>
-
 <ul>
 <li>核心思路：每一轮遍历时选择待排序区间$nums[0:i+1]$的最大值放到$nums[i]$位置。第一次遍历归位$nums[n]$，第二次归位$nums[n-1]$, &hellip;</li>
-
-<li><p>实现</p>
+<li>实现</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -357,25 +340,24 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">selectionSort1</span><span class="p">(</span><span class="nx">arr</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
-<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>
-<span class="nx">minIdx</span> <span class="o">:=</span> <span class="mi">0</span>   <span class="c1">// 每一轮遍历中的最小值的下标
-</span><span class="c1"></span><span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-    <span class="nx">minIdx</span> <span class="p">=</span> <span class="nx">i</span>
-    <span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">j</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">&lt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">minIdx</span><span class="p">]</span> <span class="p">{</span>
-            <span class="nx">minIdx</span> <span class="p">=</span> <span class="nx">j</span>
+    <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>
+    <span class="nx">minIdx</span> <span class="o">:=</span> <span class="mi">0</span>   <span class="c1">// 每一轮遍历中的最小值的下标
+</span><span class="c1"></span>    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">minIdx</span> <span class="p">=</span> <span class="nx">i</span>
+        <span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">j</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">&lt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">minIdx</span><span class="p">]</span> <span class="p">{</span>
+                <span class="nx">minIdx</span> <span class="p">=</span> <span class="nx">j</span>
+            <span class="p">}</span>
         <span class="p">}</span>
+        <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">minIdx</span><span class="p">]</span> <span class="p">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">minIdx</span><span class="p">],</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
     <span class="p">}</span>
-    <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">minIdx</span><span class="p">]</span> <span class="p">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">minIdx</span><span class="p">],</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nx">arr</span>
 <span class="p">}</span>
-<span class="k">return</span> <span class="nx">arr</span>
-<span class="p">}</span></code></pre></td></tr></table>
+</code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>选择算法的参数指标</p></li>
+</div><ul>
+<li>选择算法的参数指标</li>
 </ul>
-
 <table>
 <thead>
 <tr>
@@ -386,7 +368,6 @@
 <th align="center">稳定性</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center">$O(n)$</td>
@@ -397,22 +378,19 @@
 </tr>
 </tbody>
 </table>
-
 <ul>
 <li><em>可以稳定： 当遇到相等元素，取最后出现的相等元素放置在区间末尾，这样可以稳定</em></li>
 <li><strong>选择排序不稳定</strong>。 前面这句话是错的。不稳定不是因为待选择的数出现了重复，而是被选择的数要放到最终位置时，之前存在重复的数，且重复的数有一个恰是其最终位置。例如 <code>5  9  5  2  8</code>进行排序，第一趟，<code>2</code>和第一个<code>5</code>交换，变成<code>2  9  5  5  8</code></li>
 <li><em>选择排序提高了冒泡排序的性能，它每遍历一次列表只交换一次数据，即进行一次遍历时找到最大的项，完成遍历后，再把它换到正确的位置。</em></li>
 </ul>
-
 <h2 id="3-插入排序">3. 插入排序</h2>
-
 <ul>
 <li>核心思路：每一轮遍历时前面$nums[0:i]$区间已升序排列好，对$nums[i]$进行插入操作: 从$i-1$开始向左遍历至$0$，查找$nums[i]$这个值应该放的位置，找到后将其插入</li>
-
-<li><p>实现</p>
+<li>实现</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -435,37 +413,38 @@
 </span><span class="lnt">21
 </span><span class="lnt">22
 </span><span class="lnt">23
+</span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">insertSort1</span><span class="p">(</span><span class="nx">arr</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
-<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>
-<span class="nx">curNum</span><span class="p">,</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-    <span class="nx">curNum</span> <span class="p">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="c1">// 准备找位置插入的数
-</span><span class="c1"></span>    <span class="nx">j</span> <span class="p">=</span> <span class="nx">i</span>
-    <span class="k">for</span> <span class="p">;</span> <span class="nx">j</span><span class="p">&gt;</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">--</span> <span class="p">{</span>    <span class="c1">// 跟前面已排序好的arr[:i]逐一比较
-</span><span class="c1"></span>        <span class="k">if</span> <span class="nx">curNum</span> <span class="p">&lt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">{</span>
-            <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>   <span class="c1">// 将原arr[j-1]的数挪到arr[j]，这里其实是有点像冒泡，把curNum冒到已排序部分合适位置
-</span><span class="c1"></span>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>    <span class="c1">// 找到该放的位置了
-</span><span class="c1"></span>            <span class="k">break</span>
+    <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>
+    <span class="nx">curNum</span><span class="p">,</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">curNum</span> <span class="p">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="c1">// 准备找位置插入的数
+</span><span class="c1"></span>        <span class="nx">j</span> <span class="p">=</span> <span class="nx">i</span>
+        <span class="k">for</span> <span class="p">;</span> <span class="nx">j</span><span class="p">&gt;</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">--</span> <span class="p">{</span>    <span class="c1">// 跟前面已排序好的arr[:i]逐一比较
+</span><span class="c1"></span>            <span class="k">if</span> <span class="nx">curNum</span> <span class="p">&lt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">{</span>
+                <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>   <span class="c1">// 将原arr[j-1]的数挪到arr[j]，这里其实是有点像冒泡，把curNum冒到已排序部分合适位置
+</span><span class="c1"></span>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>    <span class="c1">// 找到该放的位置了
+</span><span class="c1"></span>                <span class="k">break</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-    <span class="p">}</span>
 
-    <span class="c1">// [1,2,4], 待插入3
-</span><span class="c1"></span>    <span class="c1">//               j      arr[j] &lt; arr[j-1] j-&gt;j-1到了元素4的位置上
-</span><span class="c1"></span>    <span class="c1">//      j               arr[j] &gt;= arr[j-1] break
-</span><span class="c1"></span>    <span class="c1">// 因此，最后应该是 arr[j] = curNum
+        <span class="c1">// [1,2,4], 待插入3
+</span><span class="c1"></span>        <span class="c1">//               j      arr[j] &lt; arr[j-1] j-&gt;j-1到了元素4的位置上
+</span><span class="c1"></span>        <span class="c1">//      j               arr[j] &gt;= arr[j-1] break
+</span><span class="c1"></span>        <span class="c1">// 因此，最后应该是 arr[j] = curNum
 </span><span class="c1"></span>
-    <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">curNum</span>   <span class="c1">// 把curNum放到前面找到的合适位置上
-</span><span class="c1"></span><span class="p">}</span>
-<span class="k">return</span> <span class="nx">arr</span>
-<span class="p">}</span></code></pre></td></tr></table>
+        <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">curNum</span>   <span class="c1">// 把curNum放到前面找到的合适位置上
+</span><span class="c1"></span>    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">arr</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>插入算法的参数指标</p></li>
+</div><ul>
+<li>插入算法的参数指标</li>
 </ul>
-
 <table>
 <thead>
 <tr>
@@ -476,7 +455,6 @@
 <th align="center">稳定性</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center">$O(n)$</td>
@@ -487,22 +465,19 @@
 </tr>
 </tbody>
 </table>
-
 <ul>
 <li><em>可以稳定： 向左查找插入位置时，当遇到相等元素，不进行交换，也就是不越过它，这样稳定</em></li>
-<li>*快速排序比选择排序快的原因在于<strong>归位</strong>过程，快速排序可以在找到插入位置后停止当前轮遍历，选择排序却必须遍历至尾*</li>
+<li><em>快速排序比选择排序快的原因在于<strong>归位</strong>过程，快速排序可以在找到插入位置后停止当前轮遍历，选择排序却必须遍历至尾</em></li>
 <li><em>插入排序是最常用的$O(^2)$排序算法，经常用于快速排序、归并排序的小数据规模处理</em></li>
 </ul>
-
 <h2 id="4-希尔排序">4. 希尔排序</h2>
-
 <ul>
 <li>核心思路：将原$nums$每一轮按$gap$分隔成$n/gap$个子序列，对每个子序列进行插入排序，下一轮则$gap = gap/2$继续同样操作。例如，第一轮时$gap = n/2$，则$nums$被分为子序列${nums[0], nums[0+gap]}, {nums[1], nums[1+gap]},&hellip;$</li>
-
-<li><p>实现</p>
+<li>实现</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -531,37 +506,36 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">shellSort1</span><span class="p">(</span><span class="nx">arr</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
-<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>
-<span class="nx">gap</span> <span class="o">:=</span> <span class="nx">n</span> <span class="o">/</span> <span class="mi">2</span>    <span class="c1">// 间隔初设为n/2，也就是说把arr一开始分成n/2个长度为2的数列进行插入排序
-</span><span class="c1"></span><span class="k">for</span> <span class="nx">gap</span><span class="p">&gt;</span><span class="mi">0</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">gap</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-        <span class="nf">gapInsertSort</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">gap</span><span class="p">)</span>
+    <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>
+    <span class="nx">gap</span> <span class="o">:=</span> <span class="nx">n</span> <span class="o">/</span> <span class="mi">2</span>    <span class="c1">// 间隔初设为n/2，也就是说把arr一开始分成n/2个长度为2的数列进行插入排序
+</span><span class="c1"></span>    <span class="k">for</span> <span class="nx">gap</span><span class="p">&gt;</span><span class="mi">0</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">gap</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+            <span class="nf">gapInsertSort</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">gap</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="nx">gap</span> <span class="o">/=</span> <span class="mi">2</span>
     <span class="p">}</span>
-    <span class="nx">gap</span> <span class="o">/=</span> <span class="mi">2</span>
-<span class="p">}</span>
-<span class="k">return</span> <span class="nx">arr</span>
+    <span class="k">return</span> <span class="nx">arr</span>
 <span class="p">}</span>
 
 <span class="kd">func</span> <span class="nf">gapInsertSort</span><span class="p">(</span><span class="nx">arr</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">gap</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)</span>
-<span class="nx">curNum</span><span class="p">,</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">start</span><span class="o">+</span><span class="nx">gap</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">+=</span><span class="nx">gap</span> <span class="p">{</span>
-    <span class="nx">j</span> <span class="p">=</span> <span class="nx">i</span>
-    <span class="nx">curNum</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span>
-    <span class="k">for</span> <span class="p">;</span> <span class="nx">j</span><span class="o">&gt;=</span><span class="nx">start</span><span class="o">+</span><span class="nx">gap</span><span class="p">;</span> <span class="nx">j</span><span class="o">--</span> <span class="p">{</span>   <span class="c1">// j要 &gt;= 起始位置
-</span><span class="c1"></span>        <span class="k">if</span> <span class="nx">curNum</span> <span class="p">&lt;</span> <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">{</span>
-            <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span><span class="k">break</span><span class="p">}</span>
+    <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)</span>
+    <span class="nx">curNum</span><span class="p">,</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">start</span><span class="o">+</span><span class="nx">gap</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">+=</span><span class="nx">gap</span> <span class="p">{</span>
+        <span class="nx">j</span> <span class="p">=</span> <span class="nx">i</span>
+        <span class="nx">curNum</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span>
+        <span class="k">for</span> <span class="p">;</span> <span class="nx">j</span><span class="o">&gt;=</span><span class="nx">start</span><span class="o">+</span><span class="nx">gap</span><span class="p">;</span> <span class="nx">j</span><span class="o">--</span> <span class="p">{</span>   <span class="c1">// j要 &gt;= 起始位置
+</span><span class="c1"></span>            <span class="k">if</span> <span class="nx">curNum</span> <span class="p">&lt;</span> <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">{</span>
+                <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span><span class="k">break</span><span class="p">}</span>
+        <span class="p">}</span>
+        <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">curNum</span>
     <span class="p">}</span>
-    <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">curNum</span>
 <span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+</code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>希尔排序算法的参数指标</p></li>
+</div><ul>
+<li>希尔排序算法的参数指标</li>
 </ul>
-
 <table>
 <thead>
 <tr>
@@ -572,10 +546,9 @@
 <th align="center">稳定性</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
-<td align="center">$O(n^{<sup>3</sup>&frasl;<sub>2</sub>})$</td>
+<td align="center">$O(n^{3/2})$</td>
 <td align="center">$O(n^2)$</td>
 <td align="center">$O(n^2)$</td>
 <td align="center">$O(1)$</td>
@@ -583,22 +556,18 @@
 </tr>
 </tbody>
 </table>
-
 <ul>
 <li><em>希尔排序</em></li>
 </ul>
-
 <h2 id="4-归并排序">4. 归并排序</h2>
-
 <ul>
 <li>核心思路：归并排序应用了<strong>分治</strong>思想，易于使用递归实现。将$nums[0:n+1]$不断二分，直至每个数组长度都为1（递归的触底递归条件），之后开始两两合并。</li>
 <li>时间复杂度： 合并两个相邻子区间的操作时间复杂度为$O(n)$(参考力扣<a href="https://leetcode-cn.com/problems/merge-sorted-array/">合并两个有序数组</a>双指针法实现)。对于$nums$而言，其总体发生的元素交换只有$O(n)$，再乘上递归的$O(logn)$时间，总体时间复杂度为$O(nlogn)$</li>
 </ul>
-
-<h3 id="4-1-递归实现-自顶向下">4.1 递归实现(自顶向下)</h3>
+<h3 id="41-递归实现自顶向下">4.1 递归实现(自顶向下)</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -703,22 +672,22 @@
 		<span class="c1">// pos后移
 </span><span class="c1"></span>		<span class="nx">pos</span><span class="o">++</span>
 	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="5-2-归并排序优化点">5.2 归并排序优化点</h3>
-
+</div><h3 id="52-归并排序优化点">5.2 归并排序优化点</h3>
 <ul>
-<li><p>优化：</p>
-
+<li>优化：
 <ul>
 <li>(1) 当子区间较小时，可以认为序列逆序度较低，可以使用插入排序及时停止比较；</li>
 <li>(2) 在区间二分之前准备好一个空间足够的数组传进去，用于合并操作的数组备份，这样可以避免多次开辟数组空间。(下面的实现并没有应用第二条优化)</li>
-
-<li><p>(3) 在合并阶段只有<code>(*arr)[mid] &gt; (*arr)[mid+1]</code>才进行merge(不然两个相邻子区间本身合并就是有序的)，上面的实现中已经使用了这一点优化</p>
+<li>(3) 在合并阶段只有<code>(*arr)[mid] &gt; (*arr)[mid+1]</code>才进行merge(不然两个相邻子区间本身合并就是有序的)，上面的实现中已经使用了这一点优化</li>
+</ul>
+</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -751,50 +720,49 @@
 </span><span class="lnt">31
 </span><span class="lnt">32
 </span><span class="lnt">33
+</span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">_mergeSort</span><span class="p">(</span><span class="nx">arr</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">end</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-<span class="c1">// 退出条件
-</span><span class="c1"></span><span class="k">if</span> <span class="nx">start</span> <span class="p">&gt;</span> <span class="nx">end</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
+<pre class="chroma"><code class="language-go" data-lang="go">
+<span class="kd">func</span> <span class="nf">_mergeSort</span><span class="p">(</span><span class="nx">arr</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">end</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 退出条件
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">start</span> <span class="p">&gt;</span> <span class="nx">end</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
 
-<span class="c1">///////////////////////////////////
+    <span class="c1">///////////////////////////////////
 </span><span class="c1"></span>
-<span class="c1">// 如果区间长度&lt;15，数列基本有序的概率较大，插入排序比较适合
+    <span class="c1">// 如果区间长度&lt;15，数列基本有序的概率较大，插入排序比较适合
 </span><span class="c1"></span>	<span class="k">if</span> <span class="nx">end</span><span class="o">-</span><span class="nx">start</span><span class="o">&lt;=</span><span class="mi">15</span> <span class="p">{</span>
 		<span class="nf">_insertSort</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">end</span><span class="p">);</span> <span class="k">return</span>
-<span class="p">}</span>
+    <span class="p">}</span>
 
-<span class="c1">///////////////////////////////////
+    <span class="c1">///////////////////////////////////
 </span><span class="c1"></span>
-<span class="c1">// 二分 递归
-</span><span class="c1"></span><span class="o">......</span>
+    <span class="c1">// 二分 递归
+</span><span class="c1"></span>    <span class="o">......</span>
 <span class="p">}</span>
 
 <span class="c1">/////////////////////////////////////////
 </span><span class="c1"></span>
 <span class="kd">func</span> <span class="nf">_insertSort</span><span class="p">(</span><span class="nx">arr</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">end</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-<span class="nx">curNum</span><span class="p">,</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">start</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;=</span><span class="nx">end</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-<span class="nx">curNum</span><span class="p">,</span> <span class="nx">j</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">i</span>
-<span class="k">for</span> <span class="p">;</span> <span class="nx">j</span><span class="o">&gt;=</span><span class="nx">start</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">j</span><span class="o">--</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="nx">curNum</span> <span class="p">&lt;</span> <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">{</span>
-        <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span><span class="k">break</span><span class="p">}</span>
-<span class="p">}</span>
-<span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">curNum</span>
-<span class="p">}</span>
+    <span class="nx">curNum</span><span class="p">,</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">start</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;=</span><span class="nx">end</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">curNum</span><span class="p">,</span> <span class="nx">j</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">i</span>
+        <span class="k">for</span> <span class="p">;</span> <span class="nx">j</span><span class="o">&gt;=</span><span class="nx">start</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">j</span><span class="o">--</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="nx">curNum</span> <span class="p">&lt;</span> <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">{</span>
+                <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span><span class="k">break</span><span class="p">}</span>
+        <span class="p">}</span>
+        <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">curNum</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="o">/////////////////////////////////////////</span></code></pre></td></tr></table>
+<span class="c1">/////////////////////////////////////////
+</span></code></pre></td></tr></table>
 </div>
-</div></li>
-</ul></li>
-</ul>
-
-<h3 id="5-3-自底向上实现">5.3 自底向上实现</h3>
+</div><h3 id="53-自底向上实现">5.3 自底向上实现</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -837,11 +805,10 @@
 
 <span class="kd">func</span> <span class="nf">min</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
 	<span class="k">if</span> <span class="nx">a</span><span class="o">&lt;=</span><span class="nx">b</span> <span class="p">{</span><span class="k">return</span> <span class="nx">a</span><span class="p">}</span> <span class="k">else</span> <span class="p">{</span><span class="k">return</span> <span class="nx">b</span><span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="5-4-性能指标">5.4  性能指标</h3>
-
+</div><h3 id="54--性能指标">5.4  性能指标</h3>
 <table>
 <thead>
 <tr>
@@ -852,7 +819,6 @@
 <th align="center">稳定性</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center">$O(nlogn)$</td>
@@ -863,50 +829,38 @@
 </tr>
 </tbody>
 </table>
-
 <ul>
 <li><em>归并排序的时间复杂度比较稳定，各种情况下时间复杂度都为$O(nlogn)$，而用的最多的快速排序在最坏情况下会退化成$O(n^2)$。归并排序没有快速排序使用广泛的原因在于：其不是原地排序算法，对于大数据量的排序，有时不能忍受</em></li>
 <li><em>递归的空间复杂度不能像递归时间复杂度那样计算，即便不进行空间优化，每次都创建新的数组，总体空间复杂度也是O(n)，因为用完数组就回收了(取决于语言，但分析空间复杂度时可以认为回收了)</em></li>
 </ul>
-
-<h3 id="5-5-练习">5.5 练习</h3>
-
+<h3 id="55-练习">5.5 练习</h3>
 <ul>
-<li><p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/">Leetcode 面试题51. 数组中的逆序对</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">题目描述：
-在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。
+<li>
+<p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/">Leetcode 面试题51. 数组中的逆序对</a></p>
+<pre><code>  题目描述：
+  在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。
 
-示例 1:
-输入: [7,5,6,4]
-输出: 5
- 
-限制：0 &lt;= 数组长度 &lt;= 50000</pre></td></tr></table>
-</div>
-</div></li>
+  示例 1:
+  输入: [7,5,6,4]
+  输出: 5
+   
+  限制：0 &lt;= 数组长度 &lt;= 50000
+</code></pre>
+</li>
 </ul>
-
-<p>题目分析：
-1. 最直接的做法就是两层遍历统计每个元素所参与的数对的逆序对总数。 $O(n^2)/O(1)$
-2. 利用归并排序的思想：</p>
-
-<p>过程与归并排序一致(不需要加上插入排序优化)，需要小心的是，搞明白什么时候加逆序对数，加多少？
-   - 方案一： 左右区间均还有待出列元素且右侧区间元素出列时，逆序对数直接加上<strong>左区间未出列</strong>元素数。(下方代码)
-   - 方案二： 左右区间均还有待出列元素且左侧区间元素出列时，逆序对数直接加上<strong>右区间已出列</strong>元素数；并且当右区间遍历完全后左区间剩余元素每一次出列，逆序数都要加上右区间长度</p>
+<p>题目分析：</p>
+<ol>
+<li>最直接的做法就是两层遍历统计每个元素所参与的数对的逆序对总数。 $O(n^2)/O(1)$</li>
+<li>利用归并排序的思想：</li>
+</ol>
+<p>过程与归并排序一致(不需要加上插入排序优化)，需要小心的是，搞明白什么时候加逆序对数，加多少？</p>
+<ul>
+<li>方案一： 左右区间均还有待出列元素且右侧区间元素出列时，逆序对数直接加上<strong>左区间未出列</strong>元素数。(下方代码)</li>
+<li>方案二： 左右区间均还有待出列元素且左侧区间元素出列时，逆序对数直接加上<strong>右区间已出列</strong>元素数；并且当右区间遍历完全后左区间剩余元素每一次出列，逆序数都要加上右区间长度</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -978,6 +932,7 @@
 </span><span class="lnt">70
 </span><span class="lnt">71
 </span><span class="lnt">72
+</span><span class="lnt">73
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 基于归并排序思想：在归并排序的过程中统计逆序对数 O(nlogn)/O(n)
@@ -1051,32 +1006,33 @@
 	<span class="p">}</span>
 
 	<span class="k">return</span> <span class="nx">total</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
 </div>
-</div>
-<ul>
+</div><ul>
 <li>参考题解：<a href="https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/solution/bao-li-jie-fa-fen-zhi-si-xiang-shu-zhuang-shu-zu-b/">https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/solution/bao-li-jie-fa-fen-zhi-si-xiang-shu-zhuang-shu-zu-b/</a></li>
 </ul>
-
 <h2 id="6-快速排序">6. 快速排序</h2>
-
-<h3 id="6-1-普通快排">6.1 普通快排</h3>
-
+<h3 id="61-普通快排">6.1 普通快排</h3>
 <ul>
 <li>核心思路：快速排序应用分治思想，是一种原地不稳定排序算法。
-
 <ul>
-<li><strong>Partition</strong>（分区）:</li>
+<li><strong>Partition</strong>（分区）:
+<ol>
 <li>每次选择数组中一个元素作为<strong>基数</strong>(暂且取数组第一个元素$nums[0]$作为基数$base$)</li>
 <li>向后遍历时，对于$nums[i]$，小于$base$则放到靠近$base$的那一片(这一片的数都比$base$小)，否则放到保持位置不变(也就是放在靠近$i$远离$base$的一侧)。</li>
 <li>有一个指针$p$记录这两片区域的分界点。当一次遍历完成后，将$base$与$nums[p]$交换位置，这样整个数据就以$base$为界分成了两个区域$Left$和$Right$，$Left$的元素都小于$base$而$Right$都大于$base$</li>
+</ol>
+</li>
 <li>接下来就进一步对$Left$和$Right$进行$Partition$操作。显然递归实现是非常适合的。当区间只剩一个元素或没有元素就递归终止。最终所有元素都排好了序</li>
-</ul></li>
-
-<li><p>实现：</p>
+</ul>
+</li>
+<li>实现：</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1113,65 +1069,63 @@
 </span><span class="lnt">35
 </span><span class="lnt">36
 </span><span class="lnt">37
+</span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 递归实现快速排序
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">quickSort</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-<span class="nf">_quick</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">nums</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nf">_quick</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">nums</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="kd">func</span> <span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-<span class="c1">// 递归终止(没法再partition)
-</span><span class="c1"></span><span class="k">if</span> <span class="nx">l</span> <span class="o">&gt;=</span> <span class="nx">r</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
+    <span class="c1">// 递归终止(没法再partition)
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">l</span> <span class="o">&gt;=</span> <span class="nx">r</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
 
-<span class="c1">// partition得到分界点
-</span><span class="c1"></span><span class="nx">p</span> <span class="o">:=</span> <span class="nf">_partition</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
-<span class="c1">// 继续对左右进行递归处理
-</span><span class="c1"></span><span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+    <span class="c1">// partition得到分界点
+</span><span class="c1"></span>    <span class="nx">p</span> <span class="o">:=</span> <span class="nf">_partition</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+    <span class="c1">// 继续对左右进行递归处理
+</span><span class="c1"></span>    <span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="c1">// 分区，返回基数最终插入的那个位置
 </span><span class="c1">// 在分区最后一步之前，p始终指向小于p的分区的最后一个
 </span><span class="c1">// 返回的p保证 nums[l:p] &lt; nums[p] &lt; nums[p+1:r+1]
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">_partition</span><span class="p">(</span><span class="nx">nums</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-<span class="c1">// 取区间第一个元素(也就是)作为基数
+    <span class="c1">// 取区间第一个元素(也就是)作为基数
 </span><span class="c1"></span>
-<span class="c1">// 满足 nums[l+1:p+1] &lt; nums[l] &lt;= nums[p+1:r+1]
-</span><span class="c1"></span><span class="nx">p</span> <span class="o">:=</span> <span class="nx">l</span>
-<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;=</span><span class="nx">r</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-    <span class="c1">// 当前数大于nums[l]则保持原位不动，也就啥也不干
-</span><span class="c1"></span>    <span class="c1">// 当前数等于基数也划到右边分区
+    <span class="c1">// 满足 nums[l+1:p+1] &lt; nums[l] &lt;= nums[p+1:r+1]
+</span><span class="c1"></span>    <span class="nx">p</span> <span class="o">:=</span> <span class="nx">l</span>
+    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;=</span><span class="nx">r</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="c1">// 当前数大于nums[l]则保持原位不动，也就啥也不干
+</span><span class="c1"></span>        <span class="c1">// 当前数等于基数也划到右边分区
 </span><span class="c1"></span>
-    <span class="c1">// 当前数小于nums[l]，则将当前数与p+1位置(第一个大于基数的元素)的数交换，并将p后移
-</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span> <span class="p">&lt;</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">{</span>
-        <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span>
-        <span class="nx">p</span><span class="o">++</span>
+        <span class="c1">// 当前数小于nums[l]，则将当前数与p+1位置(第一个大于基数的元素)的数交换，并将p后移
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span> <span class="p">&lt;</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">{</span>
+            <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span>
+            <span class="nx">p</span><span class="o">++</span>
+        <span class="p">}</span>
     <span class="p">}</span>
+    <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nx">p</span>
 <span class="p">}</span>
-<span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span>
-<span class="k">return</span> <span class="nx">p</span>
-<span class="p">}</span></code></pre></td></tr></table>
+
+</code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
-<h3 id="6-2-随机化快排-插入排序优化">6.2 随机化快排 + 插入排序优化</h3>
-
+</div><h3 id="62-随机化快排--插入排序优化">6.2 随机化快排 + 插入排序优化</h3>
 <ol>
 <li>在区间缩小到16时(较小区间时)，使用插入排序优化，这有利于在接近有序状态下提前排序结束</li>
 <li>另外一个非常重要的优化是<strong>随机选取基数</strong>而不是每次取区间首位元素。这样的快速排序叫<strong>随机化快排</strong>
-
 <ul>
 <li>在归并排序中，之所以能够稳定的保证$O(nlogn)$复杂度，是因为其每次都是二分，递归树的高度保证为$h=log_2{n}$。但是在快速排序中每一次的$Partition$操作并不一定会将原区间二分，大多数情况下会出现$Left$和$Right$一长一短的情况，这种情况下递归树的高度就会大于$log_2{n}$，甚至当区间基数以外其他元素都比基数大或都比它小时，递归树会退化成链表，那么深度就变成$n$，最终的时间复杂度就会变成$O(n^2)$。</li>
-<li>已被证明的是：当随机选取基数时，能够确保快速排序的时间复杂度<strong>期望值</strong>为$O(nlogn)$，退化成$O(n^2)$的概率为$1 \times <sup>1</sup>&frasl;<sub>2</sub> \times &hellip; \times 1/n$，近乎为$0$。</li>
-</ul></li>
+<li>已被证明的是：当随机选取基数时，能够确保快速排序的时间复杂度<strong>期望值</strong>为$O(nlogn)$，退化成$O(n^2)$的概率为$1 \times 1/2 \times &hellip; \times 1/n$，近乎为$0$。</li>
+</ul>
+</li>
 </ol>
-
 <p>下面是优化之后的实现：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1250,6 +1204,8 @@
 </span><span class="lnt">77
 </span><span class="lnt">78
 </span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 递归实现快速排序，使用插入排序+随机化基数进行优化
@@ -1330,45 +1286,45 @@
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="o">///////////////////////////</span></code></pre></td></tr></table>
-</div>
-</div>
-<h3 id="6-3-双路快排-重复元素测例下的分区平衡优化">6.3 双路快排 (重复元素测例下的分区平衡优化)</h3>
+<span class="c1">///////////////////////////
+</span><span class="c1"></span>
 
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="63-双路快排-重复元素测例下的分区平衡优化">6.3 双路快排 (重复元素测例下的分区平衡优化)</h3>
 <ul>
-<li><p>继续来考虑一种测例： 长度为100000的数组，填充着0~9这10个数。这样的测例中包含了大量的重复元素。这会导致什么呢？</p>
-
+<li>继续来考虑一种测例： 长度为100000的数组，填充着0~9这10个数。这样的测例中包含了大量的重复元素。这会导致什么呢？
 <ul>
 <li>无论是将相等的数挪到$Left$中还是挪到$Right$中（像前面代码那样），当存在大量重复元素时，都会导致$Left$和$Right$非常不平衡（一个很短一个很长），这样就使得快速排序时间复杂度又退化为接近$O(n^2)$甚至$O(n^2)$的程度。</li>
-
-<li><p>对于归并排序，这种情况可以被提前判断掉并不用继续merge</p>
+<li>对于归并排序，这种情况可以被提前判断掉并不用继续merge
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">mid</span><span class="p">]</span> <span class="p">&gt;</span> <span class="p">(</span><span class="o">*</span><span class="nx">arr</span><span class="p">)[</span><span class="nx">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">{</span>
-<span class="nf">_merge</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">mid</span><span class="p">,</span> <span class="nx">end</span><span class="p">)</span>
-<span class="p">}</span></code></pre></td></tr></table>
+    <span class="nf">_merge</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">mid</span><span class="p">,</span> <span class="nx">end</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div></li>
-
-<li><p>那么快排要怎么解决这个问题呢？</p></li>
-
-<li><p>答案是<strong>双路快排</strong>，既然重复元素集中于某一侧容易导致不平衡而退化，那么从首尾两端分两路快排，这样能将重复元素较均匀地分散到两侧。具体做法：</p></li>
-
-<li><p>两个指针$i$, $j$用来指向左右两路快排移动过程中分区点，靠近区间左边界的一侧为$Left$，靠近区间右边界的为$Right$，中间为待处理元素们</p></li>
-
-<li><p>对$i$来说，若$nums[i] &lt; base$，那么$i$继续右移；直至$nums[i] \geq base$停住</p></li>
-
-<li><p>对$j$来说，若$nums[j] &gt; base$，那么$j$继续左移；直至$nums[j] \leq base$停住</p></li>
-
-<li><p>当$i$和$j$都停住时，交换$nums[i]$与$nums[j]$，而后重复步骤2/3/4直至遍历结束($ij$错位)</p>
+<li>那么快排要怎么解决这个问题呢？</li>
+<li>答案是<strong>双路快排</strong>，既然重复元素集中于某一侧容易导致不平衡而退化，那么从首尾两端分两路快排，这样能将重复元素较均匀地分散到两侧。具体做法：
+<ol>
+<li>两个指针$i$, $j$用来指向左右两路快排移动过程中分区点，靠近区间左边界的一侧为$Left$，靠近区间右边界的为$Right$，中间为待处理元素们</li>
+<li>对$i$来说，若$nums[i] &lt; base$，那么$i$继续右移；直至$nums[i] \geq base$停住</li>
+<li>对$j$来说，若$nums[j] &gt; base$，那么$j$继续左移；直至$nums[j] \leq base$停住</li>
+<li>当$i$和$j$都停住时，交换$nums[i]$与$nums[j]$，而后重复步骤2/3/4直至遍历结束($ij$错位)</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1406,73 +1362,69 @@
 </span><span class="c1"></span>
 <span class="c1">// 双路快排分区
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">_partition2</span><span class="p">(</span><span class="nx">nums</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-<span class="c1">// 随机一个元素(也就是)作为基数base
-</span><span class="c1"></span><span class="nx">randIdx</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="nx">r</span><span class="o">-</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">l</span>
-<span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">randIdx</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">randIdx</span><span class="p">]</span>
-<span class="c1">// 现在base = nums[l]
+    <span class="c1">// 随机一个元素(也就是)作为基数base
+</span><span class="c1"></span>    <span class="nx">randIdx</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="nx">r</span><span class="o">-</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">l</span>
+    <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">randIdx</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">randIdx</span><span class="p">]</span>
+    <span class="c1">// 现在base = nums[l]
 </span><span class="c1"></span>
-<span class="c1">////////////////////////////////////////////
-</span><span class="c1">// 以下为修改过的代码
+    <span class="c1">////////////////////////////////////////////
+</span><span class="c1"></span>    <span class="c1">// 以下为修改过的代码
 </span><span class="c1"></span>
-<span class="c1">// 满足 nums[l+1:i+1] &lt;= nums[l] &lt;= nums[j:r+1]
-</span><span class="c1"></span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="o">:=</span> <span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">r</span>
-<span class="k">for</span> <span class="p">{</span>
-<span class="c1">// i右移
-</span><span class="c1"></span><span class="k">for</span> <span class="nx">i</span><span class="o">&lt;=</span><span class="nx">r</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]&lt;(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">{</span><span class="nx">i</span><span class="o">++</span><span class="p">}</span>
-<span class="c1">// j左移
-</span><span class="c1"></span><span class="k">for</span> <span class="nx">j</span><span class="p">&gt;</span><span class="nx">l</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">j</span><span class="p">]&gt;(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">{</span><span class="nx">j</span><span class="o">--</span><span class="p">}</span>
-<span class="c1">// 是否已经遍历结束
-</span><span class="c1"></span><span class="k">if</span> <span class="nx">i</span><span class="p">&gt;</span><span class="nx">j</span> <span class="p">{</span><span class="k">break</span><span class="p">}</span>
-<span class="c1">// 交换i,j并继续移动
-</span><span class="c1"></span><span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">j</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span>
-<span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="p">=</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">j</span><span class="o">-</span><span class="mi">1</span>
+    <span class="c1">// 满足 nums[l+1:i+1] &lt;= nums[l] &lt;= nums[j:r+1]
+</span><span class="c1"></span>    <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="o">:=</span> <span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">r</span>
+    <span class="k">for</span> <span class="p">{</span>
+        <span class="c1">// i右移
+</span><span class="c1"></span>        <span class="k">for</span> <span class="nx">i</span><span class="o">&lt;=</span><span class="nx">r</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]&lt;(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">{</span><span class="nx">i</span><span class="o">++</span><span class="p">}</span>
+        <span class="c1">// j左移
+</span><span class="c1"></span>        <span class="k">for</span> <span class="nx">j</span><span class="p">&gt;</span><span class="nx">l</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">j</span><span class="p">]&gt;(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">{</span><span class="nx">j</span><span class="o">--</span><span class="p">}</span>
+        <span class="c1">// 是否已经遍历结束
+</span><span class="c1"></span>        <span class="k">if</span> <span class="nx">i</span><span class="p">&gt;</span><span class="nx">j</span> <span class="p">{</span><span class="k">break</span><span class="p">}</span>
+        <span class="c1">// 交换i,j并继续移动
+</span><span class="c1"></span>        <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">j</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span>
+        <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="p">=</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">j</span><span class="o">-</span><span class="mi">1</span>
+    <span class="p">}</span>
+    <span class="c1">// 遍历结束后， i为从左向右看第一个 &gt;=nums[l] 的元素
+</span><span class="c1"></span>    <span class="c1">// j 为i为从右向左看第一个 &lt;=nums[l] 的元素
+</span><span class="c1"></span>    <span class="c1">// 因此 nums[l] 应该和 nums[j] 交换
+</span><span class="c1"></span>    <span class="c1">// 才能继续保证 base 左侧都 &lt;=base， 右侧都 &gt;= base
+</span><span class="c1"></span>    <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">j</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nx">j</span>
 <span class="p">}</span>
-<span class="c1">// 遍历结束后， i为从左向右看第一个 &gt;=nums[l] 的元素
-</span><span class="c1">// j 为i为从右向左看第一个 &lt;=nums[l] 的元素
-</span><span class="c1">// 因此 nums[l] 应该和 nums[j] 交换
-</span><span class="c1">// 才能继续保证 base 左侧都 &lt;=base， 右侧都 &gt;= base
-</span><span class="c1"></span><span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">j</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span>
-<span class="k">return</span> <span class="nx">j</span>
-<span class="p">}</span></code></pre></td></tr></table>
+</code></pre></td></tr></table>
 </div>
-</div></li>
-</ul></li>
-</ul>
-
-<h3 id="6-4-三路快排-重复元素测例下缩减待排序空间的优化">6.4 三路快排 (重复元素测例下缩减待排序空间的优化)</h3>
-
+</div><h3 id="64-三路快排-重复元素测例下缩减待排序空间的优化">6.4 三路快排 (重复元素测例下缩减待排序空间的优化)</h3>
 <ul>
 <li>思路
-
 <ul>
 <li>对于前面的双路快排，其确保了即使区间内存在大量重复元素情况下左右分区的平衡性，也就是保证了与归并排序相似的稳定的$O(nlogn)$排序： 无论数组原先含有多少重复元素，都一视同仁，参与到归并的$merge$阶段或者是双路快排的$partition$阶段。</li>
 <li>但事实是: 快排的思想是每一轮最终都保证 $nums[l:p] \leq nums[p] \leq nums[p+1:r+1]$，然后再对$nums[l:p]$和$nums[p+1:r+1]$继续进行$partition$。这个结果<strong>等价于</strong>这个结论： <strong>快速排序每一轮partition都将选出的基数$base$放置到了它最终应该在的位置!!!</strong></li>
 <li>应用这个结论，倘若基数存在若干重复，完全可以在$partition$阶段将他们都放到中间<strong>最终应放置的位置</strong>($p1$、$p2$)，从而接下去的递归只需要对$nums[l:p1]$和$nums[p2+1:r+1]$进行$partition$，这样就<strong>缩小了每一次$partition$的待排序区间</strong>（双路快排的$patition$区间长度为$len-1$，而三路快排为$len-(p2-p1+1)$）。</li>
 <li><strong>$nums[l:p1] \leq nums[p1:p2+1] \leq nums[p2+1:r+1]$</strong> ($partition$结束)</li>
-<li><strong>$base \, | \, nums[l+1:lt+1] \, | \, nums[lt+1:i] \, | \, nums[i:gt] \, | \, nums[gt:r+1]$</strong>($partition$过程中)</li>
+<li><strong>$base , | , nums[l+1:lt+1] , | , nums[lt+1:i] , | , nums[i:gt] , | , nums[gt:r+1]$</strong>($partition$过程中)</li>
 <li>$base$即为$nums[l]$，$lt$指向$Left$的右端点；$gt$指向$Right$的左端点；$lt+1$为$Mid$左端点；$i-1$为$Mid$右端点，$i$为当前处理的元素下标，$nums[i+1:gt]$为还没有处理的区间（$lt$代表$less : than$， $gt$代表$greater : than$）</li>
 <li>通常对于大数据集的排序，重复元素一般很多，虽然都是$O(nlogn)$时间复杂度，但利用三路快排可以甩归并和双路快排一条街&hellip;</li>
-</ul></li>
+</ul>
+</li>
 <li>$partition$做法
-
 <ol>
 <li>每一次$partition$需要分成三个区间$Left$、$Right$、$Mid$，因此$partition$函数需要返回的是$Mid$区间的左右端点</li>
 <li>初始状态 $lt = l, gt = r+1, i = l+1$ (保证初始时$Left$、$Right$、$Mid$均为空)</li>
 <li>指针 $i$ 从 $l+1$ 开始向右移动
-
 <ol>
 <li>若$nums[i] &gt; base$，则交换 $nums[i]$ 与 $nums[gt-1]$，$gt$左移， 新交换过来的 $i$ 仍待处理</li>
 <li>若$nums[i] &lt; base$，则交换 $nums[i]$ 与 $nums[lt+1]$，$i$右移，$lt$右移</li>
 <li>若$nums[i] = base$， 则 $i$ 右移</li>
 <li>最终 $i = gt$ 停止</li>
-</ol></li>
+</ol>
+</li>
 <li>交换 $nums[l]$ 与 $nums[lt]$。当前轮 $partition$ 结束。 $p1 = lt, p2 = gt-1$</li>
-</ol></li>
-
-<li><p>实现</p>
+</ol>
+</li>
+<li>实现</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1534,70 +1486,66 @@
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// NOTICE: 其余代码一致，只修改 _quick() 和 _partition()
 </span><span class="c1"></span>
 <span class="kd">func</span> <span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-<span class="c1">// 递归终止(没法再partition)
-</span><span class="c1"></span><span class="k">if</span> <span class="nx">l</span> <span class="o">&gt;=</span> <span class="nx">r</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
-<span class="c1">// 区间较小时使用插入排序
-</span><span class="c1"></span><span class="k">if</span> <span class="nx">r</span> <span class="o">-</span> <span class="nx">l</span> <span class="o">&lt;=</span> <span class="mi">15</span> <span class="p">{</span>
-    <span class="nf">_insertSort</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
-    <span class="k">return</span>
-<span class="p">}</span>
+    <span class="c1">// 递归终止(没法再partition)
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">l</span> <span class="o">&gt;=</span> <span class="nx">r</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
+    <span class="c1">// 区间较小时使用插入排序
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">r</span> <span class="o">-</span> <span class="nx">l</span> <span class="o">&lt;=</span> <span class="mi">15</span> <span class="p">{</span>
+        <span class="nf">_insertSort</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
 
-<span class="c1">//////////////////////////////////
+    <span class="c1">//////////////////////////////////
 </span><span class="c1"></span>
-<span class="c1">// partition得到分界点
-</span><span class="c1"></span><span class="nx">p1</span><span class="p">,</span> <span class="nx">p2</span> <span class="o">:=</span> <span class="nf">_partition</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
-<span class="c1">// 继续对左右进行递归处理
-</span><span class="c1"></span><span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">p1</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">p2</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+    <span class="c1">// partition得到分界点
+</span><span class="c1"></span>    <span class="nx">p1</span><span class="p">,</span> <span class="nx">p2</span> <span class="o">:=</span> <span class="nf">_partition</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+    <span class="c1">// 继续对左右进行递归处理
+</span><span class="c1"></span>    <span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">p1</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">p2</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
 
-<span class="c1">//////////////////////////////////
+    <span class="c1">//////////////////////////////////
 </span><span class="c1"></span><span class="p">}</span>
 
 <span class="c1">// 三路快排分区
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">_partition3</span><span class="p">(</span><span class="nx">nums</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-<span class="c1">// 随机一个元素(也就是)作为基数base
-</span><span class="c1"></span><span class="nx">randIdx</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="nx">r</span><span class="o">-</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">l</span>
-<span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">randIdx</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">randIdx</span><span class="p">]</span>
-<span class="c1">// 现在base = nums[l]
+    <span class="c1">// 随机一个元素(也就是)作为基数base
+</span><span class="c1"></span>    <span class="nx">randIdx</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="nx">r</span><span class="o">-</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">l</span>
+    <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">randIdx</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">randIdx</span><span class="p">]</span>
+    <span class="c1">// 现在base = nums[l]
 </span><span class="c1"></span>
-<span class="c1">////////////////////////////////////////////
-</span><span class="c1">// 以下为修改过的代码
+    <span class="c1">////////////////////////////////////////////
+</span><span class="c1"></span>    <span class="c1">// 以下为修改过的代码
 </span><span class="c1"></span>
-<span class="c1">// 满足 nums[l+1:lt+1] &lt; nums[lt+1:i-1] &lt;= nums[gt:r+1]
-</span><span class="c1">// 保证初始时 Left/Right/Mid 均为空
-</span><span class="c1"></span><span class="nx">lt</span><span class="p">,</span> <span class="nx">gt</span><span class="p">,</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">l</span><span class="o">+</span><span class="mi">1</span>
+    <span class="c1">// 满足 nums[l+1:lt+1] &lt; nums[lt+1:i-1] &lt;= nums[gt:r+1]
+</span><span class="c1"></span>    <span class="c1">// 保证初始时 Left/Right/Mid 均为空
+</span><span class="c1"></span>    <span class="nx">lt</span><span class="p">,</span> <span class="nx">gt</span><span class="p">,</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">l</span><span class="o">+</span><span class="mi">1</span>
 
-<span class="k">for</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">gt</span> <span class="p">{</span>    <span class="c1">// 如果i与gt相遇，遍历结束. 而且这个限制保证了 i 不会越界
-</span><span class="c1"></span>    <span class="c1">// 等于base时 i 右移
-</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">{</span>
-        <span class="nx">i</span><span class="o">++</span><span class="p">;</span> <span class="k">continue</span>
+    <span class="k">for</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">gt</span> <span class="p">{</span>    <span class="c1">// 如果i与gt相遇，遍历结束. 而且这个限制保证了 i 不会越界
+</span><span class="c1"></span>        <span class="c1">// 等于base时 i 右移
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">{</span>
+            <span class="nx">i</span><span class="o">++</span><span class="p">;</span> <span class="k">continue</span>
+        <span class="p">}</span>
+        <span class="c1">// 小于base i右移lt右移
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span> <span class="p">&lt;</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">{</span>
+            <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">lt</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">lt</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span>
+            <span class="nx">i</span><span class="o">++</span><span class="p">;</span> <span class="nx">lt</span><span class="o">++</span><span class="p">;</span> <span class="k">continue</span>
+        <span class="p">}</span>
+        <span class="c1">// 大于base gt左移, 新交换过来的 i 仍需处理
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span> <span class="p">&gt;</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">{</span>
+            <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">gt</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">gt</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span>
+            <span class="nx">gt</span><span class="o">--</span><span class="p">;</span> <span class="k">continue</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-    <span class="c1">// 小于base i右移lt右移
-</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span> <span class="p">&lt;</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">{</span>
-        <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">lt</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">lt</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span>
-        <span class="nx">i</span><span class="o">++</span><span class="p">;</span> <span class="nx">lt</span><span class="o">++</span><span class="p">;</span> <span class="k">continue</span>
-    <span class="p">}</span>
-    <span class="c1">// 大于base gt左移, 新交换过来的 i 仍需处理
-</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span> <span class="p">&gt;</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">{</span>
-        <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">gt</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">gt</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span>
-        <span class="nx">gt</span><span class="o">--</span><span class="p">;</span> <span class="k">continue</span>
-    <span class="p">}</span>
+    <span class="c1">// 交换 l 与 lt
+</span><span class="c1"></span>    <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">lt</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">lt</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span>
+    <span class="c1">// 返回p1,p2. p1=lt, p2=gt-1
+</span><span class="c1"></span>    <span class="k">return</span> <span class="nx">lt</span><span class="p">,</span> <span class="nx">gt</span><span class="o">-</span><span class="mi">1</span>
 <span class="p">}</span>
-<span class="c1">// 交换 l 与 lt
-</span><span class="c1"></span><span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">lt</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">lt</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span>
-<span class="c1">// 返回p1,p2. p1=lt, p2=gt-1
-</span><span class="c1"></span><span class="k">return</span> <span class="nx">lt</span><span class="p">,</span> <span class="nx">gt</span><span class="o">-</span><span class="mi">1</span>
-<span class="p">}</span></code></pre></td></tr></table>
+</code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
-<h3 id="6-5-性能指标">6.5 性能指标</h3>
-
+</div><h3 id="65-性能指标">6.5 性能指标</h3>
 <ul>
 <li>快速排序算法的参数指标</li>
 </ul>
-
 <table>
 <thead>
 <tr>
@@ -1608,7 +1556,6 @@
 <th align="center">稳定性</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center">$O(nlogn)$</td>
@@ -1619,62 +1566,43 @@
 </tr>
 </tbody>
 </table>
-
-<h3 id="6-6-分治思想">6.6 分治思想</h3>
-
+<h3 id="66-分治思想">6.6 分治思想</h3>
 <p>快速排序和归并排序都利用了分治思想。</p>
-
 <ul>
 <li><strong>分而治之</strong>： 将原问题分割为同等结构的子问题，之后将子问题逐一解决，原问题也就得到了解决。</li>
 <li>归并排序和快速排序代表了分治思想的两种思路：
-
 <ul>
 <li>归并排序<strong>分</strong>是简单的二分，重点在<strong>合</strong>的步骤</li>
 <li>快速排序<strong>合</strong>是简单的区间连接(都不需要操作)，重点在于<strong>分</strong>的步骤</li>
-</ul></li>
 </ul>
-
-<h3 id="6-7-练习">6.7 练习</h3>
-
+</li>
+</ul>
+<h3 id="67-练习">6.7 练习</h3>
 <ul>
-<li><p><a href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array/">数组中的第k大元素</a></p>
+<li>
+<p><a href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array/">数组中的第k大元素</a></p>
+<pre><code>  在未排序的数组中找到第 k 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
+
+  示例 1:
+
+  输入: [3,2,1,5,6,4] 和 k = 2
+  输出: 5
+  示例 2:
+
+  输入: [3,2,3,1,2,4,5,5,6] 和 k = 4
+  输出: 4
+  说明:
+
+  你可以假设 k 总是有效的，且 1 ≤ k ≤ 数组的长度。
+</code></pre>
+</li>
+<li>
+<p>解答</p>
+</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">在未排序的数组中找到第 k 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
-
-示例 1:
-
-输入: [3,2,1,5,6,4] 和 k = 2
-输出: 5
-示例 2:
-
-输入: [3,2,3,1,2,4,5,5,6] 和 k = 4
-输出: 4
-说明:
-
-你可以假设 k 总是有效的，且 1 ≤ k ≤ 数组的长度。</pre></td></tr></table>
-</div>
-</div></li>
-
-<li><p>解答</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1733,106 +1661,105 @@
 </span><span class="c1"></span>
 <span class="c1">// 普通快排 + 缩减排序空间
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">findKthLargest</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">k</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
-<span class="k">if</span> <span class="nx">n</span> <span class="p">&lt;</span> <span class="nx">k</span> <span class="p">{</span><span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span>
+    <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">n</span> <span class="p">&lt;</span> <span class="nx">k</span> <span class="p">{</span><span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span>
 
-<span class="k">return</span> <span class="nf">_quick</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nf">_quick</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="kd">func</span> <span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-<span class="k">if</span> <span class="nx">l</span> <span class="o">==</span> <span class="nx">r</span> <span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]}</span>   <span class="c1">// 区间只剩一个元素，只可能是这个了
+    <span class="k">if</span> <span class="nx">l</span> <span class="o">==</span> <span class="nx">r</span> <span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]}</span>   <span class="c1">// 区间只剩一个元素，只可能是这个了
 </span><span class="c1"></span>
-<span class="nx">p</span> <span class="o">:=</span> <span class="nf">_partition</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+    <span class="nx">p</span> <span class="o">:=</span> <span class="nf">_partition</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
 
-<span class="c1">// 必然会遇到第k大元素，遇到了就没必要继续递归下去了
-</span><span class="c1"></span><span class="k">if</span> <span class="nx">p</span> <span class="o">==</span> <span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="nx">k</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="p">]}</span>
+    <span class="c1">// 必然会遇到第k大元素，遇到了就没必要继续递归下去了
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">p</span> <span class="o">==</span> <span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="nx">k</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="p">]}</span>
 
-<span class="c1">// 否则向靠近n-k侧递归
-</span><span class="c1"></span><span class="k">if</span> <span class="nx">p</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="o">-</span><span class="nx">k</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>    <span class="c1">// &gt; n-k
-</span><span class="c1"></span>    <span class="k">return</span> <span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="p">}</span>
+    <span class="c1">// 否则向靠近n-k侧递归
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">p</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="o">-</span><span class="nx">k</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>    <span class="c1">// &gt; n-k
+</span><span class="c1"></span>        <span class="k">return</span> <span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 
 
 <span class="kd">func</span> <span class="nf">_partition</span><span class="p">(</span><span class="nx">nums</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-<span class="c1">// 随机选取基数
-</span><span class="c1"></span><span class="nx">randIdx</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="nx">r</span><span class="o">-</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nx">l</span>
-<span class="c1">// 交换到最左边
-</span><span class="c1"></span><span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">randIdx</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">randIdx</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span>
+    <span class="c1">// 随机选取基数
+</span><span class="c1"></span>    <span class="nx">randIdx</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="nx">r</span><span class="o">-</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nx">l</span>
+    <span class="c1">// 交换到最左边
+</span><span class="c1"></span>    <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">randIdx</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">randIdx</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span>
 
-<span class="nx">p</span> <span class="o">:=</span> <span class="nx">l</span>    <span class="c1">// p记录Less与Right交界，p为Less右端点，包含在内
-</span><span class="c1">// 向右遍历
-</span><span class="c1"></span><span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;=</span><span class="nx">r</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span> <span class="p">&lt;</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">{</span>
-        <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span>
-        <span class="nx">p</span><span class="o">++</span> <span class="c1">// p后移
-</span><span class="c1"></span>    <span class="p">}</span>
+    <span class="nx">p</span> <span class="o">:=</span> <span class="nx">l</span>    <span class="c1">// p记录Less与Right交界，p为Less右端点，包含在内
+</span><span class="c1"></span>    <span class="c1">// 向右遍历
+</span><span class="c1"></span>    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;=</span><span class="nx">r</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span> <span class="p">&lt;</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">{</span>
+            <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span>
+            <span class="nx">p</span><span class="o">++</span> <span class="c1">// p后移
+</span><span class="c1"></span>        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// 交换基数与Less末位，交换后p为基数所在
+</span><span class="c1"></span>    <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nx">p</span>
 <span class="p">}</span>
-<span class="c1">// 交换基数与Less末位，交换后p为基数所在
-</span><span class="c1"></span><span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span>
-<span class="k">return</span> <span class="nx">p</span>
-<span class="p">}</span></code></pre></td></tr></table>
+</code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
-<h2 id="7-堆排序">7. 堆排序</h2>
-
-<h3 id="7-1-堆与优先队列">7.1 堆与优先队列</h3>
-
+</div><h2 id="7-堆排序">7. 堆排序</h2>
+<h3 id="71-堆与优先队列">7.1 堆与优先队列</h3>
 <ul>
 <li>优先队列是堆极为重要的一个应用</li>
 <li>优先队列： 出队顺序与优先级相关，与入队顺序无关。
-
 <ul>
 <li>医院看病：急诊/普通</li>
 <li>CPU任务调度</li>
 <li>游戏AI优先攻击</li>
-</ul></li>
+</ul>
+</li>
 <li>优先队列的意义：
-
 <ul>
-<li>对于<strong>从$N$个元素中选出前$M$个元素</strong>问题：</li>
+<li>对于<strong>从$N$个元素中选出前$M$个元素</strong>问题：
+<ul>
 <li>使用全排序算法(快排等)$O(NlogN)$</li>
 <li>使用优先队列$O(NlogM)$</li>
 <li>尤其是当N很大时，优势明显</li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 <li>优先队列的实现：
-
 <ul>
 <li>普通数组：入队$O(1)$，出队$O(n)$</li>
 <li>顺序数组：入队$O(n)$，出队$O(1)$</li>
 <li>堆：入队$O(logn)$，出队$O(logn)$</li>
-</ul></li>
+</ul>
+</li>
 <li>堆的特点：适合<strong>动态</strong>数据的维护</li>
 </ul>
-
-<h3 id="7-2-堆的存储结构">7.2 堆的存储结构</h3>
-
+<h3 id="72-堆的存储结构">7.2 堆的存储结构</h3>
 <ul>
 <li>二叉堆(基于<strong>完全二叉树</strong>)
-
 <ul>
 <li>最大堆(每个节点的值总小于等于其父节点的值)和最小堆</li>
-</ul></li>
+</ul>
+</li>
 <li>对于堆，使用<strong>数组存储</strong>比使用节点构成的树更好
-
 <ul>
 <li>这是因为堆是完全二叉树，完全二叉树适合使用数组存储</li>
-<li>若根节点设为下标为$1$，</li>
+<li>若根节点设为下标为$1$，
+<ul>
 <li>则对于下标为$i$的节点，其左右子节点下标分别为$2*i$、$2i+1$</li>
 <li>对于下标为$i$的节点，其父节点下标为$i/2$</li>
-<li>若根节点下表设为$0$，相应修改即可</li>
-</ul></li>
 </ul>
-
+</li>
+<li>若根节点下表设为$0$，相应修改即可</li>
+</ul>
+</li>
+</ul>
 <p>一个固定容量、存储整型的最大堆的实现：
 (go语言标准库提供了heap.Interface接口，可以将任何实现了其的结构转化为堆)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1987,20 +1914,19 @@
         <span class="c1">// k 下移一层
 </span><span class="c1"></span>        <span class="nx">k</span> <span class="p">=</span> <span class="nx">left</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<ul>
+</div><ul>
 <li>优化： 上面的实现中使用交换进行上浮和下沉，这可以使用一个变量记录待上浮/下沉的值，然后用不断的赋值来实现。参考插入排序的实现</li>
 </ul>
-
-<h3 id="7-3-基础堆排序与heapify">7.3 基础堆排序与heapify</h3>
-
+<h3 id="73-基础堆排序与heapify">7.3 基础堆排序与heapify</h3>
 <ul>
-<li><p>有了堆结构之后，堆排序实现如下：</p>
+<li>有了堆结构之后，堆排序实现如下：</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2016,41 +1942,39 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">heapSort</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
-<span class="k">if</span> <span class="nx">n</span> <span class="p">&lt;</span> <span class="mi">2</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
+    <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">n</span> <span class="p">&lt;</span> <span class="mi">2</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
 
-<span class="nx">heap</span> <span class="o">:=</span> <span class="nf">NewMaxHeap</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
-<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-    <span class="nx">heap</span><span class="p">.</span><span class="nf">Insert</span><span class="p">(</span><span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
-<span class="p">}</span>
+    <span class="nx">heap</span> <span class="o">:=</span> <span class="nf">NewMaxHeap</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">heap</span><span class="p">.</span><span class="nf">Insert</span><span class="p">(</span><span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+    <span class="p">}</span>
 
-<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span> <span class="p">{</span>
-    <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">heap</span><span class="p">.</span><span class="nf">RemoveMax</span><span class="p">()</span>
+    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span> <span class="p">{</span>
+        <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">heap</span><span class="p">.</span><span class="nf">RemoveMax</span><span class="p">()</span>
+    <span class="p">}</span>
 <span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+</code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p><strong>Heapify</strong></p>
-
+</div><ul>
+<li><strong>Heapify</strong>
 <ul>
 <li>对于一开始有一定长度的数组（长度为$n$），前面的普通堆排序(将数据逐一插入空堆)需要对$n$个元素都进行一次插入操作，时间复杂度为$O(nlogn)$</li>
 <li>但事实上，可以直接根据数组进行堆化（Heapify），复杂度为$O(n)$</li>
 <li>堆化步骤：</li>
-</ul></li>
-
-<li><p>设有数组长度为$n$，开辟新数组长度为$n+1$</p></li>
-
-<li><p>定位到此时二叉树(还么开始堆化)的最后一个节点下标为$n$</p></li>
-
-<li><p>其父节点为$n/2$，为二叉树中<strong>第一个不是叶子的节点</strong>的索引。堆化从$n/2$开始</p></li>
-
-<li><p>对于当前节点$n/2$，与其左右孩子比较，尝试下沉到合适位置</p></li>
-
-<li><p>继续对$n/2-1, \cdots, 1$进行下沉，找到其位置，当前$n/2$个节点找到应放的位置后，整个数组就完成了堆化</p>
+</ul>
+</li>
+</ul>
+<ol>
+<li>设有数组长度为$n$，开辟新数组长度为$n+1$</li>
+<li>定位到此时二叉树(还么开始堆化)的最后一个节点下标为$n$</li>
+<li>其父节点为$n/2$，为二叉树中<strong>第一个不是叶子的节点</strong>的索引。堆化从$n/2$开始</li>
+<li>对于当前节点$n/2$，与其左右孩子比较，尝试下沉到合适位置</li>
+<li>继续对$n/2-1, \cdots, 1$进行下沉，找到其位置，当前$n/2$个节点找到应放的位置后，整个数组就完成了堆化</li>
+</ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -2062,35 +1986,35 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">NewMaxHeapFromInts</span><span class="p">(</span><span class="nx">arr</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">MaxHeap</span> <span class="p">{</span>
-<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>
-<span class="nx">h</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">MaxHeap</span><span class="p">{</span><span class="nb">append</span><span class="p">([]</span><span class="kt">int</span><span class="p">{</span><span class="mi">0</span><span class="p">},</span> <span class="nx">arr</span><span class="o">...</span><span class="p">),</span> <span class="nx">n</span><span class="p">}</span>
-<span class="nx">start</span> <span class="o">:=</span> <span class="nx">n</span><span class="o">/</span><span class="mi">2</span>
-<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">start</span><span class="p">;</span> <span class="nx">i</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span> <span class="p">{</span>
-    <span class="nx">h</span><span class="p">.</span><span class="nf">shiftDown</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="k">return</span> <span class="nx">h</span>    <span class="c1">// 现在已经堆化成功
-</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+    <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>
+    <span class="nx">h</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">MaxHeap</span><span class="p">{</span><span class="nb">append</span><span class="p">([]</span><span class="kt">int</span><span class="p">{</span><span class="mi">0</span><span class="p">},</span> <span class="nx">arr</span><span class="o">...</span><span class="p">),</span> <span class="nx">n</span><span class="p">}</span>
+    <span class="nx">start</span> <span class="o">:=</span> <span class="nx">n</span><span class="o">/</span><span class="mi">2</span>
+    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">start</span><span class="p">;</span> <span class="nx">i</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span> <span class="p">{</span>
+        <span class="nx">h</span><span class="p">.</span><span class="nf">shiftDown</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">h</span>    <span class="c1">// 现在已经堆化成功
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
-<h3 id="7-4-原地堆排序">7.4 原地堆排序</h3>
-
+</div><h3 id="74-原地堆排序">7.4 原地堆排序</h3>
 <ul>
 <li>在前面的普通堆排序或者heapify中，使用到了$O(n)$的空间，如同归并排序一样，$O(n)$的空间复杂度在数据量大时是难以承受的代价</li>
-
-<li><p>其实可以原地进行堆排序，实现$O(1)$空间，但是它需要注意几点：</p>
-
+<li>其实可以原地进行堆排序，实现$O(1)$空间，但是它需要注意几点：
 <ul>
-<li>下标从0开始（因为给定的数据数组下标就是从0开始的）</li>
+<li>下标从0开始（因为给定的数据数组下标就是从0开始的）
+<ul>
 <li>节点i的父节点下标为 $(i-1)/2$</li>
 <li>节点i的左右子节点下标为 $2i+1, 2i+2$</li>
+</ul>
+</li>
 <li>第一步，将整个数组原地堆化成最大堆</li>
-
-<li><p>第二步，每次将$nums[0]$（堆顶）与指针$p$（从最右端开始）指向的元素交换位置，然后对$nums[:p]$区间里的新堆顶$nums[0]$不断下沉以使得$nums[:p]$仍是一个最大堆。这个过程就是不断将最大值给交换到区间右侧的其最终该放的位置，这有点类似于选择排序，只不过这里通过堆顶来选择处理的元素</p>
+<li>第二步，每次将$nums[0]$（堆顶）与指针$p$（从最右端开始）指向的元素交换位置，然后对$nums[:p]$区间里的新堆顶$nums[0]$不断下沉以使得$nums[:p]$仍是一个最大堆。这个过程就是不断将最大值给交换到区间右侧的其最终该放的位置，这有点类似于选择排序，只不过这里通过堆顶来选择处理的元素</li>
+</ul>
+</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2126,6 +2050,7 @@
 </span><span class="lnt">34
 </span><span class="lnt">35
 </span><span class="lnt">36
+</span><span class="lnt">37
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">heapSort3</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
@@ -2163,34 +2088,33 @@
 		<span class="c1">// k下移一层
 </span><span class="c1"></span>		<span class="nx">k</span> <span class="p">=</span> <span class="nx">left</span>
 	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
 </div>
-</div></li>
-</ul></li>
-</ul>
-
-<h3 id="7-5-索引堆-index-heap">7.5 索引堆（Index Heap）</h3>
-
+</div><h3 id="75-索引堆index-heap">7.5 索引堆（Index Heap）</h3>
 <ul>
 <li>为什么要索引堆？
-
 <ul>
 <li>原因一：复杂数据结构赋值/交换开销较大（可以使用指针替代）</li>
-<li>原因二（重要）：元素位置在堆化后发生变化，难以定位。</li>
+<li>原因二（重要）：元素位置在堆化后发生变化，难以定位。
+<ul>
 <li>（堆只提供出堆入堆操作）</li>
 <li>更新困难，需要遍历</li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 <li>索引堆的核心思路：将序列中元素的索引构建成堆。
-
 <ul>
 <li>堆化过程中只是索引换了位置，对于调用者来说使用索引还是可以直接$O(1)$访问元素</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>一个以下标0开始的索引最大堆实现：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">  1
+<pre class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -2447,28 +2371,27 @@
 			<span class="k">return</span>
 		<span class="p">}</span>
 	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="7-6-索引堆优化">7.6 索引堆优化</h3>
-
+</div><h3 id="76-索引堆优化">7.6 索引堆优化</h3>
 <ul>
 <li>在上一节索引堆的实现中$change$操作的复杂度是线性的，在大数据集情况下，整体时间复杂度达到$O(n^2)$，这往往是不能接受的</li>
 <li>要想优化$change$操作复杂度，那么要有一个能够<strong>根据索引$i$快速找到对应的$j$</strong></li>
 <li>这就用到了<strong>反向索引</strong>的思路（事实上在工程代码中经常需要设置反向索引）</li>
 <li>普通索引堆使用了 $indexes$数组，其满足$indexes[j] = i$</li>
 <li>反向索引就是用一个数组$reverse$记录$reverse[i] = j$</li>
-
-<li><p>这也等价于下面两条等式：</p>
-
+<li>这也等价于下面两条等式：
 <ul>
 <li>$indexes[reverse[i]] = i$</li>
 <li>$reverse[indexes[i]] = i$</li>
-
-<li><p>换句话说，需要保证“$reverse[indexes[i]] = i$”才能保证“$reverse$记录$reverse[i] = j$”</p>
+<li>换句话说，需要保证“$reverse[indexes[i]] = i$”才能保证“$reverse$记录$reverse[i] = j$”</li>
+</ul>
+</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">  1
+<pre class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -2648,6 +2571,7 @@
 </span><span class="lnt">178
 </span><span class="lnt">179
 </span><span class="lnt">180
+</span><span class="lnt">181
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 索引堆 Index Heap + 反向索引优化change操作
@@ -2829,89 +2753,142 @@
 </span><span class="c1"></span>	<span class="k">if</span> <span class="nx">i</span><span class="p">&lt;</span><span class="mi">0</span> <span class="o">||</span> <span class="nx">i</span><span class="o">&gt;=</span><span class="nx">h</span><span class="p">.</span><span class="nx">size</span> <span class="p">{</span><span class="k">return</span> <span class="kc">false</span><span class="p">}</span>
 	<span class="c1">// 接着要判断reverse数组是否包含其。 因为索引在删除时或者插入时不是连续增加的(你也不知道哪就&#34;空出一个位置&#34;了)
 </span><span class="c1"></span>	<span class="k">return</span> <span class="nx">h</span><span class="p">.</span><span class="nx">reverse</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
 </div>
-</div></li>
-</ul></li>
-</ul>
-
-<h3 id="7-7-堆的应用">7.7 堆的应用</h3>
-
+</div><h3 id="77-堆的应用">7.7 堆的应用</h3>
 <ol>
 <li>优先队列</li>
-<li>在$N$个元素中选出前$M$个元素($N&gt;&gt;M$)，</li>
+<li>在$N$个元素中选出前$M$个元素($N&raquo;M$)，</li>
 <li>多路归并排序
-
 <ul>
 <li>普通归并每次区间二分。两个相邻区间的合并依赖双指针法</li>
 <li>可以每次 $d$ 分，每次取每个分段首位放在一起进行小顶堆排序，堆顶出列</li>
 <li>多路归并可以减小归并排序递归树的深度，让树变得扁平； 但是， 每次合并时比较的元素也就更多。因此选取一个合适的$d$值需要根据具体设备/数据集进行测试选出</li>
 <li>特殊情况：当$d = n$ 时，归并排序退化成堆排序</li>
-</ul></li>
+</ul>
+</li>
 <li>$d$叉堆
-
 <ul>
 <li>前面实现的是二叉堆</li>
 <li>性能平衡：$d$越多，树高越矮； 但每次shiftDown/shiftUp操作要比较的元素也就越多</li>
-</ul></li>
+</ul>
+</li>
 <li>最大堆、最小堆、最大索引堆、最小索引堆</li>
 <li>最大最小队列
-
 <ul>
 <li>存储数据流的同时能够高效返回最大值和最小值</li>
 <li>思路：维护一个大顶堆、一个小顶堆，两个堆存同一份数据</li>
-</ul></li>
+</ul>
+</li>
 <li>二项堆</li>
 <li>斐波那契堆</li>
 </ol>
-
-<h3 id="7-8-堆的实现细节优化">7.8 堆的实现细节优化</h3>
-
+<h3 id="78-堆的实现细节优化">7.8 堆的实现细节优化</h3>
 <ul>
 <li>$shiftDown/shiftUp$ 中使用赋值操作替代交换(swap)。也就是要用一个变量备份上浮或下沉的那个数据先。 （参考插入排序）</li>
 <li>表示堆的数组从0开始索引</li>
 <li>堆底层数组动态扩容</li>
 </ul>
-
-<h3 id="7-9-练习">7.9 练习</h3>
-
+<h3 id="79-练习">7.9 练习</h3>
 <ul>
 <li>练习一： <a href="https://leetcode-cn.com/problems/kth-largest-element-in-a-stream/">数据流中的第k大元素</a></li>
 <li>思路： 维护一个大小为k的小顶堆</li>
 </ul>
-
 <h2 id="8-基数排序">8. 基数排序</h2>
-
 <h2 id="9-拓扑排序">9. 拓扑排序</h2>
-
 <ul>
 <li>拓扑排序并不是线性排序</li>
 </ul>
-
 <h2 id="10-排序总结">10. 排序总结</h2>
-
-<p>||时间复杂度|原地排序|空间复杂度|可以稳定|
-|-|-|-|-|-|-|
-|冒泡排序|$n^2$|是|$O(1)$|是|
-|选择排序|$n^2$|是|$O(1)$|是|
-|插入排序|$n-n^2$|是|$O(1)$|是|
-|希尔排序|$n^{<sup>6</sup>&frasl;<sub>5</sub>}?$|是|$O(1)$|是|
-|归并排序|$nlogn$|否|$n+logn$|是|
-|快速排序|$nlogn$|是|$logn$|否|
-|三路快排|$n~nlogn$|是|$logn$|否|
-|堆排序|$nlogn$|是|$1$|否|</p>
-
+<table>
+<thead>
+<tr>
+<th></th>
+<th>时间复杂度</th>
+<th>原地排序</th>
+<th>空间复杂度</th>
+<th>可以稳定</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>冒泡排序</td>
+<td>$n^2$</td>
+<td>是</td>
+<td>$O(1)$</td>
+<td>是</td>
+<td></td>
+</tr>
+<tr>
+<td>选择排序</td>
+<td>$n^2$</td>
+<td>是</td>
+<td>$O(1)$</td>
+<td>是</td>
+<td></td>
+</tr>
+<tr>
+<td>插入排序</td>
+<td>$n-n^2$</td>
+<td>是</td>
+<td>$O(1)$</td>
+<td>是</td>
+<td></td>
+</tr>
+<tr>
+<td>希尔排序</td>
+<td>$n^{6/5}?$</td>
+<td>是</td>
+<td>$O(1)$</td>
+<td>是</td>
+<td></td>
+</tr>
+<tr>
+<td>归并排序</td>
+<td>$nlogn$</td>
+<td>否</td>
+<td>$n+logn$</td>
+<td>是</td>
+<td></td>
+</tr>
+<tr>
+<td>快速排序</td>
+<td>$nlogn$</td>
+<td>是</td>
+<td>$logn$</td>
+<td>否</td>
+<td></td>
+</tr>
+<tr>
+<td>三路快排</td>
+<td>$n~nlogn$</td>
+<td>是</td>
+<td>$logn$</td>
+<td>否</td>
+<td></td>
+</tr>
+<tr>
+<td>堆排序</td>
+<td>$nlogn$</td>
+<td>是</td>
+<td>$1$</td>
+<td>否</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li>$O(logn)$的空间复杂度指的是递归调用栈占用的大小</li>
 <li>可以通过<strong>自定义比较函数让排序函数不存在稳定性问题</strong>
-
 <ul>
 <li>例如学生成绩排名时，自定义比较函数先比较总成绩，总成绩一样再比较语文成绩，成绩完全一样，再比较名字字符串，或者再比较上一次排名,&hellip;..</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="其他参考材料">其他参考材料</h2>
-
 <ul>
 <li><a href="https://zhuanlan.zhihu.com/p/68672733">这或许是东半球讲十大排序算法最好的一篇文章</a></li>
 </ul>

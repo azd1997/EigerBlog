@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/algo/lt88/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2019-11-08T01:59:13+08:00" />
 <meta itemprop="name" content="Leetcode88——合并两个有序数组">
 <meta itemprop="description" content="题意 给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。 说明: 初始化 nums1 和 nums2 的元素数量分别为 m 和 n。 你可以假设 nums1 有足够">
-
-
 <meta itemprop="datePublished" content="2019-11-08T01:59:13&#43;08:00" />
 <meta itemprop="dateModified" content="2019-11-08T01:59:13&#43;08:00" />
-<meta itemprop="wordCount" content="6057">
+<meta itemprop="wordCount" content="6045">
 
 
 
-<meta itemprop="keywords" content="leetcode," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="leetcode," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Leetcode88——合并两个有序数组"/>
 <meta name="twitter:description" content="题意 给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。 说明: 初始化 nums1 和 nums2 的元素数量分别为 m 和 n。 你可以假设 nums1 有足够"/>
 
@@ -135,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 6057 words </span>
+          <span class="more-meta"> 6045 words </span>
           <span class="more-meta"> 13 mins read </span>
         
       </div>
@@ -145,80 +142,59 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#题意">题意</a></li>
-<li><a href="#解题之前我的思考-挺菜的">解题之前我的思考（挺菜的）</a></li>
-<li><a href="#解法一-暴力-合并数组再重排">解法一： 暴力（合并数组再重排）</a></li>
-<li><a href="#解法二-双指针法-从前向后">解法二： 双指针法/从前向后</a></li>
-<li><a href="#解法三-双指针法-从后向前">解法三： 双指针法/从后向前</a></li>
-<li><a href="#解法四-我自己的想法-二分查找加速填充-从后向前">解法四： 我自己的想法（二分查找加速填充） + 从后向前</a></li>
-<li><a href="#总结与反思">总结与反思</a></li>
-<li><a href="#链接">链接</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#题意">题意</a></li>
+    <li><a href="#解题之前我的思考挺菜的">解题之前我的思考（挺菜的）</a></li>
+    <li><a href="#解法一-暴力合并数组再重排">解法一： 暴力（合并数组再重排）</a></li>
+    <li><a href="#解法二-双指针法从前向后">解法二： 双指针法/从前向后</a></li>
+    <li><a href="#解法三-双指针法从后向前">解法三： 双指针法/从后向前</a></li>
+    <li><a href="#解法四-我自己的想法二分查找加速填充--从后向前">解法四： 我自己的想法（二分查找加速填充） + 从后向前</a></li>
+    <li><a href="#总结与反思">总结与反思</a></li>
+    <li><a href="#链接">链接</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h2 id="题意">题意</h2>
-
+      <h2 id="题意">题意</h2>
 <p>给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。</p>
-
 <p>说明:</p>
-
 <ul>
 <li>初始化 nums1 和 nums2 的元素数量分别为 m 和 n。</li>
 <li>你可以假设 nums1 有足够的空间（空间大小大于或等于 m + n）来保存 nums2 中的元素。</li>
 </ul>
-
 <p>示例:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入:
+<pre><code>输入:
 nums1 = [1,2,3,0,0,0], m = 3
 nums2 = [2,5,6],       n = 3
 
-输出: [1,2,2,3,5,6]</pre></td></tr></table>
-</div>
-</div>
-<h2 id="解题之前我的思考-挺菜的">解题之前我的思考（挺菜的）</h2>
-
+输出: [1,2,2,3,5,6]
+</code></pre>
+<h2 id="解题之前我的思考挺菜的">解题之前我的思考（挺菜的）</h2>
 <p>合并两个有序数组
 假设nums1(长度m)空间足够，nums2(长度n)并入nums1</p>
-
-<p>解法：
-1. 最蠢最暴力解法：遍历nums2,将nums2[i]从前向后与nums1[j]比较，当nums2[i]&gt;nums1[j]时插到其后
-        （或者当nums2[i]&lt;nums1[j]时插到其前，这种少一点数据搬迁工作量，而多了一些数据大小比较的工作量）
-        时间复杂度O(n*m/2*m/2) 空间复杂度O(1)
-        n是nums2遍历循环，第一个m是遍历nums1大小比较，第二个m是找到插入位置后插入操作
-2. 在解法1基础上优化一些：用一个变量index标记nums2[i]插入到nums1的位置，nums2[i+1]就直接从这个位置起开始比较nums1的数据
-        时间复杂度比较难求，但显然比解法1高效许多
-3. 在解法2基础上加上二分查找比较，比一个一个比较快多了，毕竟二分查找本身时间复杂度是O(logn)
-4. 标记加二分查找使得找到插入位置变得高效，但是还有数据搬迁仍然非常耗时。在解法4中引入辅助数组a=[]int。
-        这个辅助数组有两种用法：
-        4.1 如果不要求nums1指针不变，直接用a=[m+n]int存合并后的有序数组，然后再让nums1指向a。
-            这种做法下如果要保证nums1指针不变，那么就将a数据拷贝给nums1
-        4.2 如果要求nums1要求指针不变，除了上面的4.1后一种做法外，还以用这个辅助数组来存储nums1和nums2(这里a可以是一个m+n的，也可以是拆成两个)
-            各数据的新下标位置并不实际搬移数据，等到a记录了所有数据的新位置，再计算搬移量来进行搬移
-5. 还能不能更快呢？</p>
-
+<p>解法：</p>
+<ol>
+<li>最蠢最暴力解法：遍历nums2,将nums2[i]从前向后与nums1[j]比较，当nums2[i]&gt;nums1[j]时插到其后
+（或者当nums2[i]&lt;nums1[j]时插到其前，这种少一点数据搬迁工作量，而多了一些数据大小比较的工作量）
+时间复杂度O(n<em>m/2</em>m/2) 空间复杂度O(1)
+n是nums2遍历循环，第一个m是遍历nums1大小比较，第二个m是找到插入位置后插入操作</li>
+<li>在解法1基础上优化一些：用一个变量index标记nums2[i]插入到nums1的位置，nums2[i+1]就直接从这个位置起开始比较nums1的数据
+时间复杂度比较难求，但显然比解法1高效许多</li>
+<li>在解法2基础上加上二分查找比较，比一个一个比较快多了，毕竟二分查找本身时间复杂度是O(logn)</li>
+<li>标记加二分查找使得找到插入位置变得高效，但是还有数据搬迁仍然非常耗时。在解法4中引入辅助数组a=[]int。
+这个辅助数组有两种用法：
+4.1 如果不要求nums1指针不变，直接用a=[m+n]int存合并后的有序数组，然后再让nums1指向a。
+这种做法下如果要保证nums1指针不变，那么就将a数据拷贝给nums1
+4.2 如果要求nums1要求指针不变，除了上面的4.1后一种做法外，还以用这个辅助数组来存储nums1和nums2(这里a可以是一个m+n的，也可以是拆成两个)
+各数据的新下标位置并不实际搬移数据，等到a记录了所有数据的新位置，再计算搬移量来进行搬移</li>
+<li>还能不能更快呢？</li>
+</ol>
 <p><em>参考官方题解等，我实现了Sol1_1~Sol_1_6.</em></p>
-
-<h2 id="解法一-暴力-合并数组再重排">解法一： 暴力（合并数组再重排）</h2>
+<h2 id="解法一-暴力合并数组再重排">解法一： 暴力（合并数组再重排）</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -277,13 +253,13 @@ nums2 = [2,5,6],       n = 3
 		<span class="nx">nums1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="nx">m</span><span class="p">]</span>
 	<span class="p">}</span>
 	<span class="nx">sort</span><span class="p">.</span><span class="nf">Sort</span><span class="p">(</span><span class="nx">sort</span><span class="p">.</span><span class="nf">IntSlice</span><span class="p">(</span><span class="nx">nums1</span><span class="p">))</span>		<span class="c1">// 时间复杂度O((m+n)log(m+n))且不稳定
-</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="解法二-双指针法-从前向后">解法二： 双指针法/从前向后</h2>
+</div><h2 id="解法二-双指针法从前向后">解法二： 双指针法/从前向后</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">  1
+<pre class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -576,13 +552,13 @@ nums2 = [2,5,6],       n = 3
 		<span class="nb">copy</span><span class="p">(</span><span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="o">+</span><span class="nx">p2</span><span class="p">:],</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">:])</span>
 	<span class="p">}</span>
 	<span class="c1">// 最后nums1就得到排好序的合并数组了
-</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="解法三-双指针法-从后向前">解法三： 双指针法/从后向前</h2>
+</div><h2 id="解法三-双指针法从后向前">解法三： 双指针法/从后向前</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -777,17 +753,15 @@ nums2 = [2,5,6],       n = 3
 		<span class="nb">copy</span><span class="p">(</span><span class="nx">nums1</span><span class="p">[:</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="nx">nums2</span><span class="p">[:</span><span class="nx">p2</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>		<span class="c1">// 注意go切片[a:b]右半边b是不包含的
 </span><span class="c1"></span>	<span class="p">}</span>
 	<span class="c1">// 最后nums1就得到排好序的合并数组了
-</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="解法四-我自己的想法-二分查找加速填充-从后向前">解法四： 我自己的想法（二分查找加速填充） + 从后向前</h2>
-
+</div><h2 id="解法四-我自己的想法二分查找加速填充--从后向前">解法四： 我自己的想法（二分查找加速填充） + 从后向前</h2>
 <p>Sol_1_7其实还有优化空间，那就是从nums1和nums2中选较短的来作循环遍历，这样的话，整体时间复杂度就是O（min(m,n)），嫌麻烦我就没再继续写了。</p>
-
 <p>至于代码中的switch语句只是go提供的一个语法糖。看作if&hellip;else if &hellip;else 即可。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">  1
+<pre class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -1042,19 +1016,16 @@ nums2 = [2,5,6],       n = 3
 	<span class="p">}</span>
 
 	<span class="c1">// 这样，要么是在递归二分的过程中遇到了相等的中间值，要么是没遇到但是区间比较小变成了顺序比较扫描出了index结果
-</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="总结与反思">总结与反思</h2>
-
+</div><h2 id="总结与反思">总结与反思</h2>
 <ul>
 <li>双指针法应用于有序数组</li>
 <li>从后向前遍历有时有奇效</li>
 <li>有序数组中二分查找加速逼近目标</li>
 </ul>
-
 <h2 id="链接">链接</h2>
-
 <ul>
 <li>Leetcode题解：<a href="https://leetcode-cn.com/problems/merge-sorted-array/solution/he-bing-liang-ge-you-xu-shu-zu-you-hua-yu-zheng-li/">https://leetcode-cn.com/problems/merge-sorted-array/solution/he-bing-liang-ge-you-xu-shu-zu-you-hua-yu-zheng-li/</a></li>
 <li>Github: <a href="https://github.com/azd1997/Leetcode-training/blob/master/lt88/1.go">https://github.com/azd1997/Leetcode-training/blob/master/lt88/1.go</a></li>

@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Eiger" /><meta name="description" content="1. 题意 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 1 2 3 4 5 6 输入: [1,2,3,4,5,6,7] 和 k = 3 输出: [5,6,7,1,2,3,4] 解释: 向右旋转 1 步: [7,1,2,3,4,5,6] 向右旋转" /><meta name="keywords" content="数组" />
+<meta name="author" content="Eiger" /><meta name="description" content="1. 题意 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 输入: [1,2,3,4,5,6,7] 和 k = 3 输出: [5,6,7,1,2,3,4] 解释: 向右旋转 1 步: [7,1,2,3,4,5,6] 向右旋转 2 步: [6,7,1,2,3,4,5] 向右" /><meta name="keywords" content="数组" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/algo/lt189/" />
@@ -39,25 +39,22 @@
 
 
 <meta property="og:title" content="Leetcode189——旋转数组" />
-<meta property="og:description" content="1. 题意 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 1 2 3 4 5 6 输入: [1,2,3,4,5,6,7] 和 k = 3 输出: [5,6,7,1,2,3,4] 解释: 向右旋转 1 步: [7,1,2,3,4,5,6] 向右旋转" />
+<meta property="og:description" content="1. 题意 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 输入: [1,2,3,4,5,6,7] 和 k = 3 输出: [5,6,7,1,2,3,4] 解释: 向右旋转 1 步: [7,1,2,3,4,5,6] 向右旋转 2 步: [6,7,1,2,3,4,5] 向右" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://azd1997.github.io/post/algo/lt189/" />
 <meta property="article:published_time" content="2019-11-06T22:36:36+08:00" />
 <meta property="article:modified_time" content="2019-11-06T22:36:36+08:00" />
 <meta itemprop="name" content="Leetcode189——旋转数组">
-<meta itemprop="description" content="1. 题意 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 1 2 3 4 5 6 输入: [1,2,3,4,5,6,7] 和 k = 3 输出: [5,6,7,1,2,3,4] 解释: 向右旋转 1 步: [7,1,2,3,4,5,6] 向右旋转">
-
-
+<meta itemprop="description" content="1. 题意 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 输入: [1,2,3,4,5,6,7] 和 k = 3 输出: [5,6,7,1,2,3,4] 解释: 向右旋转 1 步: [7,1,2,3,4,5,6] 向右旋转 2 步: [6,7,1,2,3,4,5] 向右">
 <meta itemprop="datePublished" content="2019-11-06T22:36:36&#43;08:00" />
 <meta itemprop="dateModified" content="2019-11-06T22:36:36&#43;08:00" />
-<meta itemprop="wordCount" content="2981">
+<meta itemprop="wordCount" content="2970">
 
 
 
-<meta itemprop="keywords" content="leetcode," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="leetcode," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Leetcode189——旋转数组"/>
-<meta name="twitter:description" content="1. 题意 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 1 2 3 4 5 6 输入: [1,2,3,4,5,6,7] 和 k = 3 输出: [5,6,7,1,2,3,4] 解释: 向右旋转 1 步: [7,1,2,3,4,5,6] 向右旋转"/>
+<meta name="twitter:description" content="1. 题意 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 输入: [1,2,3,4,5,6,7] 和 k = 3 输出: [5,6,7,1,2,3,4] 解释: 向右旋转 1 步: [7,1,2,3,4,5,6] 向右旋转 2 步: [6,7,1,2,3,4,5] 向右"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -135,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 2981 words </span>
+          <span class="more-meta"> 2970 words </span>
           <span class="more-meta"> 6 mins read </span>
         
       </div>
@@ -145,85 +142,54 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#1-题意">1. 题意</a></li>
-<li><a href="#2-解题过程及解法整理">2. 解题过程及解法整理</a>
-<ul>
-<li><a href="#2-1-解法一-失败的尝试">2.1 解法一 (失败的尝试)</a></li>
-<li><a href="#2-2-解法二-暴力旋转">2.2 解法二 暴力旋转</a></li>
-<li><a href="#2-3-解法三-暴力旋转优化k">2.3 解法三 暴力旋转优化k</a></li>
-<li><a href="#2-4-解法四-辅助数组记录原始状态">2.4 解法四 辅助数组记录原始状态</a></li>
-<li><a href="#2-5-解法五-数组拼接">2.5 解法五 数组拼接</a></li>
-<li><a href="#2-6-解法六-三次反转">2.6 解法六 三次反转</a></li>
-<li><a href="#2-7-解法七-环状替换">2.7 解法七 环状替换</a></li>
-</ul></li>
-<li><a href="#3-总结">3. 总结</a></li>
-<li><a href="#4-leetcode题解">4. Leetcode题解</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#1-题意">1. 题意</a></li>
+    <li><a href="#2-解题过程及解法整理">2. 解题过程及解法整理</a>
+      <ul>
+        <li><a href="#21-解法一-失败的尝试">2.1 解法一 (失败的尝试)</a></li>
+        <li><a href="#22-解法二-暴力旋转">2.2 解法二 暴力旋转</a></li>
+        <li><a href="#23-解法三-暴力旋转优化k">2.3 解法三 暴力旋转优化k</a></li>
+        <li><a href="#24-解法四-辅助数组记录原始状态">2.4 解法四 辅助数组记录原始状态</a></li>
+        <li><a href="#25-解法五-数组拼接">2.5 解法五 数组拼接</a></li>
+        <li><a href="#26-解法六-三次反转">2.6 解法六 三次反转</a></li>
+        <li><a href="#27-解法七-环状替换">2.7 解法七 环状替换</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-总结">3. 总结</a></li>
+    <li><a href="#4-leetcode题解">4. Leetcode题解</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h2 id="1-题意">1. 题意</h2>
-
+      <h2 id="1-题意">1. 题意</h2>
 <p>给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。</p>
-
 <p>示例 1:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入: [1,2,3,4,5,6,7] 和 k = 3
+<pre><code>输入: [1,2,3,4,5,6,7] 和 k = 3
 输出: [5,6,7,1,2,3,4]
 解释:
 向右旋转 1 步: [7,1,2,3,4,5,6]
 向右旋转 2 步: [6,7,1,2,3,4,5]
-向右旋转 3 步: [5,6,7,1,2,3,4]</pre></td></tr></table>
-</div>
-</div>
+向右旋转 3 步: [5,6,7,1,2,3,4]
+</code></pre>
 <p>示例 2:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入: [-1,-100,3,99] 和 k = 2
+<pre><code>输入: [-1,-100,3,99] 和 k = 2
 输出: [3,99,-1,-100]
 解释:
 向右旋转 1 步: [99,-1,-100,3]
-向右旋转 2 步: [3,99,-1,-100]</pre></td></tr></table>
-</div>
-</div>
+向右旋转 2 步: [3,99,-1,-100]
+</code></pre>
 <p>说明:</p>
-
 <ul>
 <li>尽可能想出更多的解决方案，至少有三种不同的方法可以解决这个问题。</li>
 <li>要求使用空间复杂度为 O(1) 的 原地 算法。</li>
 </ul>
-
 <h2 id="2-解题过程及解法整理">2. 解题过程及解法整理</h2>
-
 <p>解法六、七为符合题意的优秀解答</p>
-
-<h3 id="2-1-解法一-失败的尝试">2.1 解法一 (失败的尝试)</h3>
+<h3 id="21-解法一-失败的尝试">2.1 解法一 (失败的尝试)</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -272,15 +238,14 @@
 		<span class="nx">nums</span><span class="p">[</span><span class="nx">newIndex</span><span class="p">],</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">newIndex</span><span class="p">]</span>   <span class="c1">// 问题出在这一步，各个位置上原来的数据信息丢失了。导致后面的交换就全错了。解决见解法 四、七
 </span><span class="c1"></span>	<span class="p">}</span>
 	<span class="k">return</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="2-2-解法二-暴力旋转">2.2 解法二 暴力旋转</h3>
-
+</div><h3 id="22-解法二-暴力旋转">2.2 解法二 暴力旋转</h3>
 <p>尝试解题失败后，从暴力解题出发。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -325,13 +290,13 @@
 		<span class="p">}</span>
 		<span class="nx">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">tmp</span>
 	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="2-3-解法三-暴力旋转优化k">2.3 解法三 暴力旋转优化k</h3>
+</div><h3 id="23-解法三-暴力旋转优化k">2.3 解法三 暴力旋转优化k</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -384,13 +349,13 @@
 		<span class="p">}</span>
 		<span class="nx">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">tmp</span>
 	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="2-4-解法四-辅助数组记录原始状态">2.4 解法四 辅助数组记录原始状态</h3>
+</div><h3 id="24-解法四-辅助数组记录原始状态">2.4 解法四 辅助数组记录原始状态</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -441,13 +406,13 @@
 		<span class="nx">nums</span><span class="p">[</span><span class="nx">newIndex</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
 	<span class="p">}</span>
 	<span class="k">return</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="2-5-解法五-数组拼接">2.5 解法五 数组拼接</h3>
+</div><h3 id="25-解法五-数组拼接">2.5 解法五 数组拼接</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -508,15 +473,14 @@
 </span><span class="c1"></span>	<span class="nx">nums1</span> <span class="o">:=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">nums</span><span class="p">[</span><span class="nx">l</span><span class="o">-</span><span class="nx">k1</span><span class="p">:],</span> <span class="nx">nums</span><span class="p">[:</span><span class="nx">l</span><span class="o">-</span><span class="nx">k1</span><span class="p">]</span><span class="o">...</span><span class="p">)</span>
 	<span class="nb">copy</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">nums1</span><span class="p">)</span>
 	<span class="c1">//fmt.Println(nums)
-</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="2-6-解法六-三次反转">2.6 解法六 三次反转</h3>
-
-<p><img src="https://pic.leetcode-cn.com/0e29d4f2abe05133b800540a7e2a61e7f3f3812071e6e1f74852eb806878723b-image.png" alt="image.png" /></p>
+</div><h3 id="26-解法六-三次反转">2.6 解法六 三次反转</h3>
+<p><img src="https://pic.leetcode-cn.com/0e29d4f2abe05133b800540a7e2a61e7f3f3812071e6e1f74852eb806878723b-image.png" alt="image.png"></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -571,17 +535,15 @@
 	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">l</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
 		<span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">a</span><span class="p">[</span><span class="nx">l</span><span class="o">-</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="nx">a</span><span class="p">[</span><span class="nx">l</span><span class="o">-</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
 	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="2-7-解法七-环状替换">2.7 解法七 环状替换</h3>
-
+</div><h3 id="27-解法七-环状替换">2.7 解法七 环状替换</h3>
 <p>参考：<a href="https://leetcode-cn.com/problems/rotate-array/solution/xuan-zhuan-shu-zu-by-leetcode/">https://leetcode-cn.com/problems/rotate-array/solution/xuan-zhuan-shu-zu-by-leetcode/</a></p>
-
-<p><img src="https://pic.leetcode-cn.com/35b5b327f297a7f50a00dd716e0d840eeefd56939e8c1c61f045d1309197101f-image.png" alt="image.png" /></p>
+<p><img src="https://pic.leetcode-cn.com/35b5b327f297a7f50a00dd716e0d840eeefd56939e8c1c61f045d1309197101f-image.png" alt="image.png"></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -762,18 +724,15 @@
 			<span class="p">}</span>
 		<span class="p">}</span>
 	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="3-总结">3. 总结</h2>
-
+</div><h2 id="3-总结">3. 总结</h2>
 <ul>
 <li>三次反转：实现题意旋转</li>
 <li>环状替换：外层循环也控制内层循环终止</li>
 </ul>
-
 <h2 id="4-leetcode题解">4. Leetcode题解</h2>
-
 <p><a href="https://leetcode-cn.com/problems/rotate-array/solution/xuan-zhuan-shu-zu-you-hua-yu-zheng-li-by-eiger/">https://leetcode-cn.com/problems/rotate-array/solution/xuan-zhuan-shu-zu-you-hua-yu-zheng-li-by-eiger/</a></p>
 
     </div>

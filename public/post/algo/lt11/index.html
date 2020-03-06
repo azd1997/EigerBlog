@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.57.1 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/algo/lt11/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2019-11-09T20:54:15+08:00" />
 <meta itemprop="name" content="Leetcode11——盛最多水的容器">
 <meta itemprop="description" content="题意 给定 n 个非负整数 a1，a2，&hellip;，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i,">
-
-
 <meta itemprop="datePublished" content="2019-11-09T20:54:15&#43;08:00" />
 <meta itemprop="dateModified" content="2019-11-09T20:54:15&#43;08:00" />
-<meta itemprop="wordCount" content="1361">
+<meta itemprop="wordCount" content="1360">
 
 
 
-<meta itemprop="keywords" content="leetcode," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="leetcode," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Leetcode11——盛最多水的容器"/>
 <meta name="twitter:description" content="题意 给定 n 个非负整数 a1，a2，&hellip;，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i,"/>
 
@@ -135,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 1361 words </span>
+          <span class="more-meta"> 1360 words </span>
           <span class="more-meta"> 3 mins read </span>
         
       </div>
@@ -145,53 +142,35 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#题意">题意</a></li>
-<li><a href="#解题思考">解题思考</a></li>
-<li><a href="#解法一-粗暴枚举">解法一： 粗暴枚举</a></li>
-<li><a href="#解法二-两端向内夹逼">解法二： 两端向内夹逼</a></li>
-<li><a href="#优秀题解">优秀题解</a></li>
-<li><a href="#总结与反思">总结与反思</a></li>
-<li><a href="#链接">链接</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#题意">题意</a></li>
+    <li><a href="#解题思考">解题思考</a></li>
+    <li><a href="#解法一-粗暴枚举">解法一： 粗暴枚举</a></li>
+    <li><a href="#解法二-两端向内夹逼">解法二： 两端向内夹逼</a></li>
+    <li><a href="#优秀题解">优秀题解</a></li>
+    <li><a href="#总结与反思">总结与反思</a></li>
+    <li><a href="#链接">链接</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h2 id="题意">题意</h2>
-
+      <h2 id="题意">题意</h2>
 <p>给定 n 个非负整数 a1，a2，&hellip;，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</p>
-
 <p>说明：你不能倾斜容器，且 n 的值至少为 2。</p>
-
-<p><img src="https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/07/25/question_11.jpg" alt="1" /></p>
-
+<p><img src="https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/07/25/question_11.jpg" alt="1"></p>
 <p>图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。</p>
-
 <p>示例:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">输入: [1,8,6,2,5,4,8,3,7]
-输出: 49</pre></td></tr></table>
-</div>
-</div>
+<pre><code>输入: [1,8,6,2,5,4,8,3,7]
+输出: 49
+</code></pre>
 <p>来源：力扣（LeetCode）
-链接：<a href="https://leetcode-cn.com/problems/container-with-most-water">https://leetcode-cn.com/problems/container-with-most-water</a>
+链接：https://leetcode-cn.com/problems/container-with-most-water
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-
 <h2 id="解题思考">解题思考</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -216,13 +195,13 @@
 <span class="c1">// 寻找规律： 矩形面积 = 长 × 宽。 由于 题中的长为下标之差，而下标之差和高度之差不同，
 </span><span class="c1">// 高度之差不遍历数组是不知道的，长度却是根据数组本身的长度就可以确定的。
 </span><span class="c1">// 我们要寻找最大面积，则先把长度设为最大，而后逐渐将长方形的两边（选矮的那边）往内缩，这样，长度递减，如果高度还变矮了就不用计算，高度变高才需要计算面积
-</span><span class="c1"></span><span class="o">//</span> <span class="nx">这种思路称之为</span><span class="err">“</span><span class="nx">两边</span><span class="err">（</span><span class="nx">双指针</span><span class="err">）</span><span class="nx">向内夹逼</span><span class="err">”</span></code></pre></td></tr></table>
+</span><span class="c1">// 这种思路称之为“两边（双指针）向内夹逼”
+</span></code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="解法一-粗暴枚举">解法一： 粗暴枚举</h2>
+</div><h2 id="解法一-粗暴枚举">解法一： 粗暴枚举</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -251,6 +230,7 @@
 </span><span class="lnt">27
 </span><span class="lnt">28
 </span><span class="lnt">29
+</span><span class="lnt">30
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 粗暴枚举
@@ -281,13 +261,14 @@
 		<span class="k">return</span> <span class="nx">a</span>
 	<span class="p">}</span>
 	<span class="k">return</span> <span class="nx">b</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="解法二-两端向内夹逼">解法二： 两端向内夹逼</h2>
+</div><h2 id="解法二-两端向内夹逼">解法二： 两端向内夹逼</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -382,24 +363,19 @@
 		<span class="p">}</span>
 	<span class="p">}</span>
 	<span class="k">return</span> <span class="nx">maxArea</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="优秀题解">优秀题解</h2>
-
+</div><h2 id="优秀题解">优秀题解</h2>
 <ul>
 <li>双指针法（向内夹逼）证明：<a href="https://leetcode-cn.com/problems/container-with-most-water/solution/shuang-zhi-zhen-fa-zheng-que-xing-zheng-ming-by-r3/">https://leetcode-cn.com/problems/container-with-most-water/solution/shuang-zhi-zhen-fa-zheng-que-xing-zheng-ming-by-r3/</a></li>
 <li>图解： <a href="https://leetcode-cn.com/problems/container-with-most-water/solution/container-with-most-water-shuang-zhi-zhen-fa-yi-do/">https://leetcode-cn.com/problems/container-with-most-water/solution/container-with-most-water-shuang-zhi-zhen-fa-yi-do/</a></li>
 </ul>
-
 <h2 id="总结与反思">总结与反思</h2>
-
 <ul>
 <li>双指针法（两端向内夹逼）</li>
 </ul>
-
 <h2 id="链接">链接</h2>
-
 <ul>
 <li>Leetcode： <a href="https://leetcode-cn.com/problems/container-with-most-water/solution/sheng-zui-duo-shui-de-rong-qi-shi-xian-yu-zheng-li/">https://leetcode-cn.com/problems/container-with-most-water/solution/sheng-zui-duo-shui-de-rong-qi-shi-xian-yu-zheng-li/</a></li>
 <li>Github: <a href="https://github.com/azd1997/Leetcode-training/blob/master/lt11/1.go">https://github.com/azd1997/Leetcode-training/blob/master/lt11/1.go</a></li>
