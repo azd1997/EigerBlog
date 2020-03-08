@@ -3,35 +3,42 @@
   
   <url>
     <loc>https://azd1997.github.io/categories/algo/</loc>
-    <lastmod>2020-02-28T09:00:07+08:00</lastmod>
+    <lastmod>2020-03-08T17:40:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/categories/</loc>
-    <lastmod>2020-02-28T09:00:07+08:00</lastmod>
+    <lastmod>2020-03-08T17:40:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/post/</loc>
-    <lastmod>2020-02-28T09:00:07+08:00</lastmod>
+    <lastmod>2020-03-08T17:40:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/tags/</loc>
-    <lastmod>2020-02-28T09:00:07+08:00</lastmod>
+    <lastmod>2020-03-08T17:40:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/tags/%E9%93%BE%E8%A1%A8/</loc>
-    <lastmod>2020-02-28T09:00:07+08:00</lastmod>
+    <lastmod>2020-03-08T17:40:37+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/algo/linkedlist-problems/</loc>
+    <lastmod>2020-03-08T17:40:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

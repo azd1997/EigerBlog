@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>链表相关题目集锦 - Eiger - A young gopher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Eiger" /><meta name="description" content="0. 链表问题集锦 在进行链表题目的训练之前，先给出链表结点的定义与链表的遍历框架。 链表结点的定义 1 2 3 4 5 6 7 8 9 10 11 12 13 // 单链表结点 type Node struct { Val" /><meta name="keywords" content="链表, 递归" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://azd1997.github.io/post/algo/linkedlist-problems/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="链表相关题目集锦" />
+<meta property="og:description" content="0. 链表问题集锦 在进行链表题目的训练之前，先给出链表结点的定义与链表的遍历框架。 链表结点的定义 1 2 3 4 5 6 7 8 9 10 11 12 13 // 单链表结点 type Node struct { Val" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://azd1997.github.io/post/algo/linkedlist-problems/" />
+<meta property="article:published_time" content="2020-03-08T17:40:37+08:00" />
+<meta property="article:modified_time" content="2020-03-08T17:40:37+08:00" />
+<meta itemprop="name" content="链表相关题目集锦">
+<meta itemprop="description" content="0. 链表问题集锦 在进行链表题目的训练之前，先给出链表结点的定义与链表的遍历框架。 链表结点的定义 1 2 3 4 5 6 7 8 9 10 11 12 13 // 单链表结点 type Node struct { Val">
+<meta itemprop="datePublished" content="2020-03-08T17:40:37&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-08T17:40:37&#43;08:00" />
+<meta itemprop="wordCount" content="4278">
+
+
+
+<meta itemprop="keywords" content="链表," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="链表相关题目集锦"/>
+<meta name="twitter:description" content="0. 链表问题集锦 在进行链表题目的训练之前，先给出链表结点的定义与链表的遍历框架。 链表结点的定义 1 2 3 4 5 6 7 8 9 10 11 12 13 // 单链表结点 type Node struct { Val"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Eiger</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/links/">
+        <li class="mobile-menu-item">Links</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Eiger</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/links/">Links</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">链表相关题目集锦</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-08 </span>
+        <div class="post-category">
+            <a href="/categories/algo/"> algo </a>
+            </div>
+          <span class="more-meta"> 4278 words </span>
+          <span class="more-meta"> 9 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-链表问题集锦">0. 链表问题集锦</a></li>
+    <li><a href="#1-从尾到头打印链表">1. 从尾到头打印链表</a></li>
+    <li><a href="#2-删除链表的结点">2. 删除链表的结点</a></li>
+    <li><a href="#3-链表中倒数第k个结点">3. 链表中倒数第k个结点</a></li>
+    <li><a href="#4-反转链表">4. 反转链表</a></li>
+    <li><a href="#5-合并两个排序的链表">5. 合并两个排序的链表</a></li>
+    <li><a href="#6-两个链表的第一个公共结点">6. 两个链表的第一个公共结点</a></li>
+    <li><a href="#7-圆圈中最后剩下的数字">7. 圆圈中最后剩下的数字</a></li>
+    <li><a href="#8-二叉搜索树与双向链表">8. 二叉搜索树与双向链表</a></li>
+    <li><a href="#9-复杂链表的复制">9. 复杂链表的复制</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="0-链表问题集锦">0. 链表问题集锦</h2>
+<p>在进行链表题目的训练之前，先给出链表结点的定义与链表的遍历框架。</p>
+<ul>
+<li>链表结点的定义</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">
+<span class="c1">// 单链表结点
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Node</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Val</span> <span class="kt">int</span>
+	<span class="nx">Next</span> <span class="o">*</span><span class="nx">Node</span>
+<span class="p">}</span>
+
+<span class="c1">// 双链表结点
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Node</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Val</span> <span class="kt">int</span>
+	<span class="nx">Pre</span><span class="p">,</span> <span class="nx">Next</span> <span class="o">*</span><span class="nx">Node</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>递归遍历框架</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 传入当前结点，或者说剩余部分链表的头结点
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">traverse</span><span class="p">(</span><span class="nx">node</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// 到尾则返回
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">node</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
+
+	<span class="c1">// optional: do something
+</span><span class="c1"></span>
+	<span class="c1">// 递去
+</span><span class="c1"></span>	<span class="nf">traverse</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">Next</span><span class="p">)</span>
+
+	<span class="c1">// optional: do something
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>迭代遍历框架</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">traverse</span><span class="p">(</span><span class="nx">node</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">node</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
+
+	<span class="nx">cur</span> <span class="o">:=</span> <span class="nx">node</span>
+	<span class="k">for</span> <span class="nx">cur</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="c1">// do something
+</span><span class="c1"></span>	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">从两种框架来看</span><span class="err">，</span><span class="nx">递归遍历易于实现那些需要对链表倒序遍历或者输出的场景</span><span class="err">，</span><span class="nx">因为它使用了函数调用的系统栈</span><span class="err">。</span><span class="nx">迭代遍历自然也可以实现倒序访问</span><span class="err">，</span><span class="nx">但是需要一个辅助栈</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="1-从尾到头打印链表">1. 从尾到头打印链表</h2>
+<p>利用上面的递归遍历框架，这题直接写：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">reversePrint</span><span class="p">(</span><span class="nx">head</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
+    <span class="nx">res</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="nf">reverse</span><span class="p">(</span><span class="nx">head</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">res</span><span class="p">)</span>    
+    <span class="k">return</span> <span class="nx">res</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">reverse</span><span class="p">(</span><span class="nx">head</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">res</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">head</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
+    
+    <span class="c1">// 从尾到头打印，先递去，归来再打印
+</span><span class="c1"></span>    <span class="nf">reverse</span><span class="p">(</span><span class="nx">head</span><span class="p">.</span><span class="nx">Next</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> 
+    <span class="o">*</span><span class="nx">res</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="o">*</span><span class="nx">res</span><span class="p">,</span> <span class="nx">head</span><span class="p">.</span><span class="nx">Val</span><span class="p">)</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>迭代写法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">reversePrint</span><span class="p">(</span><span class="nx">head</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
+    <span class="nx">res</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="nx">stack</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="nx">cur</span> <span class="o">:=</span> <span class="nx">head</span>
+    <span class="k">for</span> <span class="nx">cur</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">stack</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">stack</span><span class="p">,</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">Val</span><span class="p">)</span>    
+    <span class="p">}</span>
+    
+    <span class="k">for</span> <span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="nx">res</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span><span class="nx">stack</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
+        <span class="nx">stack</span> <span class="p">=</span> <span class="nx">stack</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="p">}</span>
+    
+    <span class="k">return</span> <span class="nx">res</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="2-删除链表的结点">2. 删除链表的结点</h2>
+<p>这道题要求的是删除链表中给定值的结点，且链表中所有节点值不相同。</p>
+<p>对于删除链表中的结点，最好先构建一个dummyHead，再去做删除工作。
+不这么做的话，直接从head开始，需要额外处理head是待删节点的情况。</p>
+<p>迭代做法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">deleteNode</span><span class="p">(</span><span class="nx">head</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">val</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+    <span class="nx">dummyHead</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Node</span><span class="p">{</span><span class="nx">Next</span><span class="p">:</span> <span class="nx">head</span><span class="p">}</span>
+    <span class="nx">pre</span> <span class="o">:=</span> <span class="nx">dummyHead</span>
+    <span class="k">for</span> <span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Val</span> <span class="o">==</span> <span class="nx">val</span> <span class="p">{</span>
+            <span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Next</span>
+            <span class="k">break</span>        
+        <span class="p">}</span>
+        <span class="nx">pre</span> <span class="p">=</span> <span class="nx">pre</span><span class="p">.</span><span class="nx">Next</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">dummyHead</span><span class="p">.</span><span class="nx">Next</span>    
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>递归做法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">deleteNode</span><span class="p">(</span><span class="nx">head</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">val</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+    <span class="nx">dummyHead</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Node</span><span class="p">{</span><span class="nx">Next</span><span class="p">:</span> <span class="nx">head</span><span class="p">}</span>
+    <span class="k">return</span> <span class="nb">delete</span><span class="p">(</span><span class="nx">dummyHead</span><span class="p">,</span> <span class="nx">val</span><span class="p">).</span><span class="nx">Next</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nb">delete</span><span class="p">(</span><span class="nx">head</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">val</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+    <span class="c1">// 到链表最后一个节点
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">head</span>    
+    <span class="p">}</span>    
+    <span class="k">if</span> <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Val</span> <span class="o">==</span> <span class="nx">val</span> <span class="p">{</span>
+        <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span> <span class="o">==</span> <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Next</span>
+        <span class="k">return</span> <span class="nx">head</span>        
+    <span class="p">}</span>
+    <span class="c1">// 没找到的话继续向后查找
+</span><span class="c1"></span>    <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nb">delete</span><span class="p">(</span><span class="nx">headd</span><span class="p">.</span><span class="nx">Next</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nx">head</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="3-链表中倒数第k个结点">3. 链表中倒数第k个结点</h2>
+<p>链表中倒数第k个结点。</p>
+<p>注意点：k的有效性</p>
+<p>思路：</p>
+<ul>
+<li>遍历后将所有节点值输出到数组，利用数组下标取倒数第k个结点值</li>
+<li>一次遍历得到链表长度length，再一次遍历遍历length-k，到达目标节点</li>
+<li>一次遍历，先右移k次，再用双指针，p1从head出发，p2从当前出发，p2遍历到尾时，p1所指即为所求</li>
+</ul>
+<p>一次遍历解法迭代实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">getKthFromEnd</span><span class="p">(</span><span class="nx">head</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">k</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+    <span class="nx">p1</span><span class="p">,</span> <span class="nx">p2</span> <span class="o">:=</span> <span class="nx">head</span><span class="p">,</span> <span class="nx">head</span>
+
+    <span class="c1">// 先定位到kthNode
+</span><span class="c1"></span>    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">k</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">p2</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+            <span class="nx">p2</span> <span class="p">=</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">Next</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">nil</span>      <span class="c1">// 链表长度&lt;k
+</span><span class="c1"></span>        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 再双指针
+</span><span class="c1"></span>    <span class="k">for</span> <span class="nx">p2</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">p2</span> <span class="p">=</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">Next</span>
+        <span class="nx">p1</span> <span class="p">=</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">Next</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">p1</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="4-反转链表">4. 反转链表</h2>
+<p>迭代做法：从左向右交换指针方向</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">reverseList</span><span class="p">(</span><span class="nx">head</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+    <span class="c1">// 边界情况
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">head</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">||</span> <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="nx">head</span><span class="p">}</span>    
+
+    <span class="c1">// 反转链表
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">pre</span><span class="p">,</span> <span class="nx">tmp</span> <span class="o">*</span><span class="nx">Node</span>
+    <span class="nx">cur</span> <span class="o">:=</span> <span class="nx">head</span>
+    <span class="k">for</span> <span class="nx">cur</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">tmp</span> <span class="p">=</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">Next</span>
+        <span class="nx">cur</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">pre</span>
+        <span class="nx">pre</span> <span class="p">=</span> <span class="nx">cur</span>
+        <span class="nx">cur</span> <span class="p">=</span> <span class="nx">tmp</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">pre</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>反转链表，按照链表的递归遍历，在回溯时修改指针指向</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">reverseList</span><span class="p">(</span><span class="nx">head</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+    <span class="c1">// 边界情况
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">head</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">||</span> <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="nx">head</span><span class="p">}</span>
+    <span class="c1">// 不仅仅是特殊情况处理，也是递归时到链表末尾的边界
+</span><span class="c1"></span>
+    <span class="c1">// 递去
+</span><span class="c1"></span>    <span class="nx">ret</span> <span class="o">:=</span> <span class="nf">reverseList</span><span class="p">(</span><span class="nx">head</span><span class="p">.</span><span class="nx">Next</span><span class="p">)</span>
+    
+    <span class="c1">// 递归时转向，并把当前节点返回    
+</span><span class="c1"></span>    <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">head</span>   <span class="c1">// 指针转向
+</span><span class="c1"></span>    <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="kc">nil</span>
+
+    <span class="c1">// 返回新的头结点
+</span><span class="c1"></span>    <span class="k">return</span> <span class="nx">ret</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="5-合并两个排序的链表">5. 合并两个排序的链表</h2>
+<p>合并两个排序的链表，其实这个题思路很简单就是构建一个dummyHead，然后按双指针写法将两个链表头部较小者出列接到dummyHead后边。</p>
+<p>双指针解法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">mergeTwoLists</span><span class="p">(</span><span class="nx">l1</span> <span class="o">*</span><span class="nx">ListNode</span><span class="p">,</span> <span class="nx">l2</span> <span class="o">*</span><span class="nx">ListNode</span><span class="p">)</span> <span class="o">*</span><span class="nx">ListNode</span> <span class="p">{</span>
+    <span class="nx">dummyHead</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">ListNode</span><span class="p">{}</span>
+    <span class="nx">p</span><span class="p">,</span> <span class="nx">p1</span><span class="p">,</span> <span class="nx">p2</span> <span class="o">:=</span> <span class="nx">dummyHead</span><span class="p">,</span> <span class="nx">l1</span><span class="p">,</span> <span class="nx">l2</span>
+    <span class="k">for</span> <span class="nx">p1</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">p2</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">Val</span> <span class="o">&lt;=</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">Val</span> <span class="p">{</span>
+            <span class="nx">p</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">p1</span>
+            <span class="nx">p</span> <span class="p">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">Next</span>
+            <span class="nx">p1</span> <span class="p">=</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">Next</span>    
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">p</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">p2</span>
+            <span class="nx">p</span> <span class="p">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">Next</span>
+            <span class="nx">p2</span> <span class="p">=</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">Next</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="nx">p1</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">p</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">p1</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">p</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">p2</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">dummyHead</span><span class="p">.</span><span class="nx">Next</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>递归解法：</p>
+<p>递归解法的思路则不是构造伪头结点，而是以l1或者l2作为新链表头结点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">//  返回两个链表合并后的链表的头结点
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">mergeTwoLists</span><span class="p">(</span><span class="nx">l1</span> <span class="o">*</span><span class="nx">ListNode</span><span class="p">,</span> <span class="nx">l2</span> <span class="o">*</span><span class="nx">ListNode</span><span class="p">)</span> <span class="o">*</span><span class="nx">ListNode</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">l1</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="nx">l2</span><span class="p">}</span>    
+    <span class="k">if</span> <span class="nx">l2</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="nx">l1</span><span class="p">}</span>
+
+    <span class="k">if</span> <span class="nx">l1</span><span class="p">.</span><span class="nx">Val</span> <span class="o">&lt;=</span> <span class="nx">l2</span><span class="p">.</span><span class="nx">Val</span> <span class="p">{</span>
+        <span class="nx">l1</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nf">mergeTwoLists</span><span class="p">(</span><span class="nx">l1</span><span class="p">.</span><span class="nx">Next</span><span class="p">,</span> <span class="nx">l2</span><span class="p">)</span>        
+        <span class="k">return</span> <span class="nx">l1</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">l2</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nf">mergeTwoLists</span><span class="p">(</span><span class="nx">l1</span><span class="p">,</span> <span class="nx">l2</span><span class="p">.</span><span class="nx">Next</span><span class="p">)</span>        
+        <span class="k">return</span> <span class="nx">l2</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="6-两个链表的第一个公共结点">6. 两个链表的第一个公共结点</h2>
+<p>常规思路的话，是使用哈希表/集合记录一条链表的所有节点，再遍历另一条链表，
+第一个在哈希集合中遇到的结点就是第一个公共结点。</p>
+<p>想要优化空间，则需要想办法在遍历两条链表的时候能够在公共结点相遇，这样能找到公共结点
+甚至是第一个公共结点。</p>
+<p>但是两条链表长度并不一定一样</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 图示：
+</span><span class="c1">// 链表A前半段              a1 -&gt; a2 -&gt;
+</span><span class="c1">//  公共段                                              c1 -&gt; c2 -&gt; c3
+</span><span class="c1">// 链表B前半段   b1 -&gt; b2 -&gt; b3 -&gt;
+</span><span class="c1">// 
+</span><span class="c1">// 假设双指针(p1, p2)，每个指针都走一遍两条链表，路径如下：
+</span><span class="c1">// p1路径： a1 -&gt; a2 -&gt; c1 -&gt; c2 -&gt; c3  =&gt;  b1 -&gt; b2 -&gt; b3 -&gt;  c1 -&gt; c2 -&gt; c3
+</span><span class="c1">// p2路径： b1 -&gt; b2 -&gt; b3 -&gt;  c1 -&gt; c2 -&gt; c3  =&gt;  a1 -&gt; a2 -&gt; c1 -&gt; c2 -&gt; c3
+</span><span class="c1">// 如果两条链表没有交集，那么这样走一遍后是不会相遇的
+</span><span class="c1">// 像上面图示中，p1,p2会在&#34;c1&#34;处相遇，这就是相交点
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">getIntersectionNode</span><span class="p">(</span><span class="nx">headA</span><span class="p">,</span> <span class="nx">headB</span> <span class="o">*</span><span class="nx">ListNode</span><span class="p">)</span> <span class="o">*</span><span class="nx">ListNode</span> <span class="p">{</span>
+    <span class="c1">// 边界    
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">headA</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">||</span> <span class="nx">headB</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="kc">nil</span><span class="p">}</span>
+    <span class="c1">// 双指针
+</span><span class="c1"></span>    <span class="nx">p1</span><span class="p">,</span> <span class="nx">p2</span> <span class="o">:=</span> <span class="nx">headA</span><span class="p">,</span> <span class="nx">headB</span>
+    <span class="k">for</span> <span class="p">{</span>
+        <span class="c1">// 如果双方同时到尾，说明走完了
+</span><span class="c1"></span>        <span class="k">if</span> <span class="nx">p1</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">p2</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="kc">nil</span><span class="p">}</span>
+
+        <span class="c1">// 换一条“跑道”继续移动
+</span><span class="c1"></span>        <span class="k">if</span> <span class="nx">p1</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="nx">p1</span> <span class="p">=</span> <span class="nx">headB</span><span class="p">}</span>    
+        <span class="k">if</span> <span class="nx">p2</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="nx">p2</span> <span class="p">=</span> <span class="nx">headA</span><span class="p">}</span>
+        
+        <span class="c1">// 找到第一个交点
+</span><span class="c1"></span>        <span class="k">if</span> <span class="nx">p1</span> <span class="o">==</span> <span class="nx">p2</span> <span class="p">{</span><span class="k">return</span> <span class="nx">p1</span><span class="p">}</span>  
+
+        <span class="c1">// 否则向后移动
+</span><span class="c1"></span>        <span class="nx">p1</span><span class="p">,</span> <span class="nx">p2</span> <span class="p">=</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">Next</span><span class="p">,</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">Next</span>  
+    <span class="p">}</span>
+    <span class="c1">// 返回nil
+</span><span class="c1"></span>    <span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="7-圆圈中最后剩下的数字">7. 圆圈中最后剩下的数字</h2>
+<p>0,1,,n-1这n个数字排成一个圆圈，从数字0开始，每次从这个圆圈里删除第m个数字。求出这个圆圈里剩下的最后一个数字。</p>
+<p>例如，0、1、2、3、4这5个数字组成一个圆圈，从数字0开始每次删除第3个数字，则删除的前4个数字依次是2、0、4、1，因此最后剩下的数字是3。</p>
+<p>这道题是一个约瑟夫环形问题，与环形链表密切相关。</p>
+<p>当然做题的时候并不一定需要构建环形链表</p>
+<p>首先，脑海里要抽象出（或者在纸上画出）一个结点数量为n的一个环，删除第m个数字，那么就是删除
+第m%n个数字。</p>
+<p>其次，假如说不使用数据结构记录删除一些数之后数列的状态，那么是没办法解这道题的。</p>
+<p>因此需要采用数组来存储0~n-1。使用数组有个好处是可以方便的通过<code>m%n</code>来索引某个元素</p>
+<p>但是因为需要不断删除元素，数组需要不断的缩小，这意味着比较多的数据搬迁。</p>
+<p>使用环形链表删除元素优化了，但是获取下一个元素却需要遍历。</p>
+<p>两种结构存储都可以，但各有优劣。</p>
+<p>下面使用数组记录数据，解决这道题</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">lastRemaining</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">m</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="c1">// 初始环
+</span><span class="c1"></span>    <span class="nx">ring</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">ring</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">i</span>
+    <span class="p">}</span>    
+
+    <span class="c1">//  循环删除
+</span><span class="c1"></span>    <span class="nx">idx</span> <span class="o">:=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="nb">len</span><span class="p">(</span><span class="nx">ring</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">1</span> <span class="p">{</span>
+        <span class="nx">idx</span> <span class="p">=</span> <span class="p">(</span><span class="nx">idx</span><span class="o">+</span><span class="nx">m</span><span class="p">)</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="nx">ring</span><span class="p">)</span>
+        <span class="nx">ring</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">ring</span><span class="p">[:</span><span class="nx">idx</span><span class="p">],</span> <span class="nx">ring</span><span class="p">[</span><span class="nx">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span><span class="o">...</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">ring</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>事实上，提交后，无论是使用数组还是使用链表来模拟进行删除步骤，都是会超时的。</p>
+<p>能够通过的解法是数学解法，</p>
+<p>把问题考虑成n个人成环的问题，序号分别为 ：
+$$0,1,2,&hellip;,n-1$$
+考虑第一次从0开始找到第m个人出圈(m可能比n大，所以使用$k=(m-1)%n$)，现在序号变成了：
+$$0,1,2,&hellip;, k-1, k+1, &hellip; ,n-1$$
+现在出发点为k+1这号，把k+1后面的移到序列前部，得到：
+$$k+1, &hellip; ,n-1,0,1,2,&hellip;, k-1$$
+显然，可以将之映射为：
+$$0,1,2,&hellip;, (n-1)-(k+1), n-k+-1, &hellip; ,n-2$$
+记原始数字为x，映射后的数字为y，两者的转换：
+$$x = (y + (k+1)) % n$$</p>
+<p>对于题目的n个数字形成的圆圈，以及不断删除第m个数字，因此把最后剩下的数字记作$f(n,m)$</p>
+<p>那么假设n个数字删掉一个变成n-1个后，最后剩下的那个数字就可以表示为$f(n-1,m)$</p>
+<p>那么把该符号代到x,y的转换公式，得到最后剩下的原始数字为$(f(n-1,m) + (k+1)) % n$</p>
+<p>而这个数字也就是最开始的$f(n,m)$，于是代入下式：
+$$f(n,m) = (f(n-1,m) + (k+1)) % n$$
+得到：
+$$f(n,m) = (f(n-1,m) + k +1) % n$$
+得到：
+$$f(n,m) = (f(n-1,m) + (m-1)%n +1) % n$$
+根据数学性质：
+$$(a%n+b)%n = (a+b)%n$$
+所以上式继续得到：
+$$f(n,m) = (f(n-1,m) + m-1 +1) % n$$
+即
+$$f(n,m) = (f(n-1,m) + m) % n$$
+并且初始有 $f(1,m)=0$</p>
+<p>好了，到这，其实就是个动态规划，这个动态规划可以用迭代或者递归实现。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">lastRemaining</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">m</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nx">last</span> <span class="o">:=</span> <span class="mi">0</span>   <span class="c1">// 初始位是0,(f(1,m)=0)
+</span><span class="c1"></span>    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">2</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;=</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">last</span> <span class="p">=</span> <span class="p">(</span><span class="nx">last</span> <span class="o">+</span> <span class="nx">m</span><span class="p">)</span> <span class="o">%</span> <span class="nx">i</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">last</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="8-二叉搜索树与双向链表">8. 二叉搜索树与双向链表</h2>
+<p>输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的循环双向链表。要求不能创建任何新的节点，只能调整树中节点指针的指向。</p>
+<p>节点的left指针作双向链表的prev，right作next。</p>
+<p>并且返回的循环双向链表的head(虚拟头结点的next指向原搜索树最小值)</p>
+<p>思路：中序遍历</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/*
+</span><span class="cm">// Definition for a Node.
+</span><span class="cm">class Node {
+</span><span class="cm">    public int val;
+</span><span class="cm">    public Node left;
+</span><span class="cm">    public Node right;
+</span><span class="cm">
+</span><span class="cm">    public Node() {}
+</span><span class="cm">
+</span><span class="cm">    public Node(int _val) {
+</span><span class="cm">        val = _val;
+</span><span class="cm">    }
+</span><span class="cm">
+</span><span class="cm">    public Node(int _val,Node _left,Node _right) {
+</span><span class="cm">        val = _val;
+</span><span class="cm">        left = _left;
+</span><span class="cm">        right = _right;
+</span><span class="cm">    }
+</span><span class="cm">};
+</span><span class="cm">*/</span>
+
+<span class="c1">// 中序遍历
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+
+    <span class="c1">// 全局变量
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">Node</span> <span class="n">pre</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Node</span> <span class="n">head</span><span class="o">,</span> <span class="n">tail</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">Node</span> <span class="nf">treeToDoublyList</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 特殊情况
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="c1">// 中序遍历，将中间处理好，还剩下head.left和tail.right没处理
+</span><span class="c1"></span>        <span class="n">inorder</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+
+        <span class="n">head</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">tail</span><span class="o">;</span>
+        <span class="n">tail</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+
+        <span class="k">return</span> <span class="n">head</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 中序遍历，对root子树作中序遍历
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">inorder</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>   <span class="c1">// 递归终止：到了叶节点以下
+</span><span class="c1"></span>
+        <span class="c1">// 左子树遍历
+</span><span class="c1"></span>        <span class="n">inorder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+
+        <span class="c1">// 处理当前
+</span><span class="c1"></span>
+        <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">pre</span><span class="o">;</span>     <span class="c1">// 先指向pre，接下来要修改pre.right,需要分情况
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">pre</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 那说明是head
+</span><span class="c1"></span>            <span class="n">head</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="c1">// 说明不是head
+</span><span class="c1"></span>            <span class="n">pre</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="n">pre</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>     <span class="c1">// pre后移
+</span><span class="c1"></span>        <span class="n">tail</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>    <span class="c1">// tail也后移。 （其实pre,tail只要一个就可以，这里只是方便阅读）
+</span><span class="c1"></span>
+        <span class="c1">// 右子树遍历
+</span><span class="c1"></span>        <span class="n">inorder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+    <span class="o">}</span> 
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>迭代做法（借助辅助栈进行中序遍历）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="n">Node</span> <span class="nf">treeToDoublyList</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 特殊情况
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="c1">// 辅助变量
+</span><span class="c1"></span>        <span class="n">Node</span> <span class="n">pre</span> <span class="o">=</span> <span class="kc">null</span><span class="o">,</span> <span class="n">head</span> <span class="o">=</span> <span class="kc">null</span><span class="o">,</span> <span class="n">tail</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="c1">// 基于栈的中序遍历
+</span><span class="c1"></span>        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;();</span> 
+        <span class="n">Node</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(!</span><span class="n">stack</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">||</span> <span class="n">cur</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 如果cur不为空，将cur所有的左子孙入栈
+</span><span class="c1"></span>            <span class="k">while</span> <span class="o">(</span><span class="n">cur</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">cur</span><span class="o">);</span>
+                <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="c1">// 出栈
+</span><span class="c1"></span>            <span class="n">cur</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
+            <span class="n">cur</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">pre</span><span class="o">;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">pre</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">head</span> <span class="o">=</span> <span class="n">cur</span><span class="o">;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">pre</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">cur</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">pre</span> <span class="o">=</span> <span class="n">cur</span><span class="o">;</span>
+            <span class="n">tail</span> <span class="o">=</span> <span class="n">cur</span><span class="o">;</span>
+
+            <span class="c1">// 向右子树找
+</span><span class="c1"></span>            <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="n">head</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">tail</span><span class="o">;</span>
+        <span class="n">tail</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">head</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="9-复杂链表的复制">9. 复杂链表的复制</h2>
+<p>请实现 copyRandomList 函数，复制一个复杂链表。在复杂链表中，每个节点除了有一个 next 指针指向下一个节点，还有一个 random 指针指向链表中的任意节点或者 null。</p>
+<p>思考：</p>
+<p>由于是具备两个指针的复杂链表，问题的麻烦在于，深度拷贝之后，加入根据next指针，拷贝了其next后继，但是其random后继也需要生成
+这会导致重复生成两套链表。
+为了解决这个问题，必须将复制的链表结点与原先的链表形成映射，使用一个哈希表解决之，Java里边哈希表使用HashMap</p>
+<p>也就是 迭代（按next迭代） + 哈希表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/*
+</span><span class="cm">// Definition for a Node.
+</span><span class="cm">class Node {
+</span><span class="cm">    int val;
+</span><span class="cm">    Node next;
+</span><span class="cm">    Node random;
+</span><span class="cm">
+</span><span class="cm">    public Node(int val) {
+</span><span class="cm">        this.val = val;
+</span><span class="cm">        this.next = null;
+</span><span class="cm">        this.random = null;
+</span><span class="cm">    }
+</span><span class="cm">}
+</span><span class="cm">*/</span>
+<span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Node</span> <span class="nf">copyRandomList</span><span class="o">(</span><span class="n">Node</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span> <span class="n">head</span><span class="o">;</span>
+
+        <span class="c1">// 原链表结点 -&gt; 新链表结点
+</span><span class="c1"></span>        <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">,</span> <span class="n">Node</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Node</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span> <span class="n">cur</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">;</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="na">next</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">cur</span><span class="o">,</span> <span class="k">new</span> <span class="n">Node</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">val</span><span class="o">));</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 重新构建指针链接
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="n">Node</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span> <span class="n">cur</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">;</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="na">next</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">cur</span><span class="o">).</span><span class="na">next</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">next</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">random</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">cur</span><span class="o">).</span><span class="na">random</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">random</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="c1">// 返回新的链表头
+</span><span class="c1"></span>        <span class="k">return</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>        
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>此外，由于有两个指针，相当于图中每个节点有两个方向可以前进，也就是说可以使用BFS或者DFS来做这道题，当然还是得使用哈希表。</p>
+<p>这里再使用DFS解一遍：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Node</span> <span class="nf">copyRandomList</span><span class="o">(</span><span class="n">Node</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 原链表结点 -&gt; 新链表结点
+</span><span class="c1"></span>        <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">,</span> <span class="n">Node</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="k">return</span> <span class="n">dfs</span><span class="o">(</span><span class="n">head</span><span class="o">,</span> <span class="n">map</span><span class="o">);</span>        
+    <span class="o">}</span>
+
+    <span class="c1">// dfs遍历，返回拷贝后的头结点
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">Node</span> <span class="nf">dfs</span><span class="o">(</span><span class="n">Node</span> <span class="n">cur</span><span class="o">,</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">,</span> <span class="n">Node</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">cur</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="c1">// 拷贝当前结点
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">cur</span><span class="o">))</span> <span class="k">return</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">cur</span><span class="o">);</span>     <span class="c1">// 哈希表已存在
+</span><span class="c1"></span>        <span class="c1">// 否则新建节点，加入到哈希表，再修改新结点的后继指针
+</span><span class="c1"></span>        <span class="n">Node</span> <span class="n">tmp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">cur</span><span class="o">,</span> <span class="n">tmp</span><span class="o">);</span>
+        <span class="n">tmp</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">dfs</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">next</span><span class="o">,</span> <span class="n">map</span><span class="o">);</span>
+        <span class="n">tmp</span><span class="o">.</span><span class="na">random</span> <span class="o">=</span> <span class="n">dfs</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">random</span><span class="o">,</span> <span class="n">map</span><span class="o">);</span> 
+        <span class="c1">// 返回深拷贝后的结点tmp
+</span><span class="c1"></span>        <span class="k">return</span> <span class="n">tmp</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-03-08
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/algo/linkedlist/">
+            <span class="next-text nav-default">链表常见操作整理</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+  <span id="/post/algo/linkedlist-problems/" class="leancloud_visitors" data-flag-title="链表相关题目集锦">
+		<span class="post-meta-item-text">文章阅读量 </span>
+		<span class="leancloud-visitors-count">0</span>
+		<p></p>
+	  </span>
+  <div id="vcomments"></div>
+  <script src="http://pirogue.org/js/av-min.js"></script>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'bpOXpWYjWw1gNOYNe2PrWjKV-gzGzoHsz',
+        appKey: '07yqjMVRu9Nyoqrzj4X7IhL5',
+        notify:  true , 
+        verify:  false , 
+        avatar:'mm', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:374192922@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%8C%AF%E4%B8%9C-%E8%89%BE-b10752175/detail/recent-activity/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/azd1997" class="iconfont icon-github" title="github"></a>
+  <a href="https://azd1997.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      TeX: {equationNumbers: {autoNumber: "AMS"}},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

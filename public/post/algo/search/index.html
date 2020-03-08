@@ -48,7 +48,7 @@
 <meta itemprop="description" content="0. 说明 结点： 在数据结构中的结点的正确表示是结点而非节点。以下懒得修正 1. 二分查找 1.1 普通二分查找 一般来讲，二分查找要求序列有序。下面是一个示例：">
 <meta itemprop="datePublished" content="2020-02-28T08:56:41&#43;08:00" />
 <meta itemprop="dateModified" content="2020-02-28T08:56:41&#43;08:00" />
-<meta itemprop="wordCount" content="12739">
+<meta itemprop="wordCount" content="12789">
 
 
 
@@ -132,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 12739 words </span>
+          <span class="more-meta"> 12789 words </span>
           <span class="more-meta"> 26 mins read </span>
         
       </div>
@@ -896,16 +896,16 @@
 <p>Maximum() 返回最大值</p>
 </li>
 <li>
-<p>Successor() 返回后继节点</p>
+<p>Successor() 返回后继节点 (中序遍历cur)</p>
 </li>
 <li>
-<p>Predecessor() 返回前驱节点</p>
+<p>Predecessor() 返回前驱节点 （中序遍历pre+cur）</p>
 </li>
 <li>
-<p>Floor()  返回比target小的最接近者或者target自身（自身存在）</p>
+<p>Floor()  返回比target小的最接近者或者target自身（自身存在）（中序遍历）</p>
 </li>
 <li>
-<p>Ceil() 返回比target大的最接近者或者target自身（自身存在）</p>
+<p>Ceil() 返回比target大的最接近者或者target自身（自身存在） （中序遍历）</p>
 </li>
 <li>
 <p>Rank() 返回target节点排名第几</p>
@@ -993,63 +993,67 @@
 </ul>
 <p>一颗完美的<code>2-3树</code>指其所有空指针（或者说链接、引用）到根节点距离完全一致。要注意这样完美的2-3树维护非常困难（需要大量额外代码实现）。</p>
 <ol>
-<li>结点定义（只作思路展示）</li>
-</ol>
+<li>
+<p>结点定义（只作思路展示）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
+<pre class="chroma"><code></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Node2</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">Key</span> <span class="kt">int</span>
-    <span class="nx">Left</span><span class="p">,</span><span class="nx">Right</span> <span class="o">*</span><span class="nx">Node2</span>
-<span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">Node3</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">KeyL</span><span class="p">,</span> <span class="nx">KeyR</span> <span class="kt">int</span>
-    <span class="nx">Left</span><span class="p">,</span><span class="nx">Mid</span><span class="p">,</span><span class="nx">Right</span> <span class="o">*</span><span class="nx">Node3</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-go" data-lang="go"></code></pre></td></tr></table>
 </div>
-</div><ol start="2">
-<li>查找键</li>
+</div></li>
 </ol>
-<p>在树中查找键并不复杂，思路与二叉搜索树查找键别无二致，只是<code>3结点</code>将键划为三段区间而非两端。</p>
-<ol start="3">
-<li>向<code>2结点</code>插入键</li>
-</ol>
-<p>当插入一个键，发现最终其停在一个<code>2结点</code>叶子上时，按二叉查找树的思路，需要<code>cur.Left/Right = new Node(k)</code>这般插入，但是为了保持完美平衡，这里需要将<code>2结点</code>转换为<code>3结点</code>，这样可保证此时完美平衡</p>
+<p>type Node2 struct {
+Key int
+Left,Right *Node2
+}</p>
+<p>type Node3 struct {
+KeyL, KeyR int
+Left,Mid,Right *Node3
+}</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 插入5
-</span><span class="c1">//
-</span><span class="c1">// 1. 插入前
-</span><span class="c1">//     1
-</span><span class="c1">//    / \
-</span><span class="c1">// 
-</span><span class="c1">// 2. 变为3结点
-</span><span class="c1">//     1   5 
-</span><span class="c1">//    /  |  \ 
-</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+2. 查找键
+
+在树中查找键并不复杂，思路与二叉搜索树查找键别无二致，只是`3结点`将键划为三段区间而非两端。
+
+3. 向`2结点`插入键
+
+当插入一个键，发现最终其停在一个`2结点`叶子上时，按二叉查找树的思路，需要`cur.Left/Right = new Node(k)`这般插入，但是为了保持完美平衡，这里需要将`2结点`转换为`3结点`，这样可保证此时完美平衡
+
+```go
+// 插入5
+//
+// 1. 插入前
+//     1
+//    / \
+// 
+// 2. 变为3结点
+//     1   5 
+//    /  |  \ 
+</code></pre></td></tr></table>
 </div>
 </div><ol start="4">
 <li>向一个仅含有1个<code>3结点</code>的<code>2-3树</code>插入新键</li>
@@ -1711,7 +1715,7 @@
 </span><span class="c1">//       % \     % \
 </span><span class="c1">//      2       7
 </span><span class="c1">//     / \     % \
-</span><span class="c1">//            6NIXIANG
+</span><span class="c1">//            6
 </span><span class="c1">//           / \
 </span><span class="c1">//
 </span><span class="c1">// 出现两条左红链接
@@ -1734,8 +1738,8 @@
 </span><span class="c1">//     / \     / \ / \
 </span><span class="c1">// (7)变红了，相当于新插入的结点，因此需要继续考虑（4）（3）（7）组成的子树，
 </span><span class="c1">// 要将其重新调整为3-结点。 因此要对结点(5)锁在子树执行左旋修正，使(7)成为新根
-</span><span class="c1">//				  7
-</span><span class="c1">//			    %   \
+</span><span class="c1">//				        7
+</span><span class="c1">//			        %   \
 </span><span class="c1">//            5      9
 </span><span class="c1">//          /  \    / \  
 </span><span class="c1">//        3     6     
@@ -1868,7 +1872,7 @@
 <p><strong>在红黑树中实现这个算法</strong></p>
 <ul>
 <li>将<code>4-结点</code>表示为3个<code>2-结点</code>构成的平衡的子树，并且根节点与两个孩子节点都红链接</li>
-<li>向下查找的过程中，不断分解所有<code>4-结点</code>病进行颜色转换</li>
+<li>向下查找的过程中，不断分解所有<code>4-结点</code>并进行颜色转换</li>
 <li>和插入操作一样，在<strong>向上</strong>的过程中用旋转将<code>4-结点</code>配平</li>
 </ul>
 <p>这个过程和上面红黑树插入算法实现中几乎一样，唯一的区别在于，将<code>flipColors()</code>移至null测试和比较操作之间。</p>

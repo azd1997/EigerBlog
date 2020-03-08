@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>链表相关题目集锦</title>
+      <link>https://azd1997.github.io/post/algo/linkedlist-problems/</link>
+      <pubDate>Sun, 08 Mar 2020 17:40:37 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/linkedlist-problems/</guid>
+      <description>0. 链表问题集锦 在进行链表题目的训练之前，先给出链表结点的定义与链表的遍历框架。 链表结点的定义 1 2 3 4 5 6 7 8 9 10 11 12 13 // 单链表结点 type Node struct { Val</description>
+    </item>
+    
+    <item>
       <title>链表常见操作整理</title>
       <link>https://azd1997.github.io/post/algo/linkedlist/</link>
       <pubDate>Fri, 28 Feb 2020 09:00:07 +0800</pubDate>
