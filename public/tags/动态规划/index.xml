@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>动态规划 on Eiger - A young gopher</title>
+    <link>https://azd1997.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</link>
+    <description>Recent content in 动态规划 on Eiger - A young gopher</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 09 Mar 2020 11:41:25 +0800</lastBuildDate>
+    
+	<atom:link href="https://azd1997.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>动态规划问题集锦</title>
+      <link>https://azd1997.github.io/post/algo/dp-problems/</link>
+      <pubDate>Mon, 09 Mar 2020 11:41:25 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/dp-problems/</guid>
+      <description>0. 动态规划简介 1. 股票问题 LeetCode上股票问题共有6道： 121. 买卖股票的最佳时机 122. 买卖股票的最佳时机II 123. 买卖股票的最佳时机III 188. 买卖股票</description>
+    </item>
+    
+  </channel>
+</rss>

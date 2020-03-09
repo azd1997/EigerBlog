@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>树 on Eiger - A young gopher</title>
+    <link>https://azd1997.github.io/tags/%E6%A0%91/</link>
+    <description>Recent content in 树 on Eiger - A young gopher</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 08 Mar 2020 18:08:11 +0800</lastBuildDate>
+    
+	<atom:link href="https://azd1997.github.io/tags/%E6%A0%91/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>树问题集锦</title>
+      <link>https://azd1997.github.io/post/algo/tree-problems/</link>
+      <pubDate>Sun, 08 Mar 2020 18:08:11 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/tree-problems/</guid>
+      <description>0. 树的遍历框架 通常与树相关的问题都是二叉树相关的问题。 二叉树的遍历方式有前序遍历，中序遍历，后序遍历。这三种遍历都属于深度优先遍历。 还有一种</description>
+    </item>
+    
+  </channel>
+</rss>

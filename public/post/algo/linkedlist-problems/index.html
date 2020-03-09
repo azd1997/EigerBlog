@@ -48,7 +48,7 @@
 <meta itemprop="description" content="0. 链表问题集锦 在进行链表题目的训练之前，先给出链表结点的定义与链表的遍历框架。 链表结点的定义 1 2 3 4 5 6 7 8 9 10 11 12 13 // 单链表结点 type Node struct { Val">
 <meta itemprop="datePublished" content="2020-03-08T17:40:37&#43;08:00" />
 <meta itemprop="dateModified" content="2020-03-08T17:40:37&#43;08:00" />
-<meta itemprop="wordCount" content="4278">
+<meta itemprop="wordCount" content="4353">
 
 
 
@@ -132,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 4278 words </span>
+          <span class="more-meta"> 4353 words </span>
           <span class="more-meta"> 9 mins read </span>
         
       </div>
@@ -332,7 +332,9 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="2-删除链表的结点">2. 删除链表的结点</h2>
+</div><p>需要注意的是：尽管递归实现简洁，但是递归使用的是函数调用的系统栈，当链表很长时，函数调用栈很可能溢出。
+因此，<strong>用栈基于循环(迭代)实现的代码鲁棒性更好</strong>。</p>
+<h2 id="2-删除链表的结点">2. 删除链表的结点</h2>
 <p>这道题要求的是删除链表中给定值的结点，且链表中所有节点值不相同。</p>
 <p>对于删除链表中的结点，最好先构建一个dummyHead，再去做删除工作。
 不这么做的话，直接从head开始，需要额外处理head是待删节点的情况。</p>
@@ -1190,7 +1192,11 @@ $$f(n,m) = (f(n-1,m) + m) % n$$
           <a href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/algo/tree-problems/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">树问题集锦</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
         <a class="next" href="/post/algo/linkedlist/">
             <span class="next-text nav-default">链表常见操作整理</span>
             <span class="next-text nav-mobile">Next</span>
