@@ -245,7 +245,7 @@
 </span><span class="c1"></span>    <span class="c1">// 由于栈是倒序输出，因此需要先将右压入栈中，后将左压入。
 </span><span class="c1"></span>    <span class="k">for</span> <span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>   <span class="c1">// 栈不为空则继续
 </span><span class="c1"></span>        <span class="nx">cur</span> <span class="o">:=</span> <span class="nx">stack</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="nx">satck</span> <span class="p">=</span> <span class="nx">stack</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>   <span class="c1">// 栈顶元素出栈
+        <span class="nx">stack</span> <span class="p">=</span> <span class="nx">stack</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>   <span class="c1">// 栈顶元素出栈
 </span><span class="c1"></span>
         <span class="c1">// 对当前元素处理
 </span><span class="c1"></span>        <span class="c1">// do something

@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>形形色色的树——线段树</title>
+      <link>https://azd1997.github.io/post/algo/tree-segmenttree/</link>
+      <pubDate>Wed, 11 Mar 2020 18:20:07 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/tree-segmenttree/</guid>
+      <description>0. 导引 对于一个数组区间$arr$，如果要频繁获取其某个子区间的最大值，需要怎么做？ 每次求子区间最大值都对该子区间做一次遍历？ 维护$O(1)$</description>
+    </item>
+    
+    <item>
       <title>动态规划问题集锦</title>
       <link>https://azd1997.github.io/post/algo/dp-problems/</link>
       <pubDate>Mon, 09 Mar 2020 11:41:25 +0800</pubDate>
