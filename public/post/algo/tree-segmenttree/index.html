@@ -160,8 +160,8 @@
 <h2 id="1-线段树">1. 线段树</h2>
 <p>线段树的实现可以是基于节点的形式，也可以基于数组构建。</p>
 <p>可以基于数组构建的原因是线段树虽然不是完全二叉树的形式，但浪费的空间也不大，接近于完全二叉树，可以使用数组存储树，对于叶节点不在树最底部的情况，可以给它分配两个虚结点，使得整棵树成为满二叉树。这样，可以根据完全二叉树的数组存储形式的下标转换来访问(以下标从0开始考虑)</p>
-<p>$$left_node = 2 * node + 1$$
-$$right_node = 2 * node + 2$$
+<p>$$leftnode = 2 * node + 1$$
+$$rightnode = 2 * node + 2$$
 $$parent = (cur-1) / 2 $$</p>
 <p>实现：</p>
 <div class="highlight"><div class="chroma">
@@ -726,7 +726,11 @@ $$parent = (cur-1) / 2 $$</p>
           <a href="/tags/%E6%A0%91/">树</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/algo/math/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">编程中的数学操作</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
         <a class="next" href="/post/algo/dp-problems/">
             <span class="next-text nav-default">动态规划问题集锦</span>
             <span class="next-text nav-mobile">Next</span>

@@ -48,7 +48,7 @@
 <meta itemprop="description" content="0. 树的遍历框架 通常与树相关的问题都是二叉树相关的问题。 二叉树的遍历方式有前序遍历，中序遍历，后序遍历。这三种遍历都属于深度优先遍历。 还有一种">
 <meta itemprop="datePublished" content="2020-03-08T18:08:11&#43;08:00" />
 <meta itemprop="dateModified" content="2020-03-08T18:08:11&#43;08:00" />
-<meta itemprop="wordCount" content="909">
+<meta itemprop="wordCount" content="1281">
 
 
 
@@ -132,8 +132,8 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 909 words </span>
-          <span class="more-meta"> 2 mins read </span>
+          <span class="more-meta"> 1281 words </span>
+          <span class="more-meta"> 3 mins read </span>
         
       </div>
     </header>
@@ -149,6 +149,7 @@
         <li><a href="#02-中序遍历">0.2 中序遍历</a></li>
         <li><a href="#03-后序遍历">0.3 后序遍历</a></li>
         <li><a href="#04-层序遍历">0.4 层序遍历</a></li>
+        <li><a href="#05-参考">0.5 参考</a></li>
       </ul>
     </li>
   </ul>
@@ -262,6 +263,60 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
+</div><p>上面的迭代版本其实是完全复刻前序遍历递归实现的，这种递归思路直接转迭代的写法似乎只有前序遍历比较好实现。</p>
+<p>下面是更为通用的迭代写法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">preorder</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 递归终止
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="kc">nil</span><span class="p">}</span>
+
+    <span class="nx">stack</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="o">*</span><span class="nx">TreeNode</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="nx">cur</span> <span class="o">:=</span> <span class="nx">root</span>     <span class="c1">// 游标结点
+</span><span class="c1"></span>
+    <span class="k">for</span> <span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">cur</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>   <span class="c1">// 栈不为空或者cur节点不为空
+</span><span class="c1"></span>        
+        <span class="c1">// 左子孙入栈
+</span><span class="c1"></span>        <span class="k">for</span> <span class="nx">cur</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+            <span class="c1">// 前序遍历：入栈时处理结点
+</span><span class="c1"></span>            <span class="c1">// do something
+</span><span class="c1"></span>            <span class="nx">stack</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">stack</span><span class="p">,</span> <span class="nx">cur</span><span class="p">)</span>
+            <span class="nx">cur</span> <span class="p">=</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">Left</span>
+        <span class="p">}</span>
+        
+        <span class="c1">// cur移动到右子树
+</span><span class="c1"></span>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+            <span class="nx">cur</span> <span class="p">=</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">Right</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
 </div><p>一般默认前序遍历就是“中-左-右”遍历，但有时需要先访问右边，再访问左边，只需要将对左子节点的操作与右子节点的操作顺序进行调换。</p>
 <h3 id="02-中序遍历">0.2 中序遍历</h3>
 <p>递归版本</p>
@@ -330,7 +385,7 @@
 </span><span class="c1"></span>    <span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="kc">nil</span><span class="p">}</span>
 
     <span class="nx">stack</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="o">*</span><span class="nx">TreeNode</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="nx">cur</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Node</span><span class="p">{}</span>
+    <span class="nx">cur</span> <span class="o">:=</span> <span class="nx">root</span>
 
     <span class="c1">// 中序遍历
 </span><span class="c1"></span>    <span class="k">for</span> <span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">cur</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>   <span class="c1">// 栈不为空或者cur不为空则继续
@@ -416,6 +471,15 @@
 </span><span class="lnt">25
 </span><span class="lnt">26
 </span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">postorder</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">)</span> <span class="p">{</span>
@@ -423,9 +487,10 @@
 </span><span class="c1"></span>    <span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="kc">nil</span><span class="p">}</span>
 
     <span class="nx">stack</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="o">*</span><span class="nx">TreeNode</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="nx">cur</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Node</span><span class="p">{}</span>
-
-    <span class="c1">// 中序遍历
+    <span class="nx">cur</span> <span class="o">:=</span> <span class="nx">root</span>
+    <span class="nx">lastVisit</span> <span class="o">:=</span> <span class="nx">root</span>   <span class="c1">// 用来标记右子树也访问完了
+</span><span class="c1"></span>
+    <span class="c1">// 后序遍历
 </span><span class="c1"></span>    <span class="k">for</span> <span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">cur</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>   <span class="c1">// 栈不为空或者cur不为空则继续
 </span><span class="c1"></span>
         <span class="c1">// cur不为空，则不断将cur的左子孙压入栈中
@@ -434,20 +499,33 @@
 </span><span class="c1"></span>            <span class="nx">cur</span> <span class="p">=</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">Left</span>
         <span class="p">}</span>
 
-        <span class="c1">// 出栈处理当前结点
+        <span class="c1">// 不出栈，peek栈顶
 </span><span class="c1"></span>        <span class="nx">cur</span> <span class="p">=</span> <span class="nx">stack</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="nx">satck</span> <span class="p">=</span> <span class="nx">stack</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>   <span class="c1">// 栈顶元素出栈
+
+        <span class="c1">// 检查右子节点情况和lastVisit
+</span><span class="c1"></span>        <span class="c1">// 右子树为空，或者lastVisit=右子节点（说明右子树访问完）
+</span><span class="c1"></span>        <span class="c1">// 满足这两者，才去处理当前栈顶结点cur
+</span><span class="c1"></span>        <span class="c1">// 将其出栈、lastVisit移动到cur
+</span><span class="c1"></span>        <span class="k">if</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">Right</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">||</span> <span class="nx">lastVisit</span> <span class="o">==</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">Right</span> <span class="p">{</span>
+            <span class="c1">// do something to cur
 </span><span class="c1"></span>
-        <span class="c1">// 对当前结点处理
-</span><span class="c1"></span>        <span class="c1">// do something
-</span><span class="c1"></span>
-        <span class="c1">// 再转移至当前节点的右子树
-</span><span class="c1"></span>        <span class="nx">cur</span> <span class="p">=</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">Right</span>
+            <span class="nx">satck</span> <span class="p">=</span> <span class="nx">stack</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>   <span class="c1">// 栈顶元素出栈
+</span><span class="c1"></span>            <span class="nx">lastVisit</span> <span class="p">=</span> <span class="nx">cur</span> <span class="c1">// 标记cur子树已访问过
+</span><span class="c1"></span>            <span class="nx">cur</span> <span class="p">=</span> <span class="kc">nil</span>       <span class="c1">// 将cur清掉
+</span><span class="c1"></span>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// 否则的话继续查看右子树
+</span><span class="c1"></span>            <span class="nx">cur</span> <span class="p">=</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">Right</span>
+        <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="04-层序遍历">0.4 层序遍历</h3>
+<h3 id="05-参考">0.5 参考</h3>
+<ul>
+<li><a href="https://github.com/azd1997/Leetcode-training/tree/master/ltalgo/tree-traverse">我的Github</a></li>
+<li><a href="https://www.jianshu.com/p/456af5480cee">二叉树遍历（前序、中序、后序）</a></li>
+</ul>
 
     </div>
 

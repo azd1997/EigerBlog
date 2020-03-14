@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>位操作 on Eiger - A young gopher</title>
+    <link>https://azd1997.github.io/tags/%E4%BD%8D%E6%93%8D%E4%BD%9C/</link>
+    <description>Recent content in 位操作 on Eiger - A young gopher</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 13 Mar 2020 19:12:20 +0800</lastBuildDate>
+    
+	<atom:link href="https://azd1997.github.io/tags/%E4%BD%8D%E6%93%8D%E4%BD%9C/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>位操作问题集锦</title>
+      <link>https://azd1997.github.io/post/algo/bit-operation/</link>
+      <pubDate>Fri, 13 Mar 2020 19:12:20 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/bit-operation/</guid>
+      <description>0. 导语 1. 常用位操作 1.1 基础位操作 按位或 x | y 按位与 x &amp;amp; y 按位取反 ^x 左移n位 x &amp;lt;&amp;lt; n 右移n位 x &amp;gt;&amp;gt; n 1.2 高级位运算 x &amp;amp; -x 可以将x最后一个1保留，其他全</description>
+    </item>
+    
+  </channel>
+</rss>

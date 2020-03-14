@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>图搜索算法——DFS与BFS - Eiger - A young gopher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Eiger" /><meta name="description" content="0. 导语 虽然这里讲图搜索算法，但其实DFS/BFS也可以应用与树的搜索，只是树搜索那一篇讲二叉搜索树已经很长了，因此，这两个最常见的搜索算法放" /><meta name="keywords" content="DFS, BFS" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://azd1997.github.io/post/algo/search-in-graph/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="图搜索算法——DFS与BFS" />
+<meta property="og:description" content="0. 导语 虽然这里讲图搜索算法，但其实DFS/BFS也可以应用与树的搜索，只是树搜索那一篇讲二叉搜索树已经很长了，因此，这两个最常见的搜索算法放" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://azd1997.github.io/post/algo/search-in-graph/" />
+<meta property="article:published_time" content="2020-03-13T09:12:20+08:00" />
+<meta property="article:modified_time" content="2020-03-13T09:12:20+08:00" />
+<meta itemprop="name" content="图搜索算法——DFS与BFS">
+<meta itemprop="description" content="0. 导语 虽然这里讲图搜索算法，但其实DFS/BFS也可以应用与树的搜索，只是树搜索那一篇讲二叉搜索树已经很长了，因此，这两个最常见的搜索算法放">
+<meta itemprop="datePublished" content="2020-03-13T09:12:20&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-13T09:12:20&#43;08:00" />
+<meta itemprop="wordCount" content="4919">
+
+
+
+<meta itemprop="keywords" content="搜索," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="图搜索算法——DFS与BFS"/>
+<meta name="twitter:description" content="0. 导语 虽然这里讲图搜索算法，但其实DFS/BFS也可以应用与树的搜索，只是树搜索那一篇讲二叉搜索树已经很长了，因此，这两个最常见的搜索算法放"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Eiger</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/links/">
+        <li class="mobile-menu-item">Links</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Eiger</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/links/">Links</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">图搜索算法——DFS与BFS</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-13 </span>
+        <div class="post-category">
+            <a href="/categories/algo/"> algo </a>
+            </div>
+          <span class="more-meta"> 4919 words </span>
+          <span class="more-meta"> 10 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-导语">0. 导语</a></li>
+    <li><a href="#1-dfs">1. DFS</a>
+      <ul>
+        <li><a href="#12-例题">1.2 例题</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-bfs">2. BFS</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="0-导语">0. 导语</h2>
+<p>虽然这里讲图搜索算法，但其实DFS/BFS也可以应用与树的搜索，只是树搜索那一篇讲二叉搜索树已经很长了，因此，这两个最常见的搜索算法放到这里来讲。（ps:树可以看做是有向无环图）</p>
+<h2 id="1-dfs">1. DFS</h2>
+<p>深度优先搜索/深度优先遍历</p>
+<ul>
+<li>
+<p>本质：枚举。</p>
+<ul>
+<li>通过枚举状态空间的所有状态，来找到可行解。</li>
+</ul>
+</li>
+<li>
+<p>经典应用：迷宫(Maze)问题</p>
+</li>
+<li>
+<p>DFS的状态空间将形成一颗状态空间树</p>
+</li>
+<li>
+<p>时间复杂度：一般为$O(n!)$或$O(n^k)$</p>
+</li>
+<li>
+<p>优点：空间消耗小。只需要保存当前状态密切相关的信息</p>
+</li>
+<li>
+<p>解决的问题：需要遍历全部状态或者大部分状态直到找到可行解的情况。</p>
+<ul>
+<li>图的遍历</li>
+<li>排列/组合方案</li>
+<li>复杂大奥只能枚举+判断的问题</li>
+</ul>
+</li>
+<li>
+<p>DFS的关键：如何确定状态空间</p>
+<ul>
+<li>（搜什么？怎么搜？怎么搜得不重复不漏？）</li>
+</ul>
+</li>
+<li>
+<p>如何加快DFS？ 剪枝</p>
+<ul>
+<li>对一些根本不可能有可行解的分支或者说区域不再继续搜索</li>
+</ul>
+</li>
+</ul>
+<h3 id="12-例题">1.2 例题</h3>
+<h4 id="121-课程表">1.2.1 课程表</h4>
+<p>LeetCode上课程表系列有三道题。</p>
+<p><a href="https://leetcode-cn.com/problems/course-schedule">207. 课程表</a></p>
+<p><a href="https://leetcode-cn.com/problems/course-schedule-ii">210. 课程表II</a></p>
+<p><a href="https://leetcode-cn.com/problems/course-schedule-iii">630. 课程表III</a>（并不基于DFS求解）</p>
+<ol>
+<li><strong>题207</strong></li>
+</ol>
+<p>题面如下：</p>
+<pre><code>你这个学期必须选修 numCourse 门课程，记为 0 到 numCourse-1 。
+在选修某些课程之前需要一些先修课程。 例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们：[0,1]
+给定课程总量以及它们的先决条件，请你判断是否可能完成所有课程的学习？
+
+示例 1:
+输入: 2, [[1,0]] 
+输出: true
+解释: 总共有 2 门课程。学习课程 1 之前，你需要完成课程 0。所以这是可能的。
+
+示例 2:
+输入: 2, [[1,0],[0,1]]
+输出: false
+解释: 总共有 2 门课程。学习课程 1 之前，你需要先完成​课程 0；并且学习课程 0 之前，你还应先完成课程 1。这是不可能的。
+
+提示：
+输入的先决条件是由 边缘列表 表示的图形，而不是 邻接矩阵 。详情请参见图的表示法。
+你可以假定输入的先决条件中没有重复的边。
+1 &lt;= numCourses &lt;= 10^5
+</code></pre>
+<p>这道题的关键在于：</p>
+<ul>
+<li>遍历一个有向图（课程视作图的结点，课程的依赖关系视作有向边）</li>
+<li>判断图中是否有环</li>
+</ul>
+<p>对于DFS而言，无论是递归实现还是栈实现，都需要增加一个<code>visited</code>数组用以标记是否访问过，一般来讲就是使用布尔变量（<code>[]bool</code>）来标记。</p>
+<p>而要检查是否成环，那么就是一轮DFS中没有遇到<strong>该轮中已访问过</strong>的结点。因此<code>visited</code>需要能够标记三种状态：没访问过、本轮已访问过、已经访问过而且排除成环可能，分别用<code>0,1,2</code>表示。</p>
+<p>实现如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">canFinish</span><span class="p">(</span><span class="nx">numCourses</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">prerequisites</span> <span class="p">[][]</span><span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+    <span class="c1">// 1. 构建邻接矩阵用来表示图
+</span><span class="c1"></span>    <span class="nx">adjacency</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([][]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">numCourses</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">adjacency</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">numCourses</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="c1">// 2. 根据prerequisites填充邻接矩阵中的有向边
+</span><span class="c1"></span>    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">prerequisites</span> <span class="p">{</span>
+        <span class="nx">adjacency</span><span class="p">[</span><span class="nx">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="nx">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="p">=</span> <span class="mi">1</span>   <span class="c1">// 学习课程v[1]之后才能学习v[0]
+</span><span class="c1"></span>    <span class="p">}</span>
+
+    <span class="c1">// 3. 构建访问数组visited
+</span><span class="c1"></span>    <span class="nx">visited</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">numCourses</span><span class="p">)</span>  <span class="c1">// 默认值为0，没访问过
+</span><span class="c1"></span>
+    <span class="c1">// 以每个课程为起点，尝试DFS，看是否成环
+</span><span class="c1"></span>    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">numCourses</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="c1">// 只要从某一个课程开始DFS成环，要想修全部课程，必然经过该课程，那么也就有环，所以是一旦某一轮检测到环就返回false
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">!</span><span class="nf">dfs</span><span class="p">(</span><span class="nx">adjacency</span><span class="p">,</span> <span class="nx">visited</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="kc">false</span><span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="kc">true</span> <span class="c1">// 没有环，可以完成所有课程
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// 这里提一下，go语言切片虽然是引用类型，但如果切片在函数体内扩容了，那么函数体内使用的切片就和传进去那个不是同一个切片了。
+</span><span class="c1">// 这里由于穿进去的切片都不会扩容，因此可以直接传递，并不断被dfs（）修改
+</span><span class="c1"></span>
+<span class="c1">// 从课程x开始DFS，判断是否成环。true代表没环，false代表有环
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">dfs</span><span class="p">(</span><span class="nx">adjacency</span> <span class="p">[][]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">visited</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">x</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+    <span class="c1">// 首先检查visited
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">visited</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span><span class="k">return</span> <span class="kc">false</span><span class="p">}</span>   <span class="c1">// 本轮访问过，成环
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">visited</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span><span class="k">return</span> <span class="kc">true</span><span class="p">}</span>    <span class="c1">// 前面轮DFS访问过，且不会成环
+</span><span class="c1"></span>    
+    <span class="c1">// DFS
+</span><span class="c1"></span>    <span class="nx">visited</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span>  <span class="c1">// 先标记本轮访问过
+</span><span class="c1"></span>    <span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="p">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="nx">adjacency</span><span class="p">);</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">adjacency</span><span class="p">[</span><span class="nx">x</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span>      <span class="c1">// 修完x可以修课程j
+</span><span class="c1"></span>            <span class="p">!</span><span class="nf">dfs</span><span class="p">(</span><span class="nx">adjacency</span><span class="p">,</span> <span class="nx">visited</span><span class="p">,</span> <span class="nx">j</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">// 从课程j开始DFS成环
+</span><span class="c1"></span>                <span class="k">return</span> <span class="kc">false</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// 没有return false，说明从课程x出发往所有可能方向走都不会成环，应该返回true
+</span><span class="c1"></span>    <span class="nx">visited</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span> <span class="p">=</span> <span class="mi">2</span>  <span class="c1">// 结束本轮DFS，将标记置2
+</span><span class="c1"></span>    <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>ps: 课程表问题是经典的拓扑排序问题，这里使用DFS（尽管没有排序，只是确定是否成环）实现，也可以使用BFS+入度表实现。</p>
+<p>ps: 这里使用了邻接矩阵表示图，但是课程表这样的场景下更可能是稀疏图，最好使用邻接表表示图。</p>
+<ol start="2">
+<li><strong>题210</strong></li>
+</ol>
+<p>题210和题207基本一样，只不过题210要求返回一个可行的修完全部课程的数组（或者说修课顺序），没有的话返回空数组。</p>
+<p>问题关键在于，从某门课程出发，既要判断其不成环，还要返回该轮DFS总共经过了几个结点（修了几门课）</p>
+<p>下面的实现使用邻接表来表示图，而且关键在于”全局“栈的使用，，其他地方的逻辑和题207一致。</p>
+<p>总体代码如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// DFS解法
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">findOrder</span><span class="p">(</span><span class="nx">numCourses</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">prerequisites</span> <span class="p">[][]</span><span class="kt">int</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
+	<span class="c1">// 1.检查numCourses
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">numCourses</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 2. 检查prerequisites
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">prerequisites</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="c1">// 课程没有依赖关系（图中没有有向边），说明随便怎样的顺序都可以
+</span><span class="c1"></span>		<span class="nx">order</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">numCourses</span><span class="p">)</span>
+		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">numCourses</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+			<span class="nx">order</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">i</span>
+		<span class="p">}</span>
+		<span class="k">return</span> <span class="nx">order</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 3. 标记数组 visited/marked/flags之类的名字
+</span><span class="c1"></span>	<span class="c1">// 0表示没访问，1表示当前轮已访问，2表示前面的其他轮已经访问
+</span><span class="c1"></span>	<span class="nx">visited</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">numCourses</span><span class="p">)</span>
+
+	<span class="c1">// 4. 初始化有向图 graph 的 begin，数组的每一项代表起点，是前驱结点
+</span><span class="c1"></span>	<span class="nx">graph</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">bool</span><span class="p">,</span> <span class="nx">numCourses</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">numCourses</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">graph</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">bool</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 5. 初始化有向图 end， graph[i].map中存的是后继节点们
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">p</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">prerequisites</span> <span class="p">{</span>
+		<span class="nx">graph</span><span class="p">[</span><span class="nx">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="nx">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// 将后继节点加入
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="c1">// 6. 使用栈stack记录递归的顺序
+</span><span class="c1"></span>	<span class="c1">// 这个Stackz在DFS过程中会将没有后继节点的课程放到栈底位置，
+</span><span class="c1"></span>	<span class="c1">// 没有前驱节点的课程压到栈顶
+</span><span class="c1"></span>	<span class="nx">stack</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">// 栈其实就是DFS路径
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">numCourses</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nf">dfs</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">graph</span><span class="p">,</span> <span class="nx">visited</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">stack</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 如果发现环，那么就返回空数组
+</span><span class="c1"></span>			<span class="k">return</span> <span class="kc">nil</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 7. DFS过程中一直没有出现成环情况
+</span><span class="c1"></span>	<span class="c1">// 那么说明当前的栈stack存的就是课程表路径,将顺序颠倒即可
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span> <span class="o">!=</span> <span class="nx">numCourses</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span>
+	<span class="p">}</span> <span class="c1">// 其实肯定是==的，只不过，假如stack没这么长，那样的话下面交换就会panic
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">numCourses</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">stack</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">stack</span><span class="p">[</span><span class="nx">numCourses</span><span class="o">-</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="nx">stack</span><span class="p">[</span><span class="nx">numCourses</span><span class="o">-</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="nx">stack</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">stack</span>
+<span class="p">}</span>
+
+<span class="c1">// 从课程x开始DFS，判断是否成环。false不成环，true成环，
+</span><span class="c1">// 此外还返回path []int。仅当path是完整课表顺序才返回
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">dfs</span><span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">graph</span> <span class="p">[]</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">bool</span><span class="p">,</span> <span class="nx">visited</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">stack</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="c1">// 1. 检查visited数组
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">visited</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span> <span class="c1">// 当前轮访问过i，说明成环
+</span><span class="c1"></span>		<span class="k">return</span> <span class="kc">true</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">visited</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span> <span class="c1">// 其他轮访问过了，从i开始不会成环
+</span><span class="c1"></span>		<span class="k">return</span> <span class="kc">false</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 2. 标记当前轮正在访问i
+</span><span class="c1"></span>	<span class="nx">visited</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span>
+
+	<span class="c1">// 3. 对后继节点进行DFS
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">graph</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">{</span>
+		<span class="c1">// 后继节点存在成环情况，直接返回true
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nf">dfs</span><span class="p">(</span><span class="nx">j</span><span class="p">,</span> <span class="nx">graph</span><span class="p">,</span> <span class="nx">visited</span><span class="p">,</span> <span class="nx">stack</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="kc">true</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 4. i的所有后继节点都不成环，所以从i开始也不成环
+</span><span class="c1"></span>	<span class="c1">// 将visited[i]置2
+</span><span class="c1"></span>	<span class="nx">visited</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">2</span>
+
+	<span class="c1">// 5. 将i入栈
+</span><span class="c1"></span>	<span class="o">*</span><span class="nx">stack</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="o">*</span><span class="nx">stack</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="kc">false</span> <span class="c1">// 不成环
+</span><span class="c1"></span><span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="122-n皇后">1.2.2 N皇后</h4>
+<p>LeetCode上N皇后相关的有四道题。</p>
+<p><a href="https://leetcode-cn.com/problems/n-queens">51. N皇后</a></p>
+<p><a href="https://leetcode-cn.com/problems/n-queens-ii">52. N皇后II</a></p>
+<p><a href="https://leetcode-cn.com/problems/eight-queens-lcci">面试题08.12 八皇后</a></p>
+<p><a href="https://leetcode-cn.com/problems/queens-that-can-attack-the-king">1222. 可以攻击到国王的皇后</a>（与DFS没啥关系，也很简单）</p>
+<ol>
+<li>
+<p>题51.</p>
+<p>n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击(<strong>两两不在同一行、同一列、同一45度斜线上</strong>)。</p>
+</li>
+</ol>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/8-queens.png" alt="N皇后"></p>
+<pre><code>上图为 8 皇后问题的一种解法。
+
+给定一个整数 n，返回所有不同的 n 皇后问题的解决方案。
+
+每一种解法包含一个明确的 n 皇后问题的棋子放置方案，该方案中 'Q' 和 '.' 分别代表了皇后和空位。
+
+示例:
+输入: 4
+输出: [
+[&quot;.Q..&quot;,  // 解法 1
+&quot;...Q&quot;,
+&quot;Q...&quot;,
+&quot;..Q.&quot;],
+
+[&quot;..Q.&quot;,  // 解法 2
+&quot;Q...&quot;,
+&quot;...Q&quot;,
+&quot;.Q..&quot;]
+]
+解释: 4 皇后问题存在两个不同的解法。
+</code></pre>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 思考：典型的图问题，这里使用DFS求解，回溯思想
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">solveNQueens</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">[][]</span><span class="kt">string</span> <span class="p">{</span>
+	<span class="c1">// 特殊情况
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">n</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="p">[][]</span><span class="kt">string</span><span class="p">{{</span><span class="s">&#34;Q&#34;</span><span class="p">}}</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 初始化res矩阵，先全空
+</span><span class="c1"></span>	<span class="nx">res</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([][]</span><span class="kt">string</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+	<span class="c1">// 构造1张空白棋盘
+</span><span class="c1"></span>	<span class="nx">blank</span> <span class="o">:=</span> <span class="nf">genBlankChessBoard</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
+
+	<span class="c1">// dfs或者说回溯
+</span><span class="c1"></span>	<span class="nf">dfs</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">res</span><span class="p">,</span> <span class="nx">blank</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">// 从第0行开始
+</span><span class="c1"></span>
+	<span class="k">return</span> <span class="nx">res</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">genBlankChessBoard</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">[][]</span><span class="kt">byte</span> <span class="p">{</span>
+	<span class="nx">res</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([][]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">res</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+			<span class="nx">res</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="sc">&#39;.&#39;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">res</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">boardToRet</span><span class="p">(</span><span class="nx">board</span> <span class="p">[][]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">[]</span><span class="kt">string</span> <span class="p">{</span>
+	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">board</span><span class="p">)</span>
+	<span class="nx">res</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">res</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nb">string</span><span class="p">(</span><span class="nx">board</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">res</span>
+<span class="p">}</span>
+
+<span class="c1">// DFS + 回溯 + 剪枝
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">dfs</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">res</span> <span class="o">*</span><span class="p">[][]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">board</span> <span class="p">[][]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">row</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// 结束条件
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">row</span> <span class="o">==</span> <span class="nx">n</span> <span class="p">{</span> <span class="c1">// 所有行填上了皇后，就该结束当前这轮DFS
+</span><span class="c1"></span>		<span class="o">*</span><span class="nx">res</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="o">*</span><span class="nx">res</span><span class="p">,</span> <span class="nf">boardToRet</span><span class="p">(</span><span class="nx">board</span><span class="p">))</span> <span class="c1">// 保存这一可行解
+</span><span class="c1"></span>		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 对当前行所有列的位置尝试放上皇后，并紧接着DFS下一行
+</span><span class="c1"></span>	<span class="c1">// 其实从这里可看出，这就是一个n叉树
+</span><span class="c1"></span>	<span class="c1">// 但是可以通过检查是否是可以放置皇后的位置，来实现剪枝，避免不必要的遍历
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">col</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">col</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">col</span><span class="o">++</span> <span class="p">{</span>
+		<span class="c1">// 检查当前位置是否可放置皇后，不可以则跳过
+</span><span class="c1"></span>		<span class="k">if</span> <span class="p">!</span><span class="nf">isValid</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">board</span><span class="p">,</span> <span class="nx">row</span><span class="p">,</span> <span class="nx">col</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">continue</span>
+		<span class="p">}</span>
+		<span class="c1">// 进行选择
+</span><span class="c1"></span>		<span class="nx">board</span><span class="p">[</span><span class="nx">row</span><span class="p">][</span><span class="nx">col</span><span class="p">]</span> <span class="p">=</span> <span class="sc">&#39;Q&#39;</span>
+		<span class="c1">// 进行下一行决策
+</span><span class="c1"></span>		<span class="nf">dfs</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">board</span><span class="p">,</span> <span class="nx">row</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+		<span class="c1">// 还原当前行的决策，恢复成&#39;.&#39;
+</span><span class="c1"></span>		<span class="nx">board</span><span class="p">[</span><span class="nx">row</span><span class="p">][</span><span class="nx">col</span><span class="p">]</span> <span class="p">=</span> <span class="sc">&#39;.&#39;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 检查在此刻的棋盘上，在[row][col]位置是否可以放皇后
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">isValid</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">board</span> <span class="p">[][]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">row</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">col</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="c1">// 检查列上是否有其他皇后
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">row</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span> <span class="c1">// 这是因为放皇后是逐行往下放的，当检查[row][col]时其下方一定是空的
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">board</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">col</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;Q&#39;</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="kc">false</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 检查行上是否有其他皇后？不用，因为填的时候就是按一行填一个的规则
+</span><span class="c1"></span>
+	<span class="c1">// 检查左上方45度斜线上是否有皇后
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="o">:=</span> <span class="nx">row</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">col</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">j</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="p">=</span> <span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">j</span><span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">board</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;Q&#39;</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="kc">false</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="c1">// 检查右上方45度斜线上是否有皇后
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="o">:=</span> <span class="nx">row</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">col</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="p">=</span> <span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">j</span><span class="o">+</span><span class="mi">1</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">board</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;Q&#39;</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="kc">false</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="c1">////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// 纯暴力遍历n叉树时间复杂度O(n^n)，上面经过剪枝后差不多是O(n!)
+</span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>题52</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span><span class="lnt">96
+</span><span class="lnt">97
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// N皇后II
+</span><span class="c1"></span>
+<span class="c1">// 只需要返回所有可行解的个数
+</span><span class="c1"></span>
+<span class="c1">// 状态压缩的骚操作还没搞懂
+</span><span class="c1">// 这里先直接使用回溯框架解题
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">totalNQueens</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="mi">1</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="p">&lt;</span> <span class="mi">4</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="mi">0</span>
+	<span class="p">}</span> <span class="c1">// n&lt;=0,n=2,n=3都没有解，这里直接当做特殊情况处理
+</span><span class="c1"></span>
+	<span class="c1">// 回溯框架
+</span><span class="c1"></span>	<span class="c1">// 路径（已做过的选择）
+</span><span class="c1"></span>	<span class="c1">// 当前可做的选择列表
+</span><span class="c1"></span>	<span class="c1">// 终止条件
+</span><span class="c1"></span>	<span class="nx">solCount</span> <span class="o">:=</span> <span class="mi">0</span>                  <span class="c1">// 解法个数
+</span><span class="c1"></span>	<span class="nx">board</span> <span class="o">:=</span> <span class="nf">genBlankChessBoard</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="c1">// 生成一个空白棋盘
+</span><span class="c1"></span>	<span class="nf">dfs</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">solCount</span><span class="p">,</span> <span class="nx">board</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">solCount</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">dfs</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">solCount</span> <span class="o">*</span><span class="kt">int</span><span class="p">,</span> <span class="nx">board</span> <span class="p">[][]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">row</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// 终止条件
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">row</span> <span class="o">==</span> <span class="nx">n</span> <span class="p">{</span>
+		<span class="o">*</span><span class="nx">solCount</span><span class="o">++</span> <span class="c1">// 可行解数加1
+</span><span class="c1"></span>		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="k">for</span> <span class="nx">col</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">col</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">col</span><span class="o">++</span> <span class="p">{</span>
+		<span class="c1">// 检查这个位置能否放皇后
+</span><span class="c1"></span>		<span class="k">if</span> <span class="p">!</span><span class="nf">isValid</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">board</span><span class="p">,</span> <span class="nx">row</span><span class="p">,</span> <span class="nx">col</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">continue</span>
+		<span class="p">}</span>
+
+		<span class="c1">// 做选择
+</span><span class="c1"></span>		<span class="nx">board</span><span class="p">[</span><span class="nx">row</span><span class="p">][</span><span class="nx">col</span><span class="p">]</span> <span class="p">=</span> <span class="sc">&#39;Q&#39;</span>
+		<span class="c1">// 进入下一行
+</span><span class="c1"></span>		<span class="nf">dfs</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">solCount</span><span class="p">,</span> <span class="nx">board</span><span class="p">,</span> <span class="nx">row</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+		<span class="c1">// 回溯，撤销选择
+</span><span class="c1"></span>		<span class="nx">board</span><span class="p">[</span><span class="nx">row</span><span class="p">][</span><span class="nx">col</span><span class="p">]</span> <span class="p">=</span> <span class="sc">&#39;.&#39;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">genBlankChessBoard</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">[][]</span><span class="kt">byte</span> <span class="p">{</span>
+	<span class="nx">res</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([][]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">res</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+			<span class="nx">res</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="sc">&#39;.&#39;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">res</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">boardToRet</span><span class="p">(</span><span class="nx">board</span> <span class="p">[][]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">[]</span><span class="kt">string</span> <span class="p">{</span>
+	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">board</span><span class="p">)</span>
+	<span class="nx">res</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">res</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nb">string</span><span class="p">(</span><span class="nx">board</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">res</span>
+<span class="p">}</span>
+
+<span class="c1">// 检查在此刻的棋盘上，在[row][col]位置是否可以放皇后
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">isValid</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">board</span> <span class="p">[][]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">row</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">col</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="c1">// 检查列上是否有其他皇后
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">row</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span> <span class="c1">// 这是因为放皇后是逐行往下放的，当检查[row][col]时其下方一定是空的
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">board</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">col</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;Q&#39;</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="kc">false</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 检查行上是否有其他皇后？不用，因为填的时候就是按一行填一个的规则
+</span><span class="c1"></span>
+	<span class="c1">// 检查左上方45度斜线上是否有皇后
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="o">:=</span> <span class="nx">row</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">col</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">j</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="p">=</span> <span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">j</span><span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">board</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;Q&#39;</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="kc">false</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="c1">// 检查右上方45度斜线上是否有皇后
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="o">:=</span> <span class="nx">row</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">col</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="p">=</span> <span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">j</span><span class="o">+</span><span class="mi">1</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">board</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;Q&#39;</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="kc">false</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>八皇后</li>
+</ol>
+<p>与题51一致</p>
+<h4 id="123-世界冰球锦标赛">1.2.3 世界冰球锦标赛</h4>
+<p><a href="https://www.luogu.com.cn/problem/P4799">P4799 [CEOI2015 Day2]世界冰球锦标赛</a></p>
+<p>题目描述
+译自 CEOI2015 Day2 T1「Ice Hockey World Championship」</p>
+<p>今年的世界冰球锦标赛在捷克举行。Bobek 已经抵达布拉格，他不是任何团队的粉丝，也没有时间观念。他只是单纯的想去看几场比赛。如果他有足够的钱，他会去看所有的比赛。不幸的是，他的财产十分有限，他决定把所有财产都用来买门票。</p>
+<p>给出 Bobek 的预算和每场比赛的票价，试求：如果总票价不超过预算，他有多少种观赛方案。如果存在以其中一种方案观看某场比赛而另一种方案不观看，则认为这两种方案不同。</p>
+<p>输入格式</p>
+<p>第一行，两个正整数 $N$ 和 $M$($1 \leq N \leq 40$,$1 \leq M \leq 10^{18}$) ，表示比赛的个数和 Bobek 那家徒四壁的财产。</p>
+<p>第二行，$N$个以空格分隔的正整数，均不超过 $10^{16}$，代表每场比赛门票的价格。</p>
+<p>输出格式
+输出一行，表示方案的个数。由于 $N$ 十分大，注意：答案 $\le 2^{40}$。</p>
+<p>输入输出样例</p>
+<ul>
+<li>
+<p>输入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">5 1000
+100 1500 500 500 1000
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>输出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">8
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<p>说明/提示</p>
+<p>样例解释
+八种方案分别是：</p>
+<ul>
+<li>一场都不看，溜了溜了</li>
+<li>价格 100 的比赛</li>
+<li>第一场价格 500 的比赛</li>
+<li>第二场价格 500 的比赛</li>
+<li>价格 100 的比赛和第一场价格 500 的比赛</li>
+<li>价格 100 的比赛和第二场价格 500 的比赛</li>
+<li>两场价格 500 的比赛</li>
+<li>价格 1000 的比赛</li>
+</ul>
+<p>有十组数据，每通过一组数据你可以获得 10 分。各组数据的数据范围如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>数据组号</th>
+<th>1-2</th>
+<th>1−2</th>
+<th>3-4</th>
+<th>3−4</th>
+<th>5-7</th>
+<th>5−7</th>
+<th>8-10</th>
+<th>8−10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$N \leq$</td>
+<td>10</td>
+<td>10</td>
+<td>20</td>
+<td>20</td>
+<td>40</td>
+<td>40</td>
+<td>40</td>
+<td>40</td>
+</tr>
+<tr>
+<td>$M \leq$</td>
+<td>$10^6$</td>
+<td>$10^6$</td>
+<td>$10^{18}$</td>
+<td>$10^{18}$</td>
+<td>$10^6$</td>
+<td>$10^6$</td>
+<td>$10^{18}$</td>
+<td>$10^{18}$</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-bfs">2. BFS</h2>
+<h2 id="参考">参考</h2>
+<p><a href="https://wnjxyk.keji.moe/algorithm/algorithm-abc/dfs/">喂你脚下有坑 深度优先搜索</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-03-13
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%90%9C%E7%B4%A2/">搜索</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/algo/bit-operation/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">位操作问题集锦</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/cs/cn03/">
+            <span class="next-text nav-default">计算机网络03——数据链路层</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+  <span id="/post/algo/search-in-graph/" class="leancloud_visitors" data-flag-title="图搜索算法——DFS与BFS">
+		<span class="post-meta-item-text">文章阅读量 </span>
+		<span class="leancloud-visitors-count">0</span>
+		<p></p>
+	  </span>
+  <div id="vcomments"></div>
+  <script src="http://pirogue.org/js/av-min.js"></script>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'bpOXpWYjWw1gNOYNe2PrWjKV-gzGzoHsz',
+        appKey: '07yqjMVRu9Nyoqrzj4X7IhL5',
+        notify:  true , 
+        verify:  false , 
+        avatar:'mm', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:374192922@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%8C%AF%E4%B8%9C-%E8%89%BE-b10752175/detail/recent-activity/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/azd1997" class="iconfont icon-github" title="github"></a>
+  <a href="https://azd1997.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      TeX: {equationNumbers: {autoNumber: "AMS"}},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

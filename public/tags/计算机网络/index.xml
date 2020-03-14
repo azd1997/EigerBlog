@@ -6,10 +6,28 @@
     <description>Recent content in 计算机网络 on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 30 Oct 2019 02:37:50 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 12 Mar 2020 17:23:30 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>计算机网络03——数据链路层</title>
+      <link>https://azd1997.github.io/post/cs/cn03/</link>
+      <pubDate>Thu, 12 Mar 2020 17:23:30 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/cs/cn03/</guid>
+      <description>0. 概述 0.1 数据链路层主要解决三个问题： 封装成帧 透明传输 差错监测 0.2 封装成帧 对于物理层来说，比特位是数据的基本单位 ”帧“是数据链路层数据的基本单位</description>
+    </item>
+    
+    <item>
+      <title>计算机网络问题集锦</title>
+      <link>https://azd1997.github.io/post/cs/cn-problems/</link>
+      <pubDate>Thu, 12 Mar 2020 15:12:15 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/cs/cn-problems/</guid>
+      <description>0. 导语 1.</description>
+    </item>
     
     <item>
       <title>计算机网络02——物理层</title>
@@ -17,7 +35,7 @@
       <pubDate>Wed, 30 Oct 2019 02:37:50 +0800</pubDate>
       
       <guid>https://azd1997.github.io/post/cs/cn02/</guid>
-      <description></description>
+      <description>0. 物理层概述 物理层的作用 连接不同的物理设备 传输比特流 传输介质 双绞线（有/无屏蔽）： 平时用的网线也是一种双绞线 同轴电缆 光纤：纤芯(高折射率) +</description>
     </item>
     
     <item>

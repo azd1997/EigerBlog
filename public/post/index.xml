@@ -6,10 +6,82 @@
     <description>Recent content in Posts on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 11 Mar 2020 18:20:07 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 14 Mar 2020 12:34:24 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>二分查找问题集锦</title>
+      <link>https://azd1997.github.io/post/algo/binary-search-problems/</link>
+      <pubDate>Sat, 14 Mar 2020 12:34:24 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/binary-search-problems/</guid>
+      <description>0. 导语 1. 模板一 模板 #1 用于查找可以通过访问数组中的单个索引来确定的元素或条件。 关键属性 二分查找的最基础和最基本的形式。 查找条件可以在不与元素的</description>
+    </item>
+    
+    <item>
+      <title>回溯算法</title>
+      <link>https://azd1997.github.io/post/algo/algo-backtrack/</link>
+      <pubDate>Fri, 13 Mar 2020 19:28:20 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/algo-backtrack/</guid>
+      <description>0. 导语 1. 回溯思想及应用 2. 回溯框架 解决一个回溯问题的过程其实是在遍历一颗决策树。 主要思考三个问题： 路径：也就是已经做出的选择。 选择列表：也就是</description>
+    </item>
+    
+    <item>
+      <title>位操作问题集锦</title>
+      <link>https://azd1997.github.io/post/algo/bit-operation/</link>
+      <pubDate>Fri, 13 Mar 2020 19:12:20 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/bit-operation/</guid>
+      <description>0. 导语 1. 常用位操作 1.1 基础位操作 按位或 x | y 按位与 x &amp;amp; y 按位取反 ^x 左移n位 x &amp;lt;&amp;lt; n 右移n位 x &amp;gt;&amp;gt; n 1.2 高级位运算 x &amp;amp; -x 可以将x最后一个1保留，其他全</description>
+    </item>
+    
+    <item>
+      <title>图搜索算法——DFS与BFS</title>
+      <link>https://azd1997.github.io/post/algo/search-in-graph/</link>
+      <pubDate>Fri, 13 Mar 2020 09:12:20 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/search-in-graph/</guid>
+      <description>0. 导语 虽然这里讲图搜索算法，但其实DFS/BFS也可以应用与树的搜索，只是树搜索那一篇讲二叉搜索树已经很长了，因此，这两个最常见的搜索算法放</description>
+    </item>
+    
+    <item>
+      <title>计算机网络03——数据链路层</title>
+      <link>https://azd1997.github.io/post/cs/cn03/</link>
+      <pubDate>Thu, 12 Mar 2020 17:23:30 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/cs/cn03/</guid>
+      <description>0. 概述 0.1 数据链路层主要解决三个问题： 封装成帧 透明传输 差错监测 0.2 封装成帧 对于物理层来说，比特位是数据的基本单位 ”帧“是数据链路层数据的基本单位</description>
+    </item>
+    
+    <item>
+      <title>计算机网络问题集锦</title>
+      <link>https://azd1997.github.io/post/cs/cn-problems/</link>
+      <pubDate>Thu, 12 Mar 2020 15:12:15 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/cs/cn-problems/</guid>
+      <description>0. 导语 1.</description>
+    </item>
+    
+    <item>
+      <title>操作系统问题集锦</title>
+      <link>https://azd1997.github.io/post/cs/os-problems/</link>
+      <pubDate>Thu, 12 Mar 2020 15:10:41 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/cs/os-problems/</guid>
+      <description>0. 导语 1.</description>
+    </item>
+    
+    <item>
+      <title>编程中的数学操作</title>
+      <link>https://azd1997.github.io/post/algo/math/</link>
+      <pubDate>Thu, 12 Mar 2020 11:39:11 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/math/</guid>
+      <description>0. 导语 这篇文章用来记录编程中遇到的数学操作的实现 1. 求两数的最大公因数 辗转相除法 1 2 3 4 5 6 7 8 9 func gcd(a, b int) int { tmp := a for tmp != 0 { // 例如 a=9, b=6 =&amp;gt; a=6, b=3</description>
+    </item>
     
     <item>
       <title>形形色色的树——线段树</title>
@@ -278,7 +350,7 @@
       <pubDate>Wed, 30 Oct 2019 02:37:50 +0800</pubDate>
       
       <guid>https://azd1997.github.io/post/cs/cn02/</guid>
-      <description></description>
+      <description>0. 物理层概述 物理层的作用 连接不同的物理设备 传输比特流 传输介质 双绞线（有/无屏蔽）： 平时用的网线也是一种双绞线 同轴电缆 光纤：纤芯(高折射率) +</description>
     </item>
     
     <item>
