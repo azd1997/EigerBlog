@@ -3,28 +3,56 @@
   
   <url>
     <loc>https://azd1997.github.io/categories/algo/</loc>
-    <lastmod>2020-03-14T12:34:24+08:00</lastmod>
+    <lastmod>2020-03-17T23:38:43+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/categories/</loc>
-    <lastmod>2020-03-14T12:34:24+08:00</lastmod>
+    <lastmod>2020-03-17T23:38:43+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/post/</loc>
-    <lastmod>2020-03-14T12:34:24+08:00</lastmod>
+    <lastmod>2020-03-17T23:38:43+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/tags/</loc>
-    <lastmod>2020-03-14T12:34:24+08:00</lastmod>
+    <lastmod>2020-03-17T23:38:43+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/%E5%9B%BE/</loc>
+    <lastmod>2020-03-17T23:38:43+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/algo/graph/</loc>
+    <lastmod>2020-03-17T23:38:43+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/algo/union-find/</loc>
+    <lastmod>2020-03-17T21:24:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/%E6%A0%91/</loc>
+    <lastmod>2020-03-17T21:24:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -143,13 +171,6 @@
   
   <url>
     <loc>https://azd1997.github.io/post/algo/tree-segmenttree/</loc>
-    <lastmod>2020-03-11T18:20:07+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://azd1997.github.io/tags/%E6%A0%91/</loc>
     <lastmod>2020-03-11T18:20:07+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

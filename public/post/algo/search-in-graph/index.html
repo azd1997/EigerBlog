@@ -48,7 +48,7 @@
 <meta itemprop="description" content="0. 导语 虽然这里讲图搜索算法，但其实DFS/BFS也可以应用与树的搜索，只是树搜索那一篇讲二叉搜索树已经很长了，因此，这两个最常见的搜索算法放">
 <meta itemprop="datePublished" content="2020-03-13T09:12:20&#43;08:00" />
 <meta itemprop="dateModified" content="2020-03-13T09:12:20&#43;08:00" />
-<meta itemprop="wordCount" content="4919">
+<meta itemprop="wordCount" content="5340">
 
 
 
@@ -132,8 +132,8 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 4919 words </span>
-          <span class="more-meta"> 10 mins read </span>
+          <span class="more-meta"> 5340 words </span>
+          <span class="more-meta"> 11 mins read </span>
         
       </div>
     </header>
@@ -147,6 +147,7 @@
     <li><a href="#1-dfs">1. DFS</a>
       <ul>
         <li><a href="#12-例题">1.2 例题</a></li>
+        <li><a href="#124-岛屿的最大面积">1.2.4 岛屿的最大面积</a></li>
       </ul>
     </li>
     <li><a href="#2-bfs">2. BFS</a></li>
@@ -1058,7 +1059,135 @@
 </tr>
 </tbody>
 </table>
-<h2 id="2-bfs">2. BFS</h2>
+<h3 id="124-岛屿的最大面积">1.2.4 岛屿的最大面积</h3>
+<ul>
+<li><a href="https://leetcode-cn.com/problems/max-area-of-island/">岛屿的最大面积</a></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">lt695</span>
+
+<span class="c1">// 岛屿的最大面积
+</span><span class="c1"></span>
+<span class="c1">// 典型的DFS题（BFS应该也行）
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">maxAreaOfIsland</span><span class="p">(</span><span class="nx">grid</span> <span class="p">[][]</span><span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="c1">// 这里使用grid自身作标记（访问过的1就改成2）
+</span><span class="c1"></span>	<span class="c1">// 如果题目要求不能修改grid，就另建一个visited矩阵
+</span><span class="c1"></span>
+	<span class="c1">// 特殊情况
+</span><span class="c1"></span>	<span class="nx">m</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">grid</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">m</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="mi">0</span>
+	<span class="p">}</span>
+	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="mi">0</span>
+	<span class="p">}</span>
+
+	<span class="nx">maxArea</span> <span class="o">:=</span> <span class="mi">0</span>
+	<span class="c1">// DFS
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">m</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+				<span class="nx">area</span> <span class="o">:=</span> <span class="nf">dfs</span><span class="p">(</span><span class="nx">grid</span><span class="p">,</span> <span class="nx">m</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">)</span>
+				<span class="k">if</span> <span class="nx">area</span> <span class="p">&gt;</span> <span class="nx">maxArea</span> <span class="p">{</span>
+					<span class="nx">maxArea</span> <span class="p">=</span> <span class="nx">area</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">maxArea</span>
+<span class="p">}</span>
+
+<span class="c1">// 返回岛屿面积
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">dfs</span><span class="p">(</span><span class="nx">grid</span> <span class="p">[][]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">m</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">row</span><span class="p">,</span> <span class="nx">col</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="c1">// 如果访问过就返回
+</span><span class="c1"></span>	<span class="c1">// ps:其实不用这句判断，因为grid的变化是在传递的，
+</span><span class="c1"></span>	<span class="c1">// 前面只有当grid[i][j]==1时（说明是新的孤立的岛屿）才会进入这里
+</span><span class="c1"></span>
+	<span class="nx">area</span> <span class="o">:=</span> <span class="mi">1</span>                <span class="c1">//自身
+</span><span class="c1"></span>	<span class="nx">grid</span><span class="p">[</span><span class="nx">row</span><span class="p">][</span><span class="nx">col</span><span class="p">]</span> <span class="p">=</span> <span class="mi">2</span>       <span class="c1">// 标记访问过
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">k</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">k</span> <span class="p">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="nx">k</span><span class="o">++</span> <span class="p">{</span> <span class="c1">// 4个方向
+</span><span class="c1"></span>		<span class="nx">newRow</span><span class="p">,</span> <span class="nx">newCol</span> <span class="o">:=</span> <span class="nx">row</span><span class="o">+</span><span class="nx">dy</span><span class="p">[</span><span class="nx">k</span><span class="p">],</span> <span class="nx">col</span><span class="o">+</span><span class="nx">dx</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span>
+		<span class="k">if</span> <span class="nx">newRow</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">newRow</span> <span class="p">&lt;</span> <span class="nx">m</span> <span class="o">&amp;&amp;</span>
+			<span class="nx">newCol</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">newCol</span> <span class="p">&lt;</span> <span class="nx">n</span> <span class="o">&amp;&amp;</span>
+			<span class="nx">grid</span><span class="p">[</span><span class="nx">newRow</span><span class="p">][</span><span class="nx">newCol</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+			<span class="nx">area</span> <span class="o">+=</span> <span class="nf">dfs</span><span class="p">(</span><span class="nx">grid</span><span class="p">,</span> <span class="nx">m</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">newRow</span><span class="p">,</span> <span class="nx">newCol</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">area</span>
+<span class="p">}</span>
+
+<span class="c1">// 方向数组 上右下左
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">dy</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">}</span>
+<span class="kd">var</span> <span class="nx">dx</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="2-bfs">2. BFS</h2>
 <h2 id="参考">参考</h2>
 <p><a href="https://wnjxyk.keji.moe/algorithm/algorithm-abc/dfs/">喂你脚下有坑 深度优先搜索</a></p>
 

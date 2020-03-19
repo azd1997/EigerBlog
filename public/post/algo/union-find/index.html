@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>形形色色的树——并查集 - Eiger - A young gopher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Eiger" /><meta name="description" content="0. 导论 并查集可以非常高效的解决连接问题 网络中节点间的连接状态 网络是个抽象的概念： 用户之间形成的网络 数据库中音乐、电影、书籍之间的网络 铁路交通" /><meta name="keywords" content="并查集" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://azd1997.github.io/post/algo/union-find/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="形形色色的树——并查集" />
+<meta property="og:description" content="0. 导论 并查集可以非常高效的解决连接问题 网络中节点间的连接状态 网络是个抽象的概念： 用户之间形成的网络 数据库中音乐、电影、书籍之间的网络 铁路交通" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://azd1997.github.io/post/algo/union-find/" />
+<meta property="article:published_time" content="2020-03-17T21:24:52+08:00" />
+<meta property="article:modified_time" content="2020-03-17T21:24:52+08:00" />
+<meta itemprop="name" content="形形色色的树——并查集">
+<meta itemprop="description" content="0. 导论 并查集可以非常高效的解决连接问题 网络中节点间的连接状态 网络是个抽象的概念： 用户之间形成的网络 数据库中音乐、电影、书籍之间的网络 铁路交通">
+<meta itemprop="datePublished" content="2020-03-17T21:24:52&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-17T21:24:52&#43;08:00" />
+<meta itemprop="wordCount" content="3899">
+
+
+
+<meta itemprop="keywords" content="树," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="形形色色的树——并查集"/>
+<meta name="twitter:description" content="0. 导论 并查集可以非常高效的解决连接问题 网络中节点间的连接状态 网络是个抽象的概念： 用户之间形成的网络 数据库中音乐、电影、书籍之间的网络 铁路交通"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Eiger</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/links/">
+        <li class="mobile-menu-item">Links</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Eiger</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/links/">Links</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">形形色色的树——并查集</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-17 </span>
+        <div class="post-category">
+            <a href="/categories/algo/"> algo </a>
+            </div>
+          <span class="more-meta"> 3899 words </span>
+          <span class="more-meta"> 8 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-导论">0. 导论</a></li>
+    <li><a href="#1-并查集-union-find">1. 并查集 Union Find</a></li>
+    <li><a href="#2-基础并查集">2. 基础并查集</a></li>
+    <li><a href="#3-使用quickunion的并查集">3. 使用QuickUnion的并查集</a></li>
+    <li><a href="#4-使用size优化的并查集">4. 使用size优化的并查集</a></li>
+    <li><a href="#5-使用rank优化的并查集">5. 使用rank优化的并查集</a></li>
+    <li><a href="#6-路径压缩的并查集">6. 路径压缩的并查集</a></li>
+    <li><a href="#7-进一步路径压缩的并查集">7. 进一步路径压缩的并查集</a></li>
+    <li><a href="#8-最终版本的并查集完整代码">8. 最终版本的并查集完整代码</a></li>
+    <li><a href="#9-复杂度">9. 复杂度</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="0-导论">0. 导论</h2>
+<p>并查集可以非常高效的解决<strong>连接问题</strong></p>
+<p>网络中节点间的连接状态</p>
+<ul>
+<li>
+<p>网络是个抽象的概念：</p>
+<ul>
+<li>用户之间形成的网络</li>
+<li>数据库中音乐、电影、书籍之间的网络</li>
+<li>铁路交通</li>
+</ul>
+</li>
+<li>
+<p>数学中的集合类实现：并集</p>
+</li>
+</ul>
+<p>和连接问题相近的一个问题：<strong>路径问题</strong></p>
+<ul>
+<li>连接问题比路径问题回答的问题更少，因此可以设计更快的算法实现
+<ul>
+<li>有序数组中顺序查找比二分查找慢，就是因为它不仅求出了target的位置，还求出了其他元素的位置</li>
+<li>堆之所以高效，也是因为堆只关心最大值最小值，而不关心其他</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-并查集-union-find">1. 并查集 Union Find</h2>
+<p>对于一组数据，主要支持两个操作：</p>
+<ul>
+<li>union(p,q)</li>
+<li>find(p)</li>
+</ul>
+<p>也可以回答：</p>
+<ul>
+<li>isConnected(p,q)</li>
+</ul>
+<p>基本数据表示</p>
+<h2 id="2-基础并查集">2. 基础并查集</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// UnionFindV1 第一版的并查集。 union操作时间复杂度O(n)有待改进
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">UnionFindV1</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">ids</span>   <span class="p">[]</span><span class="kt">int</span> <span class="c1">// id数组，id相同的元素(注意这里所说的元素指的是数组下标)是“合并的”
+</span><span class="c1"></span>	<span class="nx">count</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="c1">// NewUnionFindV1 新建
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">NewUnionFindV1</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">UnionFindV1</span> <span class="p">{</span>
+	<span class="nx">ids</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">ids</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">i</span> <span class="c1">// 一开始每个元素对应的id都不相同，也就是都是孤立的
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">UnionFindV1</span><span class="p">{</span>
+		<span class="nx">ids</span><span class="p">:</span>   <span class="nx">ids</span><span class="p">,</span>
+		<span class="nx">count</span><span class="p">:</span> <span class="nx">n</span><span class="p">,</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Find 找出元素p（下标p）对应的id O(1)
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">uf</span> <span class="o">*</span><span class="nx">UnionFindV1</span><span class="p">)</span> <span class="nf">Find</span><span class="p">(</span><span class="nx">p</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">p</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">p</span> <span class="o">&gt;=</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">count</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="c1">// 报错
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">ids</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1">// IsConnected 判断两个元素是否连接在一起 O(1)
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">uf</span> <span class="o">*</span><span class="nx">UnionFindV1</span><span class="p">)</span> <span class="nf">IsConnected</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="nx">q</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="nx">pf</span><span class="p">,</span> <span class="nx">qf</span> <span class="o">:=</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">p</span><span class="p">),</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">pf</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="nx">qf</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">false</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">pf</span> <span class="o">==</span> <span class="nx">qf</span>
+<span class="p">}</span>
+
+<span class="c1">// Union 把所有与p相连的元素（包括p）都改成与q相连 O(n)
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">uf</span> <span class="o">*</span><span class="nx">UnionFindV1</span><span class="p">)</span> <span class="nf">Union</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="nx">q</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">pf</span><span class="p">,</span> <span class="nx">qf</span> <span class="o">:=</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">p</span><span class="p">),</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">pf</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="nx">qf</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="c1">// 异常
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nx">pf</span> <span class="o">==</span> <span class="nx">qf</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="c1">//已经连接在一起
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="c1">// 不等的话，则修改p或者q的区域，这里改p所在的区域
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">count</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">ids</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="nx">pf</span> <span class="p">{</span>
+			<span class="nx">uf</span><span class="p">.</span><span class="nx">ids</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">qf</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="3-使用quickunion的并查集">3. 使用QuickUnion的并查集</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">
+<span class="c1">// V1版本的并查集采用的是相互连接的元素拥有相同的id，但是其union操作比较慢
+</span><span class="c1">// V2版本的并查集不再记录id，而是记录当前节点的父亲结点，union操作时直接将
+</span><span class="c1">// 两个节点的祖宗节点进行挂载（连接）即可（树形结构）
+</span><span class="c1">// 即便采用的树形结构，这里仍可以使用数组作为基本存储结构，结点指针即为数组下标
+</span><span class="c1"></span>
+<span class="c1">// 既然采用了树形结构，那么就需要考虑树高度的平衡性，这样才能降低时间复杂度。那么请看V3版本
+</span><span class="c1"></span>
+<span class="c1">// UnionFindV2 第二版的并查集。 union操作时间复杂度O(logn)，find O(logn)
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">UnionFindV2</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">parent</span> <span class="p">[]</span><span class="kt">int</span> <span class="c1">// parent数组，同一连通区域的结点拥有同一个根节点/公共祖宗
+</span><span class="c1"></span>	<span class="nx">count</span>  <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="c1">// NewUnionFindV2 新建
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">NewUnionFindV2</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">UnionFindV2</span> <span class="p">{</span>
+	<span class="nx">parent</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">parent</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">i</span> <span class="c1">// 一开始每个元素的parent就是自己，也就是都是孤立的
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">UnionFindV2</span><span class="p">{</span>
+		<span class="nx">parent</span><span class="p">:</span> <span class="nx">parent</span><span class="p">,</span>
+		<span class="nx">count</span><span class="p">:</span>  <span class="nx">n</span><span class="p">,</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Find 找出元素p（下标p）对应的id O(1)
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">uf</span> <span class="o">*</span><span class="nx">UnionFindV2</span><span class="p">)</span> <span class="nf">Find</span><span class="p">(</span><span class="nx">p</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">p</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">p</span> <span class="o">&gt;=</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">count</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="c1">// 报错
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="c1">// 不断向上寻找parent，返回当前节点p的祖宗
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">p</span> <span class="o">!=</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="p">{</span>
+		<span class="nx">p</span> <span class="p">=</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">p</span>
+<span class="p">}</span>
+
+<span class="c1">// IsConnected 判断两个元素是否连接在一起 O(1)
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">uf</span> <span class="o">*</span><span class="nx">UnionFindV2</span><span class="p">)</span> <span class="nf">IsConnected</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="nx">q</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="nx">pf</span><span class="p">,</span> <span class="nx">qf</span> <span class="o">:=</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">p</span><span class="p">),</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">pf</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="nx">qf</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">false</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">pf</span> <span class="o">==</span> <span class="nx">qf</span>
+<span class="p">}</span>
+
+<span class="c1">// Union 把所有与p相连的元素（包括p）都改成与q相连 O(n)
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">uf</span> <span class="o">*</span><span class="nx">UnionFindV2</span><span class="p">)</span> <span class="nf">Union</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="nx">q</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">pf</span><span class="p">,</span> <span class="nx">qf</span> <span class="o">:=</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">p</span><span class="p">),</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span> <span class="c1">// 各自的祖宗
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">pf</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="nx">qf</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="c1">// 异常
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nx">pf</span> <span class="o">==</span> <span class="nx">qf</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="c1">//已经连接在一起
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="c1">// 不等的话，则将p/q的祖宗合并
+</span><span class="c1"></span>	<span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">pf</span><span class="p">]</span> <span class="p">=</span> <span class="nx">qf</span> <span class="c1">// pf退让一步，让qf做了自己爹...
+</span><span class="c1"></span><span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="4-使用size优化的并查集">4. 使用size优化的并查集</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 增加维持parent树平衡性的步骤
+</span><span class="c1"></span>
+<span class="c1">// UnionFindV3 第三版的并查集。 union操作时间复杂度O(logn)，find O(logn)
+</span><span class="c1">// 维护parent树的平衡性
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">UnionFindV3</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">parent</span> <span class="p">[]</span><span class="kt">int</span> <span class="c1">// parent数组，同一连通区域的结点拥有同一个根节点/公共祖宗
+</span><span class="c1"></span>	<span class="nx">size</span>   <span class="p">[]</span><span class="kt">int</span> <span class="c1">// 当前子树的结点数量
+</span><span class="c1"></span>	<span class="nx">count</span>  <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="c1">// NewUnionFindV3 新建
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">NewUnionFindV3</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">UnionFindV3</span> <span class="p">{</span>
+	<span class="nx">parent</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">parent</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">i</span> <span class="c1">// 一开始每个元素的parent就是自己，也就是都是孤立的
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="nx">size</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">size</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span> <span class="c1">// 每个节点所在子树初始都含有自身
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">UnionFindV3</span><span class="p">{</span>
+		<span class="nx">parent</span><span class="p">:</span> <span class="nx">parent</span><span class="p">,</span>
+		<span class="nx">size</span><span class="p">:</span>   <span class="nx">size</span><span class="p">,</span>
+		<span class="nx">count</span><span class="p">:</span>  <span class="nx">n</span><span class="p">,</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Union 把所有与p相连的元素（包括p）都改成与q相连 O(n)
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">uf</span> <span class="o">*</span><span class="nx">UnionFindV3</span><span class="p">)</span> <span class="nf">Union</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="nx">q</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">pf</span><span class="p">,</span> <span class="nx">qf</span> <span class="o">:=</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">p</span><span class="p">),</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span> <span class="c1">// 各自的祖宗
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">pf</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="nx">qf</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="c1">// 异常
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nx">pf</span> <span class="o">==</span> <span class="nx">qf</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="c1">//已经连接在一起
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="c1">// 不等的话，则将p/q的祖宗合并
+</span><span class="c1"></span>	<span class="c1">// 将小的（也就矮）接在大的那一片下面
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">size</span><span class="p">[</span><span class="nx">pf</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">size</span><span class="p">[</span><span class="nx">qf</span><span class="p">]</span> <span class="p">{</span>
+		<span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">qf</span><span class="p">]</span> <span class="p">=</span> <span class="nx">pf</span>
+		<span class="nx">uf</span><span class="p">.</span><span class="nx">size</span><span class="p">[</span><span class="nx">pf</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">size</span><span class="p">[</span><span class="nx">qf</span><span class="p">]</span> <span class="c1">// 增加结点数
+</span><span class="c1"></span>	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">pf</span><span class="p">]</span> <span class="p">=</span> <span class="nx">qf</span>
+		<span class="nx">uf</span><span class="p">.</span><span class="nx">size</span><span class="p">[</span><span class="nx">qf</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">size</span><span class="p">[</span><span class="nx">pf</span><span class="p">]</span> <span class="c1">// 增加结点数
+</span><span class="c1"></span>	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 基于size(集合大小/子树结点数)的优化还是有些问题。
+</span><span class="c1"></span>
+<span class="c1">// 考虑p子树结点数很多，但树趋于扁平；而q子树节点数较少，但树趋于细长
+</span><span class="c1">// 按照V3的Union策略，就会使得q挂在p的下面，而这就比较不平衡
+</span><span class="c1"></span>
+<span class="c1">// 下一个版本考虑基于层数或者说树高度的优化
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="5-使用rank优化的并查集">5. 使用rank优化的并查集</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// UnionFindV4 第四版的并查集。 union操作时间复杂度O(logn)，find O(logn)
+</span><span class="c1">// 维护parent树的平衡性。 基于rank(秩)的优化。 rank[p]表示p子树的高度
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">UnionFindV4</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">parent</span> <span class="p">[]</span><span class="kt">int</span> <span class="c1">// parent数组，同一连通区域的结点拥有同一个根节点/公共祖宗
+</span><span class="c1"></span>	<span class="nx">rank</span>   <span class="p">[]</span><span class="kt">int</span> <span class="c1">// 当前子树的高度/当前节点的秩
+</span><span class="c1"></span>	<span class="nx">count</span>  <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="c1">// NewUnionFindV4 新建
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">NewUnionFindV4</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">UnionFindV4</span> <span class="p">{</span>
+	<span class="nx">parent</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">parent</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">i</span> <span class="c1">// 一开始每个元素的parent就是自己，也就是都是孤立的
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="nx">rank</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">rank</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span> <span class="c1">// 每个节点所在子树初始都含有自身
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">UnionFindV4</span><span class="p">{</span>
+		<span class="nx">parent</span><span class="p">:</span> <span class="nx">parent</span><span class="p">,</span>
+		<span class="nx">rank</span><span class="p">:</span>   <span class="nx">rank</span><span class="p">,</span>
+		<span class="nx">count</span><span class="p">:</span>  <span class="nx">n</span><span class="p">,</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Union 把所有与p相连的元素（包括p）都改成与q相连 O(n)
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">uf</span> <span class="o">*</span><span class="nx">UnionFindV4</span><span class="p">)</span> <span class="nf">Union</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="nx">q</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">pf</span><span class="p">,</span> <span class="nx">qf</span> <span class="o">:=</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">p</span><span class="p">),</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span> <span class="c1">// 各自的祖宗
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">pf</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="nx">qf</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="c1">// 异常
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nx">pf</span> <span class="o">==</span> <span class="nx">qf</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="c1">//已经连接在一起
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="c1">// 不等的话，则将p/q的祖宗合并
+</span><span class="c1"></span>	<span class="c1">// 将小的（也就矮）接在大的那一片下面
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">rank</span><span class="p">[</span><span class="nx">pf</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">rank</span><span class="p">[</span><span class="nx">qf</span><span class="p">]</span> <span class="p">{</span>
+		<span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">qf</span><span class="p">]</span> <span class="p">=</span> <span class="nx">pf</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">rank</span><span class="p">[</span><span class="nx">pf</span><span class="p">]</span> <span class="p">&lt;</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">rank</span><span class="p">[</span><span class="nx">qf</span><span class="p">]</span> <span class="p">{</span>
+		<span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">pf</span><span class="p">]</span> <span class="p">=</span> <span class="nx">qf</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="c1">// ==
+</span><span class="c1"></span>		<span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">pf</span><span class="p">]</span> <span class="p">=</span> <span class="nx">qf</span> <span class="c1">// pf让一步，挂在qf下面
+</span><span class="c1"></span>		<span class="nx">uf</span><span class="p">.</span><span class="nx">rank</span><span class="p">[</span><span class="nx">qf</span><span class="p">]</span><span class="o">++</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="6-路径压缩的并查集">6. 路径压缩的并查集</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">
+<span class="c1">// 前面V2/V3/V4都是在不断优化union操作，但其实find操作也是可以优化的
+</span><span class="c1">// 在V4版本的树形结构下，find操作需要从当前结点不断向上寻找到祖宗节点
+</span><span class="c1">// 如果途中没有其他分支或分支较少，也就是说树趋于细长，
+</span><span class="c1">// 那么相当于白向上跑这么久，没有分支，就意味着不需要检查这么多嘛
+</span><span class="c1"></span>
+<span class="c1">// 例如
+</span><span class="c1">// 4 -&gt; 3 -&gt; 2 -&gt; 1 -&gt; 0 |
+</span><span class="c1">// find(4)需要向上找四步
+</span><span class="c1">// 但其实我们可以想像要是每次能多走几步并且将细长的树变得矮胖就好了
+</span><span class="c1"></span>
+<span class="c1">// 对于4，先向上“跳两步”接在2下面，与3成为兄弟；
+</span><span class="c1">// 接着再将4的这颗子树向上跳2步，接在了0下面。
+</span><span class="c1">// 这样树变成了：
+</span><span class="c1"></span>
+<span class="c1">// 			0
+</span><span class="c1">// 		   / \
+</span><span class="c1">//        1   4
+</span><span class="c1">//           / \
+</span><span class="c1">//          3   2
+</span><span class="c1"></span>
+<span class="c1">// 树的高度就变矮了
+</span><span class="c1"></span>
+<span class="c1">// 这个策略叫做路径压缩
+</span><span class="c1">// 核心在于每次向上跳两步，跳三/四/更多步当然也是可以的。
+</span><span class="c1">// 因为最后祖宗节点一直都指向自己，所以向上跳不会跳出子树范围。
+</span><span class="c1"></span>
+<span class="c1">// UnionFindV5 第五版的并查集。增加路径压缩的优化，只需要在find时增加一句代码
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">UnionFindV5</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">parent</span> <span class="p">[]</span><span class="kt">int</span> <span class="c1">// parent数组，同一连通区域的结点拥有同一个根节点/公共祖宗
+</span><span class="c1"></span>	<span class="nx">rank</span>   <span class="p">[]</span><span class="kt">int</span> <span class="c1">// 当前子树的高度/当前节点的秩
+</span><span class="c1"></span>	<span class="nx">count</span>  <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="c1">// Find 找出元素p（下标p）对应的id O(1)
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">uf</span> <span class="o">*</span><span class="nx">UnionFindV5</span><span class="p">)</span> <span class="nf">Find</span><span class="p">(</span><span class="nx">p</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">p</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">p</span> <span class="o">&gt;=</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">count</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="c1">// 报错
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="c1">// 不断向上寻找parent，返回当前节点p的祖宗
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">p</span> <span class="o">!=</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="p">{</span>
+		<span class="c1">// find的同时将细长的树拉得矮胖
+</span><span class="c1"></span>		<span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="p">=</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">p</span><span class="p">]]</span> <span class="c1">// 向上跳两步，并将树变矮
+</span><span class="c1"></span>		<span class="nx">p</span> <span class="p">=</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">p</span>
+<span class="p">}</span>
+
+<span class="c1">// 既然能将树的高度变矮，为什么不直接在find的过程中将所有结点都接在子树的根节点下面呢？
+</span><span class="c1">// 例如
+</span><span class="c1"></span>
+<span class="c1">// 			0
+</span><span class="c1">// 		  /| |\
+</span><span class="c1">//       1 2 3 4
+</span><span class="c1"></span>
+<span class="c1">// 这样就需要递归操作了，见V6版本
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="7-进一步路径压缩的并查集">7. 进一步路径压缩的并查集</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">
+<span class="c1">// UnionFindV6 第六版的并查集。增加路径压缩的优化，只需要在find时增加一句代码
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">UnionFindV6</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">parent</span> <span class="p">[]</span><span class="kt">int</span> <span class="c1">// parent数组，同一连通区域的结点拥有同一个根节点/公共祖宗
+</span><span class="c1"></span>	<span class="nx">rank</span>   <span class="p">[]</span><span class="kt">int</span> <span class="c1">// 当前子树的高度/当前节点的秩
+</span><span class="c1"></span>	<span class="nx">count</span>  <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="c1">// Find 找出元素p（下标p）对应的id O(1)
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">uf</span> <span class="o">*</span><span class="nx">UnionFindV6</span><span class="p">)</span> <span class="nf">Find</span><span class="p">(</span><span class="nx">p</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">p</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">p</span> <span class="o">&gt;=</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">count</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="c1">// 报错
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="c1">// 不断向上寻找parent，返回当前节点p的祖宗
+</span><span class="c1"></span>	<span class="c1">// for p != uf.parent[p] {
+</span><span class="c1"></span>	<span class="c1">// 	// find的同时将细长的树拉得矮胖
+</span><span class="c1"></span>	<span class="c1">// 	uf.parent[p] = uf.parent[uf.parent[p]] // 向上跳两步，并将树变矮
+</span><span class="c1"></span>	<span class="c1">// 	p = uf.parent[p]
+</span><span class="c1"></span>	<span class="c1">// }
+</span><span class="c1"></span>	<span class="c1">// return p
+</span><span class="c1"></span>
+	<span class="c1">// 新的路径压缩做法：递归的将当前节点的父亲不断上移，
+</span><span class="c1"></span>	<span class="c1">// 直至当前节点的父亲结点为原来的祖宗节点
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">p</span> <span class="o">!=</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="p">{</span>
+		<span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="p">=</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">p</span><span class="p">])</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="8-最终版本的并查集完整代码">8. 最终版本的并查集完整代码</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">
+<span class="c1">// UnionFindV6 第六版的并查集。增加路径压缩的优化，只需要在find时增加一句代码
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">UnionFindV6</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">parent</span> <span class="p">[]</span><span class="kt">int</span> <span class="c1">// parent数组，同一连通区域的结点拥有同一个根节点/公共祖宗
+</span><span class="c1"></span>	<span class="nx">rank</span>   <span class="p">[]</span><span class="kt">int</span> <span class="c1">// 当前子树的高度/当前节点的秩
+</span><span class="c1"></span>	<span class="nx">count</span>  <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="c1">// NewUnionFindV6 新建
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">NewUnionFindV6</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">UnionFindV6</span> <span class="p">{</span>
+	<span class="nx">parent</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">parent</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">i</span> <span class="c1">// 一开始每个元素的parent就是自己，也就是都是孤立的
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="nx">rank</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">rank</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span> <span class="c1">// 每个节点所在子树初始都含有自身
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">UnionFindV6</span><span class="p">{</span>
+		<span class="nx">parent</span><span class="p">:</span> <span class="nx">parent</span><span class="p">,</span>
+		<span class="nx">rank</span><span class="p">:</span>   <span class="nx">rank</span><span class="p">,</span>
+		<span class="nx">count</span><span class="p">:</span>  <span class="nx">n</span><span class="p">,</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Find 找出元素p（下标p）对应的id O(1)
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">uf</span> <span class="o">*</span><span class="nx">UnionFindV6</span><span class="p">)</span> <span class="nf">Find</span><span class="p">(</span><span class="nx">p</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">p</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">p</span> <span class="o">&gt;=</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">count</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="c1">// 报错
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="c1">// 新的路径压缩做法：递归的将当前节点的父亲不断上移，
+</span><span class="c1"></span>	<span class="c1">// 直至当前节点的父亲结点为原来的祖宗节点
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">p</span> <span class="o">!=</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="p">{</span>
+		<span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="p">=</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">p</span><span class="p">])</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1">// IsConnected 判断两个元素是否连接在一起 O(1)
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">uf</span> <span class="o">*</span><span class="nx">UnionFindV6</span><span class="p">)</span> <span class="nf">IsConnected</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="nx">q</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="nx">pf</span><span class="p">,</span> <span class="nx">qf</span> <span class="o">:=</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">p</span><span class="p">),</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">pf</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="nx">qf</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">false</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">pf</span> <span class="o">==</span> <span class="nx">qf</span>
+<span class="p">}</span>
+
+<span class="c1">// Union 把所有与p相连的元素（包括p）都改成与q相连 O(n)
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">uf</span> <span class="o">*</span><span class="nx">UnionFindV6</span><span class="p">)</span> <span class="nf">Union</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="nx">q</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">pf</span><span class="p">,</span> <span class="nx">qf</span> <span class="o">:=</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">p</span><span class="p">),</span> <span class="nx">uf</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span> <span class="c1">// 各自的祖宗
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">pf</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="nx">qf</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="c1">// 异常
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nx">pf</span> <span class="o">==</span> <span class="nx">qf</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="c1">//已经连接在一起
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="c1">// 不等的话，则将p/q的祖宗合并
+</span><span class="c1"></span>	<span class="c1">// 将小的（也就矮）接在大的那一片下面
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">rank</span><span class="p">[</span><span class="nx">pf</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">rank</span><span class="p">[</span><span class="nx">qf</span><span class="p">]</span> <span class="p">{</span>
+		<span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">qf</span><span class="p">]</span> <span class="p">=</span> <span class="nx">pf</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">rank</span><span class="p">[</span><span class="nx">pf</span><span class="p">]</span> <span class="p">&lt;</span> <span class="nx">uf</span><span class="p">.</span><span class="nx">rank</span><span class="p">[</span><span class="nx">qf</span><span class="p">]</span> <span class="p">{</span>
+		<span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">pf</span><span class="p">]</span> <span class="p">=</span> <span class="nx">qf</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="c1">// ==
+</span><span class="c1"></span>		<span class="nx">uf</span><span class="p">.</span><span class="nx">parent</span><span class="p">[</span><span class="nx">pf</span><span class="p">]</span> <span class="p">=</span> <span class="nx">qf</span> <span class="c1">// pf让一步，挂在qf下面
+</span><span class="c1"></span>		<span class="nx">uf</span><span class="p">.</span><span class="nx">rank</span><span class="p">[</span><span class="nx">qf</span><span class="p">]</span><span class="o">++</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="9-复杂度">9. 复杂度</h2>
+<p>最终版本的并查集时间复杂度分析很困难。直接给出结论：</p>
+<ul>
+<li>Find/Union/IsConnected操作时间复杂度<strong>近乎O(1)</strong></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-03-17
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%A0%91/">树</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/algo/graph/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">图论基础</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/algo/binary-search-problems/">
+            <span class="next-text nav-default">二分查找问题集锦</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+  <span id="/post/algo/union-find/" class="leancloud_visitors" data-flag-title="形形色色的树——并查集">
+		<span class="post-meta-item-text">文章阅读量 </span>
+		<span class="leancloud-visitors-count">0</span>
+		<p></p>
+	  </span>
+  <div id="vcomments"></div>
+  <script src="http://pirogue.org/js/av-min.js"></script>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'bpOXpWYjWw1gNOYNe2PrWjKV-gzGzoHsz',
+        appKey: '07yqjMVRu9Nyoqrzj4X7IhL5',
+        notify:  true , 
+        verify:  false , 
+        avatar:'mm', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:374192922@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%8C%AF%E4%B8%9C-%E8%89%BE-b10752175/detail/recent-activity/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/azd1997" class="iconfont icon-github" title="github"></a>
+  <a href="https://azd1997.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      TeX: {equationNumbers: {autoNumber: "AMS"}},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

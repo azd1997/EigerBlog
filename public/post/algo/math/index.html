@@ -48,7 +48,7 @@
 <meta itemprop="description" content="0. 导语 这篇文章用来记录编程中遇到的数学操作的实现 1. 求两数的最大公因数 辗转相除法 1 2 3 4 5 6 7 8 9 func gcd(a, b int) int { tmp := a for tmp != 0 { // 例如 a=9, b=6 =&gt; a=6, b=3">
 <meta itemprop="datePublished" content="2020-03-12T11:39:11&#43;08:00" />
 <meta itemprop="dateModified" content="2020-03-12T11:39:11&#43;08:00" />
-<meta itemprop="wordCount" content="285">
+<meta itemprop="wordCount" content="833">
 
 
 
@@ -132,8 +132,8 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 285 words </span>
-          <span class="more-meta"> 1 min read </span>
+          <span class="more-meta"> 833 words </span>
+          <span class="more-meta"> 2 mins read </span>
         
       </div>
     </header>
@@ -147,6 +147,9 @@
     <li><a href="#1-求两数的最大公因数">1. 求两数的最大公因数</a></li>
     <li><a href="#2-求两数的所有公因数">2. 求两数的所有公因数</a></li>
     <li><a href="#3-分式约分">3. 分式约分</a></li>
+    <li><a href="#4-求x的n次幂">4. 求x的n次幂</a></li>
+    <li><a href="#5-判断n是否为完全平方数">5. 判断n是否为完全平方数</a></li>
+    <li><a href="#6-牛顿迭代法">6. 牛顿迭代法</a></li>
   </ul>
 </nav>
   </div>
@@ -226,6 +229,176 @@
 </div>
 </div><h2 id="3-分式约分">3. 分式约分</h2>
 <p>其实就是先求最大公因数，再分子分母同除最大公因数就好。</p>
+<h2 id="4-求x的n次幂">4. 求x的n次幂</h2>
+<p>快速求幂法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// x ^ (2n) = (x^n)^2
+</span><span class="c1">// x ^ (2n+1) = (x^n)^2 * x
+</span><span class="c1">// 用这种思路求幂的算法叫快速幂算法
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">myPow</span><span class="p">(</span><span class="nx">x</span> <span class="kt">float64</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">float64</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 负数幂时的处理
+</span><span class="c1"></span>		<span class="nx">x</span> <span class="p">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="nx">x</span>
+		<span class="nx">n</span> <span class="p">=</span> <span class="o">-</span><span class="nx">n</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nf">fastPow</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">fastPow</span><span class="p">(</span><span class="nx">x</span> <span class="kt">float64</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">float64</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="mf">1.0</span>
+	<span class="p">}</span>
+	<span class="nx">half</span> <span class="o">:=</span> <span class="nf">fastPow</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">n</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">n</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// n为偶数
+</span><span class="c1"></span>		<span class="k">return</span> <span class="nx">half</span> <span class="o">*</span> <span class="nx">half</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="c1">// n为奇数
+</span><span class="c1"></span>		<span class="k">return</span> <span class="nx">half</span> <span class="o">*</span> <span class="nx">half</span> <span class="o">*</span> <span class="nx">x</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="5-判断n是否为完全平方数">5. 判断n是否为完全平方数</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 给定一个正整数 num，编写一个函数，如果 num 是一个完全平方数，则返回 True，否则返回 False。
+</span><span class="c1"></span>
+<span class="c1">// 直接二分查找某个数的平方等于n就好了，贼简单
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">isPerfectSquare</span><span class="p">(</span><span class="nx">num</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">mid</span><span class="p">,</span> <span class="nx">mid2</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">num</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="nx">l</span> <span class="o">&lt;=</span> <span class="nx">r</span> <span class="p">{</span>
+		<span class="nx">mid</span> <span class="p">=</span> <span class="p">(</span><span class="nx">r</span><span class="o">-</span><span class="nx">l</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="nx">l</span>
+		<span class="nx">mid2</span> <span class="p">=</span> <span class="nx">mid</span> <span class="o">*</span> <span class="nx">mid</span>
+		<span class="k">if</span> <span class="nx">mid2</span> <span class="o">==</span> <span class="nx">num</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="kc">true</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">mid2</span> <span class="p">&gt;</span> <span class="nx">num</span> <span class="p">{</span>
+			<span class="nx">r</span> <span class="p">=</span> <span class="nx">mid</span> <span class="o">-</span> <span class="mi">1</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">l</span> <span class="p">=</span> <span class="nx">mid</span> <span class="o">+</span> <span class="mi">1</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="kc">false</span>
+<span class="p">}</span>
+
+<span class="c1">// 通过了提交
+</span><span class="c1">// 但是有个问题：mid*mid有可能溢出
+</span><span class="c1">// 修正如下：
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">isPerfectSquare2</span><span class="p">(</span><span class="nx">num</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">mid</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">num</span><span class="p">,</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="nx">l</span> <span class="o">&lt;=</span> <span class="nx">r</span> <span class="p">{</span>
+		<span class="nx">mid</span> <span class="p">=</span> <span class="p">(</span><span class="nx">r</span><span class="o">-</span><span class="nx">l</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="nx">l</span>
+		<span class="k">if</span> <span class="nx">num</span><span class="o">/</span><span class="nx">mid</span> <span class="o">==</span> <span class="nx">mid</span> <span class="o">&amp;&amp;</span> <span class="nx">num</span><span class="o">%</span><span class="nx">mid</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="kc">true</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">num</span><span class="o">/</span><span class="nx">mid</span> <span class="p">&gt;</span> <span class="nx">mid</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">num</span><span class="o">/</span><span class="nx">mid</span> <span class="o">==</span> <span class="nx">mid</span> <span class="o">&amp;&amp;</span> <span class="nx">num</span><span class="o">%</span><span class="nx">mid</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">l</span> <span class="p">=</span> <span class="nx">mid</span> <span class="o">+</span> <span class="mi">1</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">r</span> <span class="p">=</span> <span class="nx">mid</span> <span class="o">-</span> <span class="mi">1</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="kc">false</span>
+<span class="p">}</span>
+
+<span class="c1">// 牛顿迭代法
+</span><span class="c1">// 原问题等价于求 x*x - num = 0的根，这个根是不是个正整数
+</span><span class="c1">// https://leetcode-cn.com/problems/valid-perfect-square/solution/you-xiao-de-wan-quan-ping-fang-shu-by-leetcode/
+</span><span class="c1">// 先选取初始近似点，然后不断向真正的解逼近
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">isPerfectSquare3</span><span class="p">(</span><span class="nx">num</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">num</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">true</span>
+	<span class="p">}</span>
+
+	<span class="nx">x</span> <span class="o">:=</span> <span class="nx">num</span> <span class="o">/</span> <span class="mi">2</span> <span class="c1">// 初始近似点
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">x</span><span class="o">*</span><span class="nx">x</span> <span class="p">&gt;</span> <span class="nx">num</span> <span class="p">{</span>
+		<span class="nx">x</span> <span class="p">=</span> <span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">num</span><span class="o">/</span><span class="nx">x</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">x</span><span class="o">*</span><span class="nx">x</span> <span class="o">==</span> <span class="nx">nums</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="6-牛顿迭代法">6. 牛顿迭代法</h2>
 
     </div>
 

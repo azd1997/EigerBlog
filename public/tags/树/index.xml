@@ -6,10 +6,19 @@
     <description>Recent content in 树 on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 11 Mar 2020 18:20:07 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 17 Mar 2020 21:24:52 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/tags/%E6%A0%91/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>形形色色的树——并查集</title>
+      <link>https://azd1997.github.io/post/algo/union-find/</link>
+      <pubDate>Tue, 17 Mar 2020 21:24:52 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/union-find/</guid>
+      <description>0. 导论 并查集可以非常高效的解决连接问题 网络中节点间的连接状态 网络是个抽象的概念： 用户之间形成的网络 数据库中音乐、电影、书籍之间的网络 铁路交通</description>
+    </item>
     
     <item>
       <title>形形色色的树——线段树</title>

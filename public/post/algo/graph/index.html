@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Eiger - A young gopher</title>
+  <title>图论基础 - Eiger - A young gopher</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Eiger" /><meta name="description" content="Eiger&#39;s personal tech blog." /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Eiger" /><meta name="description" content="0. 导语 图能表示： 交通运输、社交网络、互联网、工作安排、脑区活动、程序状态执行 分类： 有向图/无向图 有权图/无权图 有环/无环 图的连通性 简单图：只" /><meta name="keywords" content="图论" />
 
 
 
@@ -26,9 +26,7 @@
 <meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
 
 
-<link rel="canonical" href="https://azd1997.github.io/" />
-  <link href="https://azd1997.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Eiger - A young gopher" />
-  <link href="https://azd1997.github.io/index.xml" rel="feed" type="application/rss+xml" title="Eiger - A young gopher" />
+<link rel="canonical" href="https://azd1997.github.io/post/algo/graph/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -40,15 +38,23 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Eiger - A young gopher" />
-<meta property="og:description" content="Eiger&#39;s personal tech blog." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://azd1997.github.io/" />
-<meta property="og:updated_time" content="2019-07-23T10:35:00+08:00" />
-<meta itemprop="name" content="Eiger - A young gopher">
-<meta itemprop="description" content="Eiger&#39;s personal tech blog."><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Eiger - A young gopher"/>
-<meta name="twitter:description" content="Eiger&#39;s personal tech blog."/>
+<meta property="og:title" content="图论基础" />
+<meta property="og:description" content="0. 导语 图能表示： 交通运输、社交网络、互联网、工作安排、脑区活动、程序状态执行 分类： 有向图/无向图 有权图/无权图 有环/无环 图的连通性 简单图：只" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://azd1997.github.io/post/algo/graph/" />
+<meta property="article:published_time" content="2020-03-17T23:38:43+08:00" />
+<meta property="article:modified_time" content="2020-03-17T23:38:43+08:00" />
+<meta itemprop="name" content="图论基础">
+<meta itemprop="description" content="0. 导语 图能表示： 交通运输、社交网络、互联网、工作安排、脑区活动、程序状态执行 分类： 有向图/无向图 有权图/无权图 有环/无环 图的连通性 简单图：只">
+<meta itemprop="datePublished" content="2020-03-17T23:38:43&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-17T23:38:43&#43;08:00" />
+<meta itemprop="wordCount" content="197">
+
+
+
+<meta itemprop="keywords" content="图," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="图论基础"/>
+<meta name="twitter:description" content="0. 导语 图能表示： 交通运输、社交网络、互联网、工作安排、脑区活动、程序状态执行 分类： 有向图/无向图 有权图/无权图 有环/无环 图的连通性 简单图：只"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -116,36 +122,130 @@
     <main id="main" class="main">
       <div class="content-wrapper">
         <div id="content" class="content">
-          <section id="posts" class="posts">
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/">Posts</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-03-17 </span>
-      
-        <span class="more-meta"> 0 words </span>
-        <span class="more-meta"> 0 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      
-    </div>
-    <div class="read-more">
-      <a href="/post/" class="read-more-link">Read more..</a>
-    </div>
-  </div>
-</article>
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">图论基础</h1>
 
-    </section>
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-17 </span>
+        <div class="post-category">
+            <a href="/categories/algo/"> algo </a>
+            </div>
+          <span class="more-meta"> 197 words </span>
+          <span class="more-meta"> 1 min read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-导语">0. 导语</a></li>
+    <li><a href="#1-图的表示">1. 图的表示</a>
+      <ul>
+        <li><a href="#11-邻接矩阵">1.1 邻接矩阵</a></li>
+        <li><a href="#12-邻接表">1.2 邻接表</a></li>
+        <li><a href="#13-选用">1.3 选用</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="0-导语">0. 导语</h2>
+<ul>
+<li>图能表示：
+<ul>
+<li>交通运输、社交网络、互联网、工作安排、脑区活动、程序状态执行</li>
+</ul>
+</li>
+<li>分类：
+<ul>
+<li>有向图/无向图</li>
+<li>有权图/无权图</li>
+<li>有环/无环</li>
+</ul>
+</li>
+<li><strong>图的连通性</strong></li>
+<li>简单图：只考虑普通的无向边。
+<ul>
+<li>图的概念中还有存在两种边：
+<ul>
+<li>平行边（结点p与结点q之间存在多条边）</li>
+<li>自环边（结点p有一条边指向自己）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-图的表示">1. 图的表示</h2>
+<h3 id="11-邻接矩阵">1.1 邻接矩阵</h3>
+<p>邻接矩阵可以很方便的表示图中结点与结点之间的有向边/无向边关系</p>
+<h3 id="12-邻接表">1.2 邻接表</h3>
+<h3 id="13-选用">1.3 选用</h3>
+<p>邻接表适合表示<strong>稀疏图</strong>， 邻接矩阵适合表示<strong>稠密图</strong></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-03-17
+        
+    </span>
+  </p>
   
-  <nav class="pagination">
-    
-    
-  </nav>
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E5%9B%BE/">图</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/algo/union-find/">
+            <span class="next-text nav-default">形形色色的树——并查集</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
         </div>
         
+  
+  <span id="/post/algo/graph/" class="leancloud_visitors" data-flag-title="图论基础">
+		<span class="post-meta-item-text">文章阅读量 </span>
+		<span class="leancloud-visitors-count">0</span>
+		<p></p>
+	  </span>
+  <div id="vcomments"></div>
+  <script src="http://pirogue.org/js/av-min.js"></script>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'bpOXpWYjWw1gNOYNe2PrWjKV-gzGzoHsz',
+        appKey: '07yqjMVRu9Nyoqrzj4X7IhL5',
+        notify:  true , 
+        verify:  false , 
+        avatar:'mm', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+  
 
       </div>
     </main>

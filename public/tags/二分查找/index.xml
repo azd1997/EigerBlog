@@ -17,7 +17,7 @@
       <pubDate>Sat, 14 Mar 2020 12:34:24 +0800</pubDate>
       
       <guid>https://azd1997.github.io/post/algo/binary-search-problems/</guid>
-      <description>0. 导语 1. 模板一 模板 #1 用于查找可以通过访问数组中的单个索引来确定的元素或条件。 关键属性 二分查找的最基础和最基本的形式。 查找条件可以在不与元素的</description>
+      <description>0. 导语 强烈推荐labuladong的二分查找模板！！！ 1. 模板一 模板 #1 用于查找可以通过访问数组中的单个索引来确定的元素或条件。 关键属性 二分查找</description>
     </item>
     
   </channel>

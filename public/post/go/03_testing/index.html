@@ -48,7 +48,7 @@
 <meta itemprop="description" content="1.测试介绍 ​ 尽量测试，避免调试 2. 例子 ​ 这里使用一道算法题作为调试和测试的例子： ​ 求取字符串中最长的含有不重复字符的子字符串的长度。 2.1 开始之">
 <meta itemprop="datePublished" content="2019-07-23T10:37:14&#43;08:00" />
 <meta itemprop="dateModified" content="2019-08-20T03:14:14-04:00" />
-<meta itemprop="wordCount" content="8408">
+<meta itemprop="wordCount" content="8574">
 
 
 
@@ -132,8 +132,8 @@
         <div class="post-category">
             <a href="/categories/go/"> go </a>
             </div>
-          <span class="more-meta"> 8408 words </span>
-          <span class="more-meta"> 17 mins read </span>
+          <span class="more-meta"> 8574 words </span>
+          <span class="more-meta"> 18 mins read </span>
         
       </div>
     </header>
@@ -143,34 +143,56 @@
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#1测试介绍">1.测试介绍</a></li>
+    <li><a href="#2-例子">2. 例子</a>
       <ul>
-        <li><a href="#1测试介绍">1.测试介绍</a></li>
-        <li><a href="#2-例子">2. 例子</a></li>
-        <li><a href="#3-debug">3. Debug</a></li>
-        <li><a href="#4传统测试">4.传统测试</a></li>
-        <li><a href="#5表格驱动测试">5.表格驱动测试</a></li>
-        <li><a href="#6-测试简单例子">6. 测试简单例子</a></li>
-        <li><a href="#7-代码覆盖率">7. 代码覆盖率</a></li>
-        <li><a href="#8-benchmark">8. Benchmark</a></li>
-        <li><a href="#9使用pprof可视化性能检测">9.使用pprof可视化性能检测</a></li>
-        <li><a href="#10-优化性能">10. 优化性能</a></li>
-        <li><a href="#11-http测试">11. http测试</a></li>
-        <li><a href="#12-生成文档及示例代码">12. 生成文档及示例代码</a></li>
+        <li><a href="#21-开始之前">2.1 开始之前</a></li>
+        <li><a href="#22-寻找最长不重复子串算法实现">2.2 寻找最长不重复子串算法实现</a></li>
       </ul>
     </li>
+    <li><a href="#3-debug">3. Debug</a></li>
+    <li><a href="#4传统测试">4.传统测试</a></li>
+    <li><a href="#5表格驱动测试">5.表格驱动测试</a></li>
+    <li><a href="#6-测试简单例子">6. 测试简单例子</a></li>
+    <li><a href="#7-代码覆盖率">7. 代码覆盖率</a></li>
+    <li><a href="#8-benchmark">8. Benchmark</a></li>
+    <li><a href="#9使用pprof可视化性能检测">9.使用pprof可视化性能检测</a></li>
+    <li><a href="#10-优化性能">10. 优化性能</a>
+      <ul>
+        <li><a href="#101-优化过程">10.1 优化过程</a></li>
+        <li><a href="#102-感想">10.2 感想</a></li>
+      </ul>
+    </li>
+    <li><a href="#11-http测试">11. http测试</a>
+      <ul>
+        <li><a href="#111-errwrapper函数测试">11.1 errWrapper函数测试</a></li>
+        <li><a href="#112-开启服务器测试">11.2 开启服务器测试</a></li>
+      </ul>
+    </li>
+    <li><a href="#12-生成文档及示例代码">12. 生成文档及示例代码</a>
+      <ul>
+        <li><a href="#121-使用go-doc生成及查看代码文档">12.1 使用go doc生成及查看代码文档</a></li>
+        <li><a href="#122-使用go-doc查看标准库文档">12.2 使用go doc查看标准库文档</a></li>
+        <li><a href="#123-使用godoc查看文档">12.3 使用godoc查看文档</a></li>
+        <li><a href="#124-添加注释完善文档">12.4 添加注释完善文档</a></li>
+        <li><a href="#125-生成示例代码">12.5 生成示例代码</a></li>
+        <li><a href="#126-总结">12.6 总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#13-go-test-命令">13. go test 命令</a></li>
+    <li><a href="#14-delve调试工具">14. Delve调试工具</a></li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      <h3 id="1测试介绍">1.测试介绍</h3>
+      <h2 id="1测试介绍">1.测试介绍</h2>
 <p>​        尽量测试，避免调试</p>
 <p><img src="/images/1562666185342.png" alt="1562666185342"></p>
-<h3 id="2-例子">2. 例子</h3>
+<h2 id="2-例子">2. 例子</h2>
 <p>​		这里使用一道算法题作为调试和测试的例子：</p>
 <p>​		求取字符串中最长的含有不重复字符的子字符串的长度。</p>
-<h4 id="21-开始之前">2.1 开始之前</h4>
+<h3 id="21-开始之前">2.1 开始之前</h3>
 <p>先了解下Go语言字符串的处理机制</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -278,7 +300,7 @@ Process finished with exit code 0
 </code></pre></td></tr></table>
 </div>
 </div><p>得出结论：直接遍历string，其实是按rune进行遍历。当字符串只包含ASCII字符时，三种遍历方法是一样的。rune是Go的可变长度字符表示，表示中文时一个rune代表了三个byte。</p>
-<h4 id="22-寻找最长不重复子串算法实现">2.2 寻找最长不重复子串算法实现</h4>
+<h3 id="22-寻找最长不重复子串算法实现">2.2 寻找最长不重复子串算法实现</h3>
 <p>V1版本只考虑英文字符串，V2版本则增加了对中文字符串的支持。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -447,15 +469,15 @@ Process finished with exit code 0
 Process finished with exit code 0
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="3-debug">3. Debug</h3>
+</div><h2 id="3-debug">3. Debug</h2>
 <p>Goland自带调试工具，用例如下：</p>
 <p><img src="/images/1562674523960.png" alt="1562674523960"></p>
 <p>显然Debug需要开发者去不断设置断点找出问题所在。</p>
-<h3 id="4传统测试">4.传统测试</h3>
+<h2 id="4传统测试">4.传统测试</h2>
 <p>传统测试其实就是上面代码中的类型，只不过专门写了个测试函数，而测试数据一样被写在测试函数中。</p>
 <p>也就是说，<strong>传统测试测试数据和测试逻辑混在一起，出错信息不明确</strong>，而且图中例子一旦有一例报错退出了，后边的数据也不会再执行</p>
 <p><img src="/images/1562675642285.png" alt="1562675642285"></p>
-<h3 id="5表格驱动测试">5.表格驱动测试</h3>
+<h2 id="5表格驱动测试">5.表格驱动测试</h2>
 <p>表格驱动测试的特点：</p>
 <ul>
 <li>测试数据和测试逻辑分离</li>
@@ -464,7 +486,7 @@ Process finished with exit code 0
 <li>Go语言更容易实现表格驱动测试。</li>
 </ul>
 <p><img src="/images/1562676056644.png" alt="1562676056644"></p>
-<h3 id="6-测试简单例子">6. 测试简单例子</h3>
+<h2 id="6-测试简单例子">6. 测试简单例子</h2>
 <p>Go语言测试用法为：创建xx_test.go，创建TestXxx(t *testing.T){}，此即为测试函数。而且要注意测试函数名TestXxxx这里Test后跟的第一个字母必须大写。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -610,7 +632,7 @@ FAIL
 Process finished with exit code 1
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="7-代码覆盖率">7. 代码覆盖率</h3>
+</div><h2 id="7-代码覆盖率">7. 代码覆盖率</h2>
 <p>运行测试函数时可以选择<code>Run 'TestFunc' with Coverage</code>可以得到测试函数的代码覆盖率信息：</p>
 <p><img src="/images/1562679530853.png" alt="1562679530853"></p>
 <p>在源代码中此时也可以显示出代码覆盖情况（绿边为覆盖的范围，红边反之）</p>
@@ -626,7 +648,7 @@ Process finished with exit code 1
 $ go tool cover -html<span class="o">=</span>c.out  //将c.out以html形式呈现
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="8-benchmark">8. Benchmark</h3>
+</div><h2 id="8-benchmark">8. Benchmark</h2>
 <p>前面的Test测试指的是测试代码有无漏洞，而Benchmark测试则指性能测试。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -680,7 +702,7 @@ Process finished with exit code 0
 </code></pre></td></tr></table>
 </div>
 </div><p>执行1000000遍，每次的平均时间为1771ns。</p>
-<h3 id="9使用pprof可视化性能检测">9.使用pprof可视化性能检测</h3>
+<h2 id="9使用pprof可视化性能检测">9.使用pprof可视化性能检测</h2>
 <p>现在思考为什么每次执行花1771ns的时间，时间主要花费在哪里？可以怎么去提升运行效率？</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -704,9 +726,9 @@ $ go tool pprof cpu.out  //进入pprof交互式命令行工具
 <p>得到的结果如下：</p>
 <p><img src="/images/1562724759199.png" alt="1562724759199"></p>
 <p>框越大说明占用CPU时间越长。显然这里map操作是最耗时的，其次是rune解码。</p>
-<h3 id="10-优化性能">10. 优化性能</h3>
+<h2 id="10-优化性能">10. 优化性能</h2>
 <p>既然已经指出map操作和rune操作耗时较长，想办法优化它：</p>
-<h4 id="101-优化过程">10.1 优化过程</h4>
+<h3 id="101-优化过程">10.1 优化过程</h3>
 <p>先试下用slice替换map</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1067,10 +1089,10 @@ Process finished with exit code 0
 <p><img src="/images/1562729315071.png" alt="1562729315071"></p>
 <p>可以看出这回时间大部分耗费在字符串的处理上面。但是没有办法，如果要支持中文字符串，只能这么做。</p>
 <p>提示：我是通过创建多个函数来进行方法的比较，也可以在一个函数上修改，通过版本控制来进行版本切换。</p>
-<h4 id="102-感想">10.2 感想</h4>
+<h3 id="102-感想">10.2 感想</h3>
 <p>分析算法运行性能要根据不同的数据规模来决定；</p>
 <p>很多时候性能开销主要在io操作而不在数据操作，所以可以牺牲一些数据操作的性能来换取代码的可读性</p>
-<h3 id="11-http测试">11. http测试</h3>
+<h2 id="11-http测试">11. http测试</h2>
 <p>基于02_UnifiedErrorHandling.md中的http服务器的部分，现在进行http服务器的测试。先把完整代码移过来，并作代码的分离。</p>
 <p>http.go：</p>
 <div class="highlight"><div class="chroma">
@@ -1278,7 +1300,7 @@ Process finished with exit code 0
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h4 id="111-errwrapper函数测试">11.1 errWrapper函数测试</h4>
+</div><h3 id="111-errwrapper函数测试">11.1 errWrapper函数测试</h3>
 <p>创建errWrapper_test.go，准备编写测试代码。</p>
 <p>编写errWrapper函数的测试函数如下：</p>
 <div class="highlight"><div class="chroma">
@@ -1531,7 +1553,7 @@ Process finished with exit code 0
 </code></pre></td></tr></table>
 </div>
 </div><p>这回没有问题了，说明我们的错误包装器正确，测试没有问题。</p>
-<h4 id="112-开启服务器测试">11.2 开启服务器测试</h4>
+<h3 id="112-开启服务器测试">11.2 开启服务器测试</h3>
 <p>上一节模拟了url请求（使用假的Request和Response），这一节则通过开启httpserver的方式来实现这个测试。这两种方法间测试的粒度不同，前一种方法只测试函数体内的这些代码，而启用服务器做测试则测试了整个服务器。前者更快，更像个单元测试。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1624,8 +1646,8 @@ PASS
 Process finished with exit code 0
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="12-生成文档及示例代码">12. 生成文档及示例代码</h3>
-<h4 id="121-使用go-doc生成及查看代码文档">12.1 使用go doc生成及查看代码文档</h4>
+</div><h2 id="12-生成文档及示例代码">12. 生成文档及示例代码</h2>
+<h3 id="121-使用go-doc生成及查看代码文档">12.1 使用go doc生成及查看代码文档</h3>
 <p>准备好queue.go：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1730,7 +1752,7 @@ func <span class="o">(</span>q *Queue<span class="o">)</span> IsEmpty<span class
 
 </code></pre></td></tr></table>
 </div>
-</div><h4 id="122-使用go-doc查看标准库文档">12.2 使用go doc查看标准库文档</h4>
+</div><h3 id="122-使用go-doc查看标准库文档">12.2 使用go doc查看标准库文档</h3>
 <p>用法基本一样，而且不需要注意路径问题，只要在GOPATH下即可。例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1746,7 +1768,7 @@ func Println<span class="o">(</span>a ...interface<span class="o">{})</span> <sp
     Println formats using the default formats <span class="k">for</span> its operands and writes to standard output. Spaces are always added between operands and a newline is appended. It returns the number of bytes written and any write error encountered.
 </code></pre></td></tr></table>
 </div>
-</div><h4 id="123-使用godoc查看文档">12.3 使用godoc查看文档</h4>
+</div><h3 id="123-使用godoc查看文档">12.3 使用godoc查看文档</h3>
 <p>godoc不仅支持前面go doc类似的命令行文档显示，有很多显示文档的方式，<code>GOPATH</code>下输入<code>godoc -help</code>即可查看其信息及命令介绍。</p>
 <p>最常用的是<code>godoc -http :6060</code>， 端口可自定义。浏览器访问可查看本机GOPATH下所有包包括标准库的html文档。</p>
 <p><img src="/images/1563010911803.png" alt="1563010911803"></p>
@@ -1754,7 +1776,7 @@ func Println<span class="o">(</span>a ...interface<span class="o">{})</span> <sp
 <p><img src="/images/1563010973865.png" alt="1563010973865"></p>
 <p><img src="/images/1563011346205.png" alt="1563011346205"></p>
 <p><img src="/images/1563011372720.png" alt="1563011372720"></p>
-<h4 id="124-添加注释完善文档">12.4 添加注释完善文档</h4>
+<h3 id="124-添加注释完善文档">12.4 添加注释完善文档</h3>
 <p>前面得到的文档都没有介绍，只有类型或者定义。要想有介绍，需要自己在包内类型、函数定义前添加注释。</p>
 <p>例如：</p>
 <div class="highlight"><div class="chroma">
@@ -1874,7 +1896,7 @@ func <span class="o">(</span>q *Queue<span class="o">)</span> IsEmpty<span class
 </div>
 </div><p><img src="/images/1563012480271.png" alt="1563012480271"></p>
 <p>这个功能很适合给函数添加示例，并易于阅读。</p>
-<h4 id="125-生成示例代码">12.5 生成示例代码</h4>
+<h3 id="125-生成示例代码">12.5 生成示例代码</h3>
 <p>将示例代码直接写到注释中是可以的，只不过不适合阅读（如果示例代码很长的话）。现在来介绍如何生成示例代码。更好用的一种方法：</p>
 <p>创建queue_test.go （没错，就是用来创建测试代码的文件）</p>
 <div class="highlight"><div class="chroma">
@@ -1946,11 +1968,33 @@ func <span class="o">(</span>q *Queue<span class="o">)</span> IsEmpty<span class
 <p>再去查看文档可得到：</p>
 <p><img src="/images/1563014702200.png" alt="1563014702200"></p>
 <p>这就是我们想要的文档示例了。</p>
-<h4 id="126-总结">12.6 总结</h4>
+<h3 id="126-总结">12.6 总结</h3>
 <p>注意！想要让注释和示例能被识别，必须注意格式</p>
 <p><strong>标准注释格式： <code>// + SPACE + [注释]</code></strong></p>
 <p><strong>注释中添加e.g示例： <code>// + SPACE + TAB + [e.g. 示例注释]</code></strong></p>
 <p><strong>示例代码添加输出：<code>// + SPACE + Output:</code></strong></p>
+<h2 id="13-go-test-命令">13. go test 命令</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">go</span> <span class="nx">test</span> <span class="p">.</span>   <span class="c1">// 执行当前目录下所有_test，路径可省略
+</span><span class="c1"></span><span class="k">go</span> <span class="nx">test</span> <span class="nx">aaa_test</span><span class="p">.</span><span class="k">go</span>  <span class="c1">// 指定某个测试文件
+</span><span class="c1"></span><span class="k">go</span> <span class="nx">test</span> <span class="o">-</span><span class="nx">run</span> <span class="nx">TestXXX</span> <span class="c1">// 指定某个测试用例（某个测试方法）
+</span><span class="c1"></span>
+<span class="k">go</span> <span class="nx">test</span> <span class="o">-</span><span class="nx">bench</span> <span class="p">.</span>  <span class="c1">// 对指定路径(这里是当前目录)下所有_test文件中的基准测试
+</span><span class="c1"></span><span class="k">go</span> <span class="nx">test</span> <span class="o">-</span><span class="nx">bench</span> <span class="nx">BenchmarkXXX</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="14-delve调试工具">14. Delve调试工具</h2>
+<p>这是第三方调试工具，可执行文件名叫做<code>dlv.exe</code>或者<code>dlv</code></p>
+<p>VSCODE-GO用的就是delve。</p>
 
     </div>
 
