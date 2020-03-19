@@ -3,28 +3,42 @@
   
   <url>
     <loc>https://azd1997.github.io/categories/algo/</loc>
-    <lastmod>2020-03-17T23:38:43+08:00</lastmod>
+    <lastmod>2020-03-19T11:55:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/categories/</loc>
-    <lastmod>2020-03-17T23:38:43+08:00</lastmod>
+    <lastmod>2020-03-19T11:55:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/post/</loc>
-    <lastmod>2020-03-17T23:38:43+08:00</lastmod>
+    <lastmod>2020-03-19T11:55:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/tags/</loc>
-    <lastmod>2020-03-17T23:38:43+08:00</lastmod>
+    <lastmod>2020-03-19T11:55:30+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/%E8%B4%AA%E5%BF%83/</loc>
+    <lastmod>2020-03-19T11:55:30+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/algo/greedy-algo/</loc>
+    <lastmod>2020-03-19T11:55:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -44,7 +58,7 @@
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/post/algo/union-find/</loc>
+    <loc>https://azd1997.github.io/post/algo/tree-union-find/</loc>
     <lastmod>2020-03-17T21:24:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

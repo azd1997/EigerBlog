@@ -6,10 +6,19 @@
     <description>Recent content in algo on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 17 Mar 2020 23:38:43 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 19 Mar 2020 11:55:30 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/categories/algo/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>贪心算法</title>
+      <link>https://azd1997.github.io/post/algo/greedy-algo/</link>
+      <pubDate>Thu, 19 Mar 2020 11:55:30 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/greedy-algo/</guid>
+      <description>0. 导语 1. 介绍 2. 例题 2.1 最长回文串 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 // 给定一个包含大写字母</description>
+    </item>
     
     <item>
       <title>图论基础</title>
@@ -22,10 +31,10 @@
     
     <item>
       <title>形形色色的树——并查集</title>
-      <link>https://azd1997.github.io/post/algo/union-find/</link>
+      <link>https://azd1997.github.io/post/algo/tree-union-find/</link>
       <pubDate>Tue, 17 Mar 2020 21:24:52 +0800</pubDate>
       
-      <guid>https://azd1997.github.io/post/algo/union-find/</guid>
+      <guid>https://azd1997.github.io/post/algo/tree-union-find/</guid>
       <description>0. 导论 并查集可以非常高效的解决连接问题 网络中节点间的连接状态 网络是个抽象的概念： 用户之间形成的网络 数据库中音乐、电影、书籍之间的网络 铁路交通</description>
     </item>
     

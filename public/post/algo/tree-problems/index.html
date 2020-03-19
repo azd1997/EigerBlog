@@ -48,7 +48,7 @@
 <meta itemprop="description" content="0. 树的遍历框架 通常与树相关的问题都是二叉树相关的问题。 二叉树的遍历方式有前序遍历，中序遍历，后序遍历。这三种遍历都属于深度优先遍历。 还有一种">
 <meta itemprop="datePublished" content="2020-03-08T18:08:11&#43;08:00" />
 <meta itemprop="dateModified" content="2020-03-08T18:08:11&#43;08:00" />
-<meta itemprop="wordCount" content="1281">
+<meta itemprop="wordCount" content="3065">
 
 
 
@@ -132,8 +132,8 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 1281 words </span>
-          <span class="more-meta"> 3 mins read </span>
+          <span class="more-meta"> 3065 words </span>
+          <span class="more-meta"> 7 mins read </span>
         
       </div>
     </header>
@@ -149,7 +149,16 @@
         <li><a href="#02-中序遍历">0.2 中序遍历</a></li>
         <li><a href="#03-后序遍历">0.3 后序遍历</a></li>
         <li><a href="#04-层序遍历">0.4 层序遍历</a></li>
-        <li><a href="#05-参考">0.5 参考</a></li>
+        <li><a href="#05-自顶向下与自底向上">0.5 自顶向下与自底向上</a></li>
+        <li><a href="#06-参考">0.6 参考</a></li>
+      </ul>
+    </li>
+    <li><a href="#1-例题">1. 例题</a>
+      <ul>
+        <li><a href="#11-二叉树的最大深度">1.1 二叉树的最大深度</a></li>
+        <li><a href="#12-对称二叉树">1.2 对称二叉树</a></li>
+        <li><a href="#13-路径总和">1.3 路径总和</a></li>
+        <li><a href="#14-路径总和ii">1.4 路径总和II</a></li>
       </ul>
     </li>
   </ul>
@@ -521,12 +530,540 @@
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="04-层序遍历">0.4 层序遍历</h3>
-<h3 id="05-参考">0.5 参考</h3>
+<p>这里没有真的使用队列，但道理是一样的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">levelOrder</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">)</span> <span class="p">[][]</span><span class="kt">int</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="kc">nil</span><span class="p">}</span>
+    <span class="nx">res</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([][]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="nx">queue</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="o">*</span><span class="nx">TreeNode</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="nx">queue</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">root</span>
+    <span class="k">for</span> <span class="nb">len</span><span class="p">(</span><span class="nx">queue</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="nx">newQ</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="o">*</span><span class="nx">TreeNode</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="nx">curLayer</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">node</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">queue</span> <span class="p">{</span>
+            <span class="c1">// 处理当前
+</span><span class="c1"></span>            <span class="nx">curLayer</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">curLayer</span><span class="p">,</span> <span class="nx">node</span><span class="p">.</span><span class="nx">Val</span><span class="p">)</span>
+            <span class="c1">// 将下一层入队
+</span><span class="c1"></span>            <span class="k">if</span> <span class="nx">node</span><span class="p">.</span><span class="nx">Left</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+                <span class="nx">newQ</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">newQ</span><span class="p">,</span> <span class="nx">node</span><span class="p">.</span><span class="nx">Left</span><span class="p">)</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="nx">node</span><span class="p">.</span><span class="nx">Right</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+                <span class="nx">newQ</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">newQ</span><span class="p">,</span> <span class="nx">node</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="nx">res</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">curLayer</span><span class="p">)</span>
+        <span class="nx">queue</span> <span class="p">=</span> <span class="nx">newQ</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">res</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="05-自顶向下与自底向上">0.5 自顶向下与自底向上</h3>
+<p>在使用递归解决树或树型问题时，递归解法一般有两种思路：自顶向下和自底向上。</p>
+<ul>
+<li>自顶向下： 可以看作是一种前序遍历；</li>
+<li>自底向上： 可以看做是一种后序遍历</li>
+</ul>
+<p>树问题两个思考：</p>
+<ul>
+<li>能确定一些参数从当前节点自身解决出发寻找答案吗？</li>
+<li>能使用这些参数和节点本身的值来决定给它的子节点传递什么参数吗？</li>
+</ul>
+<p>如果能，考虑自顶向下，否则考虑自底向上。当然有时两种做法都可以实现目标。</p>
+<h3 id="06-参考">0.6 参考</h3>
 <ul>
 <li><a href="https://github.com/azd1997/Leetcode-training/tree/master/ltalgo/tree-traverse">我的Github</a></li>
 <li><a href="https://www.jianshu.com/p/456af5480cee">二叉树遍历（前序、中序、后序）</a></li>
 </ul>
+<h2 id="1-例题">1. 例题</h2>
+<h3 id="11-二叉树的最大深度">1.1 二叉树的最大深度</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 给定一个二叉树，找出其最大深度。
+</span><span class="c1"></span>
+<span class="c1">// 二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
+</span><span class="c1"></span>
+<span class="c1">// 说明: 叶子节点是指没有子节点的节点。
+</span><span class="c1"></span>
+<span class="c1">// 示例：
+</span><span class="c1">// 给定二叉树 [3,9,20,null,null,15,7]，
+</span><span class="c1"></span>
+<span class="c1">//     3
+</span><span class="c1">//    / \
+</span><span class="c1">//   9  20
+</span><span class="c1">//     /  \
+</span><span class="c1">//    15   7
+</span><span class="c1">// 返回它的最大深度 3 。
+</span><span class="c1"></span>
+<span class="c1">////////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// 1. 自顶向下（前序遍历）
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">maxDepth</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nx">maxdepth</span> <span class="o">:=</span> <span class="mi">0</span>
+    <span class="nf">help</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">maxdepth</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>    <span class="c1">// 1是当前层深度，深度从1开始
+</span><span class="c1"></span>    <span class="k">return</span> <span class="nx">maxdepth</span>
+<span class="p">}</span>
 
+<span class="kd">func</span> <span class="nf">help</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">,</span> <span class="nx">maxdepth</span> <span class="o">*</span><span class="kt">int</span><span class="p">,</span> <span class="nx">curdepth</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
+    
+    <span class="c1">// 处理当前
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">curdepth</span> <span class="p">&gt;</span> <span class="o">*</span><span class="nx">maxdepth</span> <span class="p">{</span><span class="o">*</span><span class="nx">maxdepth</span> <span class="p">=</span> <span class="nx">curdepth</span><span class="p">}</span>
+    <span class="c1">// 向下一层
+</span><span class="c1"></span>    <span class="nf">help</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">maxdepth</span><span class="p">,</span> <span class="nx">curdepth</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nf">help</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">maxdepth</span><span class="p">,</span> <span class="nx">curdepth</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// 2. 自底向上（后序遍历）
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">maxDepth</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">help</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>    <span class="c1">// 统计root这棵树的高度，也就是节点的最大深度
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">help</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="mi">0</span><span class="p">}</span>
+    
+    <span class="c1">// 先处理下一层
+</span><span class="c1"></span>    <span class="nx">left</span> <span class="o">:=</span> <span class="nf">help</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">)</span>   <span class="c1">// 左子树高度
+</span><span class="c1"></span>    <span class="nx">right</span> <span class="o">:=</span> <span class="nf">help</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span> <span class="c1">// 右子树高度
+</span><span class="c1"></span>    <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="nx">left</span><span class="p">,</span> <span class="nx">right</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>     <span class="c1">// 返回当前子树高度
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">max</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">a</span><span class="o">&gt;=</span><span class="nx">b</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">a</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">b</span>
+<span class="p">}</span>
+
+<span class="c1">// ps: 自底向上写法这里，其实不需要help()
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="12-对称二叉树">1.2 对称二叉树</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 给定一个二叉树，检查它是否是镜像对称的。
+</span><span class="c1"></span>
+<span class="c1">// 例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
+</span><span class="c1"></span>
+<span class="c1">//     1
+</span><span class="c1">//    / \
+</span><span class="c1">//   2   2
+</span><span class="c1">//  / \ / \
+</span><span class="c1">// 3  4 4  3
+</span><span class="c1">// 但是下面这个 [1,2,2,null,3,null,3] 则不是镜像对称的:
+</span><span class="c1"></span>
+<span class="c1">//     1
+</span><span class="c1">//    / \
+</span><span class="c1">//   2   2
+</span><span class="c1">//    \   \
+</span><span class="c1">//    3    3
+</span><span class="c1">// 说明:
+</span><span class="c1"></span>
+<span class="c1">// 如果你可以运用递归和迭代两种方法解决这个问题，会很加分。
+</span><span class="c1"></span>
+<span class="c1">/////////////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// 递归/迭代 前序/后序  // 总共有四种写法
+</span><span class="c1">// 核心做法就是左边中左右（或左右中），右边中右左（或右左中），看得到的序列是否相同
+</span><span class="c1"></span>
+<span class="c1">// 1. 递归+前序
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">isSymmetric</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="kc">true</span><span class="p">}</span>
+    <span class="k">return</span> <span class="nf">help</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">help</span><span class="p">(</span><span class="nx">rootl</span><span class="p">,</span> <span class="nx">rootr</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">rootl</span><span class="o">==</span><span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">rootr</span><span class="o">==</span><span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nx">rootl</span><span class="o">==</span><span class="kc">nil</span> <span class="o">||</span> <span class="nx">rootr</span><span class="o">==</span><span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">false</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nx">rootl</span><span class="p">.</span><span class="nx">Val</span> <span class="o">!=</span> <span class="nx">rootr</span><span class="p">.</span><span class="nx">Val</span> <span class="p">{</span><span class="k">return</span> <span class="kc">false</span><span class="p">}</span>
+    <span class="k">return</span> <span class="nf">help</span><span class="p">(</span><span class="nx">rootl</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">rootr</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nf">help</span><span class="p">(</span><span class="nx">rootl</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">rootr</span><span class="p">.</span><span class="nx">Left</span><span class="p">)</span> 
+<span class="p">}</span>
+
+<span class="c1">// 2. 迭代+前序
+</span><span class="c1">// 迭代自顶向下 中左右/中右左遍历
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">isSymmetric</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="kc">true</span><span class="p">}</span>
+    <span class="nx">stack</span> <span class="o">:=</span> <span class="p">[]</span><span class="o">*</span><span class="nx">TreeNode</span><span class="p">{</span><span class="nx">root</span><span class="p">,</span> <span class="nx">root</span><span class="p">}</span>
+    <span class="k">for</span> <span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span><span class="o">!=</span><span class="mi">0</span> <span class="p">{</span>
+        <span class="nx">curl</span><span class="p">,</span> <span class="nx">curr</span> <span class="o">:=</span> <span class="nx">stack</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="nx">stack</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="nx">stack</span> <span class="p">=</span> <span class="nx">stack</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        
+        <span class="c1">// 检查当前
+</span><span class="c1"></span>        <span class="k">if</span> <span class="nx">curl</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">curr</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">continue</span><span class="p">}</span>
+        <span class="k">if</span> <span class="nx">curl</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">||</span> <span class="nx">curr</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="kc">false</span><span class="p">}</span>
+        <span class="k">if</span> <span class="nx">curl</span><span class="p">.</span><span class="nx">Val</span> <span class="o">!=</span> <span class="nx">curr</span><span class="p">.</span><span class="nx">Val</span> <span class="p">{</span><span class="k">return</span> <span class="kc">false</span><span class="p">}</span>
+        <span class="c1">// 否则将其孩子节点入栈
+</span><span class="c1"></span>        <span class="nx">stack</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">stack</span><span class="p">,</span> <span class="nx">curl</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">curr</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">curl</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">curr</span><span class="p">.</span><span class="nx">Left</span><span class="p">)</span>
+    <span class="p">}</span>
+    
+    <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="c1">// ps: 这道题用常规的迭代模板来写会比较啰嗦
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="13-路径总和">1.3 路径总和</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 给定一个二叉树和一个目标和，判断该树中是否存在根节点到叶子节点的路径，这条路径上所有节点值相加等于目标和。
+</span><span class="c1"></span>
+<span class="c1">// 说明: 叶子节点是指没有子节点的节点。
+</span><span class="c1"></span>
+<span class="c1">// 示例: 
+</span><span class="c1">// 给定如下二叉树，以及目标和 sum = 22，
+</span><span class="c1"></span>
+<span class="c1">//               5
+</span><span class="c1">//              / \
+</span><span class="c1">//             4   8
+</span><span class="c1">//            /   / \
+</span><span class="c1">//           11  13  4
+</span><span class="c1">//          /  \      \
+</span><span class="c1">//         7    2      1
+</span><span class="c1">// 返回 true, 因为存在目标和为 22 的根节点到叶子节点的路径 5-&gt;4-&gt;11-&gt;2。
+</span><span class="c1"></span>
+<span class="c1">////////////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">hasPathSum3</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">,</span> <span class="nx">sum</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">false</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nf">help3</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">sum</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">help3</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">,</span> <span class="nx">sum</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span> <span class="c1">// 叶子结点
+</span><span class="c1"></span>		<span class="k">return</span> <span class="nx">sum</span><span class="o">-</span><span class="nx">root</span><span class="p">.</span><span class="nx">Val</span> <span class="o">==</span> <span class="mi">0</span> <span class="c1">// 检查sum是否减为0
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="c1">// 处理当前
+</span><span class="c1"></span>	<span class="nx">sum</span> <span class="o">-=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Val</span>
+	<span class="nx">leftok</span><span class="p">,</span> <span class="nx">rightok</span> <span class="o">:=</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">false</span>
+	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">leftok</span> <span class="p">=</span> <span class="nf">help3</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">sum</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">rightok</span> <span class="p">=</span> <span class="nf">help3</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">sum</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">leftok</span> <span class="o">||</span> <span class="nx">rightok</span>
+<span class="p">}</span>
+
+<span class="c1">// 测例
+</span><span class="c1">// tree=[5,4,8,11,null,13,4,7,2,null,null,null,1],sum=22
+</span><span class="c1">// tree=[], sum=0
+</span><span class="c1">// tree=[1,2], sum=1
+</span><span class="c1">// tree=[1], sum=1
+</span><span class="c1"></span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="14-路径总和ii">1.4 路径总和II</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 和前面的区别在于：返回所有符合条件的路径
+</span><span class="c1"></span>
+<span class="c1">/////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// 回溯解法DFS
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">pathSum1</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">,</span> <span class="nx">sum</span> <span class="kt">int</span><span class="p">)</span> <span class="p">[][]</span><span class="kt">int</span> <span class="p">{</span>
+	<span class="nx">res</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([][]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="nx">path</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="nf">help1</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">sum</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">path</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">res</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">res</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">help1</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">,</span> <span class="nx">sum</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">path</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">res</span> <span class="o">*</span><span class="p">[][]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">//fmt.Println(root, sum, *path)
+</span><span class="c1"></span>
+	<span class="c1">// 防止root为空，引起panic； 同时也是触底返回
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 先更新path和sum（当前决策）
+</span><span class="c1"></span>	<span class="o">*</span><span class="nx">path</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="o">*</span><span class="nx">path</span><span class="p">,</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Val</span><span class="p">)</span>
+	<span class="nx">sum</span> <span class="o">-=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Val</span>
+
+	<span class="c1">// 检查当前
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span> <span class="c1">// 叶子结点
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">sum</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 找到符合条件的路径
+</span><span class="c1"></span>			<span class="o">*</span><span class="nx">res</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="o">*</span><span class="nx">res</span><span class="p">,</span> <span class="nb">append</span><span class="p">([]</span><span class="kt">int</span><span class="p">{},</span> <span class="p">(</span><span class="o">*</span><span class="nx">path</span><span class="p">)</span><span class="o">...</span><span class="p">))</span>
+			<span class="c1">//fmt.Println(*res)
+</span><span class="c1"></span>			<span class="c1">// 撤销选择
+</span><span class="c1"></span>			<span class="o">*</span><span class="nx">path</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">path</span><span class="p">)[:</span><span class="nb">len</span><span class="p">(</span><span class="o">*</span><span class="nx">path</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1">// 可以和下面合并
+</span><span class="c1"></span>			<span class="k">return</span>
+		<span class="p">}</span>
+		<span class="c1">// 撤销选择
+</span><span class="c1"></span>		<span class="o">*</span><span class="nx">path</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">path</span><span class="p">)[:</span><span class="nb">len</span><span class="p">(</span><span class="o">*</span><span class="nx">path</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 继续处理下一层（下层的决策）
+</span><span class="c1"></span>	<span class="nf">help1</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">sum</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+	<span class="nf">help1</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">sum</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+
+	<span class="c1">// 撤销选择
+</span><span class="c1"></span>	<span class="o">*</span><span class="nx">path</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">path</span><span class="p">)[:</span><span class="nb">len</span><span class="p">(</span><span class="o">*</span><span class="nx">path</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1">// ps: 每次做了选择之后return前记得撤销选择
+</span><span class="c1">// pps: 警惕slice传参带来的风险
+</span></code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     <div class="post-copyright">
