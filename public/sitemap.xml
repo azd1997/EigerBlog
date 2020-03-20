@@ -3,28 +3,56 @@
   
   <url>
     <loc>https://azd1997.github.io/categories/algo/</loc>
-    <lastmod>2020-03-19T11:55:30+08:00</lastmod>
+    <lastmod>2020-03-20T12:09:44+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/categories/</loc>
-    <lastmod>2020-03-19T11:55:30+08:00</lastmod>
+    <lastmod>2020-03-20T12:09:44+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/post/</loc>
-    <lastmod>2020-03-19T11:55:30+08:00</lastmod>
+    <lastmod>2020-03-20T12:09:44+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/tags/</loc>
-    <lastmod>2020-03-19T11:55:30+08:00</lastmod>
+    <lastmod>2020-03-20T12:09:44+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/%E6%95%B0%E7%BB%84/</loc>
+    <lastmod>2020-03-20T12:09:44+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/algo/array-problems/</loc>
+    <lastmod>2020-03-20T12:09:44+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/%E6%8E%92%E5%BA%8F/</loc>
+    <lastmod>2020-03-20T10:51:13+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/algo/sort-problems/</loc>
+    <lastmod>2020-03-20T10:51:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

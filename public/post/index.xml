@@ -6,10 +6,28 @@
     <description>Recent content in Posts on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 19 Mar 2020 11:55:30 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 20 Mar 2020 12:09:44 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>数组类问题集锦</title>
+      <link>https://azd1997.github.io/post/algo/array-problems/</link>
+      <pubDate>Fri, 20 Mar 2020 12:09:44 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/array-problems/</guid>
+      <description>0. 导语 题目来自LeetCode平台 1. 双指针（前后、快慢） 1.1 移除零 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 给定一个数组</description>
+    </item>
+    
+    <item>
+      <title>排序问题集锦</title>
+      <link>https://azd1997.github.io/post/algo/sort-problems/</link>
+      <pubDate>Fri, 20 Mar 2020 10:51:13 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/sort-problems/</guid>
+      <description>0. 排序算法 见 排序算法整理与实现 1. 快排思想类 求第k小(大)，前k小(大)问题能实现O(n)复杂度。 1.1 数组中的第k大元素 数组中的第k大元素 在未排</description>
+    </item>
     
     <item>
       <title>贪心算法</title>

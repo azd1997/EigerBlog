@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>数组类问题集锦 - Eiger - A young gopher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Eiger" /><meta name="description" content="0. 导语 题目来自LeetCode平台 1. 双指针（前后、快慢） 1.1 移除零 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 给定一个数组" /><meta name="keywords" content="数组类问题" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://azd1997.github.io/post/algo/array-problems/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="数组类问题集锦" />
+<meta property="og:description" content="0. 导语 题目来自LeetCode平台 1. 双指针（前后、快慢） 1.1 移除零 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 给定一个数组" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://azd1997.github.io/post/algo/array-problems/" />
+<meta property="article:published_time" content="2020-03-20T12:09:44+08:00" />
+<meta property="article:modified_time" content="2020-03-20T12:09:44+08:00" />
+<meta itemprop="name" content="数组类问题集锦">
+<meta itemprop="description" content="0. 导语 题目来自LeetCode平台 1. 双指针（前后、快慢） 1.1 移除零 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 给定一个数组">
+<meta itemprop="datePublished" content="2020-03-20T12:09:44&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-20T12:09:44&#43;08:00" />
+<meta itemprop="wordCount" content="5643">
+
+
+
+<meta itemprop="keywords" content="数组," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="数组类问题集锦"/>
+<meta name="twitter:description" content="0. 导语 题目来自LeetCode平台 1. 双指针（前后、快慢） 1.1 移除零 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 给定一个数组"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Eiger</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/links/">
+        <li class="mobile-menu-item">Links</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Eiger</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/links/">Links</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">数组类问题集锦</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-20 </span>
+        <div class="post-category">
+            <a href="/categories/algo/"> algo </a>
+            </div>
+          <span class="more-meta"> 5643 words </span>
+          <span class="more-meta"> 12 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-导语">0. 导语</a></li>
+    <li><a href="#1-双指针前后快慢">1. 双指针（前后、快慢）</a>
+      <ul>
+        <li><a href="#11-移除零">1.1 移除零</a></li>
+        <li><a href="#12-移除元素">1.2 移除元素</a></li>
+        <li><a href="#13-删除排序数组的重复项">1.3 删除排序数组的重复项</a></li>
+        <li><a href="#14-删除排序数组的重复项ii">1.4 删除排序数组的重复项II</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-基础算法思想">2. 基础算法思想</a>
+      <ul>
+        <li><a href="#21-快排思想">2.1 快排思想</a></li>
+        <li><a href="#22-归并排序">2.2 归并排序</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-双指针两端向内">3. 双指针（两端向内）</a>
+      <ul>
+        <li><a href="#31-两数之和ii-输入有序数组">3.1 两数之和II-输入有序数组</a></li>
+        <li><a href="#32-验证回文串">3.2 验证回文串</a></li>
+        <li><a href="#33-验证回文字符串ii">3.3 验证回文字符串II</a></li>
+        <li><a href="#34-反转字符串中的元音字母">3.4 反转字符串中的元音字母</a></li>
+        <li><a href="#35-盛最多水的容器">3.5 盛最多水的容器</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-双指针滑动窗口">4. 双指针（滑动窗口）</a>
+      <ul>
+        <li><a href="#41-长度最小的子数组">4.1 长度最小的子数组</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="0-导语">0. 导语</h2>
+<p>题目来自LeetCode平台</p>
+<h2 id="1-双指针前后快慢">1. 双指针（前后、快慢）</h2>
+<h3 id="11-移除零">1.1 移除零</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">给定一个数组</span> <span class="nx">nums</span><span class="err">，</span><span class="nx">编写一个函数将所有</span> <span class="mi">0</span> <span class="nx">移动到数组的末尾</span><span class="err">，</span><span class="nx">同时保持非零元素的相对顺序</span><span class="err">。</span>
+
+<span class="nx">示例</span><span class="p">:</span>
+
+<span class="nx">输入</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">]</span>
+<span class="nx">输出</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="nx">说明</span><span class="p">:</span>
+
+<span class="nx">必须在原数组上操作</span><span class="err">，</span><span class="nx">不能拷贝额外的数组</span><span class="err">。</span>
+<span class="nx">尽量减少操作次数</span><span class="err">。</span>
+
+<span class="c1">///////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">moveZeroes</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span>  <span class="p">{</span>
+    <span class="c1">// 快慢指针，快指针遍历，慢指针指向去0序列最后一位的后一位
+</span><span class="c1"></span>    
+    <span class="k">if</span> <span class="nx">nums</span><span class="o">==</span><span class="kc">nil</span> <span class="o">||</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span> <span class="o">||</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>       <span class="c1">// 边界
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="kt">int</span>
+    <span class="k">for</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="nx">nums</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+            <span class="nx">j</span><span class="o">++</span>
+        <span class="p">}</span>
+        <span class="nx">i</span><span class="o">++</span>
+    <span class="p">}</span>       <span class="c1">// j最后指向非零数字的后一位
+</span><span class="c1"></span>    
+    <span class="k">if</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="nx">k</span><span class="o">:=</span><span class="nx">j</span><span class="p">;</span> <span class="nx">k</span><span class="p">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">);</span> <span class="nx">k</span><span class="o">++</span> <span class="p">{</span>
+            <span class="nx">nums</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span> <span class="p">=</span> <span class="mi">0</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="12-移除元素">1.2 移除元素</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">给你一个数组</span> <span class="nx">nums</span> <span class="nx">和一个值</span> <span class="nx">val</span><span class="err">，</span><span class="nx">你需要</span> <span class="nx">原地</span> <span class="nx">移除所有数值等于</span> <span class="nx">val</span> <span class="nx">的元素</span><span class="err">，</span><span class="nx">并返回移除后数组的新长度</span><span class="err">。</span>
+
+<span class="nx">不要使用额外的数组空间</span><span class="err">，</span><span class="nx">你必须仅使用</span> <span class="nf">O</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="nx">额外空间并</span> <span class="nx">原地</span> <span class="nx">修改输入数组</span><span class="err">。</span>
+
+<span class="nx">元素的顺序可以改变</span><span class="err">。</span><span class="nx">你不需要考虑数组中超出新长度后面的元素</span><span class="err">。</span>
+
+ 
+
+<span class="nx">示例</span> <span class="mi">1</span><span class="p">:</span>
+
+<span class="nx">给定</span> <span class="nx">nums</span> <span class="p">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="nx">val</span> <span class="p">=</span> <span class="mi">3</span><span class="p">,</span>
+
+<span class="nx">函数应该返回新的长度</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">并且</span> <span class="nx">nums</span> <span class="nx">中的前两个元素均为</span> <span class="mi">2</span><span class="err">。</span>
+
+<span class="nx">你不需要考虑数组中超出新长度后面的元素</span><span class="err">。</span>
+<span class="nx">示例</span> <span class="mi">2</span><span class="p">:</span>
+
+<span class="nx">给定</span> <span class="nx">nums</span> <span class="p">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="nx">val</span> <span class="p">=</span> <span class="mi">2</span><span class="p">,</span>
+
+<span class="nx">函数应该返回新的长度</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">并且</span> <span class="nx">nums</span> <span class="nx">中的前五个元素为</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="err">。</span>
+
+<span class="nx">注意这五个元素可为任意顺序</span><span class="err">。</span>
+
+<span class="nx">你不需要考虑数组中超出新长度后面的元素</span><span class="err">。</span>
+
+<span class="c1">/////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// O(1)空间，原地修改，可以改变元素顺序
+</span><span class="c1">// 那么直接双指针，遇到慢指针j指向移除元素后的部分的末尾的后一个，快指针i是当前遍历的，当nums[i]不是待删元素，就和nums[j]交换
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">removeElement</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">val</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span><span class="k">return</span> <span class="mi">0</span><span class="p">}</span>
+    
+    <span class="nx">j</span><span class="o">:=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">val</span> <span class="p">{</span>
+            <span class="c1">//nums[i], nums[j] = nums[j], nums[i]
+</span><span class="c1"></span>            <span class="nx">nums</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+            <span class="nx">j</span><span class="o">++</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">j</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="13-删除排序数组的重复项">1.3 删除排序数组的重复项</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">给定一个排序数组</span><span class="err">，</span><span class="nx">你需要在</span> <span class="nx">原地</span> <span class="nx">删除重复出现的元素</span><span class="err">，</span><span class="nx">使得每个元素只出现一次</span><span class="err">，</span><span class="nx">返回移除后数组的新长度</span><span class="err">。</span>
+
+<span class="nx">不要使用额外的数组空间</span><span class="err">，</span><span class="nx">你必须在</span> <span class="nx">原地</span> <span class="nx">修改输入数组</span> <span class="nx">并在使用</span> <span class="nf">O</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="nx">额外空间的条件下完成</span><span class="err">。</span>
+
+ 
+
+<span class="nx">示例</span> <span class="mi">1</span><span class="p">:</span>
+
+<span class="nx">给定数组</span> <span class="nx">nums</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> 
+
+<span class="nx">函数应该返回新的长度</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">并且原数组</span> <span class="nx">nums</span> <span class="nx">的前两个元素被修改为</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="err">。</span> 
+
+<span class="nx">你不需要考虑数组中超出新长度后面的元素</span><span class="err">。</span>
+<span class="nx">示例</span> <span class="mi">2</span><span class="p">:</span>
+
+<span class="nx">给定</span> <span class="nx">nums</span> <span class="p">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span>
+
+<span class="nx">函数应该返回新的长度</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">并且原数组</span> <span class="nx">nums</span> <span class="nx">的前五个元素被修改为</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="err">。</span>
+
+<span class="nx">你不需要考虑数组中超出新长度后面的元素</span><span class="err">。</span>
+
+<span class="c1">///////////////////////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">removeDuplicates</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="c1">// 快慢指针
+</span><span class="c1"></span>    <span class="c1">// 若重复，快慢交换。 （保持原数据顺序）
+</span><span class="c1"></span>    <span class="c1">// 把快指针值替换到慢指针后一位
+</span><span class="c1"></span>    
+    <span class="c1">// 1. 边界条件
+</span><span class="c1"></span>    <span class="nx">l</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">l</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="p">{</span><span class="k">return</span> <span class="nx">l</span><span class="p">}</span>
+    
+    <span class="c1">// 2. 快慢指针移动
+</span><span class="c1"></span>    <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">l</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">{</span>
+            <span class="nx">j</span><span class="o">++</span>
+            <span class="nx">nums</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="c1">// 3. 返回新数组长度
+</span><span class="c1"></span>    <span class="k">return</span> <span class="nx">j</span><span class="o">+</span><span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="14-删除排序数组的重复项ii">1.4 删除排序数组的重复项II</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">给定一个排序数组</span><span class="err">，</span><span class="nx">你需要在原地删除重复出现的元素</span><span class="err">，</span><span class="nx">使得每个元素最多出现两次</span><span class="err">，</span><span class="nx">返回移除后数组的新长度</span><span class="err">。</span>
+
+<span class="nx">不要使用额外的数组空间</span><span class="err">，</span><span class="nx">你必须在原地修改输入数组并在使用</span> <span class="nf">O</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="nx">额外空间的条件下完成</span><span class="err">。</span>
+
+<span class="nx">示例</span> <span class="mi">1</span><span class="p">:</span>
+
+<span class="nx">给定</span> <span class="nx">nums</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
+
+<span class="nx">函数应返回新长度</span> <span class="nx">length</span> <span class="p">=</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">并且原数组的前五个元素被修改为</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="err">。</span>
+
+<span class="nx">你不需要考虑数组中超出新长度后面的元素</span><span class="err">。</span>
+<span class="nx">示例</span> <span class="mi">2</span><span class="p">:</span>
+
+<span class="nx">给定</span> <span class="nx">nums</span> <span class="p">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
+
+<span class="nx">函数应返回新长度</span> <span class="nx">length</span> <span class="p">=</span> <span class="mi">7</span><span class="p">,</span> <span class="nx">并且原数组的前五个元素被修改为</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span> <span class="err">。</span>
+
+<span class="nx">你不需要考虑数组中超出新长度后面的元素</span><span class="err">。</span>
+
+<span class="c1">///////////////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// 快慢指针
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">removeDuplicates</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">n</span>
+	<span class="p">}</span>
+
+	<span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span> <span class="c1">// j指向“新数组”的后一位
+</span><span class="c1"></span>	<span class="k">for</span> <span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="c1">// 如果旧数组当前元素 不同时 与新数组末两位 相同， 那么nums[j] = nums[i]; j++
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">||</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">j</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="p">{</span>
+			<span class="nx">nums</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+			<span class="nx">j</span><span class="o">++</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="c1">// 否则舍弃掉该值，继续遍历旧数组的下一个元素
+</span><span class="c1"></span>		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">j</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="2-基础算法思想">2. 基础算法思想</h2>
+<h3 id="21-快排思想">2.1 快排思想</h3>
+<h4 id="211-颜色分类">2.1.1 颜色分类</h4>
+<p>LeetCode 75</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">给定一个包含红色</span><span class="err">、</span><span class="nx">白色和蓝色</span><span class="err">，</span><span class="nx">一共</span> <span class="nx">n</span> <span class="nx">个元素的数组</span><span class="err">，</span><span class="nx">原地对它们进行排序</span><span class="err">，</span><span class="nx">使得相同颜色的元素相邻</span><span class="err">，</span><span class="nx">并按照红色</span><span class="err">、</span><span class="nx">白色</span><span class="err">、</span><span class="nx">蓝色顺序排列</span><span class="err">。</span>
+
+<span class="nx">此题中</span><span class="err">，</span><span class="nx">我们使用整数</span> <span class="mi">0</span><span class="err">、</span> <span class="mi">1</span> <span class="nx">和</span> <span class="mi">2</span> <span class="nx">分别表示红色</span><span class="err">、</span><span class="nx">白色和蓝色</span><span class="err">。</span>
+
+<span class="nx">注意</span><span class="p">:</span>
+<span class="nx">不能使用代码库中的排序函数来解决这道题</span><span class="err">。</span>
+
+<span class="nx">示例</span><span class="p">:</span>
+
+<span class="nx">输入</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="nx">输出</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="nx">进阶</span><span class="err">：</span>
+
+<span class="nx">一个直观的解决方案是使用计数排序的两趟扫描算法</span><span class="err">。</span>
+<span class="nx">首先</span><span class="err">，</span><span class="nx">迭代计算出0</span><span class="err">、</span><span class="mi">1</span> <span class="nx">和</span> <span class="mi">2</span> <span class="nx">元素的个数</span><span class="err">，</span><span class="nx">然后按照0</span><span class="err">、</span><span class="mi">1</span><span class="err">、</span><span class="mi">2</span><span class="nx">的排序</span><span class="err">，</span><span class="nx">重写当前数组</span><span class="err">。</span>
+<span class="nx">你能想出一个仅使用常数空间的一趟扫描算法吗</span><span class="err">？</span>
+
+<span class="c1">/////////////////////////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// 题目提示计数排序，但我没学过计数排序
+</span><span class="c1">// 但是这道题其实很简单，因为只有三种颜色，只需要类似快排尤其是三路快排的那种做法。
+</span><span class="c1">// 这里：
+</span><span class="c1">// 凡是红色(0)交换到左边区间，凡是蓝色(2)交换到右边区间
+</span><span class="c1">// 一次遍历就可以排好序了。
+</span><span class="c1">//这只用到了三个指针（数组游标），符合题意
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">sortColors</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span> <span class="c1">// l,r都指向区间右邻/左邻位置，而不是区间的右末位/左末位
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">r</span> <span class="p">{</span>         <span class="c1">// i==r时仍然要处理最后这个数
+</span><span class="c1"></span>		<span class="k">switch</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="mi">0</span><span class="p">:</span> <span class="c1">// 红色
+</span><span class="c1"></span>			<span class="nx">nums</span><span class="p">[</span><span class="nx">l</span><span class="p">],</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span>
+			<span class="nx">l</span><span class="o">++</span>
+			<span class="nx">i</span><span class="o">++</span>
+		<span class="k">case</span> <span class="mi">1</span><span class="p">:</span> <span class="c1">// 白
+</span><span class="c1"></span>			<span class="nx">i</span><span class="o">++</span>
+		<span class="k">case</span> <span class="mi">2</span><span class="p">:</span> <span class="c1">// 蓝
+</span><span class="c1"></span>			<span class="nx">nums</span><span class="p">[</span><span class="nx">r</span><span class="p">],</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span>
+			<span class="nx">r</span><span class="o">--</span> <span class="c1">// 注意i不变，因为新交换过来的还没有处理过
+</span><span class="c1"></span>		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// ps: 题解中有提及还可以使用基数排序来做。但是由于计数排序、基数排序、桶排序还没学，暂时不管它
+</span><span class="c1">// 而且这道题来讲三路快排的思想应该是最优解
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="212-数组中第k个最大元素">2.1.2 数组中第k个最大元素</h4>
+<p>LeetCode 215</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">在未排序的数组中找到第</span> <span class="nx">k</span> <span class="nx">个最大的元素</span><span class="err">。</span><span class="nx">请注意</span><span class="err">，</span><span class="nx">你需要找的是数组排序后的第</span> <span class="nx">k</span> <span class="nx">个最大的元素</span><span class="err">，</span><span class="nx">而不是第</span> <span class="nx">k</span> <span class="nx">个不同的元素</span><span class="err">。</span>
+
+<span class="nx">示例</span> <span class="mi">1</span><span class="p">:</span>
+
+<span class="nx">输入</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span> <span class="nx">和</span> <span class="nx">k</span> <span class="p">=</span> <span class="mi">2</span>
+<span class="nx">输出</span><span class="p">:</span> <span class="mi">5</span>
+<span class="nx">示例</span> <span class="mi">2</span><span class="p">:</span>
+
+<span class="nx">输入</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span> <span class="nx">和</span> <span class="nx">k</span> <span class="p">=</span> <span class="mi">4</span>
+<span class="nx">输出</span><span class="p">:</span> <span class="mi">4</span>
+<span class="nx">说明</span><span class="p">:</span>
+
+<span class="nx">你可以假设</span> <span class="nx">k</span> <span class="nx">总是有效的</span><span class="err">，</span><span class="nx">且</span> <span class="mi">1</span> <span class="err">≤</span> <span class="nx">k</span> <span class="err">≤</span> <span class="nx">数组的长度</span><span class="err">。</span>
+
+<span class="c1">//////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// 普通快排 + 缩减排序空间
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">findKthLargest</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">k</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">n</span> <span class="p">&lt;</span> <span class="nx">k</span> <span class="p">{</span><span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="nf">_quick</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">l</span> <span class="o">==</span> <span class="nx">r</span> <span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]}</span>   <span class="c1">// 区间只剩一个元素，只可能是这个了
+</span><span class="c1"></span>
+    <span class="nx">p</span> <span class="o">:=</span> <span class="nf">_partition</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+
+    <span class="c1">// 必然会遇到第k大元素，遇到了就没必要继续递归下去了
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">p</span> <span class="o">==</span> <span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="nx">k</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="p">]}</span>
+
+    <span class="c1">// 否则向靠近n-k侧递归
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">p</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="o">-</span><span class="nx">k</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>    <span class="c1">// &gt; n-k
+</span><span class="c1"></span>        <span class="k">return</span> <span class="nf">_quick</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kd">func</span> <span class="nf">_partition</span><span class="p">(</span><span class="nx">nums</span> <span class="o">*</span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="c1">// 随机选取基数
+</span><span class="c1"></span>    <span class="nx">randIdx</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="nx">r</span><span class="o">-</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nx">l</span>
+    <span class="c1">// 交换到最左边
+</span><span class="c1"></span>    <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">randIdx</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">randIdx</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span>
+
+    <span class="nx">p</span> <span class="o">:=</span> <span class="nx">l</span>    <span class="c1">// p记录Less与Right交界，p为Less右端点，包含在内
+</span><span class="c1"></span>    <span class="c1">// 向右遍历
+</span><span class="c1"></span>    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;=</span><span class="nx">r</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span> <span class="p">&lt;</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span> <span class="p">{</span>
+            <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">i</span><span class="p">]</span>
+            <span class="nx">p</span><span class="o">++</span> <span class="c1">// p后移
+</span><span class="c1"></span>        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// 交换基数与Less末位，交换后p为基数所在
+</span><span class="c1"></span>    <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">p</span><span class="p">],</span> <span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)[</span><span class="nx">l</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nx">p</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="22-归并排序">2.2 归并排序</h3>
+<h4 id="221-合并两个有序数组">2.2.1 合并两个有序数组</h4>
+<p>LeetCode 88</p>
+<p>其实这道题不能说是利用了归并排序思想，而是这道题的双指针解法就是归并排序中合并的操作。归并操作中是从前向后合并，而本题由于nums1空间足够，可以从后向前合并，不使用额外空间。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">给你两个有序整数数组</span> <span class="nx">nums1</span> <span class="nx">和</span> <span class="nx">nums2</span><span class="err">，</span><span class="nx">请你将</span> <span class="nx">nums2</span> <span class="nx">合并到</span> <span class="nx">nums1</span> <span class="nx">中</span><span class="err">，</span><span class="nx">使</span> <span class="nx">num1</span> <span class="nx">成为一个有序数组</span><span class="err">。</span>
+
+<span class="nx">说明</span><span class="p">:</span>
+
+<span class="nx">初始化</span> <span class="nx">nums1</span> <span class="nx">和</span> <span class="nx">nums2</span> <span class="nx">的元素数量分别为</span> <span class="nx">m</span> <span class="nx">和</span> <span class="nx">n</span> <span class="err">。</span>
+<span class="nx">你可以假设</span> <span class="nx">nums1</span> <span class="nx">有足够的空间</span><span class="err">（</span><span class="nx">空间大小大于或等于</span> <span class="nx">m</span> <span class="o">+</span> <span class="nx">n</span><span class="err">）</span><span class="nx">来保存</span> <span class="nx">nums2</span> <span class="nx">中的元素</span><span class="err">。</span>
+ 
+
+<span class="nx">示例</span><span class="p">:</span>
+
+<span class="nx">输入</span><span class="p">:</span>
+<span class="nx">nums1</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="nx">m</span> <span class="p">=</span> <span class="mi">3</span>
+<span class="nx">nums2</span> <span class="p">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span>       <span class="nx">n</span> <span class="p">=</span> <span class="mi">3</span>
+
+<span class="nx">输出</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+
+<span class="c1">///////////////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">merge</span><span class="p">(</span><span class="nx">nums1</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">m</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">nums2</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span>  <span class="p">{</span>
+    <span class="c1">// 三指针法，从后向前
+</span><span class="c1"></span>    
+    <span class="c1">// 1. 特殊情况是nums2为空
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span><span class="k">return</span><span class="p">}</span>
+    <span class="k">if</span> <span class="nx">m</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span><span class="nb">copy</span><span class="p">(</span><span class="nx">nums1</span><span class="p">[:</span><span class="nx">n</span><span class="p">],</span> <span class="nx">nums2</span><span class="p">)}</span>
+    
+    <span class="c1">// 2. 一般情况
+</span><span class="c1"></span>    <span class="nx">p1</span><span class="p">,</span> <span class="nx">p2</span><span class="p">,</span> <span class="nx">p</span> <span class="o">:=</span> <span class="nx">m</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">m</span><span class="o">+</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="nx">p1</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">p2</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span> <span class="p">{</span>
+            <span class="nx">nums1</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums1</span><span class="p">[</span><span class="nx">p1</span><span class="p">]</span>
+            <span class="nx">p</span><span class="o">--</span>
+            <span class="nx">p1</span><span class="o">--</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">nums1</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums2</span><span class="p">[</span><span class="nx">p2</span><span class="p">]</span>
+            <span class="nx">p</span><span class="o">--</span>
+            <span class="nx">p2</span><span class="o">--</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="c1">// p1没到头则不用动，p2没到头，则直接到nums1
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">p2</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="nb">copy</span><span class="p">(</span><span class="nx">nums1</span><span class="p">[:</span><span class="nx">p2</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="nx">nums2</span><span class="p">[:</span><span class="nx">p2</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="3-双指针两端向内">3. 双指针（两端向内）</h2>
+<h3 id="31-两数之和ii-输入有序数组">3.1 两数之和II-输入有序数组</h3>
+<p>LeetCode 167</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">给定一个已按照升序排列</span> <span class="nx">的有序数组</span><span class="err">，</span><span class="nx">找到两个数使得它们相加之和等于目标数</span><span class="err">。</span>
+
+<span class="nx">函数应该返回这两个下标值</span> <span class="nx">index1</span> <span class="nx">和</span> <span class="nx">index2</span><span class="err">，</span><span class="nx">其中</span> <span class="nx">index1</span> <span class="nx">必须小于</span> <span class="nx">index2</span><span class="err">。</span>
+
+<span class="nx">说明</span><span class="p">:</span>
+
+<span class="nx">返回的下标值</span><span class="err">（</span><span class="nx">index1</span> <span class="nx">和</span> <span class="nx">index2</span><span class="err">）</span><span class="nx">不是从零开始的</span><span class="err">。</span>
+<span class="nx">你可以假设每个输入只对应唯一的答案</span><span class="err">，</span><span class="nx">而且你不可以重复使用相同的元素</span><span class="err">。</span>
+<span class="nx">示例</span><span class="p">:</span>
+
+<span class="nx">输入</span><span class="p">:</span> <span class="nx">numbers</span> <span class="p">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span> <span class="nx">target</span> <span class="p">=</span> <span class="mi">9</span>
+<span class="nx">输出</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="nx">解释</span><span class="p">:</span> <span class="mi">2</span> <span class="nx">与</span> <span class="mi">7</span> <span class="nx">之和等于目标数</span> <span class="mi">9</span> <span class="err">。</span><span class="nx">因此</span> <span class="nx">index1</span> <span class="p">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">index2</span> <span class="p">=</span> <span class="mi">2</span> <span class="err">。</span>
+
+<span class="c1">///////////////////////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// 1. 一遍线性 双指针
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">twoSum</span><span class="p">(</span><span class="nx">numbers</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">target</span> <span class="kt">int</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
+	<span class="c1">// 特殊
+</span><span class="c1"></span>	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">numbers</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="p">&lt;</span> <span class="mi">2</span> <span class="p">{</span><span class="k">return</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">}}</span>
+
+	<span class="c1">// 双指针
+</span><span class="c1"></span>	<span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span>
+	<span class="k">for</span> <span class="nx">l</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="nx">r</span> <span class="p">{</span>	<span class="c1">// 至少有两个元素
+</span><span class="c1"></span>		<span class="nx">sum</span> <span class="o">:=</span> <span class="nx">numbers</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span> <span class="o">+</span> <span class="nx">numbers</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span>
+		<span class="k">if</span> <span class="nx">sum</span> <span class="o">==</span> <span class="nx">target</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">r</span><span class="o">+</span><span class="mi">1</span><span class="p">}</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">sum</span> <span class="p">&lt;</span> <span class="nx">target</span> <span class="p">{</span>
+			<span class="nx">l</span><span class="o">++</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>	<span class="c1">// &gt;
+</span><span class="c1"></span>			<span class="nx">r</span><span class="o">--</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">}</span>	<span class="c1">// 没找到
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="32-验证回文串">3.2 验证回文串</h3>
+<p>LeetCode 125</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">给定一个字符串</span><span class="err">，</span><span class="nx">验证它是否是回文串</span><span class="err">，</span><span class="nx">只考虑字母和数字字符</span><span class="err">，</span><span class="nx">可以忽略字母的大小写</span><span class="err">。</span>
+
+<span class="nx">说明</span><span class="err">：</span><span class="nx">本题中</span><span class="err">，</span><span class="nx">我们将空字符串定义为有效的回文串</span><span class="err">。</span>
+
+<span class="nx">示例</span> <span class="mi">1</span><span class="p">:</span>
+
+<span class="nx">输入</span><span class="p">:</span> <span class="s">&#34;A man, a plan, a canal: Panama&#34;</span>
+<span class="nx">输出</span><span class="p">:</span> <span class="kc">true</span>
+<span class="nx">示例</span> <span class="mi">2</span><span class="p">:</span>
+
+<span class="nx">输入</span><span class="p">:</span> <span class="s">&#34;race a car&#34;</span>
+<span class="nx">输出</span><span class="p">:</span> <span class="kc">false</span>
+
+<span class="c1">///////////////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">isPalindrome</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+    <span class="c1">// 边界处理
+</span><span class="c1"></span>    <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">n</span><span class="o">==</span><span class="mi">0</span> <span class="o">||</span> <span class="nx">n</span><span class="o">==</span><span class="mi">1</span> <span class="p">{</span><span class="k">return</span> <span class="kc">true</span><span class="p">}</span>
+    
+    <span class="c1">// 双指针
+</span><span class="c1"></span>    <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="nx">l</span><span class="p">&lt;</span><span class="nx">r</span> <span class="p">{</span>
+        <span class="c1">// 跳过杂字符
+</span><span class="c1"></span>        <span class="k">if</span> <span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]&lt;</span><span class="sc">&#39;0&#39;</span> <span class="o">||</span> <span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]&gt;</span><span class="sc">&#39;9&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]&lt;</span><span class="sc">&#39;A&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]&gt;</span><span class="sc">&#39;Z&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]&lt;</span><span class="sc">&#39;a&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]&gt;</span><span class="sc">&#39;z&#39;</span> <span class="p">{</span><span class="nx">l</span><span class="o">++</span><span class="p">;</span> <span class="k">continue</span><span class="p">}</span>
+        <span class="k">if</span> <span class="nx">s</span><span class="p">[</span><span class="nx">r</span><span class="p">]&lt;</span><span class="sc">&#39;0&#39;</span> <span class="o">||</span> <span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="nx">r</span><span class="p">]&gt;</span><span class="sc">&#39;9&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">[</span><span class="nx">r</span><span class="p">]&lt;</span><span class="sc">&#39;A&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="nx">r</span><span class="p">]&gt;</span><span class="sc">&#39;Z&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">[</span><span class="nx">r</span><span class="p">]&lt;</span><span class="sc">&#39;a&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="nx">s</span><span class="p">[</span><span class="nx">r</span><span class="p">]&gt;</span><span class="sc">&#39;z&#39;</span> <span class="p">{</span><span class="nx">r</span><span class="o">--</span><span class="p">;</span> <span class="k">continue</span><span class="p">}</span>
+        <span class="c1">// 数字的比较
+</span><span class="c1"></span>        <span class="k">if</span> <span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span><span class="o">&gt;=</span><span class="sc">&#39;0&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span><span class="o">&lt;=</span><span class="sc">&#39;9&#39;</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">s</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span> <span class="p">{</span><span class="k">return</span> <span class="kc">false</span><span class="p">}</span>
+        <span class="p">}</span>
+        <span class="c1">// 字母的比较
+</span><span class="c1"></span>        <span class="k">if</span> <span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span><span class="o">&gt;=</span><span class="sc">&#39;A&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span><span class="o">&lt;=</span><span class="sc">&#39;Z&#39;</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">s</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">s</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span><span class="o">-</span><span class="mi">32</span> <span class="p">{</span><span class="k">return</span> <span class="kc">false</span><span class="p">}</span>   <span class="c1">// &#39;a&#39;-&#39;A&#39;=32
+</span><span class="c1"></span>        <span class="p">}</span>
+        <span class="k">if</span> <span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span><span class="o">&gt;=</span><span class="sc">&#39;a&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span><span class="o">&lt;=</span><span class="sc">&#39;z&#39;</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">s</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">s</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span><span class="o">+</span><span class="mi">32</span> <span class="p">{</span><span class="k">return</span> <span class="kc">false</span><span class="p">}</span>   <span class="c1">// &#39;a&#39;-&#39;A&#39;=32
+</span><span class="c1"></span>        <span class="p">}</span>
+        <span class="c1">// 指针正常更新
+</span><span class="c1"></span>        <span class="nx">l</span><span class="o">++</span><span class="p">;</span> <span class="nx">r</span><span class="o">--</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="33-验证回文字符串ii">3.3 验证回文字符串II</h3>
+<p>LeetCode 680</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">给定一个非空字符串</span> <span class="nx">s</span><span class="err">，</span><span class="nx">最多删除一个字符</span><span class="err">。</span><span class="nx">判断是否能成为回文字符串</span><span class="err">。</span>
+
+<span class="nx">示例</span> <span class="mi">1</span><span class="p">:</span>
+
+<span class="nx">输入</span><span class="p">:</span> <span class="s">&#34;aba&#34;</span>
+<span class="nx">输出</span><span class="p">:</span> <span class="nx">True</span>
+<span class="nx">示例</span> <span class="mi">2</span><span class="p">:</span>
+
+<span class="nx">输入</span><span class="p">:</span> <span class="s">&#34;abca&#34;</span>
+<span class="nx">输出</span><span class="p">:</span> <span class="nx">True</span>
+<span class="nx">解释</span><span class="p">:</span> <span class="nx">你可以删除c字符</span><span class="err">。</span>
+<span class="nx">注意</span><span class="p">:</span>
+
+<span class="nx">字符串只包含从</span> <span class="nx">a</span><span class="o">-</span><span class="nx">z</span> <span class="nx">的小写字母</span><span class="err">。</span><span class="nx">字符串的最大长度是50000</span><span class="err">。</span>
+
+<span class="c1">///////////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// 思考：
+</span><span class="c1">// 粗暴的解法：直接先两端向内双指针，判断是否是回文，不是的话，则线性遍历s，以每一个字符作为删除字符，检查删后是否是回文
+</span><span class="c1">// 这显然不是较好的做法
+</span><span class="c1">// 其实仍然只需要一次遍历就可以：
+</span><span class="c1">// 两端向内，假如遇到一对不相等的，尝试删这而这之一，只要有其中一种删法能保证最后是回文，就可以
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">validPalindrome</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">true</span>
+	<span class="p">}</span>
+	<span class="c1">// 两端向内双指针
+</span><span class="c1"></span>	<span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span>
+	<span class="k">for</span> <span class="nx">l</span> <span class="o">&lt;=</span> <span class="nx">r</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">s</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span> <span class="p">{</span> <span class="c1">// 第一次不相等，删除其中之一试试
+</span><span class="c1"></span>			<span class="k">return</span> <span class="nf">help</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span> <span class="o">||</span> <span class="nf">help</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="c1">// 否则指针后移
+</span><span class="c1"></span>		<span class="nx">l</span><span class="o">++</span>
+		<span class="nx">r</span><span class="o">--</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="c1">// 为了能处理两种选择，使用辅助函数
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">help</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">l</span> <span class="o">&lt;=</span> <span class="nx">r</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">s</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="kc">false</span>
+		<span class="p">}</span>
+		<span class="nx">l</span><span class="o">++</span>
+		<span class="nx">r</span><span class="o">--</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="c1">// 可以将两段双指针写到一个迭代内而不需要辅助函数，但可读性变差
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="34-反转字符串中的元音字母">3.4 反转字符串中的元音字母</h3>
+<p>LeetCode345</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">编写一个函数</span><span class="err">，</span><span class="nx">以字符串作为输入</span><span class="err">，</span><span class="nx">反转该字符串中的元音字母</span><span class="err">。</span>
+
+<span class="nx">示例</span> <span class="mi">1</span><span class="p">:</span>
+
+<span class="nx">输入</span><span class="p">:</span> <span class="s">&#34;hello&#34;</span>
+<span class="nx">输出</span><span class="p">:</span> <span class="s">&#34;holle&#34;</span>
+<span class="nx">示例</span> <span class="mi">2</span><span class="p">:</span>
+
+<span class="nx">输入</span><span class="p">:</span> <span class="s">&#34;leetcode&#34;</span>
+<span class="nx">输出</span><span class="p">:</span> <span class="s">&#34;leotcede&#34;</span>
+<span class="nx">说明</span><span class="p">:</span>
+<span class="nx">元音字母不包含字母</span><span class="s">&#34;y&#34;</span><span class="err">。</span>
+
+<span class="c1">/////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// 这题说的不清楚，
+</span><span class="c1">// 它的意思是要将所有元音字母所组成的序列进行反序。
+</span><span class="c1">// 另一点很坑的是，没说大写也算
+</span><span class="c1"></span>
+<span class="c1">// 元音字母
+</span><span class="c1">// A O E U I
+</span><span class="c1">// a o e u i
+</span><span class="c1"></span>
+<span class="c1">// 解题：
+</span><span class="c1">// 其实就是很简单的双指针
+</span><span class="c1">// 左右指针都移动到元音字母上时才交换
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">reverseVowels</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">s</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 双指针 两端向内
+</span><span class="c1"></span>	<span class="nx">slice</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="c1">// 字符串不可修改
+</span><span class="c1"></span>	<span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span>
+	<span class="k">for</span> <span class="nx">l</span> <span class="o">&lt;=</span> <span class="nx">r</span> <span class="p">{</span> <span class="c1">// 所有字母都要检查
+</span><span class="c1"></span>		<span class="c1">// 定位到元音字母
+</span><span class="c1"></span>		<span class="k">if</span> <span class="p">!</span><span class="nf">isVowel</span><span class="p">(</span><span class="nx">slice</span><span class="p">[</span><span class="nx">l</span><span class="p">])</span> <span class="p">{</span>
+			<span class="nx">l</span><span class="o">++</span>
+			<span class="k">continue</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="p">!</span><span class="nf">isVowel</span><span class="p">(</span><span class="nx">slice</span><span class="p">[</span><span class="nx">r</span><span class="p">])</span> <span class="p">{</span>
+			<span class="nx">r</span><span class="o">--</span>
+			<span class="k">continue</span>
+		<span class="p">}</span>
+		<span class="c1">// 交换两个元音
+</span><span class="c1"></span>		<span class="nx">slice</span><span class="p">[</span><span class="nx">l</span><span class="p">],</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span> <span class="p">=</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">r</span><span class="p">],</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span>
+		<span class="nx">l</span><span class="o">++</span>
+		<span class="nx">r</span><span class="o">--</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nb">string</span><span class="p">(</span><span class="nx">slice</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">isVowel</span><span class="p">(</span><span class="nx">char</span> <span class="kt">byte</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">char</span> <span class="o">==</span> <span class="sc">&#39;A&#39;</span> <span class="o">||</span> <span class="nx">char</span> <span class="o">==</span> <span class="sc">&#39;a&#39;</span> <span class="o">||</span>
+		<span class="nx">char</span> <span class="o">==</span> <span class="sc">&#39;E&#39;</span> <span class="o">||</span> <span class="nx">char</span> <span class="o">==</span> <span class="sc">&#39;e&#39;</span> <span class="o">||</span>
+		<span class="nx">char</span> <span class="o">==</span> <span class="sc">&#39;I&#39;</span> <span class="o">||</span> <span class="nx">char</span> <span class="o">==</span> <span class="sc">&#39;i&#39;</span> <span class="o">||</span>
+		<span class="nx">char</span> <span class="o">==</span> <span class="sc">&#39;O&#39;</span> <span class="o">||</span> <span class="nx">char</span> <span class="o">==</span> <span class="sc">&#39;o&#39;</span> <span class="o">||</span>
+		<span class="nx">char</span> <span class="o">==</span> <span class="sc">&#39;U&#39;</span> <span class="o">||</span> <span class="nx">char</span> <span class="o">==</span> <span class="sc">&#39;u&#39;</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="35-盛最多水的容器">3.5 盛最多水的容器</h3>
+<p>LeetCode 11</p>
+<p>给你 n 个非负整数 a1，a2，&hellip;，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</p>
+<p>说明：你不能倾斜容器，且 n 的值至少为 2。</p>
+<p><img src="https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/07/25/question_11.jpg" alt=""></p>
+<p>图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。</p>
+<pre><code>示例：
+
+输入：[1,8,6,2,5,4,8,3,7]
+输出：49
+</code></pre>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">/////////////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">maxArea</span><span class="p">(</span><span class="nx">height</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">height</span><span class="p">)</span> 
+    <span class="k">if</span> <span class="nx">n</span> <span class="p">&lt;</span> <span class="mi">2</span> <span class="p">{</span><span class="k">return</span> <span class="mi">0</span><span class="p">}</span>
+    
+    <span class="c1">// 双指针，两端向内， 带贪心思想。长度从最长开始变短，因此两根柱子的最小高度必须变高才有可能找到更大的面积
+</span><span class="c1"></span>    <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">maxarea</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="nx">l</span> <span class="p">&lt;</span> <span class="nx">r</span> <span class="p">{</span>     <span class="c1">// 最起码要有两根柱子
+</span><span class="c1"></span>        <span class="c1">// 更新最大面积
+</span><span class="c1"></span>        <span class="nx">maxarea</span> <span class="p">=</span> <span class="nf">max</span><span class="p">(</span><span class="nx">maxarea</span><span class="p">,</span> <span class="p">(</span><span class="nx">r</span><span class="o">-</span><span class="nx">l</span><span class="p">)</span> <span class="o">*</span> <span class="nf">min</span><span class="p">(</span><span class="nx">height</span><span class="p">[</span><span class="nx">l</span><span class="p">],</span> <span class="nx">height</span><span class="p">[</span><span class="nx">r</span><span class="p">]))</span>
+        <span class="c1">// 短的那一根柱子向内移
+</span><span class="c1"></span>        <span class="k">if</span> <span class="nx">height</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span> <span class="p">&lt;</span> <span class="nx">height</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span> <span class="p">{</span>
+            <span class="nx">l</span><span class="o">++</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">r</span><span class="o">--</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">maxarea</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">max</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">a</span> <span class="o">&gt;=</span> <span class="nx">b</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">a</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">b</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">min</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">a</span> <span class="o">&lt;=</span> <span class="nx">b</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">a</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">b</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="4-双指针滑动窗口">4. 双指针（滑动窗口）</h2>
+<h3 id="41-长度最小的子数组">4.1 长度最小的子数组</h3>
+<p>LeetCode 209</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span><span class="lnt">96
+</span><span class="lnt">97
+</span><span class="lnt">98
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">给定一个含有</span> <span class="nx">n</span> <span class="nx">个正整数的数组和一个正整数</span> <span class="nx">s</span> <span class="err">，</span><span class="nx">找出该数组中满足其和</span> <span class="err">≥</span> <span class="nx">s</span> <span class="nx">的长度最小的连续子数组</span><span class="err">。</span><span class="nx">如果不存在符合条件的连续子数组</span><span class="err">，</span><span class="nx">返回</span> <span class="mi">0</span><span class="err">。</span>
+
+<span class="nx">示例</span><span class="p">:</span> 
+
+<span class="nx">输入</span><span class="p">:</span> <span class="nx">s</span> <span class="p">=</span> <span class="mi">7</span><span class="p">,</span> <span class="nx">nums</span> <span class="p">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="nx">输出</span><span class="p">:</span> <span class="mi">2</span>
+<span class="nx">解释</span><span class="p">:</span> <span class="nx">子数组</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="nx">是该条件下的长度最小的连续子数组</span><span class="err">。</span>
+<span class="nx">进阶</span><span class="p">:</span>
+
+<span class="nx">如果你已经完成了O</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="nx">时间复杂度的解法</span><span class="p">,</span> <span class="nx">请尝试</span> <span class="nf">O</span><span class="p">(</span><span class="nx">n</span> <span class="nx">log</span> <span class="nx">n</span><span class="p">)</span> <span class="nx">时间复杂度的解法</span><span class="err">。</span>
+
+<span class="c1">/////////////////////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// 双指针 滑动窗口
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">minSubArrayLen</span><span class="p">(</span><span class="nx">s</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="mi">0</span>
+	<span class="p">}</span> <span class="c1">// 不存在符合条件的子数组
+</span><span class="c1"></span>
+	<span class="c1">// 滑动窗口
+</span><span class="c1"></span>	<span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="c1">// 注意，每次r定位到sum([l:r]) &gt; s时，要尝试将l右移，这样才能不漏掉解
+</span><span class="c1"></span>	<span class="nx">sum</span> <span class="o">:=</span> <span class="mi">0</span>     <span class="c1">// 子数组的和
+</span><span class="c1"></span>	<span class="nx">minL</span> <span class="o">:=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">31</span>
+	<span class="k">for</span> <span class="nx">l</span> <span class="o">&lt;=</span> <span class="nx">r</span> <span class="o">&amp;&amp;</span> <span class="nx">r</span> <span class="p">&lt;</span> <span class="nx">n</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">sum</span> <span class="o">==</span> <span class="nx">s</span> <span class="p">{</span> <span class="c1">// ==s时r右移
+</span><span class="c1"></span>			<span class="nx">minL</span> <span class="p">=</span> <span class="nf">min</span><span class="p">(</span><span class="nx">minL</span><span class="p">,</span> <span class="nx">r</span><span class="o">-</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+			<span class="k">if</span> <span class="nx">r</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+				<span class="nx">r</span><span class="o">++</span>
+				<span class="nx">sum</span> <span class="o">+=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span>
+			<span class="p">}</span>
+			<span class="k">continue</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="nx">sum</span> <span class="p">&gt;</span> <span class="nx">s</span> <span class="p">{</span> <span class="c1">// &gt;s时l右移
+</span><span class="c1"></span>			<span class="nx">minL</span> <span class="p">=</span> <span class="nf">min</span><span class="p">(</span><span class="nx">minL</span><span class="p">,</span> <span class="nx">r</span><span class="o">-</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+			<span class="nx">sum</span> <span class="o">-=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span>
+			<span class="nx">l</span><span class="o">++</span>
+			<span class="k">continue</span>
+		<span class="p">}</span>
+		<span class="c1">// 否则，就 sum &lt; s， 直接r右移
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">r</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+			<span class="nx">r</span><span class="o">++</span>
+			<span class="nx">sum</span> <span class="o">+=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="c1">// r==n-1 &amp;&amp; sum&lt;s ， 可以提前退出
+</span><span class="c1"></span>			<span class="k">break</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">minL</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">min</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">a</span> <span class="o">&lt;=</span> <span class="nx">b</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">a</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">b</span>
+<span class="p">}</span>
+
+<span class="c1">// 上面的解法思路是对的，但实现上出错了。当r==n-1时而恰好sum([l:r])==s，这时l无法移动，会陷入无限循环
+</span><span class="c1">// 例如示例 s=7, nums=[2,3,1,2,4,3]。 问题出在 if sum==s这段里。
+</span><span class="c1"></span>
+<span class="c1">// 把 sum==s的情况归类到sum&gt;=s中可以避免这种情况，因为会l移动，从而使得遍历能继续下去
+</span><span class="c1"></span>
+<span class="c1">// 此外，如果找不到和大于等于s的子区间最后就会minL = 1&lt;&lt;31， 要检查这种情况
+</span><span class="c1"></span>
+<span class="c1">// 正确实现如下：
+</span><span class="c1">// 双指针 滑动窗口
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">minSubArrayLen2</span><span class="p">(</span><span class="nx">s</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="mi">0</span>
+	<span class="p">}</span> <span class="c1">// 不存在符合条件的子数组
+</span><span class="c1"></span>
+	<span class="c1">// 滑动窗口
+</span><span class="c1"></span>	<span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>   <span class="c1">// 注意，每次r定位到sum([l:r]) &gt; s时，要尝试将l右移，这样才能不漏掉解
+</span><span class="c1"></span>	<span class="nx">sum</span> <span class="o">:=</span> <span class="nx">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">// 子数组的和
+</span><span class="c1"></span>	<span class="nx">minL</span> <span class="o">:=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">31</span>
+	<span class="k">for</span> <span class="nx">l</span> <span class="o">&lt;=</span> <span class="nx">r</span> <span class="p">{</span>
+		<span class="c1">//fmt.Println(minL, sum, l, r)
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">sum</span> <span class="o">&gt;=</span> <span class="nx">s</span> <span class="p">{</span> <span class="c1">// &gt;=s时l右移
+</span><span class="c1"></span>			<span class="nx">minL</span> <span class="p">=</span> <span class="nf">min</span><span class="p">(</span><span class="nx">minL</span><span class="p">,</span> <span class="nx">r</span><span class="o">-</span><span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+			<span class="nx">sum</span> <span class="o">-=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span>
+			<span class="nx">l</span><span class="o">++</span>
+			<span class="k">continue</span>
+		<span class="p">}</span>
+		<span class="c1">// 否则，就 sum &lt; s， 直接r右移
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">r</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+			<span class="nx">r</span><span class="o">++</span>
+			<span class="nx">sum</span> <span class="o">+=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="c1">// r == n-1 时，同时又sum&lt;s，则可以结束了
+</span><span class="c1"></span>			<span class="k">break</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">minL</span> <span class="o">!=</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">31</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">minL</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="mi">0</span> <span class="c1">// 不存在
+</span><span class="c1"></span><span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-03-20
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/algo/sort-problems/">
+            <span class="next-text nav-default">排序问题集锦</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+  <span id="/post/algo/array-problems/" class="leancloud_visitors" data-flag-title="数组类问题集锦">
+		<span class="post-meta-item-text">文章阅读量 </span>
+		<span class="leancloud-visitors-count">0</span>
+		<p></p>
+	  </span>
+  <div id="vcomments"></div>
+  <script src="http://pirogue.org/js/av-min.js"></script>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'bpOXpWYjWw1gNOYNe2PrWjKV-gzGzoHsz',
+        appKey: '07yqjMVRu9Nyoqrzj4X7IhL5',
+        notify:  true , 
+        verify:  false , 
+        avatar:'mm', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:374192922@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%8C%AF%E4%B8%9C-%E8%89%BE-b10752175/detail/recent-activity/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/azd1997" class="iconfont icon-github" title="github"></a>
+  <a href="https://azd1997.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      TeX: {equationNumbers: {autoNumber: "AMS"}},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
