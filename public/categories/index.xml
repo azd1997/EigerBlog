@@ -6,10 +6,19 @@
     <description>Recent content in Categories on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 23 Apr 2020 22:31:53 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 03 Sep 2020 16:34:12 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>算法</title>
+      <link>https://azd1997.github.io/categories/%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Thu, 03 Sep 2020 16:34:12 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/categories/%E7%AE%97%E6%B3%95/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>linux</title>

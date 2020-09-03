@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>算法 on Eiger - A young gopher</title>
-    <link>https://azd1997.github.io/tags/%E7%AE%97%E6%B3%95/</link>
+    <link>https://azd1997.github.io/categories/%E7%AE%97%E6%B3%95/</link>
     <description>Recent content in 算法 on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 03 Sep 2020 16:34:12 +0800</lastBuildDate>
     
-	<atom:link href="https://azd1997.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://azd1997.github.io/categories/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,15 +18,6 @@
       
       <guid>https://azd1997.github.io/post/algo/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/</guid>
       <description>1. 时间复杂度与空间复杂度 知识点 大$O$表示法 $O(f(n))$ 时间复杂度分析 只关注循环执行次数最多的一段代码 加法法则：总复杂度等于量级最大的那段代码的复杂度</description>
-    </item>
-    
-    <item>
-      <title>覃超数据结构与算法7天训练营笔记</title>
-      <link>https://azd1997.github.io/post/algo/training-classroom/</link>
-      <pubDate>Mon, 04 Nov 2019 20:39:10 +0800</pubDate>
-      
-      <guid>https://azd1997.github.io/post/algo/training-classroom/</guid>
-      <description>0. 前言 0.1 学习目标 对于算法和数据结构理解达到职业顶尖级别 一线互联网公司面试 Leetcode 300+ 积累 0.2 学习方法 参考书籍：《异类：不一样的成功启示录》 三步走： chunk it</description>
     </item>
     
   </channel>

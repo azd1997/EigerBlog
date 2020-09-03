@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 23 Apr 2020 22:31:53 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 03 Sep 2020 16:34:12 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>《数据结构与算法之美》速览</title>
+      <link>https://azd1997.github.io/post/algo/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/</link>
+      <pubDate>Thu, 03 Sep 2020 16:34:12 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/algo/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/</guid>
+      <description>1. 时间复杂度与空间复杂度 知识点 大$O$表示法 $O(f(n))$ 时间复杂度分析 只关注循环执行次数最多的一段代码 加法法则：总复杂度等于量级最大的那段代码的复杂度</description>
+    </item>
     
     <item>
       <title>Redis入门</title>
