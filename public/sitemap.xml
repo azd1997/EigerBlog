@@ -2,28 +2,77 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://azd1997.github.io/categories/algo/</loc>
-    <lastmod>2020-03-25T11:10:25+08:00</lastmod>
+    <loc>https://azd1997.github.io/categories/</loc>
+    <lastmod>2020-04-23T22:31:53+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://azd1997.github.io/categories/</loc>
-    <lastmod>2020-03-25T11:10:25+08:00</lastmod>
+    <loc>https://azd1997.github.io/</loc>
+    <lastmod>2020-04-23T22:31:53+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/categories/linux/</loc>
+    <lastmod>2020-04-23T22:31:53+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/post/</loc>
-    <lastmod>2020-03-25T11:10:25+08:00</lastmod>
+    <lastmod>2020-04-23T22:31:53+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/redis/</loc>
+    <lastmod>2020-04-23T22:31:53+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/linux/redis/</loc>
+    <lastmod>2020-04-23T22:31:53+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://azd1997.github.io/tags/</loc>
+    <lastmod>2020-04-23T22:31:53+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/categories/cs/</loc>
+    <lastmod>2020-03-26T08:04:33+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
+    <lastmod>2020-03-26T08:04:33+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/post/cs/cn-transport/</loc>
+    <lastmod>2020-03-26T08:04:33+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://azd1997.github.io/categories/algo/</loc>
     <lastmod>2020-03-25T11:10:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -165,20 +214,6 @@
   <url>
     <loc>https://azd1997.github.io/tags/%E6%90%9C%E7%B4%A2/</loc>
     <lastmod>2020-03-13T09:12:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://azd1997.github.io/categories/cs/</loc>
-    <lastmod>2020-03-12T17:23:30+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://azd1997.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2020-03-12T17:23:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -340,13 +375,6 @@
   <url>
     <loc>https://azd1997.github.io/post/cs/ccss/</loc>
     <lastmod>2020-01-07T08:36:32+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://azd1997.github.io/categories/linux/</loc>
-    <lastmod>2019-11-24T21:00:38+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -935,13 +963,6 @@
   <url>
     <loc>https://azd1997.github.io/post/go/02_unifiederrorhandling/</loc>
     <lastmod>2019-08-20T03:14:14-04:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://azd1997.github.io/</loc>
-    <lastmod>2019-08-15T13:56:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

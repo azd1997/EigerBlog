@@ -1,42 +1,43 @@
-# `make`
+# make
 default:
-	# ç”Ÿæˆç½‘ç«™æ–‡ä»¶
+	# Éú³ÉÍøÕ¾ÎÄ¼ş
 	cd public;pwd;rm -rf *;cd ../;
 	hugo;
-	@echo 'ç½‘ç«™æ–‡ä»¶ç”Ÿæˆåœ¨public/ä¸‹'; 
-	# ä¸´æ—¶ä¿å­˜.gitä¸CNAME
+	echo "ÔÆ²ãÊæÊÊµÄ";
+	@echo -e "ÍøÕ¾ÎÄ¼şÉú³ÉÔÚpublic/ÏÂ";
+	# ÁÙÊ±±£´æ.gitÓëCNAME
 	cp -fp website/CNAME mycustom/tmp/;
 	cp -fp website/.git mycustom/tmp/123.txt;
-	@echo 'CNAMEã€.gitå·²å¤‡ä»½è‡³mycustom/tmp/ä¸‹';
+	@echo 'CNAME¡¢.gitÒÑ±¸·İÖÁmycustom/tmp/ÏÂ';
 	pwd;
-	# æ¸…ç©ºåŸwebsiteæ–‡ä»¶ï¼Œå°†æ‰€éœ€æ–‡ä»¶å¤åˆ¶å…¥website
+	# Çå¿ÕÔ­websiteÎÄ¼ş£¬½«ËùĞèÎÄ¼ş¸´ÖÆÈëwebsite
 	cd website;pwd;rm -rf *;cd ../;
-	@echo 'websiteä¸‹å†…å®¹å·²æ¸…ç©º';
+	@echo 'websiteÏÂÄÚÈİÒÑÇå¿Õ';
 	cp -rf public/. website;
 	cp -fp mycustom/tmp/123.txt website/.git;
 	cp -fp mycustom/tmp/CNAME website/;
-	@echo 'websiteæ–‡ä»¶å·²å…¨éƒ¨ç”Ÿæˆ';
+	@echo 'websiteÎÄ¼şÒÑÈ«²¿Éú³É';
 	pwd;
-	# gitæäº¤è‡³è¿œç¨‹ä»“åº“ï¼Œæ›´æ–°ç¬”è®°ä»“åº“ã€ç½‘ç«™ä»“åº“ã€åšå®¢ä»“åº“
+	# gitÌá½»ÖÁÔ¶³Ì²Ö¿â£¬¸üĞÂ±Ê¼Ç²Ö¿â¡¢ÍøÕ¾²Ö¿â¡¢²©¿Í²Ö¿â
 	# CUR_DATE = $(shell date '+%Y-%m-%d');
 	@date=`date +%Y-%m-%d`;\
-		echo "$${date}";\
+		@echo "$${date}";\
 		cd content/post/;pwd;\
 		git add .;\
  		git commit -m "$${date}  update my blog notes";\
 		git push;
 	@date=`date +%Y-%m-%d`;\
-		echo "$${date}";\
+		@echo "$${date}";\
 		cd website/;pwd;\
 		git add .;\
  		git commit -m "$${date}  update my blog site eiger.me";\
 		git push;
 	@date=`date +%Y-%m-%d`;\
-		echo "$${date}";\
+		@echo "$${date}";\
 		pwd;\
 		git add .;\
  		git commit -m "$${date}  update my blog";\
 		git push;
-	# æ³¨æ„ï¼šå¿…é¡»æ˜¯åŒå¼•å·æ‹¬èµ·å­—ç¬¦ä¸²ï¼ŒåŒ$åŠ èŠ±æ‹¬å·åŒ…ä½å˜é‡
+	# ×¢Òâ£º±ØĞëÊÇË«ÒıºÅÀ¨Æğ×Ö·û´®£¬Ë«$¼Ó»¨À¨ºÅ°ü×¡±äÁ¿
 	pwd;
-	@echo 'åšå®¢ç½‘ç«™https://eiger.meæ›´æ–°å®Œæˆ';
+	@echo '²©¿ÍÍøÕ¾https://eiger.me¸üĞÂÍê³É';

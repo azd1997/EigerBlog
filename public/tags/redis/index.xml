@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>redis on Eiger - A young gopher</title>
+    <link>https://azd1997.github.io/tags/redis/</link>
+    <description>Recent content in redis on Eiger - A young gopher</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 23 Apr 2020 22:31:53 +0800</lastBuildDate>
+    
+	<atom:link href="https://azd1997.github.io/tags/redis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Redis入门</title>
+      <link>https://azd1997.github.io/post/linux/redis/</link>
+      <pubDate>Thu, 23 Apr 2020 22:31:53 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/linux/redis/</guid>
+      <description>0. Redis简介 1. 安装 linux安装 官网页面下载 或者 wget http://download.redis.io/releases/redis-5.0.5.tar.gz tar xzf redis-5.0.5.tar.gz cd redis-5.0.5 make 编译 make test 测试 编译结果都在src目录下，将生成的可执行文件直接放到/usr</description>
+    </item>
+    
+  </channel>
+</rss>

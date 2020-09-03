@@ -6,10 +6,19 @@
     <description>Recent content in cs on Eiger - A young gopher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 12 Mar 2020 17:23:30 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 26 Mar 2020 08:04:33 +0800</lastBuildDate>
     
 	<atom:link href="https://azd1997.github.io/categories/cs/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>计算机网络——传输层</title>
+      <link>https://azd1997.github.io/post/cs/cn-transport/</link>
+      <pubDate>Thu, 26 Mar 2020 08:04:33 +0800</pubDate>
+      
+      <guid>https://azd1997.github.io/post/cs/cn-transport/</guid>
+      <description>0. 导语 1. UDP 2. TCP</description>
+    </item>
     
     <item>
       <title>计算机网络03——数据链路层</title>

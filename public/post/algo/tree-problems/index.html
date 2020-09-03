@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.66.0 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.74.3 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://azd1997.github.io/post/algo/tree-problems/" />
@@ -46,13 +46,14 @@
 <meta property="article:modified_time" content="2020-03-08T18:08:11+08:00" />
 <meta itemprop="name" content="树问题集锦">
 <meta itemprop="description" content="0. 树的遍历框架 通常与树相关的问题都是二叉树相关的问题。 二叉树的遍历方式有前序遍历，中序遍历，后序遍历。这三种遍历都属于深度优先遍历。 还有一种">
-<meta itemprop="datePublished" content="2020-03-08T18:08:11&#43;08:00" />
-<meta itemprop="dateModified" content="2020-03-08T18:08:11&#43;08:00" />
-<meta itemprop="wordCount" content="3430">
+<meta itemprop="datePublished" content="2020-03-08T18:08:11+08:00" />
+<meta itemprop="dateModified" content="2020-03-08T18:08:11+08:00" />
+<meta itemprop="wordCount" content="8586">
 
 
 
-<meta itemprop="keywords" content="树," /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="树," />
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="树问题集锦"/>
 <meta name="twitter:description" content="0. 树的遍历框架 通常与树相关的问题都是二叉树相关的问题。 二叉树的遍历方式有前序遍历，中序遍历，后序遍历。这三种遍历都属于深度优先遍历。 还有一种"/>
 
@@ -132,8 +133,8 @@
         <div class="post-category">
             <a href="/categories/algo/"> algo </a>
             </div>
-          <span class="more-meta"> 3430 words </span>
-          <span class="more-meta"> 7 mins read </span>
+          <span class="more-meta"> 8586 words </span>
+          <span class="more-meta"> 18 mins read </span>
         
       </div>
     </header>
@@ -161,6 +162,13 @@
         <li><a href="#14-路径总和ii">1.4 路径总和II</a></li>
         <li><a href="#15-路径总和iii">1.5 路径总和III</a></li>
         <li><a href="#16-从前序与中序遍历序列构造二叉树">1.6 从前序与中序遍历序列构造二叉树</a></li>
+        <li><a href="#17-从中序与后序遍历序列构造二叉树">1.7 从中序与后序遍历序列构造二叉树</a></li>
+        <li><a href="#18-填充每个节点的下一个右侧节点指针">1.8 填充每个节点的下一个右侧节点指针</a></li>
+        <li><a href="#19-填充每个节点的下一个右侧结点指针ii">1.9 填充每个节点的下一个右侧结点指针II</a></li>
+        <li><a href="#110-二叉搜索树的最近公共祖先">1.10 二叉搜索树的最近公共祖先</a></li>
+        <li><a href="#111-二叉树的最近公共祖先">1.11 二叉树的最近公共祖先</a></li>
+        <li><a href="#112-二叉树的序列化与反序列化">1.12 二叉树的序列化与反序列化</a></li>
+        <li><a href="#113-序列化和反序列化二叉搜索树">1.13 序列化和反序列化二叉搜索树</a></li>
       </ul>
     </li>
   </ul>
@@ -1177,7 +1185,989 @@
 
 </code></pre></td></tr></table>
 </div>
+</div><h3 id="17-从中序与后序遍历序列构造二叉树">1.7 从中序与后序遍历序列构造二叉树</h3>
+<p>LeetCode 106</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 题意与上一题相近，这里不再给出
+</span><span class="c1"></span>
+<span class="c1">///////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// 对于后序遍历，头结点位于postorder末尾
+</span><span class="c1">// 然后根据这个头结点值 遍历inorder得到头结点位置，进而分出左右子树
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">buildTree</span><span class="p">(</span><span class="nx">inorder</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">postorder</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">TreeNode</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">inorder</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">inorder</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span> <span class="c1">// inorder和postorder长度是一样的
+</span><span class="c1"></span>		<span class="k">return</span> <span class="o">&amp;</span><span class="nx">TreeNode</span><span class="p">{</span><span class="nx">Val</span><span class="p">:</span> <span class="nx">inorder</span><span class="p">[</span><span class="mi">0</span><span class="p">]}</span>
+	<span class="p">}</span>
+
+	<span class="nx">root</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">TreeNode</span><span class="p">{</span><span class="nx">Val</span><span class="p">:</span> <span class="nx">postorder</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="nx">postorder</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]}</span>
+	<span class="nx">rootIdx</span> <span class="o">:=</span> <span class="nf">getIdx</span><span class="p">(</span><span class="nx">inorder</span><span class="p">,</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Val</span><span class="p">)</span>
+	<span class="nx">root</span><span class="p">.</span><span class="nx">Left</span> <span class="p">=</span> <span class="nf">buildTree</span><span class="p">(</span>
+		<span class="nx">inorder</span><span class="p">[:</span><span class="nx">rootIdx</span><span class="p">],</span>
+		<span class="nx">postorder</span><span class="p">[:</span><span class="nx">rootIdx</span><span class="p">],</span> <span class="c1">// 这种地方就画图，会清晰许多
+</span><span class="c1"></span>	<span class="p">)</span>
+	<span class="nx">root</span><span class="p">.</span><span class="nx">Right</span> <span class="p">=</span> <span class="nf">buildTree</span><span class="p">(</span>
+		<span class="nx">inorder</span><span class="p">[</span><span class="nx">rootIdx</span><span class="o">+</span><span class="mi">1</span><span class="p">:],</span>
+		<span class="nx">postorder</span><span class="p">[</span><span class="nx">rootIdx</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="nx">postorder</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+	<span class="p">)</span>
+	<span class="k">return</span> <span class="nx">root</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">getIdx</span><span class="p">(</span><span class="nx">inorder</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">val</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">inorder</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">inorder</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="nx">val</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">i</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
+</div><h3 id="18-填充每个节点的下一个右侧节点指针">1.8 填充每个节点的下一个右侧节点指针</h3>
+<p>LeetCode 116</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">给定一个完美二叉树</span><span class="err">，</span><span class="nx">其所有叶子节点都在同一层</span><span class="err">，</span><span class="nx">每个父节点都有两个子节点</span><span class="err">。</span><span class="nx">二叉树定义如下</span><span class="err">：</span>
+
+<span class="kd">struct</span> <span class="nx">Node</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="nx">val</span><span class="p">;</span>
+  <span class="nx">Node</span> <span class="o">*</span><span class="nx">left</span><span class="p">;</span>
+  <span class="nx">Node</span> <span class="o">*</span><span class="nx">right</span><span class="p">;</span>
+  <span class="nx">Node</span> <span class="o">*</span><span class="nx">next</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">填充它的每个</span> <span class="nx">next</span> <span class="nx">指针</span><span class="err">，</span><span class="nx">让这个指针指向其下一个右侧节点</span><span class="err">。</span><span class="nx">如果找不到下一个右侧节点</span><span class="err">，</span><span class="nx">则将</span> <span class="nx">next</span> <span class="nx">指针设置为</span> <span class="nx">NULL</span><span class="err">。</span>
+
+<span class="nx">初始状态下</span><span class="err">，</span><span class="nx">所有</span> <span class="nx">next</span> <span class="nx">指针都被设置为</span> <span class="nx">NULL</span><span class="err">。</span>
+
+ 
+
+<span class="nx">示例</span><span class="err">：</span>
+
+
+
+<span class="nx">输入</span><span class="err">：</span><span class="p">{</span><span class="s">&#34;$id&#34;</span><span class="p">:</span><span class="s">&#34;1&#34;</span><span class="p">,</span><span class="s">&#34;left&#34;</span><span class="p">:{</span><span class="s">&#34;$id&#34;</span><span class="p">:</span><span class="s">&#34;2&#34;</span><span class="p">,</span><span class="s">&#34;left&#34;</span><span class="p">:{</span><span class="s">&#34;$id&#34;</span><span class="p">:</span><span class="s">&#34;3&#34;</span><span class="p">,</span><span class="s">&#34;left&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;next&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;right&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;val&#34;</span><span class="p">:</span><span class="mi">4</span><span class="p">},</span><span class="s">&#34;next&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;right&#34;</span><span class="p">:{</span><span class="s">&#34;$id&#34;</span><span class="p">:</span><span class="s">&#34;4&#34;</span><span class="p">,</span><span class="s">&#34;left&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;next&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;right&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;val&#34;</span><span class="p">:</span><span class="mi">5</span><span class="p">},</span><span class="s">&#34;val&#34;</span><span class="p">:</span><span class="mi">2</span><span class="p">},</span><span class="s">&#34;next&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;right&#34;</span><span class="p">:{</span><span class="s">&#34;$id&#34;</span><span class="p">:</span><span class="s">&#34;5&#34;</span><span class="p">,</span><span class="s">&#34;left&#34;</span><span class="p">:{</span><span class="s">&#34;$id&#34;</span><span class="p">:</span><span class="s">&#34;6&#34;</span><span class="p">,</span><span class="s">&#34;left&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;next&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;right&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;val&#34;</span><span class="p">:</span><span class="mi">6</span><span class="p">},</span><span class="s">&#34;next&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;right&#34;</span><span class="p">:{</span><span class="s">&#34;$id&#34;</span><span class="p">:</span><span class="s">&#34;7&#34;</span><span class="p">,</span><span class="s">&#34;left&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;next&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;right&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;val&#34;</span><span class="p">:</span><span class="mi">7</span><span class="p">},</span><span class="s">&#34;val&#34;</span><span class="p">:</span><span class="mi">3</span><span class="p">},</span><span class="s">&#34;val&#34;</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
+
+<span class="nx">输出</span><span class="err">：</span><span class="p">{</span><span class="s">&#34;$id&#34;</span><span class="p">:</span><span class="s">&#34;1&#34;</span><span class="p">,</span><span class="s">&#34;left&#34;</span><span class="p">:{</span><span class="s">&#34;$id&#34;</span><span class="p">:</span><span class="s">&#34;2&#34;</span><span class="p">,</span><span class="s">&#34;left&#34;</span><span class="p">:{</span><span class="s">&#34;$id&#34;</span><span class="p">:</span><span class="s">&#34;3&#34;</span><span class="p">,</span><span class="s">&#34;left&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;next&#34;</span><span class="p">:{</span><span class="s">&#34;$id&#34;</span><span class="p">:</span><span class="s">&#34;4&#34;</span><span class="p">,</span><span class="s">&#34;left&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;next&#34;</span><span class="p">:{</span><span class="s">&#34;$id&#34;</span><span class="p">:</span><span class="s">&#34;5&#34;</span><span class="p">,</span><span class="s">&#34;left&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;next&#34;</span><span class="p">:{</span><span class="s">&#34;$id&#34;</span><span class="p">:</span><span class="s">&#34;6&#34;</span><span class="p">,</span><span class="s">&#34;left&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;next&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;right&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;val&#34;</span><span class="p">:</span><span class="mi">7</span><span class="p">},</span><span class="s">&#34;right&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;val&#34;</span><span class="p">:</span><span class="mi">6</span><span class="p">},</span><span class="s">&#34;right&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;val&#34;</span><span class="p">:</span><span class="mi">5</span><span class="p">},</span><span class="s">&#34;right&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;val&#34;</span><span class="p">:</span><span class="mi">4</span><span class="p">},</span><span class="s">&#34;next&#34;</span><span class="p">:{</span><span class="s">&#34;$id&#34;</span><span class="p">:</span><span class="s">&#34;7&#34;</span><span class="p">,</span><span class="s">&#34;left&#34;</span><span class="p">:{</span><span class="s">&#34;$ref&#34;</span><span class="p">:</span><span class="s">&#34;5&#34;</span><span class="p">},</span><span class="s">&#34;next&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;right&#34;</span><span class="p">:{</span><span class="s">&#34;$ref&#34;</span><span class="p">:</span><span class="s">&#34;6&#34;</span><span class="p">},</span><span class="s">&#34;val&#34;</span><span class="p">:</span><span class="mi">3</span><span class="p">},</span><span class="s">&#34;right&#34;</span><span class="p">:{</span><span class="s">&#34;$ref&#34;</span><span class="p">:</span><span class="s">&#34;4&#34;</span><span class="p">},</span><span class="s">&#34;val&#34;</span><span class="p">:</span><span class="mi">2</span><span class="p">},</span><span class="s">&#34;next&#34;</span><span class="p">:</span><span class="nx">null</span><span class="p">,</span><span class="s">&#34;right&#34;</span><span class="p">:{</span><span class="s">&#34;$ref&#34;</span><span class="p">:</span><span class="s">&#34;7&#34;</span><span class="p">},</span><span class="s">&#34;val&#34;</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
+
+<span class="nx">解释</span><span class="err">：</span><span class="nx">给定二叉树如图</span> <span class="nx">A</span> <span class="nx">所示</span><span class="err">，</span><span class="nx">你的函数应该填充它的每个</span> <span class="nx">next</span> <span class="nx">指针</span><span class="err">，</span><span class="nx">以指向其下一个右侧节点</span><span class="err">，</span><span class="nx">如图</span> <span class="nx">B</span> <span class="nx">所示</span><span class="err">。</span>
+ 
+
+<span class="nx">提示</span><span class="err">：</span>
+
+<span class="nx">你只能使用常量级额外空间</span><span class="err">。</span>
+<span class="nx">使用递归解题也符合要求</span><span class="err">，</span><span class="nx">本题中递归程序占用的栈空间不算做额外的空间复杂度</span><span class="err">。</span>
+
+<span class="c1">/////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// 明显是层序遍历，使用基于队列的迭代层序遍历实现
+</span><span class="c1">// 但是题目要求O(1)的额外空间
+</span><span class="c1"></span>
+<span class="c1">// 1. 使用队列类的辅助结构进行层序遍历 O(N)/O(N)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">connect</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 首先设置root的next
+</span><span class="c1"></span>	<span class="nx">root</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="kc">nil</span>
+	<span class="nx">queue</span> <span class="o">:=</span> <span class="p">[]</span><span class="o">*</span><span class="nx">Node</span><span class="p">{</span><span class="nx">root</span><span class="p">}</span>
+	<span class="kd">var</span> <span class="nx">tmpQ</span> <span class="p">[]</span><span class="o">*</span><span class="nx">Node</span>
+	<span class="nx">num</span> <span class="o">:=</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="nb">len</span><span class="p">(</span><span class="nx">queue</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nx">num</span> <span class="p">=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">queue</span><span class="p">)</span>
+		<span class="nx">tmpQ</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="nx">num</span><span class="p">)</span> <span class="c1">// 下层有当前层结点数的2倍
+</span><span class="c1"></span>		<span class="c1">// 考虑结点在队列中是树左边的结点则在队列数组的左边 的这样的存取顺序
+</span><span class="c1"></span>		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">num</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+			<span class="c1">// 设置Next
+</span><span class="c1"></span>			<span class="k">if</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">num</span><span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+				<span class="nx">queue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">queue</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+			<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+				<span class="nx">queue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Next</span> <span class="p">=</span> <span class="kc">nil</span>
+			<span class="p">}</span>
+			<span class="c1">// 添加下一层。注意顺序
+</span><span class="c1"></span>			<span class="k">if</span> <span class="nx">queue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Left</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+				<span class="nx">tmpQ</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">tmpQ</span><span class="p">,</span> <span class="nx">queue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Left</span><span class="p">)</span>
+			<span class="p">}</span>
+			<span class="k">if</span> <span class="nx">queue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Right</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+				<span class="nx">tmpQ</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">tmpQ</span><span class="p">,</span> <span class="nx">queue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Right</span><span class="p">)</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+		<span class="c1">// 更新queue
+</span><span class="c1"></span>		<span class="nx">queue</span> <span class="p">=</span> <span class="nx">tmpQ</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">root</span>
+<span class="p">}</span>
+
+<span class="c1">// 2. 不使用额外空间的解法
+</span><span class="c1">// https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node/solution/tian-chong-mei-ge-jie-dian-de-xia-yi-ge-you-ce-j-3/
+</span><span class="c1">// 有两种类型的Next需要设置，一种是同一父节点，另一种则是相邻父节点
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">connect2</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 游标
+</span><span class="c1"></span>	<span class="nx">leftmost</span> <span class="o">:=</span> <span class="nx">root</span>
+
+	<span class="k">for</span> <span class="nx">leftmost</span><span class="p">.</span><span class="nx">Left</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">head</span> <span class="o">:=</span> <span class="nx">leftmost</span>
+		<span class="k">for</span> <span class="nx">head</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="c1">// 第1类Next ： 相同父节点
+</span><span class="c1"></span>			<span class="nx">head</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">head</span><span class="p">.</span><span class="nx">Right</span>
+			<span class="c1">// 第2类Next : 相邻父节点
+</span><span class="c1"></span>			<span class="k">if</span> <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+				<span class="nx">head</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Left</span>
+			<span class="p">}</span>
+
+			<span class="c1">// head在同一层上后移
+</span><span class="c1"></span>			<span class="nx">head</span> <span class="p">=</span> <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span>
+		<span class="p">}</span>
+		<span class="c1">// leftmost移到下一层
+</span><span class="c1"></span>		<span class="nx">leftmost</span> <span class="p">=</span> <span class="nx">leftmost</span><span class="p">.</span><span class="nx">Left</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">root</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="19-填充每个节点的下一个右侧结点指针ii">1.9 填充每个节点的下一个右侧结点指针II</h3>
+<p>LeetCode 117</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">和上一题相比</span><span class="err">，</span><span class="nx">不再给出完美二叉树</span><span class="err">，</span><span class="nx">而是普通的二叉树</span>
+
+<span class="c1">//////////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// 题目不再给 完美二叉树 ，而是 普通二叉树
+</span><span class="c1">// 其实解法和上一题几乎是一样的：
+</span><span class="c1">// 使用队列的层序遍历解法代码完全不用修改
+</span><span class="c1">// 常量空间解法则需要不停向右寻找非空结点作为Next
+</span><span class="c1">// 1. 使用队列类的辅助结构进行层序遍历 O(N)/O(N)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">connect</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 首先设置root的next
+</span><span class="c1"></span>	<span class="nx">root</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="kc">nil</span>
+	<span class="nx">queue</span> <span class="o">:=</span> <span class="p">[]</span><span class="o">*</span><span class="nx">Node</span><span class="p">{</span><span class="nx">root</span><span class="p">}</span>
+	<span class="kd">var</span> <span class="nx">tmpQ</span> <span class="p">[]</span><span class="o">*</span><span class="nx">Node</span>
+	<span class="nx">num</span> <span class="o">:=</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="nb">len</span><span class="p">(</span><span class="nx">queue</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nx">num</span> <span class="p">=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">queue</span><span class="p">)</span>
+		<span class="nx">tmpQ</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="nx">num</span><span class="p">)</span> <span class="c1">// 下层有当前层结点数的2倍
+</span><span class="c1"></span>		<span class="c1">// 考虑结点在队列中是树左边的结点则在队列数组的左边 的这样的存取顺序
+</span><span class="c1"></span>		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">num</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+			<span class="c1">// 设置Next
+</span><span class="c1"></span>			<span class="k">if</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">num</span><span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+				<span class="nx">queue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">queue</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+			<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+				<span class="nx">queue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Next</span> <span class="p">=</span> <span class="kc">nil</span>
+			<span class="p">}</span>
+			<span class="c1">// 添加下一层。注意顺序
+</span><span class="c1"></span>			<span class="k">if</span> <span class="nx">queue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Left</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+				<span class="nx">tmpQ</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">tmpQ</span><span class="p">,</span> <span class="nx">queue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Left</span><span class="p">)</span>
+			<span class="p">}</span>
+			<span class="k">if</span> <span class="nx">queue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Right</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+				<span class="nx">tmpQ</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">tmpQ</span><span class="p">,</span> <span class="nx">queue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Right</span><span class="p">)</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+		<span class="c1">// 更新queue
+</span><span class="c1"></span>		<span class="nx">queue</span> <span class="p">=</span> <span class="nx">tmpQ</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">root</span>
+<span class="p">}</span>
+
+<span class="c1">// 2. 不使用额外空间的解法
+</span><span class="c1">// https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii/solution/tian-chong-mei-ge-jie-dian-de-xia-yi-ge-you-ce-j-4/
+</span><span class="c1"></span>
+<span class="c1">// 全局游标
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">leftmost</span><span class="p">,</span> <span class="nx">prev</span> <span class="o">*</span><span class="nx">Node</span>
+
+<span class="kd">func</span> <span class="nf">connect2</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span>
+	<span class="p">}</span>
+
+	<span class="nx">leftmost</span><span class="p">,</span> <span class="nx">prev</span> <span class="p">=</span> <span class="nx">root</span><span class="p">,</span> <span class="kc">nil</span> <span class="c1">// 重置全局变量，避免提交时影响到其他测例
+</span><span class="c1"></span>	<span class="nx">cur</span> <span class="o">:=</span> <span class="nx">leftmost</span>            <span class="c1">// 游标
+</span><span class="c1"></span>
+	<span class="k">for</span> <span class="nx">leftmost</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+
+		<span class="nx">prev</span> <span class="p">=</span> <span class="kc">nil</span>
+		<span class="nx">cur</span> <span class="p">=</span> <span class="nx">leftmost</span>
+		<span class="nx">leftmost</span> <span class="p">=</span> <span class="kc">nil</span>
+
+		<span class="k">for</span> <span class="nx">cur</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nf">processchild</span><span class="p">(</span><span class="nx">cur</span><span class="p">.</span><span class="nx">Left</span><span class="p">)</span>
+			<span class="nf">processchild</span><span class="p">(</span><span class="nx">cur</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>
+			<span class="nx">cur</span> <span class="p">=</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">Next</span> <span class="c1">// 移动到本层的下一个节点
+</span><span class="c1"></span>		<span class="p">}</span>
+
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">root</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">processchild</span><span class="p">(</span><span class="nx">child</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">child</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">prev</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">prev</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">child</span> <span class="c1">// 如果本层之前存在节点，也就是prev!=nil，则将prev.Next指向当前child
+</span><span class="c1"></span>		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">leftmost</span> <span class="p">=</span> <span class="nx">child</span> <span class="c1">// 说明这个child是本层第一个非空结点，也就是leftmost
+</span><span class="c1"></span>		<span class="p">}</span>
+
+		<span class="nx">prev</span> <span class="p">=</span> <span class="nx">child</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="110-二叉搜索树的最近公共祖先">1.10 二叉搜索树的最近公共祖先</h3>
+<p>LeetCode 235</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">给定一个二叉搜索树</span><span class="p">,</span> <span class="nx">找到该树中两个指定节点的最近公共祖先</span><span class="err">。</span>
+
+<span class="nx">百度百科中最近公共祖先的定义为</span><span class="err">：“</span><span class="nx">对于有根树</span> <span class="nx">T</span> <span class="nx">的两个结点</span> <span class="nx">p</span><span class="err">、</span><span class="nx">q</span><span class="err">，</span><span class="nx">最近公共祖先表示为一个结点</span> <span class="nx">x</span><span class="err">，</span><span class="nx">满足</span> <span class="nx">x</span> <span class="nx">是</span> <span class="nx">p</span><span class="err">、</span><span class="nx">q</span> <span class="nx">的祖先且</span> <span class="nx">x</span> <span class="nx">的深度尽可能大</span><span class="err">（</span><span class="nx">一个节点也可以是它自己的祖先</span><span class="err">）。”</span>
+
+<span class="c1">//////////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// 1. 和二叉树的LCA一样的处理
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">lowestCommonAncestor</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">q</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">)</span> <span class="o">*</span><span class="nx">TreeNode</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">||</span> <span class="nx">root</span> <span class="o">==</span> <span class="nx">p</span> <span class="o">||</span> <span class="nx">root</span> <span class="o">==</span> <span class="nx">q</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">root</span>
+	<span class="p">}</span>
+
+	<span class="nx">left</span><span class="p">,</span> <span class="nx">right</span> <span class="o">:=</span> <span class="nf">lowestCommonAncestor</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">q</span><span class="p">),</span> <span class="nf">lowestCommonAncestor</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">q</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">left</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">right</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">right</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">left</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">root</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 2. 利用搜索树的数值排序性质
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">lowestCommonAncestor2</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">q</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">)</span> <span class="o">*</span><span class="nx">TreeNode</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">||</span> <span class="nx">root</span> <span class="o">==</span> <span class="nx">p</span> <span class="o">||</span> <span class="nx">root</span> <span class="o">==</span> <span class="nx">q</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">root</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 缩减了一些搜索空间
+</span><span class="c1"></span>	<span class="nx">rv</span><span class="p">,</span> <span class="nx">pv</span><span class="p">,</span> <span class="nx">qv</span> <span class="o">:=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Val</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nx">Val</span><span class="p">,</span> <span class="nx">q</span><span class="p">.</span><span class="nx">Val</span>
+	<span class="k">if</span> <span class="nx">rv</span> <span class="p">&gt;</span> <span class="nx">pv</span> <span class="o">&amp;&amp;</span> <span class="nx">rv</span> <span class="p">&gt;</span> <span class="nx">qv</span> <span class="p">{</span> <span class="c1">// 比两目标都大，去左子树找
+</span><span class="c1"></span>		<span class="k">return</span> <span class="nf">lowestCommonAncestor2</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">q</span><span class="p">)</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">rv</span> <span class="p">&lt;</span> <span class="nx">pv</span> <span class="o">&amp;&amp;</span> <span class="nx">rv</span> <span class="p">&lt;</span> <span class="nx">qv</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nf">lowestCommonAncestor2</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">q</span><span class="p">)</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">root</span> <span class="c1">// 找到LCA
+</span><span class="c1"></span>	<span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="111-二叉树的最近公共祖先">1.11 二叉树的最近公共祖先</h3>
+<p>LeetCode 236</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">给定一个二叉树</span><span class="p">,</span> <span class="nx">找到该树中两个指定节点的最近公共祖先</span><span class="err">。</span>
+
+<span class="c1">///////////////////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="c1">// Definition for a binary tree node.
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">TreeNode</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Val</span>   <span class="kt">int</span>
+	<span class="nx">Left</span>  <span class="o">*</span><span class="nx">TreeNode</span>
+	<span class="nx">Right</span> <span class="o">*</span><span class="nx">TreeNode</span>
+<span class="p">}</span>
+
+<span class="c1">// 最近公共祖先必然是 自下而上 第一个子树中同时包含两个target 的结点
+</span><span class="c1">// 考虑一个辅助的递归函数，每次当其子树中搜索到其中一个target时，就往上返回true
+</span><span class="c1">// 当自下而上第一个 Left返回了true，right也返回了true的时候，就找到了 最近公共祖先 LCA
+</span><span class="c1">// 这个返回的true/false可以用*TreeNode的nil与非nil来表示
+</span><span class="c1">// 这里考虑true时返回内含的某个target(p或q)，false返回nil
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">lowestCommonAncestor1</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">q</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">)</span> <span class="o">*</span><span class="nx">TreeNode</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span>
+	<span class="p">}</span> <span class="c1">// 找到底都没找到target
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="nx">p</span> <span class="o">||</span> <span class="nx">root</span> <span class="o">==</span> <span class="nx">q</span> <span class="p">{</span> <span class="c1">// 这里这么写： 因为是后序遍历，所以在下面找到的target一定会先返回
+</span><span class="c1"></span>		<span class="k">return</span> <span class="nx">root</span>
+	<span class="p">}</span> <span class="c1">// 找到target之一
+</span><span class="c1"></span>
+	<span class="c1">// 当前结点非空，则继续找当前节点的子树（后序遍历）
+</span><span class="c1"></span>	<span class="nx">left</span> <span class="o">:=</span> <span class="nf">lowestCommonAncestor1</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">q</span><span class="p">)</span>
+	<span class="nx">right</span> <span class="o">:=</span> <span class="nf">lowestCommonAncestor1</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">q</span><span class="p">)</span>
+	<span class="c1">// 处理当前。
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">left</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">right</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">root</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">left</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">left</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">right</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">right</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">// 2. 使用辅助函数的写法，啰嗦了一些
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">lowestCommonAncestor2</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">q</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">)</span> <span class="o">*</span><span class="nx">TreeNode</span> <span class="p">{</span>
+	<span class="nx">lca</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nf">help</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">q</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">lca</span>
+<span class="p">}</span>
+
+<span class="c1">// 当找到LCA，则返回的结点不为空，而是LCA.
+</span><span class="c1">// 当LCA!=nil时，布尔值无意义
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">help</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">q</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">TreeNode</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="kc">false</span>
+	<span class="p">}</span> <span class="c1">// 找到底都没找到target
+</span><span class="c1"></span>
+	<span class="c1">// 当前结点非空，则继续找当前节点的子树（后序遍历）
+</span><span class="c1"></span>	<span class="nx">count</span> <span class="o">:=</span> <span class="mi">0</span> <span class="c1">// count=2就是得到两个true
+</span><span class="c1"></span>	<span class="c1">// 左
+</span><span class="c1"></span>	<span class="nx">lca1</span><span class="p">,</span> <span class="nx">left</span> <span class="o">:=</span> <span class="nf">help</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">q</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">lca1</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">lca1</span><span class="p">,</span> <span class="kc">true</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">left</span> <span class="o">==</span> <span class="kc">true</span> <span class="p">{</span>
+		<span class="nx">count</span><span class="o">++</span>
+	<span class="p">}</span>
+	<span class="c1">// 右
+</span><span class="c1"></span>	<span class="nx">lca2</span><span class="p">,</span> <span class="nx">right</span> <span class="o">:=</span> <span class="nf">help</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">q</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">lca2</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">lca2</span><span class="p">,</span> <span class="kc">true</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">right</span> <span class="o">==</span> <span class="kc">true</span> <span class="p">{</span>
+		<span class="nx">count</span><span class="o">++</span>
+	<span class="p">}</span>
+	<span class="c1">// 中
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">root</span> <span class="o">==</span> <span class="nx">p</span> <span class="o">||</span> <span class="nx">root</span> <span class="o">==</span> <span class="nx">q</span> <span class="p">{</span>
+		<span class="nx">count</span><span class="o">++</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">count</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">root</span><span class="p">,</span> <span class="kc">true</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">count</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="kc">true</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="kc">false</span>
+<span class="p">}</span>
+
+<span class="c1">// 上面这个解法是正确的，但是很明显可以看出，它在找到LCA时不能及时返回，只能不断回去重新到达根节点处才真正返回给调用者
+</span><span class="c1"></span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="112-二叉树的序列化与反序列化">1.12 二叉树的序列化与反序列化</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">序列化是将一个数据结构或者对象转换为连续的比特位的操作</span><span class="err">，</span><span class="nx">进而可以将转换后的数据存储在一个文件或者内存中</span><span class="err">，</span><span class="nx">同时也可以通过网络传输到另一个计算机环境</span><span class="err">，</span><span class="nx">采取相反方式重构得到原数据</span><span class="err">。</span>
+
+<span class="nx">请设计一个算法来实现二叉树的序列化与反序列化</span><span class="err">。</span><span class="nx">这里不限定你的序列</span> <span class="o">/</span> <span class="nx">反序列化算法执行逻辑</span><span class="err">，</span><span class="nx">你只需要保证一个二叉树可以被序列化为一个字符串并且将这个字符串反序列化为原始的树结构</span><span class="err">。</span>
+
+<span class="nx">示例</span><span class="p">:</span> 
+
+<span class="nx">你可以将以下二叉树</span><span class="err">：</span>
+
+    <span class="mi">1</span>
+   <span class="o">/</span> \
+  <span class="mi">2</span>   <span class="mi">3</span>
+     <span class="o">/</span> \
+    <span class="mi">4</span>   <span class="mi">5</span>
+
+<span class="nx">序列化为</span> <span class="s">&#34;[1,2,3,null,null,4,5]&#34;</span>
+<span class="nx">提示</span><span class="p">:</span> <span class="nx">这与</span> <span class="nx">LeetCode</span> <span class="nx">目前使用的方式一致</span><span class="err">，</span><span class="nx">详情请参阅</span> <span class="nx">LeetCode</span> <span class="nx">序列化二叉树的格式</span><span class="err">。</span><span class="nx">你并非必须采取这种方式</span><span class="err">，</span><span class="nx">你也可以采用其他的方法解决这个问题</span><span class="err">。</span>
+
+<span class="nx">说明</span><span class="p">:</span> <span class="nx">不要使用类的成员</span> <span class="o">/</span> <span class="nx">全局</span> <span class="o">/</span> <span class="nx">静态变量来存储状态</span><span class="err">，</span><span class="nx">你的序列化和反序列化算法应该是无状态的</span><span class="err">。</span>
+
+<span class="c1">//////////////////////////////////////////
+</span><span class="c1"></span>
+<span class="cm">/**
+</span><span class="cm"> * Definition for a binary tree node.
+</span><span class="cm"> * type TreeNode struct {
+</span><span class="cm"> *     Val int
+</span><span class="cm"> *     Left *TreeNode
+</span><span class="cm"> *     Right *TreeNode
+</span><span class="cm"> * }
+</span><span class="cm"> */</span>
+
+<span class="kd">type</span> <span class="nx">Codec</span> <span class="kd">struct</span> <span class="p">{}</span>
+
+<span class="kd">func</span> <span class="nf">Constructor</span><span class="p">()</span> <span class="nx">Codec</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">Codec</span><span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="c1">// Serializes a tree to a single string.
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Codec</span><span class="p">)</span> <span class="nf">serialize</span><span class="p">(</span><span class="nx">root</span> <span class="o">*</span><span class="nx">TreeNode</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">root</span><span class="o">==</span><span class="kc">nil</span> <span class="p">{</span><span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">}</span>
+
+	<span class="nx">queue</span> <span class="o">:=</span> <span class="p">[]</span><span class="o">*</span><span class="nx">TreeNode</span><span class="p">{</span><span class="nx">root</span><span class="p">}</span>
+	<span class="nx">encoded</span> <span class="o">:=</span> <span class="s">&#34;&#34;</span>
+	<span class="k">for</span> <span class="nb">len</span><span class="p">(</span><span class="nx">queue</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>	<span class="c1">// 队列非空
+</span><span class="c1"></span>		<span class="nx">root</span> <span class="p">=</span> <span class="nx">queue</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="nx">queue</span> <span class="p">=</span> <span class="nx">queue</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>	<span class="c1">// 队头出队
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">root</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">queue</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">queue</span><span class="p">,</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">root</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>	<span class="c1">// 将左右子节点从队尾入队
+</span><span class="c1"></span>			<span class="nx">encoded</span> <span class="o">+=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">Itoa</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">Val</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#34;,&#34;</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">encoded</span> <span class="o">+=</span> <span class="s">&#34;null,&#34;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 去除右边的&#34;null,&#34;，没必要存储
+</span><span class="c1"></span>	<span class="nx">encoded</span> <span class="p">=</span> <span class="nf">trimRightNulls</span><span class="p">(</span><span class="nx">encoded</span><span class="p">)</span>
+	<span class="c1">// 去除末尾&#34;,&#34;，加上左右括号
+</span><span class="c1"></span>	<span class="nx">encoded</span> <span class="p">=</span> <span class="s">&#34;[&#34;</span> <span class="o">+</span> <span class="nx">encoded</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="nx">encoded</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#34;]&#34;</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">encoded</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="nx">encoded</span>    
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">trimRightNulls</span><span class="p">(</span><span class="nx">data</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="nx">target</span> <span class="o">:=</span> <span class="s">&#34;null,&#34;</span>
+	<span class="nx">size</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span>	<span class="c1">//5
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nb">len</span><span class="p">(</span><span class="nx">data</span><span class="p">)&gt;</span><span class="nx">size</span> <span class="o">&amp;&amp;</span> <span class="nx">data</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="o">-</span><span class="nx">size</span><span class="p">:]</span><span class="o">==</span><span class="nx">target</span> <span class="p">{</span>
+		<span class="nx">data</span> <span class="p">=</span> <span class="nx">data</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="o">-</span><span class="nx">size</span><span class="p">]</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">data</span>
+<span class="p">}</span>
+
+<span class="c1">// Deserializes your encoded data to tree.
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">Codec</span><span class="p">)</span> <span class="nf">deserialize</span><span class="p">(</span><span class="nx">encoded</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">TreeNode</span> <span class="p">{</span>    
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">encoded</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span><span class="k">return</span> <span class="kc">nil</span><span class="p">}</span>
+    <span class="c1">// 去除左右括号
+</span><span class="c1"></span>	<span class="nx">encoded</span> <span class="p">=</span> <span class="nx">encoded</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="nx">encoded</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+	<span class="c1">// 边界判断
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">encoded</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span> <span class="p">{</span><span class="k">return</span> <span class="kc">nil</span><span class="p">}</span>
+	<span class="c1">// 按&#34;,&#34;分割字符串
+</span><span class="c1"></span>	<span class="nx">items</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="nx">encoded</span><span class="p">,</span> <span class="s">&#34;,&#34;</span><span class="p">)</span>
+	<span class="c1">// 构造根节点
+</span><span class="c1"></span>	<span class="nx">rootVal</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">Atoi</span><span class="p">(</span><span class="nx">items</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>	<span class="c1">// 第一个值不可能是null
+</span><span class="c1"></span>	<span class="nx">root</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">TreeNode</span><span class="p">{</span><span class="nx">Val</span><span class="p">:</span><span class="nx">rootVal</span><span class="p">}</span>
+
+	<span class="c1">// 构建辅助队列
+</span><span class="c1"></span>	<span class="nx">queue</span> <span class="o">:=</span> <span class="p">[]</span><span class="o">*</span><span class="nx">TreeNode</span><span class="p">{</span><span class="nx">root</span><span class="p">}</span>
+	<span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">i</span><span class="o">++</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">items</span><span class="p">)</span> <span class="p">{</span>		<span class="c1">// i先+1，如果超界，则退出
+</span><span class="c1"></span>			<span class="k">break</span>
+		<span class="p">}</span>
+
+		<span class="nx">node</span> <span class="o">:=</span> <span class="nx">queue</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="nx">queue</span> <span class="p">=</span> <span class="nx">queue</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>		<span class="c1">// 弹出队头
+</span><span class="c1"></span>
+		<span class="k">if</span> <span class="nx">items</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#34;null&#34;</span> <span class="p">{</span>
+			<span class="nx">leftVal</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">Atoi</span><span class="p">(</span><span class="nx">items</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+			<span class="nx">node</span><span class="p">.</span><span class="nx">Left</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">TreeNode</span><span class="p">{</span><span class="nx">Val</span><span class="p">:</span><span class="nx">leftVal</span><span class="p">}</span>
+			<span class="nx">queue</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">queue</span><span class="p">,</span> <span class="nx">node</span><span class="p">.</span><span class="nx">Left</span><span class="p">)</span>
+		<span class="p">}</span>
+
+		<span class="k">if</span> <span class="nx">i</span><span class="o">++</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">items</span><span class="p">)</span> <span class="p">{</span>		<span class="c1">// i先+1，如果超界，则退出
+</span><span class="c1"></span>			<span class="k">break</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="nx">items</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#34;null&#34;</span> <span class="p">{</span>
+			<span class="nx">rightVal</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">Atoi</span><span class="p">(</span><span class="nx">items</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+			<span class="nx">node</span><span class="p">.</span><span class="nx">Right</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">TreeNode</span><span class="p">{</span><span class="nx">Val</span><span class="p">:</span><span class="nx">rightVal</span><span class="p">}</span>
+			<span class="nx">queue</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">queue</span><span class="p">,</span> <span class="nx">node</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">root</span>    
+<span class="p">}</span>
+
+
+<span class="cm">/**
+</span><span class="cm"> * Your Codec object will be instantiated and called as such:
+</span><span class="cm"> * obj := Constructor();
+</span><span class="cm"> * data := obj.serialize(root);
+</span><span class="cm"> * ans := obj.deserialize(data);
+</span><span class="cm"> */</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="113-序列化和反序列化二叉搜索树">1.13 序列化和反序列化二叉搜索树</h3>
+
     </div>
 
     <div class="post-copyright">
