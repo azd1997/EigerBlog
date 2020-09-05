@@ -48,7 +48,7 @@
 <meta itemprop="description" content="以下介绍折腾宿舍校园网的过程 1. 宿舍校园网开wifi 华工宿舍校园网屏蔽了路由器。其实是所使用的认证方式（DRCOM）不支持路由器。 DRCOM具">
 <meta itemprop="datePublished" content="2020-09-05T10:57:06+08:00" />
 <meta itemprop="dateModified" content="2020-09-05T10:57:06+08:00" />
-<meta itemprop="wordCount" content="2476">
+<meta itemprop="wordCount" content="2544">
 
 
 
@@ -133,8 +133,8 @@
         <div class="post-category">
             <a href="/categories/linux/"> linux </a>
             </div>
-          <span class="more-meta"> 2476 words </span>
-          <span class="more-meta"> 5 mins read </span>
+          <span class="more-meta"> 2544 words </span>
+          <span class="more-meta"> 6 mins read </span>
         
       </div>
     </header>
@@ -257,7 +257,7 @@
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">nohup scutclient 账户 密码 IP &amp;
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">nohup scutclient 账户 密码 &amp;
 </code></pre></td></tr></table>
 </div>
 </div><p>openwrt上默认没有nohup，需要从其软件包仓库下载：</p>
@@ -348,6 +348,8 @@ opkg install coreutils-nohupxxxxxxxx.ipk
 </span><span class="lnt">37
 </span><span class="lnt">38
 </span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/sh /etc/rc.common
@@ -358,6 +360,8 @@ opkg install coreutils-nohupxxxxxxxx.ipk
 
 auth<span class="o">()</span> <span class="o">{</span>
 
+        <span class="c1"># 这里的uci get xxxx 是说在/etc/config/下有scutclient这个配置文件，$(uci get xxxx) 是从配置文件中读配置</span>
+        <span class="c1"># -eq 就是 不等于</span>
         <span class="k">if</span> <span class="o">[</span> <span class="k">$(</span>uci get scutclient.@option<span class="o">[</span>0<span class="o">]</span>.enable<span class="k">)</span> -eq <span class="m">0</span> <span class="o">]</span>
         <span class="k">then</span>
                 <span class="nb">exit</span>
@@ -429,7 +433,11 @@ restart<span class="o">()</span> <span class="o">{</span>
           <a href="/tags/openwrt/">openwrt</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/linux/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E6%A6%82%E8%A7%88/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">操作系统基础概览</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
         <a class="next" href="/post/cs/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/">
             <span class="next-text nav-default">《Mysql实战45讲》速览</span>
             <span class="next-text nav-mobile">Next</span>
