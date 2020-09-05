@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>openwrt路由器折腾记 - Eiger - A young gopher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Eiger" /><meta name="description" content="以下介绍折腾宿舍校园网的过程 1. 宿舍校园网开wifi 华工宿舍校园网屏蔽了路由器。其实是所使用的认证方式（DRCOM）不支持路由器。 DRCOM具" /><meta name="keywords" content="openwrt, 路由器, 华工校园网" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://azd1997.github.io/post/linux/openwrt%E8%B7%AF%E7%94%B1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="openwrt路由器折腾记" />
+<meta property="og:description" content="以下介绍折腾宿舍校园网的过程 1. 宿舍校园网开wifi 华工宿舍校园网屏蔽了路由器。其实是所使用的认证方式（DRCOM）不支持路由器。 DRCOM具" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://azd1997.github.io/post/linux/openwrt%E8%B7%AF%E7%94%B1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/" />
+<meta property="article:published_time" content="2020-09-05T10:57:06+08:00" />
+<meta property="article:modified_time" content="2020-09-05T10:57:06+08:00" />
+<meta itemprop="name" content="openwrt路由器折腾记">
+<meta itemprop="description" content="以下介绍折腾宿舍校园网的过程 1. 宿舍校园网开wifi 华工宿舍校园网屏蔽了路由器。其实是所使用的认证方式（DRCOM）不支持路由器。 DRCOM具">
+<meta itemprop="datePublished" content="2020-09-05T10:57:06+08:00" />
+<meta itemprop="dateModified" content="2020-09-05T10:57:06+08:00" />
+<meta itemprop="wordCount" content="2476">
+
+
+
+<meta itemprop="keywords" content="路由器,openwrt," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="openwrt路由器折腾记"/>
+<meta name="twitter:description" content="以下介绍折腾宿舍校园网的过程 1. 宿舍校园网开wifi 华工宿舍校园网屏蔽了路由器。其实是所使用的认证方式（DRCOM）不支持路由器。 DRCOM具"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Eiger</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/links/">
+        <li class="mobile-menu-item">Links</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Eiger</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/links/">Links</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">openwrt路由器折腾记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-09-05 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> linux </a>
+            </div>
+          <span class="more-meta"> 2476 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-宿舍校园网开wifi">1. 宿舍校园网开wifi</a></li>
+    <li><a href="#2-操作流程">2. 操作流程</a></li>
+    <li><a href="#最后">最后</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>以下介绍折腾宿舍校园网的过程</p>
+<h2 id="1-宿舍校园网开wifi">1. 宿舍校园网开wifi</h2>
+<ol>
+<li>华工宿舍校园网屏蔽了路由器。其实是所使用的认证方式（DRCOM）不支持路由器。</li>
+<li>DRCOM具体是啥，不管，反正理解为一个账号服务器就行了，因此要想上网，必需有个基于DRCOM里边协议的客户端，来支持拨号</li>
+<li><a href="https://github.com/forward619/scutclient">scutclient</a>这个项目使用C语言实现了一个openwrt系统可用的客户端。源码见其<code>src</code>目录。但是编译还是比较麻烦的，比较省事的是直接加该仓库提供的路由群，去获取<code>.ipk</code>程序文件</li>
+<li>为什么一般的路由器不行，非得是刷openwrt系统的路由器？因为一般的路由器系统都是深度定制，无法自行安装第三方软件（也就是我们前边准备好的scutclient程序）；而且大多数新路由器产品配置上缩水，无法运行完整openwrt系统；openwrt是开源的路由器系统，可以将之看作一个定制的linux系统，将合适的路由器设备刷入openwrt后，我们就可以自行安装第三方软件，用来实现校园网拨号</li>
+</ol>
+<h2 id="2-操作流程">2. 操作流程</h2>
+<ol>
+<li>准备好刷好官方原版openwrt系统的路由器设备（最好安装了luci界面）、scutclient.ipk(安装文件)、putty或者其他支持SSH的软件(用于SSH登录路由器)、winscp（用于将程序安装文件拷贝到路由器）</li>
+<li>路由器设备上会提示默认网关是多少（默认网关其实相当于路由器的ip）。我的是192.168.1.1</li>
+<li>首先连接路由器开启的wifi（如果路由器不能开启wifi，也可以网线连接电脑和路由器LAN口，记得要把电脑有线网卡ipv4设为192.168.1.2或其他该子网下有效ip）。 浏览器输入192.168.1.1，进入web界面， 以(用户名root密码admin)登录，修改默认的root密码（假设修改为123456），不然的话路由器默认不允许SSH登录。接下去，可以使用该账号密码SSH登录到192.168.1.1，也就是路由器设备</li>
+<li>使用<code>cat /etc/openwrt_release</code>查看路由器的openwrt系统信息。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">root@OpenWrt:/etc/init.d# cat /etc/openwrt_release
+<span class="nv">DISTRIB_ID</span><span class="o">=</span><span class="s2">&#34;OpenWrt&#34;</span>
+<span class="nv">DISTRIB_RELEASE</span><span class="o">=</span><span class="s2">&#34;14.07&#34;</span>
+<span class="nv">DISTRIB_REVISION</span><span class="o">=</span><span class="s2">&#34;r42625&#34;</span>
+<span class="nv">DISTRIB_CODENAME</span><span class="o">=</span><span class="s2">&#34;barrier_breaker&#34;</span>
+<span class="nv">DISTRIB_TARGET</span><span class="o">=</span><span class="s2">&#34;ar71xx/generic&#34;</span>
+<span class="nv">DISTRIB_DESCRIPTION</span><span class="o">=</span><span class="s2">&#34;OpenWrt Barrier Breaker 14.07&#34;</span>
+<span class="nv">DISTRIB_TAINTS</span><span class="o">=</span><span class="s2">&#34;&#34;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>架构是<code>ar71xx/generic</code>，系统版本是<code>14.07</code>，代号是<code>barrier_breaker</code>（俗称BB）</p>
+<p>接下去所有需要安装的软件必需匹配这个版本</p>
+<ol start="5">
+<li>使用winscp将windows本地下载好的scutclient.ipk文件上传到路由器，再在路由器上<code>opkg install scutclient.ipk</code>。 默认安装在<code>/usr/bin</code>下</li>
+</ol>
+<p>使用<code>scutclient 校园网账号 校园网密码</code>，观察控制台输出，可以看出是否拨号成功</p>
+<ol start="6">
+<li>设置路由器的网络接口（wan口配置和wifi配置）。可以按网上介绍的通过uci来配置，也可以直接编辑配置文件<code>/etc/config/network</code>，在其中添加或修改为如下：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">config interface &#39;wan&#39;
+        option ifname &#39;eth1&#39;
+        option proto &#39;static&#39;
+        option ipaddr &#39;211.66.15.181&#39;
+        option netmask &#39;255.255.255.0&#39;
+        option gateway &#39;211.66.15.254&#39;
+        option macaddr &#39;00:40:5A:E1:E0:33&#39;
+        option dns &#39;202.112.17.33 114.114.114.114&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>主要配置项：静态IP(proto)、外网IP地址(ipaddr，学校分配)、子网掩码(netmask，255.255.255.0)、网关地址(gateway，开通校园网会知道)、设备物理地址(macaddr，填路由器mac就好)、DNS地址（亲测必须填学校的DNS：202.112.17.33）</p>
+<p>wifi配置则是编辑<code>/etc/config/wireless</code>，在其中配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">config wifi-iface
+        option device &#39;radio0&#39;
+        option network &#39;lan&#39;
+        option mode &#39;ap&#39;
+        option ssid &#39;W6-244&#39;
+        option encryption &#39;psk2&#39;
+        option key &#39;scut2018&#39;
+
+</code></pre></td></tr></table>
+</div>
+</div><p>其实就是配置wifi名(ssid)、加密方式(encryption)、密码(key)三项</p>
+<p>配置完重启以生效</p>
+<ol start="7">
+<li>现在连接wifi能够上网了，但是发现路由器频繁掉线，经过观察，发现是scutclient启动之后过不了多久就被杀掉进程。查看路由器内存使用量，发现还有许多剩余，因此不太可能是因为OOM而被杀掉，因此不知道是为什么被杀掉。</li>
+</ol>
+<p>不管怎么样，既然是进程被杀掉导致掉线（scutclient在拨号成功之后需要定期发送心跳包到校园网认证服务器，不然就掉线了），scutclient在启动时是<code>scutclient 账户 密码 &amp;</code>后台形式运行，（关于前台进程、后台进程、守护进程三者自行百度）还是有可能因为捕捉SIGHUP信号而被挂起最后被杀掉，最简单的办法就是使用<code>nohup</code>来忽略SIGHUP信号</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">nohup scutclient 账户 密码 IP &amp;
+</code></pre></td></tr></table>
+</div>
+</div><p>openwrt上默认没有nohup，需要从其软件包仓库下载：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">注意版本号要对应，不然可能会安装失败。
+
+<span class="c1"># 先安装coreutils</span>
+wget http://archive.openwrt.org/barrier_breaker/14.07/ar71xx/generic/packages/packages/coreutils_8.16-1_ar71xx.ipk
+
+opkg install coreutilsxxxxxxxx.ipk
+
+<span class="c1"># 再安装coreutils-nohup</span>
+wget http://archive.openwrt.org/barrier_breaker/14.07/ar71xx/generic/packages/packages/coreutils-nohup_8.16-1_ar71xx.ipk
+
+opkg install coreutils-nohupxxxxxxxx.ipk
+</code></pre></td></tr></table>
+</div>
+</div><p>安装时若提示类似<code>default_postinst: not found</code>之类的错误，这是因为没有提供postinst(post-install安装后脚本，用于安装程序之后干什么)，既然软件自己没有提供，那么我们需要指定默认的postinst，需要在<code>/lib/functions.sh</code>中添加脚本内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">default_postinst<span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="m">0</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这样安装就不会报错了</p>
+<p>如果遇到安装后执行<code>./nohup</code>提示找不到命令，说明可能装错了版本，不同版本的nohup依赖的libc不同，安装正确版本就可以</p>
+<ol start="8">
+<li>最后，还需要设置开机自启动。创建<code>/etc/init.d/scutclient</code>文件（关于/etc/init.d，这是较老的linux系统用来配置开机启动的服务的目录，开机时会启动init.d下的所有服务。目前一般都用systemd来管理，不过openwrt没有预装systemd）。编辑内容如下，意思应该很容易懂：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/sh /etc/rc.common
+</span><span class="cp"></span>
+<span class="nv">START</span><span class="o">=</span><span class="m">99</span>
+<span class="nv">STOP</span><span class="o">=</span><span class="m">15</span>
+
+
+auth<span class="o">()</span> <span class="o">{</span>
+
+        <span class="k">if</span> <span class="o">[</span> <span class="k">$(</span>uci get scutclient.@option<span class="o">[</span>0<span class="o">]</span>.enable<span class="k">)</span> -eq <span class="m">0</span> <span class="o">]</span>
+        <span class="k">then</span>
+                <span class="nb">exit</span>
+        <span class="k">fi</span>
+
+        <span class="c1"># 这里是重点，这样scutclient就会开机启动并且不会被杀掉进程</span>
+        nohup scutclient <span class="k">$(</span>uci get scutclient.@scutclient<span class="o">[</span>0<span class="o">]</span>.username<span class="k">)</span> <span class="k">$(</span>uci get scutclient.@scutclient<span class="o">[</span>0<span class="o">]</span>.password<span class="k">)</span> <span class="k">$(</span>uci get network.wan.ifname<span class="k">)</span> <span class="p">&amp;</span>
+
+<span class="o">}</span>
+
+start<span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">[</span> <span class="k">$(</span>uci get scutclient.@option<span class="o">[</span>0<span class="o">]</span>.enable<span class="k">)</span> -eq <span class="m">0</span> <span class="o">]</span>
+        <span class="k">then</span>
+                <span class="nb">exit</span>
+        <span class="k">fi</span>
+        sleep <span class="k">$(</span>uci get scutclient.@drcom<span class="o">[</span>0<span class="o">]</span>.delay<span class="k">)</span>
+        auth
+<span class="o">}</span>
+
+stop<span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">[[</span> <span class="k">$(</span>ps <span class="p">|</span> grep <span class="s1">&#39;scutclient&#39;</span> <span class="p">|</span> wc -l<span class="k">)</span> -eq <span class="m">0</span> <span class="o">]]</span> <span class="p">;</span><span class="k">then</span>
+                killall scutclient
+        <span class="k">fi</span>
+<span class="o">}</span>
+
+restart<span class="o">()</span> <span class="o">{</span>
+        stop
+        auth
+<span class="o">}</span>
+
+
+</code></pre></td></tr></table>
+</div>
+</div><ol start="9">
+<li>剩下还有就是可以去配置下路由器的时区，同步下局域网内浏览器时间。这个luci界面有指引</li>
+</ol>
+<h2 id="最后">最后</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">链接：https://pan.baidu.com/s/1gHGlEeXmjSJl_oI3WVALAA 
+提取码：u7u7
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-09-05
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/">路由器</a>
+          <a href="/tags/openwrt/">openwrt</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/cs/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/">
+            <span class="next-text nav-default">《Mysql实战45讲》速览</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+  <span id="/post/linux/openwrt%E8%B7%AF%E7%94%B1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/" class="leancloud_visitors" data-flag-title="openwrt路由器折腾记">
+		<span class="post-meta-item-text">文章阅读量 </span>
+		<span class="leancloud-visitors-count">0</span>
+		<p></p>
+	  </span>
+  <div id="vcomments"></div>
+  <script src="http://pirogue.org/js/av-min.js"></script>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'bpOXpWYjWw1gNOYNe2PrWjKV-gzGzoHsz',
+        appKey: '07yqjMVRu9Nyoqrzj4X7IhL5',
+        notify:  true , 
+        verify:  false , 
+        avatar:'mm', 
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+  </script>
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:374192922@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%8C%AF%E4%B8%9C-%E8%89%BE-b10752175/detail/recent-activity/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/azd1997" class="iconfont icon-github" title="github"></a>
+  <a href="https://azd1997.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author"><a href="https://github.com/azd1997" class="theme-link">Eiger</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      TeX: {equationNumbers: {autoNumber: "AMS"}},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
